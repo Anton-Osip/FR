@@ -1,0 +1,31 @@
+@use "../../styles/variables.scss" as *;
+
+.logo {
+  display: flex;
+  gap: $spacing-xs;
+  line-height: 1;
+  align-items: end;
+  cursor: pointer;
+
+  &-icon {
+    width: 30px;
+    height: 30px;
+    path {
+      transition: fill $transition-hover;
+      fill: currentColor;
+    }
+  }
+
+  &:hover .logo-icon path {
+    fill: $color-text-secondary;
+  }
+
+  &-header {
+    font-size: $font-size-xl;
+    transition: color $transition-hover;
+  }
+
+  &:hover h1 {
+    color: $color-text-secondary;
+  }
+}
