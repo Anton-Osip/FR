@@ -1,0 +1,102 @@
+@use "../../styles/variables" as *;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  border: none;
+  transition: background-color $transition-hover, color $transition-hover, transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-base;
+  line-height: $leading-normal;
+  letter-spacing: $tracking-tight;
+
+  &-primary {
+    background-color: $color-primary;
+    color: $color-text-primary;
+  }
+
+  &-secondary {
+    background: $color-bg-block;
+    color: $color-text-secondary;
+  }
+
+  &.is-active {
+    &.button-primary {
+      background-color: $color-button-hover;
+
+      &.buttonIcon {
+        color: $color-text-primary
+      }
+    }
+
+    &.button-secondary {
+      background-color: $color-bg-on-block-hover;
+
+      .buttonIcon {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &.button-size-s {
+    padding: $spacing-xs $spacing-md;
+    border-radius: $radius-md;
+  }
+
+  &.button-size-m {
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-md;
+  }
+
+  &.button-full {
+    width: 100%;
+  }
+
+  &.button-square {
+    width: 39px;
+    height: 39px;
+    padding: 0;
+  }
+
+  &:disabled {
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+    pointer-events: none;
+
+    &:hover,
+    &:active {
+      background-color: $color-bg-block;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(24, 115, 242, 0.7);
+    outline-offset: 2px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button {
+    &-primary:hover {
+      background-color: $color-button-hover;
+    }
+
+    &-secondary:hover {
+      background-color: $color-bg-on-block;
+      color: $color-text-primary;
+    }
+  }
+}
+

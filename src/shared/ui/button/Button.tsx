@@ -1,5 +1,5 @@
-import { type ButtonHTMLAttributes, type FC, type ReactNode } from "react";
-import "./Button.scss";
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import styles from "./Button.module.scss";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -7,31 +7,45 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
   size?: "s" | "m";
   fullWidth?: boolean;
+  active?: boolean;
+  square?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({
-  children,
-  icon,
-  variant = "primary",
-  size = "m",
-  fullWidth = false,
-  className,
-  ...props
-}) => {
-  const mergedClassName = [
-    "button",
-    `button-${variant}`,
-    `button-size-${size}`,
-    fullWidth ? "button-full" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      icon,
+      variant = "primary",
+      size = "m",
+      fullWidth = false,
+      active = false,
+      square = false,
+      className,
+      type = "button",
+      ...props
+    },
+    ref
+  ) => {
+    const mergedClassName = [
+      styles.button,
+      styles[`button-${variant}`],
+      styles[`button-size-${size}`],
+      fullWidth ? styles["button-full"] : "",
+      active ? styles["is-active"] : "",
+      square ? styles["button-square"] : "",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  return (
-    <button className={mergedClassName} {...props}>
-      {icon && <span className="buttonIcon">{icon}</span>}
-      {children}
-    </button>
-  );
-};
+    return (
+      <button ref={ref} className={mergedClassName} type={type} {...props}>
+        {icon && <span className={styles.buttonIcon}>{icon}</span>}
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
