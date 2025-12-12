@@ -1,0 +1,20 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content"
+    "sidebar footer";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  background-color: $color-bg;
+  color: $color-text-primary;
+}
+
+.layout-main {
+  grid-area: content;
+  padding: $spacing-2xl 240px;
+  overflow: auto;
+}

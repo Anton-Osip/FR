@@ -1,0 +1,7 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.footer {
+  grid-area: footer;
+  background-color: $color-bg-banner;
+  padding: $spacing-2xl 240px;
+}

@@ -1,0 +1,8 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.header {
+  grid-area: header;
+  height: 79px;
+  background-color: $color-bg-block;
+  padding: $spacing-md 240px;
+}

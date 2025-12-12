@@ -1,5 +1,5 @@
-import "./Header.scss";
+import "../Header.scss";
 
 export const Header = () => {
-  return <header>Header</header>;
+  return <header className="header">Header</header>;
 };

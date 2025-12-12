@@ -8,12 +8,10 @@ export const MainLayout = () => {
   return (
     <div className="layout">
       <Header />
-      <div className="layout-content">
-        <Sidebar />
-        <main className="layout-main">
-          <Outlet />
-        </main>
-      </div>
+      <Sidebar />
+      <main className="layout-main">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
