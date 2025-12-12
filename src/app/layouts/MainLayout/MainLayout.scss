@@ -18,3 +18,18 @@
   padding: $spacing-2xl 240px;
   overflow: auto;
 }
+
+@media (max-width: $media-tab) {
+  .layout {
+    grid-template-areas:
+      "header"
+      "content"
+      "footer"
+      "sidebar";
+    grid-template-columns: 1fr;
+  }
+
+  .layout-main {
+    padding: $spacing-lg-plus $spacing-md;
+  }
+}

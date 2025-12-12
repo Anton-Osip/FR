@@ -5,3 +5,9 @@
   background-color: $color-bg-banner;
   padding: $spacing-2xl 240px;
 }
+
+@media (max-width: $media-tab) {
+  .footer {
+    padding: $spacing-md;
+  }
+}
