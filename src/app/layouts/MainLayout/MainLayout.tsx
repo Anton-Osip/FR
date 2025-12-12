@@ -1,0 +1,20 @@
+import { Header } from "@widgets/Header";
+import { Footer } from "@widgets/Footer";
+import { Sidebar } from "@widgets/Sidebar";
+import { Outlet } from "react-router-dom";
+import "./MainLayout.scss";
+
+export const MainLayout = () => {
+  return (
+    <div className="layout">
+      <Header />
+      <div className="layout-content">
+        <Sidebar />
+        <main className="layout-main">
+          <Outlet />
+        </main>
+      </div>
+      <Footer />
+    </div>
+  );
+};
