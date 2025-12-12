@@ -1,0 +1,42 @@
+// Цвета
+$color-primary: #1873f2;
+$color-button-hover: #3580e9;
+$color-bg-block: #131824;
+$color-bg-on-block: #212738;
+$color-bg-on-block-hover: #282f42;
+$color-text-primary: #f0f5ff;
+$color-text-secondary: #727e9b;
+$color-like-primary: #f2ba49;
+$color-like-default: #313b52;
+$color-win-primary: #00e544;
+$color-neutral: #E1E4EA;
+
+// Шрифты
+$font-family-base: "SuisseIntl", sans-serif;
+
+$font-size-xs: 12px;
+$font-size-md: 16px;
+$font-size-lg: 20px;
+$font-size-xl: 26px;
+
+$font-weight-base: 600;
+$font-weight-light: 500;
+
+// Отступы
+$spacing-xxs: 8px;
+$spacing-xs: 10px;
+$spacing-sm: 14px;
+$spacing-md: 16px;
+$spacing-lg: 18px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;
+
+// Радиусы углов
+$radius-md: 10px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-xxl: 600px;
+$radius-full: 50%;
+
+// Плавные переходы
+$transition-hover: 0.3s ease;

@@ -1,0 +1,37 @@
+@use "../../styles/variables" as *;
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  background-color: $color-bg-block;
+  border: 2px solid $color-bg-on-block;
+  border-radius: $radius-lg;
+  color: $color-text-secondary;
+  padding: $spacing-sm $spacing-md;
+  font-weight: $font-weight-light;
+  padding-left: calc($spacing-md + 19px + $spacing-xs);
+  outline: none;
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  left: $spacing-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 19px;
+    height: 19px;
+    color: $color-bg-on-block-hover;
+  }
+}

@@ -1,0 +1,48 @@
+@use "../../styles/variables" as *;
+
+.radioGroupRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.radioGroupItemWrapper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  cursor: pointer;
+
+  &:hover {
+    .radioGroupLabel {
+      color: $color-text-primary;
+    }
+  }
+
+  &[data-state="checked"] .radioGroupLabel {
+    color: $color-win-primary;
+  }
+}
+
+.radioGroupItem {
+  width: 19px;
+  height: 19px;
+  border-radius: $radius-full;
+  background-color: $color-bg-on-block;
+  border: none;
+  cursor: pointer;
+
+  &[data-state="checked"] {
+    background-color: $color-primary;
+    color: $color-win-primary;
+  }
+}
+
+.radioGroupLabel {
+  color: $color-text-secondary;
+  transition: color $transition-hover;
+  cursor: pointer;
+}
+
+.radioGroupItem[data-state="checked"] + label.radioGroupLabel {
+  color: $color-win-primary;
+}

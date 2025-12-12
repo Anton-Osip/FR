@@ -1,0 +1,100 @@
+@use "../../styles/variables" as *;
+
+.selectRoot {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-on-block;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-hover;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $color-text-primary;
+  gap: $spacing-xs;
+  outline: none;
+  border: none;
+
+  &:hover {
+    background-color: $color-bg-on-block-hover;
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &[data-state="open"] {
+    background-color: $color-bg-on-block-hover;
+  }
+}
+
+.selectIcon {
+  transition: transform $transition-hover;
+
+  [data-state="open"] & {
+    transform: rotate(180deg);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.selectContent {
+  background-color: $color-neutral;
+  border-radius: $radius-md;
+  margin-top: $spacing-xs;
+}
+
+.selectItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-md;
+  outline: none;
+  cursor: pointer;
+
+  &[data-highlighted] {
+    background-color: $color-bg-on-block-hover;
+    color: $color-text-primary;
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.selectItemCircle {
+  width: 19px;
+  height: 19px;
+  border: 2px solid $color-text-secondary;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.selectItem[data-state="checked"] .selectItemCircle {
+  border-color: $color-primary;
+}
+
+.selectItemIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    width: 5px;
+    height: 5px;
+    background-color: $color-primary;
+    border-radius: $radius-full;
+  }
+}

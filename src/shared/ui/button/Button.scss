@@ -1,0 +1,44 @@
+@use "../../styles/variables" as *;
+
+.button {
+  display: flex;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $radius-lg;
+  color: $color-text-primary;
+  transition: background-color $transition-hover;
+  cursor: pointer;
+
+  .buttonIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  &-primary {
+    background-color: $color-primary;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+  }
+
+  &-secondary {
+    background-color: $color-bg-on-block;
+
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
+  }
+
+  &:disabled {
+    background-color: $color-bg-block;
+    cursor: not-allowed;
+  }
+}

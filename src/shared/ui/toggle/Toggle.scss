@@ -1,0 +1,23 @@
+@use "../../styles/variables" as *;
+
+.toggleGroup {
+  width: fit-content;
+  padding: 6px;
+  background-color: $color-bg-block;
+  border-radius: $radius-xl;
+  color: $color-text-secondary;
+}
+
+.toggleGroupItem {
+  background-color: inherit;
+  color: $color-text-secondary;
+  padding: $spacing-xs $spacing-md;
+  border: none;
+  cursor: pointer;
+}
+
+.toggleGroupItem[data-state="on"] {
+  background-color: $color-bg-on-block-hover;
+  color: $color-text-primary;
+  border-radius: $radius-md;
+}
