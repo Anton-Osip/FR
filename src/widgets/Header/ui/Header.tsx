@@ -2,6 +2,7 @@ import { Logo } from "@shared/ui/Logo";
 import { Button } from "@shared/ui/button";
 import { ReactComponent as WalletIcon } from "@assets/icons/wallet.svg";
 import { AppAvatar } from "@widgets/Avatar/ui/Avatar";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import "../Header.scss";
 
 export const Header = () => {
@@ -17,6 +18,11 @@ export const Header = () => {
         </div>
         <div className="avatar-container">
           <AppAvatar />
+          <Button
+            style={{ padding: 0 }}
+            variant="secondary"
+            icon={ChevronRightIcon}
+          />
         </div>
       </div>
     </header>

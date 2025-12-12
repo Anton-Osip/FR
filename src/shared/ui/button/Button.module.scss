@@ -111,6 +111,10 @@
     &-secondary:hover {
       background-color: $color-bg-on-block;
       color: $color-text-primary;
+
+      .buttonIcon {
+        fill: $color-text-primary;
+      }
     }
   }
 }

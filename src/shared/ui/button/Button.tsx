@@ -1,9 +1,22 @@
-import { forwardRef, type ButtonHTMLAttributes, type FC, type ReactNode } from "react";
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type FC,
+  type ForwardRefExoticComponent,
+  type ReactNode,
+  type RefAttributes,
+  type SVGProps,
+} from "react";
+import type { IconProps } from "@radix-ui/react-icons/dist/types";
 import styles from "./Button.module.scss";
 
+type IconType =
+  | FC<SVGProps<SVGSVGElement>>
+  | ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  icon?: FC<React.SVGProps<SVGSVGElement>>;
+  children?: ReactNode;
+  icon?: IconType;
   variant?: "primary" | "secondary";
   size?: "s" | "m";
   fullWidth?: boolean;
