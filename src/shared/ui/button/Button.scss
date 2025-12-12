@@ -2,13 +2,19 @@
 
 .button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: $spacing-xs;
-  padding: $spacing-sm $spacing-md;
   border: none;
   border-radius: $radius-lg;
   color: $color-text-primary;
-  transition: background-color $transition-hover;
+  transition: background-color $transition-hover, transform 0.1s ease, box-shadow 0.1s ease;
   cursor: pointer;
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-base;
+  line-height: $leading-normal;
+  letter-spacing: $tracking-tight;
 
   .buttonIcon {
     display: flex;
@@ -23,22 +29,52 @@
 
   &-primary {
     background-color: $color-primary;
-
-    &:hover {
-      background-color: $color-button-hover;
-    }
   }
 
   &-secondary {
     background-color: $color-bg-on-block;
-
-    &:hover {
-      background-color: $color-bg-on-block-hover;
-    }
   }
 
   &:disabled {
-    background-color: $color-bg-block;
-    cursor: not-allowed;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+    pointer-events: none;
+
+    &:hover,
+    &:active {
+      background-color: $color-bg-block;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  }
+
+  &.button-size-s {
+    padding: $spacing-xs $spacing-3xs $spacing-xs-plus;
+  }
+
+  &.button-size-m {
+    padding: $spacing-sm $spacing-3xs $spacing-sm-plus;
+  }
+
+  &.button-full {
+    width: 100%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button {
+    &-primary:hover {
+      background-color: $color-button-hover;
+    }
+
+    &-secondary:hover {
+      background-color: $color-bg-on-block-hover;
+    }
   }
 }
