@@ -1,29 +1,32 @@
-import type { FC, ReactNode } from "react";
-// import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import "./Input.scss";
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
+import styles from "./Input.module.scss";
 
-interface InputProps {
-  type: string;
-  placeholder: string;
-  onChange: () => void;
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   icon?: ReactNode;
+  size?: "s" | "m";
 }
 
-export const Input: FC<InputProps> = ({
-  type,
-  placeholder,
-  icon,
-  onChange,
-}) => {
-  return (
-    <div className="inputWrapper">
-      {icon && <span className="inputIcon">{icon}</span>}
-      <input
-        onChange={onChange}
-        className="input"
-        type={type}
-        placeholder={placeholder}
-      />
-    </div>
-  );
-};
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ icon, className, size = "m", ...props }, ref) => {
+    const mergedClassName = [
+      styles.root,
+      styles[`input-size-${size}`],
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      <div className={mergedClassName}>
+        {icon && <span className={styles.icon}>{icon}</span>}
+        <input
+          ref={ref}
+          className={styles.input}
+          {...props}
+        />
+      </div>
+    );
+  }
+);
+
+Input.displayName = "Input";

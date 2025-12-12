@@ -1,0 +1,77 @@
+@use "../../styles/variables" as *;
+
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  background-color: $color-bg-block;
+  border: 2px solid $color-bg-on-block;
+  border-radius: $radius-lg;
+  transition: border-color $transition-hover;
+
+  &:focus-within {
+    border-color: $color-primary;
+
+    .input {
+      color: $color-text-primary;
+    }
+
+    .icon {
+      svg {
+        color: $color-text-primary;
+      }
+    }
+  }
+  &.input-size-s {
+    padding: $spacing-9 $spacing-md $spacing-9 $spacing-13;
+  }
+
+  &.input-size-m {
+    padding: $spacing-12 $spacing-md $spacing-13 $spacing-13;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+
+  svg {
+    width: 19px;
+    height: 19px;
+    color: $color-text-secondary;
+    transition: color $transition-hover;
+  }
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: $color-text-secondary;
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-light;
+  line-height: $leading-normal;
+  letter-spacing: $tracking-normal;
+
+  &::placeholder {
+    color: $color-text-secondary;
+    opacity: 1;
+    transition: opacity $transition-hover;
+  }
+
+  &:focus {
+    color: $color-text-primary;
+
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+}
