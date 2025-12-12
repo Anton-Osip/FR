@@ -2,7 +2,20 @@
 
 .header {
   grid-area: header;
-  height: 79px;
   background-color: $color-bg-block;
   padding: $spacing-md 240px;
+  display: flex;
+  justify-content: space-between;
+
+  &-balance {
+    display: flex;
+    background-color: $color-bg-on-block;
+    border-radius: $radius-md;
+  }
+}
+
+.current-balance {
+  width: 100%;
+  height: 100%;
+  padding: $spacing-sm $spacing-md;
 }

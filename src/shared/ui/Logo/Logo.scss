@@ -1,10 +1,11 @@
 @use "../../styles/variables.scss" as *;
 
 .logo {
+  height: 100%;
   display: flex;
   gap: $spacing-xs;
   line-height: 1;
-  align-items: end;
+  align-items: center;
   cursor: pointer;
 
   &-icon {
