@@ -30,3 +30,21 @@
   align-items: center;
   gap: $spacing-9;
 }
+
+@media (max-width: $media-tab) {
+  .header {
+    padding: $spacing-13 $spacing-md;
+
+    &-wrapper {
+      gap: $spacing-sm;
+    }
+
+    &-balance {
+      height: 39px;
+    }
+  }
+
+  .current-balance {
+    padding: $spacing-xs $spacing-md;
+  }
+}

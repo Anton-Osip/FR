@@ -30,3 +30,16 @@
     color: $color-text-secondary;
   }
 }
+
+@media (max-width: $media-tab) {
+  .logo {
+    &-icon {
+      width: 25px;
+      height: 22px;
+    }
+
+    &-header {
+      font-size: $font-size-lg;
+    }
+  }
+}

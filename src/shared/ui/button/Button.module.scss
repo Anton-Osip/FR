@@ -118,3 +118,20 @@
     }
   }
 }
+
+@media (max-width: $media-tab) {
+  .button {
+    .buttonText {
+      display: none;
+    }
+
+    .buttonIcon {
+      width: 21px;
+      height: 21px;
+    }
+
+    &.button-size-m {
+      padding: $spacing-9;
+    }
+  }
+}

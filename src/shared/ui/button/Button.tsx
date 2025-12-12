@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button ref={ref} className={mergedClassName} type={type} {...props}>
         {Icon && <Icon className={styles.buttonIcon} />}
-        {children}
+        {children && <span className={styles.buttonText}>{children}</span>}
       </button>
     );
   }
