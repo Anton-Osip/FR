@@ -1,0 +1,7 @@
+export {GlobalIcon} from './GlobalIcon.tsx'
+export {BurgerIcon} from './BurgerIcon.tsx'
+export {SearchIcon} from './SearchIcon.tsx'
+export {HomeIcon} from './HomeIcon.tsx'
+export {HeartIcon} from './HeartIcon.tsx'
+export {BonusIcon} from './BonusIcon.tsx'
+export {TwoUsersIcon} from './TwoUsersIcon.tsx'
