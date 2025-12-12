@@ -1,0 +1,9 @@
+@use "../../shared/styles/variables" as *;
+
+.sidebar {
+  max-width: 256px;
+  width: 100%;
+  height: 100%;
+  background: $color-bg-block;
+  padding: $spacing-md;
+}

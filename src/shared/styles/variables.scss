@@ -1,3 +1,5 @@
+@use "sass:string";
+
 // Цвета
 $color-primary: #1873f2;
 $color-button-hover: #3580e9;
@@ -58,9 +60,10 @@ $radius-xxl: 600px;
 $radius-full: 50%;
 
 /* Aspect Ratios */
-$aspect-square: 1 / 1;
-$aspect-video: 16 / 9;
-$aspect-terminal: 9 / 16;
+$aspect-square: string.unquote("1 / 1");
+$aspect-video: string.unquote("16 / 9");
+$aspect-terminal: string.unquote("9 / 16");
+
 
 // Плавные переходы
 $transition-hover: 0.3s ease;
