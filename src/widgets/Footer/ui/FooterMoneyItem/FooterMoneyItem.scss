@@ -1,0 +1,32 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.footer-money-item {
+  background-color: $color-bg-on-block;
+  border-radius: $radius-xxl;
+  padding: $spacing-xs $spacing-md;
+  display: flex;
+  gap: $spacing-xs;
+
+  &-wrap {
+    display: flex;
+  }
+
+  &-circle {
+    border-radius: $radius-full;
+    border: solid 2px $color-bg-on-block;
+    width: 24px;
+    height: 24px;
+    background-color: $color-bg-block;
+
+    &:not(:first-child) {
+      margin-left: -6px;
+    }
+  }
+}
+
+@media (max-width: $media-tab) {
+  .footer-money-item {
+    width: 100%;
+    padding: $spacing-xs $spacing-md;
+  }
+}
