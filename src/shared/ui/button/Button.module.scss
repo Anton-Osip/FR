@@ -74,7 +74,16 @@
   &.button-square {
     width: 39px;
     height: 39px;
-    padding: 0;
+    padding: $spacing-9;
+
+    .buttonIcon {
+      width: 21px;
+      height: 21px;
+    }
+
+    .buttonText {
+      display: none;
+    }
   }
 
   &:disabled {
@@ -115,23 +124,6 @@
       .buttonIcon {
         fill: $color-text-primary;
       }
-    }
-  }
-}
-
-@media (max-width: $media-tab) {
-  .button {
-    .buttonText {
-      display: none;
-    }
-
-    .buttonIcon {
-      width: 21px;
-      height: 21px;
-    }
-
-    &.button-size-m {
-      padding: $spacing-9;
     }
   }
 }
