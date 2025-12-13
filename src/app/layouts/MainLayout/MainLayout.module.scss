@@ -1,0 +1,40 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.layout {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  background-color: $color-bg;
+  color: $color-text-primary;
+}
+
+.headerLayout {
+  grid-area: header;
+}
+
+.sidebarLayout {
+  grid-area: sidebar;
+}
+
+
+.layoutMain {
+  grid-area: content;
+  padding: $spacing-2xl 240px;
+  overflow: auto;
+}
+
+@media screen and (max-width: 864px) {
+  .layout {
+    grid-template-columns: auto;
+    grid-template-areas:
+    "header"
+    "content";
+  }
+  .sidebarLayout {
+    display: none !important;
+  }
+}

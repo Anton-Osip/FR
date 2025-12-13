@@ -16,7 +16,7 @@ import {
 } from "@shared/ui/icons";
 import {CategorySwitcherWithSearch} from "./CategorySwitcherWithSearch/CategorySwitcherWithSearch.tsx";
 import {MenuSection} from "./MenuSection/MenuSection.tsx";
-import {type ReactNode, useState} from "react";
+import {type FC, type ReactNode, useState} from "react";
 import {PopularIcon} from "@shared/ui/icons/PopularIcon.tsx";
 import {SidebarFooter} from "./SidebarFooter/SidebarFooter.tsx";
 
@@ -49,15 +49,18 @@ const Game2Items: MenuItems[] = [
     {id: '4 Баккара', icon: <BaccareIcon/>, label: 'Баккара', isActive: false},
 ]
 
-export const Sidebar = () => {
+interface SidebarProps {
+    className?: string;
+}
+
+export const Sidebar: FC<SidebarProps> = ({className}) => {
     const [isOpen, setIsOpen] = useState<boolean>(true)
 
     const toggleIsOpen = () => setIsOpen(!isOpen)
     const openSidebar = () => {
         setIsOpen(true)
     }
-
-    return <div className = {`${styles.sidebar} ${!isOpen ? styles.isOpen : ''}`}>
+    return <div className = {`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
         <Button variant = {'ghost'} onClick = {toggleIsOpen}><BurgerIcon/></Button>
         <CategorySwitcherWithSearch isOpen = {isOpen} openSidebar = {openSidebar}/>
         <nav className = {styles.navigation}>
@@ -65,6 +68,6 @@ export const Sidebar = () => {
             <MenuSection list = {Game1Items} title = "Игры" isOpen = {isOpen}/>
             <MenuSection list = {Game2Items} title = "Игры" isOpen = {isOpen}/>
         </nav>
-        <SidebarFooter isOpen={isOpen}/>
+        <SidebarFooter isOpen = {isOpen}/>
     </div>
 };

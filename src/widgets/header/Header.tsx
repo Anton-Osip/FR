@@ -1,9 +1,14 @@
 import styles from './Header.module.scss'
 import {BalanceCard} from "./BalanceCard/BalanceCard.tsx";
 import {Avatar, Brand} from "@shared/ui";
+import type {FC} from "react";
 
-export const Header = () => {
-    return <header className = {styles.header}>
+interface HeaderProps {
+    className?: string;
+}
+
+export const Header: FC<HeaderProps> = ({className}) => {
+    return <header className = {`${styles.header} ${className || ''}`}>
         <div className = {styles.container}>
             <Brand/>
             <div className = {styles.wrapper}>
