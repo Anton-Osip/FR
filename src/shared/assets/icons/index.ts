@@ -1,1 +1,0 @@
-export {GlobalIcon} from './GlobalIcon.tsx'

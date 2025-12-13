@@ -1,0 +1,16 @@
+@use "../../../shared/styles/variables" as *;
+
+.footer {
+  width: 100%;
+  height: 115px;
+  border-radius: $spacing-md;
+  background: $color-bg-banner url('../../../shared/assets/icons/sideBarBg.svg') no-repeat right -24px center;
+  background-size: 115px;
+  transition: background-position 0.5s ease;
+
+  &.closed {
+    background-position: right -16px center;
+  }
+
+}
+

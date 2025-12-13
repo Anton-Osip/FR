@@ -24,6 +24,11 @@
     color: $color-text-secondary;
   }
 
+  &-ghost {
+    background: transparent;
+    color: $color-text-secondary;
+  }
+
   &.is-active {
     &.button-primary {
       background-color: $color-button-hover;
@@ -95,6 +100,10 @@
 
     &-secondary:hover {
       background-color: $color-bg-on-block;
+      color: $color-text-primary;
+    }
+
+    &-ghost:hover {
       color: $color-text-primary;
     }
   }

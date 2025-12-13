@@ -1,0 +1,28 @@
+@use "../../shared/styles/variables" as *;
+
+.sidebar {
+  max-width: 256px;
+  width: 100%;
+  height: 100%;
+  background: $color-bg-block;
+  padding: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-md;
+  transition: max-width 0.5s ease;
+
+  &.isOpen {
+    max-width: 83px;
+  }
+}
+
+.navigation {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-md;
+  overflow-y: auto;
+}
