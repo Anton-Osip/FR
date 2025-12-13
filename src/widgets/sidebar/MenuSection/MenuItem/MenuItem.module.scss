@@ -80,6 +80,29 @@
 
 }
 
+.tooltip {
+  position: fixed;
+  background-color: $color-bg-on-block;
+  color: $color-text-primary;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%) translateX(-5px);
+  transition: opacity $transition-hover, visibility $transition-hover, transform $transition-hover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &.tooltipVisible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(#{$spacing-lg});
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
 
   .item:hover {
