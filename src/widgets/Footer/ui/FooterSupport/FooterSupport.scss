@@ -1,0 +1,37 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.footer-support {
+  padding: $spacing-md;
+  border-radius: $radius-xl;
+  height: fit-content;
+  background: linear-gradient(rgba(22, 28, 41, 0.8), rgba(22, 28, 41, 0.8)),
+    url("../../../../assets/images/footer-support-bg.png") no-repeat right
+      bottom;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+
+  h3 {
+    font-size: $font-size-lg;
+    display: flex;
+    margin-bottom: 25px;
+    gap: $spacing-xxs;
+  }
+
+  button {
+    color: $color-text-primary;
+    background-color: $color-bg-on-block;
+
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
+  }
+
+  &-time {
+    font-size: $font-size-xs-plus;
+    font-weight: $font-weight-bold;
+    background-color: $color-primary;
+    padding: $spacing-4xs $spacing-12;
+    border-radius: 160px;
+  }
+}
