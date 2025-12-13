@@ -11,7 +11,6 @@ interface MenuItemProps {
 
 export const MenuItem: FC<MenuItemProps> = ({label, icon, isActive, isOpen}) => {
     const itemRef = useRef<HTMLButtonElement>(null);
-    const tooltipRef = useRef<HTMLSpanElement>(null);
     const [isHovered, setIsHovered] = useState(false);
     const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
@@ -40,7 +39,6 @@ export const MenuItem: FC<MenuItemProps> = ({label, icon, isActive, isOpen}) => 
             </button>
             {!isOpen && (
                 <span 
-                    ref={tooltipRef}
                     className={`${styles.tooltip} ${isHovered ? styles.tooltipVisible : ''}`}
                     style={{
                         top: `${tooltipPosition.top}px`,

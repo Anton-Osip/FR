@@ -1,0 +1,61 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.balanceCard {
+  width: max-content;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  background: $color-bg-on-block;
+  border-radius: $radius-md;
+  padding: 0 0 0 $spacing-md;
+  gap: $spacing-md;
+  position: relative;
+  justify-content: space-between;
+}
+
+.balanceValue {
+  color: var(--light-title);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: $font-size-md;
+  font-weight: $font-weight-base;
+  letter-spacing: $tracking-tight;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.btnIcon {
+  width: 19px;
+  height: 19px;
+}
+
+.btnText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-base;
+  letter-spacing: $tracking-tight;
+}
+
+@media screen and (max-width: 678px) {
+  .balanceCard {
+    height: 39px;
+  }
+  .btnText {
+    display: none;
+  }
+  .btnIcon {
+    width: 21px;
+    height: 21px;
+  }
+
+  .balanceCard .btn {
+    gap: 0;
+    padding:$spacing-9;
+  }
+
+}
+

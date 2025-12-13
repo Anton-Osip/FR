@@ -1,0 +1,29 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.header {
+  width: 100%;
+  background: $color-bg-block;
+  padding: $spacing-md;
+  color: $color-text-primary;
+}
+
+.container {
+  max-width: $container-max-width;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+@media screen and (max-width: 678px) {
+  .header {
+    padding:$spacing-12 $spacing-md;
+  }
+}

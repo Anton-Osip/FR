@@ -1,0 +1,23 @@
+@use "../../styles/variables" as *;
+
+.brand {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: $color-text-secondary;
+  transition: color $transition-hover;
+
+  .text {
+    font-family: 'Suisse Intl', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover {
+    color: $color-text-primary;
+  }
+}

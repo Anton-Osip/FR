@@ -2,7 +2,7 @@ import {forwardRef, type ButtonHTMLAttributes, type ReactNode} from "react";
 import styles from "./Button.module.scss";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    children: ReactNode;
+    children?: ReactNode;
     icon?: ReactNode;
     variant?: "primary" | "secondary" | "ghost";
     size?: "s" | "m";
@@ -40,9 +40,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             .join(" ");
 
         return (
-            <button ref={ref} className={mergedClassName} type={type} {...props}>
-                {icon && <span className={styles.buttonIcon}>{icon}</span>}
-                <span>{children}</span>
+            <button ref = {ref} className = {mergedClassName} type = {type} {...props}>
+                {icon && <span className = {styles.buttonIcon}>{icon}</span>}
+                {children && <span>{children}</span>}
             </button>
         );
     }
