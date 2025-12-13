@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { ToggleGroup } from "radix-ui";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import "./Toggle.scss";
 
 interface ToggleProps {

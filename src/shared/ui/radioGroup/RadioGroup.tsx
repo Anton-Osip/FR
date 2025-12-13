@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { RadioGroup } from "radix-ui";
+import * as RadioGroup from "@radix-ui/react-radio-group";
 import "./RadioGroup.scss";
 
 interface RadioProps {
