@@ -5,6 +5,7 @@ import styles from './MenuSection.module.scss'
 interface MenuSectionProps {
     list: MenuItems[]
     title: string
+    isOpen: boolean
 }
 
 interface MenuItems {
@@ -14,15 +15,16 @@ interface MenuItems {
     isActive: boolean
 }
 
-export const MenuSection: FC<MenuSectionProps> = ({list, title}) => {
+export const MenuSection: FC<MenuSectionProps> = ({list, title, isOpen}) => {
     return (<div className = {styles.menuSection}>
-        <h3 className = {styles.title}>{title}</h3>
+        {isOpen && <h3 className = {styles.title}>{title}</h3>}
         {list.map(item => (
             <MenuItem
                 key = {item.id}
                 icon = {item.icon}
                 label = {item.label}
                 isActive = {item.isActive}
+                isOpen={isOpen}
             />
         ))}
     </div>)

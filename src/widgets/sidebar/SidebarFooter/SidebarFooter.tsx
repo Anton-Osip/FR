@@ -1,10 +1,11 @@
 import styles from './SidebarFooter.module.scss'
-import {SideBarFooterIcon} from "@shared/ui/icons";
+import type {FC} from "react";
 
-export const SidebarFooter = () => {
-    return <footer className = {styles.footer}>
-        <div className={styles.icon}>
-            <SideBarFooterIcon/>
-        </div>
+interface SidebarFooterProps {
+    isOpen:boolean
+}
+
+export const SidebarFooter:FC<SidebarFooterProps> = ({isOpen}) => {
+    return <footer className = {`${styles.footer} ${!isOpen?styles.closed:""}`}>
     </footer>
 }

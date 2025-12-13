@@ -1,7 +1,9 @@
 @use "../../../shared/styles/variables" as *;
 
 .menuSection {
+  overflow: hidden;
   color: $color-text-primary;
+  width: 100%;
 
   .title {
     font-family: $font-family-base;
@@ -9,5 +11,6 @@
     font-weight: $font-weight-base;
     line-height: $leading-normal;
     letter-spacing: $tracking-tight;
+    margin-bottom: $spacing-12;
   }
 }

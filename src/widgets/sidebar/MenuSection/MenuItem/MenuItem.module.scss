@@ -11,11 +11,9 @@
   border-color: transparent;
   width: 100%;
   border-radius: $radius-md;
-  transition: color $transition-hover, background-color $transition-hover;
-
-  .iconWrapper {
-
-  }
+  overflow: hidden;
+  position: relative;
+  transition: padding $transition-hover, width $transition-hover, height $transition-hover;
 
   .label {
     font-family: $font-family-base;
@@ -23,6 +21,42 @@
     font-weight: $font-weight-base;
     line-height: $leading-normal;
     letter-spacing: $tracking-tight;
+    opacity: 1;
+    white-space: nowrap;
+    transform: translateX(0);
+    margin-left: calc(19px + #{$spacing-xs} + #{$spacing-md});
+    transition: transform $transition-hover, opacity $transition-hover, margin-left $transition-hover;
+  }
+
+  .iconWrapper {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    position: absolute;
+    left: $spacing-md;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    transition: left $transition-hover;
+  }
+
+  &.unVisible {
+    gap: 0;
+    padding: 0;
+    width: 51px;
+    height: 39px;
+    justify-content: center;
+
+    .iconWrapper {
+      left: 16px;
+    }
+
+    & .label {
+      opacity: 0;
+      margin-left: 0;
+      transform: translateX(200px);
+      transition: transform $transition-hover, opacity $transition-hover, margin-left $transition-hover;
+    }
   }
 
   &.isActive {

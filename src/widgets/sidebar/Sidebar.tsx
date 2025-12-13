@@ -16,7 +16,7 @@ import {
 } from "@shared/ui/icons";
 import {CategorySwitcherWithSearch} from "./CategorySwitcherWithSearch/CategorySwitcherWithSearch.tsx";
 import {MenuSection} from "./MenuSection/MenuSection.tsx";
-import type {ReactNode} from "react";
+import {type ReactNode, useState} from "react";
 import {PopularIcon} from "@shared/ui/icons/PopularIcon.tsx";
 import {SidebarFooter} from "./SidebarFooter/SidebarFooter.tsx";
 
@@ -50,14 +50,21 @@ const Game2Items: MenuItems[] = [
 ]
 
 export const Sidebar = () => {
-    return <div className = {styles.sidebar}>
-            <Button variant = {'ghost'}><BurgerIcon/></Button>
-        <CategorySwitcherWithSearch/>
+    const [isOpen, setIsOpen] = useState<boolean>(true)
+
+    const toggleIsOpen = () => setIsOpen(!isOpen)
+    const openSidebar = () => {
+        setIsOpen(true)
+    }
+
+    return <div className = {`${styles.sidebar} ${!isOpen ? styles.isOpen : ''}`}>
+        <Button variant = {'ghost'} onClick = {toggleIsOpen}><BurgerIcon/></Button>
+        <CategorySwitcherWithSearch isOpen = {isOpen} openSidebar = {openSidebar}/>
         <nav className = {styles.navigation}>
-            <MenuSection list = {NavigationItems} title = "Навигация"/>
-            <MenuSection list = {Game1Items} title = "Игры"/>
-            <MenuSection list = {Game2Items} title = "Игры"/>
+            <MenuSection list = {NavigationItems} title = "Навигация" isOpen = {isOpen}/>
+            <MenuSection list = {Game1Items} title = "Игры" isOpen = {isOpen}/>
+            <MenuSection list = {Game2Items} title = "Игры" isOpen = {isOpen}/>
         </nav>
-        <SidebarFooter/>
+        <SidebarFooter isOpen={isOpen}/>
     </div>
 };

@@ -5,6 +5,39 @@
   grid-template-columns:1fr 1fr;
   grid-template-rows:1fr 1fr;
   gap: $spacing-xxs;
+  transition: grid-template-columns $transition-hover, grid-template-rows $transition-hover, gap $transition-hover;
+
+  &.isOpen {
+    display: flex;
+    flex-direction: column;
+
+    & .casinoButton,
+    & .sportButton {
+      height: 51px;
+      padding: 0;
+      transition: height 0.3s ease, padding 0.3s ease;
+    }
+
+    & .casinoButton > span,
+    & .sportButton > span {
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0;
+      overflow: hidden;
+      transition: opacity $transition-hover, visibility $transition-hover, max-width $transition-hover;
+    }
+
+    & .searchInput {
+      width: 51px;
+      height: 51px;
+      transition: width $transition-hover, height $transition-hover;
+    }
+
+    & .searchInput > input {
+      width: 0;
+      transition: width $transition-hover, opacity 0.2s ease;
+    }
+  }
 }
 
 
@@ -13,19 +46,37 @@
   background-position: center center;
   background-size: 57px 57px;
   background-repeat: no-repeat;
-}
+  transition: height $transition-hover, padding $transition-hover;
 
-.casinoButton {
+  & > span {
+    opacity: 1;
+    visibility: visible;
+    max-width: 100%;
+    transition: opacity $transition-hover, visibility $transition-hover, max-width $transition-hover;
+  }
 }
 
 .sportButton {
   background-size: 57px 57px;
   background: $color-bg-on-block url("../../../shared/assets/icons/sport.svg") no-repeat center center;
   color: $color-text-primary;
+  transition: height $transition-hover, padding $transition-hover;
+
+  & > span {
+    opacity: 1;
+    visibility: visible;
+    max-width: 100%;
+    transition: opacity $transition-hover, visibility $transition-hover, max-width $transition-hover;
+  }
 }
 
 .searchInput {
   grid-column: 1/3;
+  transition: width $transition-hover, height $transition-hover;
+
+  & > input {
+    transition: width $transition-hover, opacity 0.2s ease;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -10,9 +10,15 @@
   flex-direction: column;
   align-items: flex-start;
   gap: $spacing-md;
+  transition: max-width 0.5s ease;
+
+  &.isOpen {
+    max-width: 83px;
+  }
 }
 
 .navigation {
+  width: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;

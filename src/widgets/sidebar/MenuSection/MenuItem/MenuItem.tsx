@@ -5,11 +5,12 @@ interface MenuItemProps {
     icon: ReactNode
     label: string
     isActive: boolean
+    isOpen: boolean
 }
 
-export const MenuItem: FC<MenuItemProps> = ({label, icon,isActive}) => {
+export const MenuItem: FC<MenuItemProps> = ({label, icon, isActive, isOpen}) => {
     return (
-        <button className = {`${styles.item} ${isActive && styles.isActive}`}>
+        <button className = {`${styles.item} ${isActive && styles.isActive} ${!isOpen ? styles.unVisible : ''}`}>
             <div className = {styles.iconWrapper}>
                 {icon}
             </div>
