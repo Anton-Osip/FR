@@ -1,0 +1,12 @@
+@use "../../../shared/styles/variables" as *;
+
+.footer {
+  width: 100%;
+  height: 115px;
+  background: $color-bg-banner;
+
+  .icon {
+    margin-left: auto;
+    width: 114px;
+  }
+}

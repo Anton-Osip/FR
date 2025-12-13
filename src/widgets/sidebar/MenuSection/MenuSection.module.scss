@@ -1,0 +1,13 @@
+@use "../../../shared/styles/variables" as *;
+
+.menuSection {
+  color: $color-text-primary;
+
+  .title {
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    font-weight: $font-weight-base;
+    line-height: $leading-normal;
+    letter-spacing: $tracking-tight;
+  }
+}

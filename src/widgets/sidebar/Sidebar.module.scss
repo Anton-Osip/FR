@@ -6,4 +6,17 @@
   height: 100%;
   background: $color-bg-block;
   padding: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-md;
+}
+
+.navigation {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-md;
+  overflow-y: auto;
 }

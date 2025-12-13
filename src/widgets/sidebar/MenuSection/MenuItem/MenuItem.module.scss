@@ -1,0 +1,58 @@
+@use "../../../../shared/styles/variables" as *;
+
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: $color-text-secondary;
+  padding: $spacing-xs $spacing-md;
+  background: transparent;
+  border-color: transparent;
+  width: 100%;
+  border-radius: $radius-md;
+  transition: color $transition-hover, background-color $transition-hover;
+
+  .iconWrapper {
+
+  }
+
+  .label {
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    font-weight: $font-weight-base;
+    line-height: $leading-normal;
+    letter-spacing: $tracking-tight;
+  }
+
+  &.isActive {
+    background-color: $color-bg-on-block-hover;
+    color: $color-text-primary;
+
+    .iconWrapper {
+      color: $color-primary;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(24, 115, 242, 0.7);
+    outline-offset: 2px;
+  }
+
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+  .item:hover {
+    background-color: $color-bg-on-block;
+    color: $color-text-primary;
+  }
+
+}
+
+
