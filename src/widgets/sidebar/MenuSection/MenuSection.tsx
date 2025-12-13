@@ -17,7 +17,7 @@ interface MenuItems {
 
 export const MenuSection: FC<MenuSectionProps> = ({list, title, isOpen}) => {
     return (<div className = {styles.menuSection}>
-        {isOpen && <h3 className = {styles.title}>{title}</h3>}
+        <h3 className = {`${styles.title} ${!isOpen ? styles.hidden : ''}`}>{title}</h3>
         {list.map(item => (
             <MenuItem
                 key = {item.id}

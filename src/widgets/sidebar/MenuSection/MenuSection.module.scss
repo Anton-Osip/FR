@@ -3,6 +3,7 @@
 .menuSection {
   color: $color-text-primary;
   width: 100%;
+  position: relative;
 
   .title {
     font-family: $font-family-base;
@@ -11,5 +12,17 @@
     line-height: $leading-normal;
     letter-spacing: $tracking-tight;
     margin-bottom: $spacing-12;
+    opacity: 1;
+    visibility: visible;
+    max-height: 100px;
+    overflow: hidden;
+    transition: opacity $transition-hover, visibility $transition-hover, max-height $transition-hover, margin-bottom $transition-hover;
+
+    &.hidden {
+      opacity: 0;
+      visibility: hidden;
+      max-height: 0;
+      margin-bottom: 0;
+    }
   }
 }
