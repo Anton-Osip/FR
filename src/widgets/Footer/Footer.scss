@@ -86,6 +86,31 @@
   gap: $spacing-xxs;
 }
 
+@media (max-width: $media-desktop) {
+  .footer {
+    padding: $spacing-3xl;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .footer {
+    padding: $spacing-2xl;
+  }
+
+  .footer-grid {
+    grid-template-areas:
+      "logo logo"
+      "rights rights"
+      "sep-menu sep-menu"
+      "menu menu"
+      "sep-money sep-money"
+      "money telegram"
+      "sep-support sep-support"
+      "support support"
+      "ltd ltd";
+  }
+}
+
 @media (max-width: $media-tab) {
   .footer {
     padding: $spacing-md;

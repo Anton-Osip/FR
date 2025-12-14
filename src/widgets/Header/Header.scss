@@ -31,6 +31,18 @@
   gap: $spacing-9;
 }
 
+@media (max-width: $media-desktop) {
+  .header {
+    padding: $spacing-md $spacing-3xl;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .header {
+    padding: $spacing-md $spacing-2xl;
+  }
+}
+
 @media (max-width: $media-tab) {
   .header {
     padding: $spacing-13 $spacing-md;

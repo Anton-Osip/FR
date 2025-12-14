@@ -53,6 +53,7 @@ $spacing-lg: 18px;
 $spacing-lg-plus: 24px;
 $spacing-xl: 32px;
 $spacing-2xl: 48px;
+$spacing-3xl: 96px;
 
 // Радиусы углов
 $radius-md: 10px;
@@ -70,4 +71,8 @@ $aspect-terminal: 9 / 16;
 $transition-hover: 0.3s ease;
 
 // медиазапросы
+$media-desktop: 1440px;
+$media-laptop: 1000px;
 $media-tab: 800px;
+$media-mobile: 390px;
+

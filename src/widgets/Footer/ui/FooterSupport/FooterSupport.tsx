@@ -1,4 +1,4 @@
-import { Button } from "@shared/ui";
+import { Button } from "@shared/ui/button";
 import { ReactComponent as SupportIcon } from "@assets/icons/support.svg";
 import type { FC } from "react";
 import "./FooterSupport.scss";

@@ -10,6 +10,7 @@
   background-size: auto;
   background-repeat: no-repeat;
   background-position: right bottom;
+  width: 288px;
 
   h3 {
     font-size: $font-size-lg;
@@ -33,5 +34,18 @@
     background-color: $color-primary;
     padding: $spacing-4xs $spacing-12;
     border-radius: 160px;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .footer-support {
+    width: 100%;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+@media (max-width: $media-tab) {
+  .footer-support {
+    margin-bottom: 0;
   }
 }

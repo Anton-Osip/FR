@@ -1,9 +1,11 @@
 import { Logo } from "@shared/ui/Logo";
 import {
-  APP_RIGHTS,
+  FOOTER_RIGHTS,
   FOOTER_LTD_TEXT,
   FOOTER_MENU,
-} from "@shared/constants/constants";
+  FOOTER_BANKING,
+  FOOTER_CRYPTO,
+} from "../constants/constants";
 import { Separator } from "radix-ui";
 import { Button } from "@shared/ui/button";
 import { ReactComponent as TgIcon } from "@assets/icons/tg.svg";
@@ -13,17 +15,11 @@ import { FooterMoneyItem } from "./FooterMoneyItem";
 import "../Footer.scss";
 
 export const Footer = () => {
-  const banks = [
-    { id: "1", img: "" },
-    { id: "3", img: "" },
-    { id: "4", img: "" },
-  ];
-
   return (
     <footer className="footer">
       <div className="footer-grid">
         <Logo className="footer-logo" />
-        <p className="footer-rights">{APP_RIGHTS}</p>
+        <p className="footer-rights">{FOOTER_RIGHTS}</p>
         <Button
           className="footer-telegram"
           icon={(props: React.SVGProps<SVGSVGElement>) => (
@@ -39,8 +35,8 @@ export const Footer = () => {
         <FooterSupport className="footer-support" />
         <Separator.Root className="separator separator-money" />
         <div className="footer-money">
-          <FooterMoneyItem text="Банкинг" items={banks} />
-          <FooterMoneyItem text="Крипто" items={banks} />
+          <FooterMoneyItem text="Банкинг" items={FOOTER_BANKING} />
+          <FooterMoneyItem text="Крипто" items={FOOTER_CRYPTO} />
         </div>
         <Separator.Root className="separator separator-support" />
         <p className="footer-ltd-text">{FOOTER_LTD_TEXT}</p>

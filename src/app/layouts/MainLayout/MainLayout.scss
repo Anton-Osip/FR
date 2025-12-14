@@ -19,6 +19,18 @@
   overflow: auto;
 }
 
+@media (max-width: $media-desktop) {
+  .layout-main {
+    padding: $spacing-2xl $spacing-3xl;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .layout-main {
+    padding: $spacing-2xl;
+  }
+}
+
 @media (max-width: $media-tab) {
   .layout {
     grid-template-areas:
