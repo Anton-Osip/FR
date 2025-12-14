@@ -2,9 +2,9 @@ import { Button } from "@shared/ui/button";
 import { useState, type FC, type SVGProps } from "react";
 import { CarouselItem } from "./CarouselItem";
 import { type CarouselItemProps } from "../types/types";
-import { CAROUSEL_MAX_ITEMS } from "../constants/constants";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import styles from "../Carousel.module.scss";
+import { useCarouselMaxItems } from "../hooks/useCarouselMaxItems";
 
 interface Props {
   title: string;
@@ -14,9 +14,10 @@ interface Props {
 
 export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
   const [startIndex, setStartIndex] = useState<number>(0);
+  const maxItems = useCarouselMaxItems();
 
   const handleNext = () => {
-    if (startIndex + CAROUSEL_MAX_ITEMS < items.length) {
+    if (startIndex + maxItems < items.length) {
       setStartIndex(startIndex + 1);
     }
   };
@@ -27,18 +28,20 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
     }
   };
 
-  const visibleItems = items.slice(startIndex, startIndex + CAROUSEL_MAX_ITEMS);
+  const visibleItems = items.slice(startIndex, startIndex + maxItems);
 
   const controlButtons = [
     {
+      id: "1",
       icon: ChevronLeftIcon,
       onClick: handlePrev,
       disabled: startIndex === 0,
     },
     {
+      id: "2",
       icon: ChevronRightIcon,
       onClick: handleNext,
-      disabled: startIndex + CAROUSEL_MAX_ITEMS >= items.length,
+      disabled: startIndex + maxItems >= items.length,
     },
   ];
 
@@ -61,6 +64,7 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
             {controlButtons.map((btn) => {
               return (
                 <Button
+                  key={btn.id}
                   variant="secondary"
                   square
                   icon={btn.icon}

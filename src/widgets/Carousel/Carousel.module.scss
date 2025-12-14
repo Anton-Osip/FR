@@ -49,6 +49,20 @@
 
   &-flexbox {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: $spacing-md;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .carousel-title {
+    h3 {
+      font-size: $font-size-lg;
+    }
+
+    svg {
+      width: 23px;
+      height: 23px;
+    }
   }
 }
