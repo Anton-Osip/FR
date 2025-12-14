@@ -45,6 +45,10 @@
   width: fit-content;
   justify-self: end;
 
+  &-gradient {
+    fill: url(#tgGradient);
+  }
+
   &:hover {
     background-color: $color-bg-on-block-hover;
   }

@@ -22,9 +22,7 @@ export const Footer = () => {
         <p className={styles["footer-rights"]}>{FOOTER_RIGHTS}</p>
         <Button
           className={styles["footer-telegram"]}
-          icon={(props: React.SVGProps<SVGSVGElement>) => (
-            <TgIcon {...props} style={{ color: "#1873f2" }} />
-          )}
+          icon={() => <TgIcon className={styles["footer-telegram-gradient"]} />}
           size="s"
           variant="secondary"
         >
