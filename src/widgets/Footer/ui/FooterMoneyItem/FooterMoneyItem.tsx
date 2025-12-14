@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import type { BankItem } from "../../types/types";
-import "./FooterMoneyItem.scss";
+import styles from "./FooterMoneyItem.module.scss";
 
 interface Props {
   text: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export const FooterMoneyItem: FC<Props> = ({ text, items }) => {
   return (
-    <div className="footer-money-item">
+    <div className={styles["footer-money-item"]}>
       <span>{text}</span>
-      <div className="footer-money-item-wrap">
+      <div className={styles["footer-money-item-wrap"]}>
         {items.map((item) => {
           return (
             <div
               key={item.id}
-              className="footer-money-item-circle"
+              className={styles["footer-money-item-circle"]}
               title={item.label}
             >
               {item.gradient && (
                 <div
-                  className="circle-gradient"
+                  className={styles["circle-gradient"]}
                   style={{ background: item.gradient }}
                 />
               )}

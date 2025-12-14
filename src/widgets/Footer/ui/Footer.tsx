@@ -12,16 +12,16 @@ import { ReactComponent as TgIcon } from "@assets/icons/tg.svg";
 import { FooterMenu } from "./FooterMenu";
 import { FooterSupport } from "./FooterSupport";
 import { FooterMoneyItem } from "./FooterMoneyItem";
-import "../Footer.scss";
+import styles from "../Footer.module.scss";
 
 export const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-grid">
-        <Logo className="footer-logo" />
-        <p className="footer-rights">{FOOTER_RIGHTS}</p>
+    <footer className={styles["footer"]}>
+      <div className={styles["footer-grid"]}>
+        <Logo className={styles["footer-logo"]} />
+        <p className={styles["footer-rights"]}>{FOOTER_RIGHTS}</p>
         <Button
-          className="footer-telegram"
+          className={styles["footer-telegram"]}
           icon={(props: React.SVGProps<SVGSVGElement>) => (
             <TgIcon {...props} style={{ color: "#1873f2" }} />
           )}
@@ -30,16 +30,22 @@ export const Footer = () => {
         >
           Телеграм-канал
         </Button>
-        <Separator.Root className="separator separator-menu" />
-        <FooterMenu className="footer-menu" items={FOOTER_MENU} />
-        <FooterSupport className="footer-support" />
-        <Separator.Root className="separator separator-money" />
-        <div className="footer-money">
+        <Separator.Root
+          className={`${styles.separator} ${styles["separator-menu"]}`}
+        />
+        <FooterMenu className={styles["footer-menu"]} items={FOOTER_MENU} />
+        <FooterSupport className={styles["footer-support"]} />
+        <Separator.Root
+          className={`${styles.separator} ${styles["separator-money"]}`}
+        />
+        <div className={styles["footer-money"]}>
           <FooterMoneyItem text="Банкинг" items={FOOTER_BANKING} />
           <FooterMoneyItem text="Крипто" items={FOOTER_CRYPTO} />
         </div>
-        <Separator.Root className="separator separator-support" />
-        <p className="footer-ltd-text">{FOOTER_LTD_TEXT}</p>
+        <Separator.Root
+          className={`${styles.separator} ${styles["separator-support"]}`}
+        />
+        <p className={styles["footer-ltd-text"]}>{FOOTER_LTD_TEXT}</p>
       </div>
     </footer>
   );

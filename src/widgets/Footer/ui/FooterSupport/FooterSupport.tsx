@@ -1,7 +1,8 @@
 import { Button } from "@shared/ui/button";
 import { ReactComponent as SupportIcon } from "@assets/icons/support.svg";
 import type { FC } from "react";
-import "./FooterSupport.scss";
+import styles from "./FooterSupport.module.scss";
+
 
 interface Props {
   className?: string;
@@ -9,9 +10,11 @@ interface Props {
 
 export const FooterSupport: FC<Props> = ({className}) => {
   return (
-    <div className={`footer-support ${className ?? ""}`}>
+    <div className={`${styles["footer-support"]} ${
+        className ? styles[className] : ""
+      }`}>
       <h3>
-        Тех. поддержка <span className="footer-support-time">24/7</span>
+        Тех. поддержка <span className={styles["footer-support-time"]}>24/7</span>
       </h3>
       <Button size="s" icon={SupportIcon} variant="secondary">
         Написать
