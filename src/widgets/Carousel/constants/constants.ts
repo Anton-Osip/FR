@@ -1,0 +1,1 @@
+export const CAROUSEL_MAX_ITEMS = 7

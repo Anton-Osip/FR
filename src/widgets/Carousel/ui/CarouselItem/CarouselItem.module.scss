@@ -1,0 +1,17 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.carousel-item {
+  display: block;
+  width: 155px;
+  height: 208px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}
