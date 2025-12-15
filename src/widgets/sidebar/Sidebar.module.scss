@@ -1,9 +1,12 @@
 @use "../../shared/styles/variables" as *;
 
 .sidebar {
+  position: sticky;
+  top: 0;
   max-width: 256px;
   width: 100%;
   min-height: 100dvh;
+  max-height: 1080px;
   background: $color-bg-block;
   padding: $spacing-md;
   display: flex;
