@@ -3,7 +3,7 @@
 .sidebar {
   max-width: 256px;
   width: 100%;
-  height: 100dvh;
+  min-height: 100dvh;
   background: $color-bg-block;
   padding: $spacing-md;
   display: flex;
@@ -24,7 +24,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: $spacing-md;
-  overflow-y: auto;
-  overflow-x: visible;
   position: relative;
+  margin-bottom: 50px;
 }
