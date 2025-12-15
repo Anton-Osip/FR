@@ -25,7 +25,6 @@
     white-space: nowrap;
     transform: translateX(0);
     margin-left: calc(19px + #{$spacing-xs} + #{$spacing-md});
-    transition: transform $transition-hover, opacity $transition-hover, margin-left $transition-hover;
   }
 
   .iconWrapper {
@@ -38,25 +37,6 @@
     transform: translateY(-50%);
     z-index: 1;
     transition: left $transition-hover;
-  }
-
-  &.unVisible {
-    gap: 0;
-    padding: 0;
-    width: 51px;
-    height: 39px;
-    justify-content: center;
-
-    .iconWrapper {
-      left: 16px;
-    }
-
-    & .label {
-      opacity: 0;
-      margin-left: 0;
-      transform: translateX(200px);
-      transition: transform $transition-hover, opacity $transition-hover, margin-left $transition-hover;
-    }
   }
 
   &.isActive {
