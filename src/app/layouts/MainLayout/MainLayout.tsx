@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import { Footer } from "@widgets/Footer";
 import { Outlet } from "react-router-dom";
 import styles from "./MainLayout.module.scss";

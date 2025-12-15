@@ -6,7 +6,7 @@ import {
   FOOTER_BANKING,
   FOOTER_CRYPTO,
 } from "../constants/constants";
-import { Separator } from "radix-ui";
+import * as Separator from "@radix-ui/react-separator";
 import { Button } from "@shared/ui/button";
 import { ReactComponent as TgIcon } from "@assets/icons/tg.svg";
 import { FooterMenu } from "./FooterMenu";
