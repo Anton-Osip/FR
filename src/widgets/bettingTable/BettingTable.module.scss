@@ -1,0 +1,82 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.userCell,
+.gameCell {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xxs;
+}
+
+.userAvatar {
+  width: $spacing-lg;
+  height: $spacing-lg;
+  border-radius: $radius-xxl;
+  background: $color-bg-on-block;
+}
+
+.userName {
+  font-family: $font-family-base;
+  font-weight: $font-weight-light;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.gameIcon {
+  width: $spacing-sm-plus;
+  height: $spacing-lg;
+  border-radius: $radius-md;
+  background: $color-bg-on-block;
+}
+
+.gameName {
+  font-family: $font-family-base;
+  font-weight: $font-weight-light;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.amountCell,
+.multiplierCell,
+.payoutCell {
+  font-family: $font-family-base;
+  font-weight: $font-weight-light;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.payoutCell--win {
+  color: $color-win-primary;
+}
+
+@media screen and (max-width: $media-laptop) {
+  .th, .td {
+    width: 33%;
+  }
+  .payout,
+  .payoutCell {
+    text-align: right;
+  }
+
+  .amountCell,
+  .multiplierCell,
+  .amount,
+  .multiplier {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .th, .td {
+    width: 50%;
+  }
+  .userHead,
+  .user {
+    display: none;
+  }
+  .game,
+  .gameCellBody {
+    padding-left: $spacing-md;
+  }
+
+}

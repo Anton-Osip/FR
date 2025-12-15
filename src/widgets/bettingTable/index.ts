@@ -1,0 +1,1 @@
+export {BettingTable} from './BettingTable.tsx'
