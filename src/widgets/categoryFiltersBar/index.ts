@@ -1,0 +1,1 @@
+export {CategoryFiltersBar}from './CategoryFiltersBar.tsx'

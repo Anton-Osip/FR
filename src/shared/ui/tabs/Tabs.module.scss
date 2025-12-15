@@ -1,0 +1,59 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.root {
+  position: relative;
+  background: $color-bg-block;
+  border-radius: 16px;
+  padding: 6px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.root--no-fade {
+  &::before,
+  &::after {
+    display: none;
+  }
+}
+
+.root:after,
+.root:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 55px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  flex: 0 0 55px;
+}
+
+.root:after {
+  left: 0;
+  background: linear-gradient(90deg, #131824 0%, rgba(19, 24, 36, 0) 100%);
+}
+
+.root:before {
+  right: 0;
+  background: linear-gradient(90deg, rgba(19, 24, 36, 0) 0%, #131824 100%);
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.activeTabs {
+  position: relative;
+  z-index: 5;
+}
+
+.activeTabs > span {
+  color: $color-text-primary;
+}
