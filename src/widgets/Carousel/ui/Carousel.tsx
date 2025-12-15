@@ -1,11 +1,16 @@
 import { Button } from "@shared/ui/button";
-import { type FC, type SVGProps } from "react";
+import {
+  type FC,
+  type SVGProps,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { CarouselItem } from "./CarouselItem";
 import { type CarouselItemProps } from "../types/types";
-import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import styles from "../Carousel.module.scss";
-import { useCarouselMaxItems } from "../hooks/useCarouselMaxItems";
-import { useCarousel } from "../hooks/useCarousel";
 
 interface Props {
   title: string;
@@ -14,39 +19,48 @@ interface Props {
 }
 
 export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
-  const maxItems = useCarouselMaxItems();
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    slidesToScroll: 1,
+    align: "start",
+    dragFree: false,
+    containScroll: "trimSnaps",
+  });
 
-  const {
-    visibleItems,
-    direction,
-    animatingItemIndex,
-    dragOffsetX,
-    isDragging,
-    handleNext,
-    handlePrev,
-    handlePointerDown,
-    handlePointerMove,
-    handlePointerUp,
-  } = useCarousel({ items, maxItems });
+  const [canScrollPrev, setCanScrollPrev] = useState<boolean>(false);
+  const [canScrollNext, setCanScrollNext] = useState<boolean>(false);
 
-  const controlButtons = [
-    {
-      id: "1",
-      icon: ChevronLeftIcon,
-      onClick: handlePrev,
-      disabled: visibleItems[0] === items[0],
-    },
-    {
-      id: "2",
-      icon: ChevronRightIcon,
-      onClick: handleNext,
-      disabled:
-        visibleItems[visibleItems.length - 1] === items[items.length - 1],
-    },
-  ];
+  const scrollPrev = useCallback(() => {
+    emblaApi?.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    emblaApi?.scrollNext();
+  }, [emblaApi]);
+
+  const updateButtons = useCallback(() => {
+    if (!emblaApi) return;
+
+    requestAnimationFrame(() => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    });
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    updateButtons();
+    emblaApi.on("select", updateButtons);
+    emblaApi.on("reInit", updateButtons);
+
+    return () => {
+      emblaApi.off("select", updateButtons);
+      emblaApi.off("reInit", updateButtons);
+    };
+  }, [emblaApi, updateButtons]);
 
   return (
-    <div className={styles["carousel"]}>
+    <div className={styles.carousel}>
       <div className={styles["carousel-header"]}>
         <div className={styles["carousel-title"]}>
           <Icon />
@@ -56,54 +70,36 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
           <Button
             variant="secondary"
             size="s"
-            className={styles["carousel-header-button"]}
+            className={styles["carousel-button"]}
           >
             Все
           </Button>
           <div className={styles["carousel-header-controls"]}>
-            {controlButtons.map((btn) => {
-              return (
-                <Button
-                  key={btn.id}
-                  variant="secondary"
-                  square
-                  icon={btn.icon}
-                  onClick={btn.onClick}
-                  className={styles["carousel-header-button"]}
-                  disabled={btn.disabled}
-                />
-              );
-            })}
+            <Button
+              variant="secondary"
+              square
+              icon={ChevronLeftIcon}
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className={styles["carousel-button"]}
+            />
+            <Button
+              variant="secondary"
+              square
+              icon={ChevronRightIcon}
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className={styles["carousel-button"]}
+            />
           </div>
         </div>
       </div>
-      <div
-        className={styles.viewport}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-      >
-        <div
-          className={styles["carousel-flexbox"]}
-          style={{
-            transform: `translateX(${dragOffsetX}px)`,
-            transition: isDragging ? "none" : "transform 0.3s ease",
-          }}
-        >
-          {visibleItems.map((item, index) => {
-            const shouldAnimate =
-              index === animatingItemIndex && direction !== null;
 
-            return (
-              <CarouselItem
-                key={item.id}
-                img={item.img}
-                link={item.link}
-                direction={shouldAnimate ? direction : null}
-              />
-            );
-          })}
+      <div className={styles.viewport} ref={emblaRef}>
+        <div className={styles["carousel-flexbox"]}>
+          {items.map((item) => (
+            <CarouselItem key={item.id} img={item.img} link={item.link} />
+          ))}
         </div>
       </div>
     </div>

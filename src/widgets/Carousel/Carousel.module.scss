@@ -6,20 +6,6 @@
     justify-content: space-between;
     margin-bottom: $spacing-lg-plus;
 
-    &-button {
-      color: $color-text-primary;
-      background-color: $color-bg-on-block;
-
-      &:hover {
-        background-color: $color-bg-on-block-hover;
-      }
-
-      &:disabled {
-        background-color: $color-bg-block;
-        color: $color-text-secondary;
-      }
-    }
-
     &-buttons {
       display: flex;
       gap: $spacing-md;
@@ -44,20 +30,35 @@
     svg {
       width: 30px;
       height: 30px;
-      color: $color-text-secondary
+      color: $color-text-secondary;
     }
   }
+}
 
-  &-flexbox {
-    display: flex;
-    justify-content: center;
-    gap: $spacing-md;
+.carousel-button {
+  color: $color-text-primary;
+  background-color: $color-bg-on-block;
+
+  &:hover {
+    background-color: $color-bg-on-block-hover;
+  }
+
+  &:disabled {
+    background-color: $color-bg-block;
+    color: $color-text-secondary;
   }
 }
 
 .viewport {
   overflow: hidden;
-  touch-action: pan-y;
+  padding: 4px 0;
+  margin: -4px 0;
+}
+
+.carousel-flexbox {
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
 }
 
 @media (max-width: $media-laptop) {
@@ -70,5 +71,11 @@
       width: 23px;
       height: 23px;
     }
+  }
+}
+
+@media (max-width: $media-laptop-plus) {
+  .carousel-flexbox {
+    gap: $spacing-xxs;
   }
 }
