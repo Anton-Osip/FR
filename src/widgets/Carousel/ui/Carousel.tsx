@@ -1,5 +1,5 @@
 import { Button } from "@shared/ui/button";
-import { useState, type FC, type SVGProps } from "react";
+import { useEffect, useState, type FC, type SVGProps } from "react";
 import { CarouselItem } from "./CarouselItem";
 import { type CarouselItemProps } from "../types/types";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
@@ -14,19 +14,39 @@ interface Props {
 
 export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
   const [startIndex, setStartIndex] = useState<number>(0);
+  const [direction, setDirection] = useState<"left" | "right" | null>("right");
+  const [animatingItemIndex, setAnimatingItemIndex] = useState<number | null>(
+    null
+  );
+
   const maxItems = useCarouselMaxItems();
 
   const handleNext = () => {
     if (startIndex + maxItems < items.length) {
-      setStartIndex(startIndex + 1);
+      setDirection("right");
+      setAnimatingItemIndex(maxItems - 1);
+      setStartIndex((prev) => prev + 1);
     }
   };
 
   const handlePrev = () => {
     if (startIndex > 0) {
-      setStartIndex(startIndex - 1);
+      setDirection("left");
+      setAnimatingItemIndex(0);
+      setStartIndex((prev) => prev - 1);
     }
   };
+
+  useEffect(() => {
+    if (animatingItemIndex !== null) {
+      const timer = setTimeout(() => {
+        setAnimatingItemIndex(null);
+        setDirection(null);
+      }, 400);
+
+      return () => clearTimeout(timer);
+    }
+  }, [animatingItemIndex]);
 
   const visibleItems = items.slice(startIndex, startIndex + maxItems);
 
@@ -78,8 +98,18 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
         </div>
       </div>
       <div className={styles["carousel-flexbox"]}>
-        {visibleItems.map((item) => {
-          return <CarouselItem key={item.id} img={item.img} link={item.link} />;
+        {visibleItems.map((item, index) => {
+          const shouldAnimate =
+            index === animatingItemIndex && direction !== null;
+            
+          return (
+            <CarouselItem
+              key={item.id}
+              img={item.img}
+              link={item.link}
+              direction={shouldAnimate ? direction : null}
+            />
+          );
         })}
       </div>
     </div>

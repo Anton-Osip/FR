@@ -4,13 +4,16 @@ import styles from "./CarouselItem.module.scss";
 interface Props {
   img: string;
   link: string;
+  direction: "left" | "right" | null;
 }
 
-export const CarouselItem: FC<Props> = ({ img, link }) => {
+export const CarouselItem: FC<Props> = ({ img, link, direction }) => {
   return (
     <a
       href={link}
-      className={styles["carousel-item"]}
+      className={`${styles["carousel-item"]} ${
+        direction ? styles[`slide-${direction}`] : ""
+      }`}
       style={{ backgroundImage: `url(${img})` }}
     ></a>
   );
