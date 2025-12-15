@@ -1,0 +1,7 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.main-carousel-section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}

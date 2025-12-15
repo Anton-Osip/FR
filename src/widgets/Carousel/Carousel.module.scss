@@ -1,0 +1,68 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.carousel {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $spacing-lg-plus;
+
+    &-button {
+      color: $color-text-primary;
+      background-color: $color-bg-on-block;
+
+      &:hover {
+        background-color: $color-bg-on-block-hover;
+      }
+
+      &:disabled {
+        background-color: $color-bg-block;
+        color: $color-text-secondary;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      gap: $spacing-md;
+    }
+
+    &-controls {
+      display: flex;
+      gap: $spacing-5xs;
+    }
+  }
+
+  &-title {
+    display: flex;
+    gap: $spacing-xs;
+    justify-content: center;
+    align-items: center;
+
+    h3 {
+      font-size: $font-size-xl;
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &-flexbox {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-md;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .carousel-title {
+    h3 {
+      font-size: $font-size-lg;
+    }
+
+    svg {
+      width: 23px;
+      height: 23px;
+    }
+  }
+}
