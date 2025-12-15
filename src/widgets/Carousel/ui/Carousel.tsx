@@ -28,6 +28,7 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
 
   const [canScrollPrev, setCanScrollPrev] = useState<boolean>(false);
   const [canScrollNext, setCanScrollNext] = useState<boolean>(false);
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   const scrollPrev = useCallback(() => {
     emblaApi?.scrollPrev();
@@ -59,12 +60,23 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
     };
   }, [emblaApi, updateButtons]);
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className={styles.carousel}>
       <div className={styles["carousel-header"]}>
         <div className={styles["carousel-title"]}>
           <Icon />
-          <h3>{title}</h3>
+          <h3>
+            {title === "Быстрые игры" && windowWidth <= 1200
+              ? "Быстрые"
+              : title}
+          </h3>
         </div>
         <div className={styles["carousel-header-buttons"]}>
           <Button
