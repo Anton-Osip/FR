@@ -1,0 +1,45 @@
+@use "../../styles/variables.scss" as *;
+
+.logo {
+  height: 100%;
+  display: flex;
+  gap: $spacing-xs;
+  line-height: 1;
+  align-items: center;
+  cursor: pointer;
+
+  &-icon {
+    width: 30px;
+    height: 30px;
+    path {
+      transition: fill $transition-hover;
+      fill: currentColor;
+    }
+  }
+
+  &:hover .logo-icon path {
+    fill: $color-text-secondary;
+  }
+
+  &-header {
+    font-size: $font-size-xl;
+    transition: color $transition-hover;
+  }
+
+  &:hover h1 {
+    color: $color-text-secondary;
+  }
+}
+
+@media (max-width: $media-tab) {
+  .logo {
+    &-icon {
+      width: 25px;
+      height: 22px;
+    }
+
+    &-header {
+      font-size: $font-size-lg;
+    }
+  }
+}

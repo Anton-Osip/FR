@@ -5,9 +5,10 @@
   min-height: 100dvh;
   grid-template-areas:
     "sidebar header"
-    "sidebar content";
+    "sidebar content"
+    "sidebar footer";
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   background-color: $color-bg;
   color: $color-text-primary;
 }
@@ -31,7 +32,8 @@
     grid-template-columns: auto;
     grid-template-areas:
     "header"
-    "content";
+    "content"
+    "footer";
   }
   .sidebarLayout {
     display: none !important;

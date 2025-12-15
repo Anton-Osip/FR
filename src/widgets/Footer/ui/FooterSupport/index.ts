@@ -1,0 +1,1 @@
+export { FooterSupport } from "./FooterSupport";

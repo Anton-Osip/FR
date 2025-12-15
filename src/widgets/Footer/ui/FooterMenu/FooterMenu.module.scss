@@ -1,0 +1,38 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.footer-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-xxs;
+  margin-right: $spacing-xxs;
+}
+
+.footer-column-title {
+  margin-bottom: $spacing-md;
+}
+
+.footer-links {
+  li:not(:last-child) {
+    margin-bottom: $spacing-md;
+  }
+  li {
+    a {
+      color: $color-text-secondary;
+      font-weight: $font-weight-light;
+      transition: color $transition-hover;
+
+      &:hover {
+        color: $color-text-primary;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-tab) {
+  .footer-menu {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    row-gap: $spacing-lg-plus;
+    margin-right: 0;
+  }
+}

@@ -21,12 +21,14 @@ $color-neutral: #E1E4EA;
 $font-family-base: "SuisseIntl", sans-serif;
 
 $font-size-xs: 12px;
+$font-size-xs-plus: 14px;
 $font-size-md: 16px;
 $font-size-lg: 20px;
 $font-size-xl: 26px;
 
 $font-weight-base: 600;
 $font-weight-light: 500;
+$font-weight-bold: 700;
 
 //$leading-tight: 0.8;
 //$leading-snug: 0.9;
@@ -53,8 +55,10 @@ $spacing-sm: 14px;
 $spacing-sm-plus: 15px;
 $spacing-md: 16px;
 $spacing-lg: 18px;
+$spacing-lg-plus: 24px;
 $spacing-xl: 32px;
 $spacing-2xl: 48px;
+$spacing-3xl: 96px;
 
 // Радиусы углов
 $radius-md: 10px;
@@ -71,3 +75,10 @@ $aspect-terminal: string.unquote("9 / 16");
 
 // Плавные переходы
 $transition-hover: 0.3s ease;
+
+// медиазапросы
+$media-desktop: 1440px;
+$media-laptop: 1000px;
+$media-tab: 800px;
+$media-mobile: 390px;
+

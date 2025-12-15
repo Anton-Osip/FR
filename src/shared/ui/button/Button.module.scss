@@ -6,13 +6,24 @@
   justify-content: center;
   gap: $spacing-xs;
   border: none;
-  transition: background-color $transition-hover, color $transition-hover, transform 0.1s ease, box-shadow 0.1s ease;
+  transition: background-color $transition-hover, color $transition-hover,
+    transform 0.1s ease, box-shadow 0.1s ease;
   cursor: pointer;
   font-family: $font-family-base;
   font-size: $font-size-md;
   font-weight: $font-weight-base;
   line-height: $leading-normal;
   letter-spacing: $tracking-tight;
+  min-width: fit-content;
+
+  .buttonIcon {
+    width: 19px;
+    height: 19px;
+
+    path {
+      fill: currentColor;
+    }
+  }
 
   &-primary {
     background-color: $color-primary;
@@ -34,7 +45,9 @@
       background-color: $color-button-hover;
 
       &.buttonIcon {
-        color: $color-text-primary
+        path {
+          fill: $color-text-primary;
+        }
       }
     }
 
@@ -42,7 +55,9 @@
       background-color: $color-bg-on-block-hover;
 
       .buttonIcon {
-        color: $color-primary;
+        path {
+          fill: $color-primary;
+        }
       }
     }
   }
@@ -64,7 +79,16 @@
   &.button-square {
     width: 39px;
     height: 39px;
-    padding: 0;
+    padding: $spacing-9;
+
+    .buttonIcon {
+      width: 21px;
+      height: 21px;
+    }
+
+    .buttonText {
+      display: none;
+    }
   }
 
   &:disabled {
@@ -101,6 +125,10 @@
     &-secondary:hover {
       background-color: $color-bg-on-block;
       color: $color-text-primary;
+
+      .buttonIcon {
+        fill: $color-text-primary;
+      }
     }
 
     &-ghost:hover {
@@ -108,4 +136,3 @@
     }
   }
 }
-
