@@ -3,7 +3,7 @@
 .carousel-item {
   flex: 0 0 auto;
   width: 155px;
-  height: 208px;
+  aspect-ratio: 155 / 208;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,13 +19,13 @@
 @media (max-width: $media-laptop-plus) {
   .carousel-item {
     width: 121px;
-    height: 165px;
+    aspect-ratio: 121 / 165;
   }
 }
 
 @media (max-width: $media-tab-mini) {
   .carousel-item {
     width: 114px;
-    height: 149px;
+    aspect-ratio: 114 / 149;
   }
 }
