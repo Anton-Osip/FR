@@ -1,7 +1,7 @@
 import { Footer } from "@widgets/Footer";
 import { Outlet } from "react-router-dom";
 import styles from "./MainLayout.module.scss";
-import { Header, Sidebar } from "../../../widgets";
+import { Header, Sidebar, TabScreenMenu } from "../../../widgets";
 
 export const MainLayout = () => {
   return (
@@ -14,6 +14,7 @@ export const MainLayout = () => {
         </div>
       </main>
       <Footer />
+      <TabScreenMenu className={styles.tabScreenMenu}/>
     </div>
   );
 };
