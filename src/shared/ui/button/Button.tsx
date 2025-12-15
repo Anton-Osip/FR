@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  isValidElement,
   type ButtonHTMLAttributes,
   type FC,
   type ForwardRefExoticComponent,
@@ -16,7 +17,7 @@ type IconType =
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode;
-    icon?: ReactNode |IconType;
+    icon?: ReactNode | IconType;
     variant?: "primary" | "secondary" | "ghost";
     size?: "s" | "m";
     fullWidth?: boolean;
@@ -52,9 +53,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       .filter(Boolean)
       .join(" ");
 
+    const renderIcon = () => {
+      if (!Icon) return null;
+
+      if (
+        typeof Icon === "function" ||
+        (typeof Icon === "object" && "render" in Icon)
+      ) {
+        const IconComponent = Icon as IconType;
+        return <IconComponent className={styles.buttonIcon} />;
+      }
+
+      if (isValidElement(Icon)) {
+        return <span className={styles.buttonIcon}>{Icon}</span>;
+      }
+
+      return <span className={styles.buttonIcon}>{Icon}</span>;
+    };
+
     return (
       <button ref={ref} className={mergedClassName} type={type} {...props}>
-        {Icon && <Icon className={styles.buttonIcon} />}
+        {renderIcon()}
         {children && <span className={styles.buttonText}>{children}</span>}
       </button>
     );
