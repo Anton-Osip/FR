@@ -1,5 +1,5 @@
 import styles from './Header.module.scss'
-import {BalanceCard} from "./BalanceCard/BalanceCard.tsx";
+import {BalanceCard} from "./BalanceCard/BalanceCard";
 import {Avatar, Brand} from "@shared/ui";
 import type {FC} from "react";
 
