@@ -9,7 +9,7 @@
   background-repeat: no-repeat;
   border-radius: $radius-xl;
   cursor: pointer;
-  transition: transform 0.25s ease;
+  transition: transform $transition-hover;
 
   &:hover {
     transform: translateY(-$spacing-5xs);
