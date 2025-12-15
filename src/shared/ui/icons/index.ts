@@ -1,18 +1,19 @@
-export {GlobalIcon} from './GlobalIcon.tsx'
-export {BurgerIcon} from './BurgerIcon.tsx'
-export {SearchIcon} from './SearchIcon.tsx'
-export {HomeIcon} from './HomeIcon.tsx'
-export {HeartIcon} from './HeartIcon.tsx'
-export {BonusIcon} from './BonusIcon.tsx'
-export {TwoUsersIcon} from './TwoUsersIcon.tsx'
-export {SevenIcon} from './SevenIcon.tsx'
-export {FlashIcon} from './FlashIcon.tsx'
-export {LikeIcon} from './LikeIcon.tsx'
-export {StarIcon} from './StarIcon.tsx'
-export {CardsIcon} from './CardsIcon.tsx'
-export {RouletteIcon} from './RouletteIcon.tsx'
-export {MicrophoneIcon} from './MicrophoneIcon.tsx'
-export {BaccareIcon} from './BaccareIcon.tsx'
-export {FrostyIcon} from './FrostyIcon.tsx'
-export {WalletIcon} from './WalletIcon.tsx'
-export {TgIcon} from './TgIcon.tsx'
+export { GlobalIcon } from "./GlobalIcon.tsx";
+export { BurgerIcon } from "./BurgerIcon.tsx";
+export { SearchIcon } from "./SearchIcon.tsx";
+export { HomeIcon } from "./HomeIcon.tsx";
+export { HeartIcon } from "./HeartIcon.tsx";
+export { BonusIcon } from "./BonusIcon.tsx";
+export { TwoUsersIcon } from "./TwoUsersIcon.tsx";
+export { SevenIcon } from "./SevenIcon.tsx";
+export { FlashIcon } from "./FlashIcon.tsx";
+export { LikeIcon } from "./LikeIcon.tsx";
+export { StarIcon } from "./StarIcon.tsx";
+export { CardsIcon } from "./CardsIcon.tsx";
+export { RouletteIcon } from "./RouletteIcon.tsx";
+export { MicrophoneIcon } from "./MicrophoneIcon.tsx";
+export { BaccareIcon } from "./BaccareIcon.tsx";
+export { FrostyIcon } from "./FrostyIcon.tsx";
+export { WalletIcon } from "./WalletIcon.tsx";
+export { TgIcon } from "./TgIcon.tsx";
+export { FireIcon } from "./FireIcon.tsx";
