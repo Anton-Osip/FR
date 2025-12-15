@@ -6,3 +6,53 @@
   padding: 24px;
   gap: $spacing-xl;
 }
+
+.tableFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  color: #FFF;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.26px;
+}
+
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: 574px;
+  width: 100%;
+}
+
+.dropdownWrapper {
+  width: 89px;
+  padding: 8px;
+  border-radius: var(--radius-16, 16px);
+  background: var(--bg-block, #131824);
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+    font-size: 20px;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    display: none;
+  }
+  .wrapper {
+    max-width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+}
