@@ -21,19 +21,25 @@
   grid-area: sidebar;
 }
 
-
 .layoutMain {
   grid-area: content;
+  padding: $spacing-2xl $spacing-md;
   overflow: auto;
+}
+
+.layoutMainContainer {
+  max-width: $container-max-width;
+  width: 100%;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 864px) {
   .layout {
     grid-template-columns: auto;
     grid-template-areas:
-    "header"
-    "content"
-    "footer";
+      "header"
+      "content"
+      "footer";
   }
   .sidebarLayout {
     display: none !important;
