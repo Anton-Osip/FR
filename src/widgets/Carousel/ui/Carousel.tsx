@@ -1,107 +1,107 @@
 import { Button } from "@shared/ui/button";
 import {
-  type FC,
-  type SVGProps,
-  useCallback,
-  useEffect,
-  useState,
+    type FC,
+    type SVGProps,
+    useCallback,
+    useEffect,
+    useState,
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
-import { CarouselItem } from "./CarouselItem";
 import { type CarouselItemProps } from "../types/types";
 import styles from "../Carousel.module.scss";
+import {CarouselItem} from "@widgets/Carousel/ui/CarouselItem/CarouselItem.tsx";
 
 interface Props {
-  title: string;
-  icon: FC<SVGProps<SVGSVGElement>>;
-  items: CarouselItemProps[];
+    title: string;
+    icon: FC<SVGProps<SVGSVGElement>>;
+    items: CarouselItemProps[];
 }
 
 export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    slidesToScroll: 1,
-    align: "start",
-    dragFree: false,
-    containScroll: "trimSnaps",
-  });
-
-  const [canScrollPrev, setCanScrollPrev] = useState<boolean>(false);
-  const [canScrollNext, setCanScrollNext] = useState<boolean>(false);
-
-  const scrollPrev = useCallback(() => {
-    emblaApi?.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    emblaApi?.scrollNext();
-  }, [emblaApi]);
-
-  const updateButtons = useCallback(() => {
-    if (!emblaApi) return;
-
-    requestAnimationFrame(() => {
-      setCanScrollPrev(emblaApi.canScrollPrev());
-      setCanScrollNext(emblaApi.canScrollNext());
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+        slidesToScroll: 1,
+        align: "start",
+        dragFree: false,
+        containScroll: "trimSnaps",
     });
-  }, [emblaApi]);
 
-  useEffect(() => {
-    if (!emblaApi) return;
+    const [canScrollPrev, setCanScrollPrev] = useState<boolean>(false);
+    const [canScrollNext, setCanScrollNext] = useState<boolean>(false);
 
-    updateButtons();
-    emblaApi.on("select", updateButtons);
-    emblaApi.on("reInit", updateButtons);
+    const scrollPrev = useCallback(() => {
+        emblaApi?.scrollPrev();
+    }, [emblaApi]);
 
-    return () => {
-      emblaApi.off("select", updateButtons);
-      emblaApi.off("reInit", updateButtons);
-    };
-  }, [emblaApi, updateButtons]);
+    const scrollNext = useCallback(() => {
+        emblaApi?.scrollNext();
+    }, [emblaApi]);
 
-  return (
-    <div className={styles.carousel}>
-      <div className={styles["carousel-header"]}>
-        <div className={styles["carousel-title"]}>
-          <Icon />
-          <h3>{title}</h3>
+    const updateButtons = useCallback(() => {
+        if (!emblaApi) return;
+
+        requestAnimationFrame(() => {
+            setCanScrollPrev(emblaApi.canScrollPrev());
+            setCanScrollNext(emblaApi.canScrollNext());
+        });
+    }, [emblaApi]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+
+        updateButtons();
+        emblaApi.on("select", updateButtons);
+        emblaApi.on("reInit", updateButtons);
+
+        return () => {
+            emblaApi.off("select", updateButtons);
+            emblaApi.off("reInit", updateButtons);
+        };
+    }, [emblaApi, updateButtons]);
+
+    return (
+        <div className={styles.carousel}>
+            <div className={styles["carousel-header"]}>
+                <div className={styles["carousel-title"]}>
+                    <Icon />
+                    <h3>{title}</h3>
+                </div>
+                <div className={styles["carousel-header-buttons"]}>
+                    <Button
+                        variant="secondary"
+                        size="s"
+                        className={styles["carousel-button"]}
+                    >
+                        Все
+                    </Button>
+                    <div className={styles["carousel-header-controls"]}>
+                        <Button
+                            variant="secondary"
+                            square
+                            icon={ChevronLeftIcon}
+                            onClick={scrollPrev}
+                            disabled={!canScrollPrev}
+                            className={styles["carousel-button"]}
+                        />
+                        <Button
+                            variant="secondary"
+                            square
+                            icon={ChevronRightIcon}
+                            onClick={scrollNext}
+                            disabled={!canScrollNext}
+                            className={styles["carousel-button"]}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.viewport} ref={emblaRef}>
+                <div className={styles["carousel-flexbox"]}>
+                    {items.map((item) => (
+                        <CarouselItem key={item.id} img={item.img} link={item.link} />
+                    ))}
+                </div>
+            </div>
         </div>
-        <div className={styles["carousel-header-buttons"]}>
-          <Button
-            variant="secondary"
-            size="s"
-            className={styles["carousel-button"]}
-          >
-            Все
-          </Button>
-          <div className={styles["carousel-header-controls"]}>
-            <Button
-              variant="secondary"
-              square
-              icon={ChevronLeftIcon}
-              onClick={scrollPrev}
-              disabled={!canScrollPrev}
-              className={styles["carousel-button"]}
-            />
-            <Button
-              variant="secondary"
-              square
-              icon={ChevronRightIcon}
-              onClick={scrollNext}
-              disabled={!canScrollNext}
-              className={styles["carousel-button"]}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.viewport} ref={emblaRef}>
-        <div className={styles["carousel-flexbox"]}>
-          {items.map((item) => (
-            <CarouselItem key={item.id} img={item.img} link={item.link} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };

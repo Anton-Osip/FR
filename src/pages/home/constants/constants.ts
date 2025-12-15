@@ -1,8 +1,8 @@
-import { mockData } from "@widgets/Carousel/mockData";
 import { FlashIcon } from "@shared/ui/icons/";
 import { SevenIcon } from "@shared/ui/icons/";
 import { MicrophoneIcon } from "@shared/ui/icons/";
 import { FireIcon } from "@shared/ui/icons/";
+import { mockData } from "@widgets/Carousel/mockData";
 
 export const carouselData = [
   {
