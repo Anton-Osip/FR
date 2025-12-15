@@ -33,6 +33,10 @@
   margin: 0 auto;
 }
 
+.tabScreenMenu {
+  display: none !important;
+}
+
 @media screen and (max-width: 864px) {
   .layout {
     grid-template-columns: auto;
@@ -41,7 +45,12 @@
       "content"
       "footer";
   }
+
   .sidebarLayout {
     display: none !important;
+  }
+
+  .tabScreenMenu {
+    display: flex !important;
   }
 }

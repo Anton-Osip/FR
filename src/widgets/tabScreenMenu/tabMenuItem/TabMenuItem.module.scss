@@ -1,0 +1,46 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.tabMenuItem {
+  flex: 1;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
+  padding: $spacing-9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-xxs;
+  cursor: pointer;
+  transition: color $transition-hover;
+  position: relative;
+  z-index: 1;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(0);
+    transform-origin: bottom center;
+    width: 60px;
+    height: 50px;
+    background-color: $color-bg-block;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    transform: translate(-50%, -50%) scaleY(1);
+    opacity: 1;
+  }
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
