@@ -1,0 +1,31 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 155px;
+  aspect-ratio: 155 / 208;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: transform $transition-hover;
+
+  &:hover {
+    transform: translateY(-$spacing-5xs);
+  }
+}
+
+@media (max-width: $media-laptop-plus) {
+  .carousel-item {
+    width: 121px;
+    aspect-ratio: 121 / 165;
+  }
+}
+
+@media (max-width: $media-tab-mini) {
+  .carousel-item {
+    width: 114px;
+    aspect-ratio: 114 / 149;
+  }
+}

@@ -1,8 +1,8 @@
 import { mockData } from "@widgets/Carousel/mockData";
-import { ReactComponent as FireIcon } from "@assets/icons/fire.svg";
-import { ReactComponent as SevenIcon } from "@assets/icons/77.svg";
-import { ReactComponent as MicoIcon } from "@assets/icons/microphone-2.svg";
-import { ReactComponent as FlashIcon } from "@assets/icons/flash.svg";
+import { FlashIcon } from "@shared/ui/icons/";
+import { SevenIcon } from "@shared/ui/icons/";
+import { MicrophoneIcon } from "@shared/ui/icons/";
+import { FireIcon } from "@shared/ui/icons/";
 
 export const carouselData = [
   {
@@ -16,7 +16,7 @@ export const carouselData = [
     items: mockData,
   },
   {
-    icon: MicoIcon,
+    icon: MicrophoneIcon,
     title: "Live-игры",
     items: mockData,
   },
