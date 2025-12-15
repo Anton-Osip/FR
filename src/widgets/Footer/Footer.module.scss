@@ -9,9 +9,7 @@
   max-width: $container-max-width;
   width: 100%;
   margin: 0 auto;
-
   display: grid;
-
   grid-template-columns: 1fr auto;
   grid-template-areas:
     "logo logo"
@@ -61,8 +59,10 @@
   grid-area: support;
 }
 
-.separatorMoney {
+.footerMoney {
   grid-area: money;
+  display: flex;
+  gap: $spacing-xxs;
 }
 
 .footerLtdText {
@@ -84,23 +84,27 @@
   grid-area: sep-support;
 }
 
-.footerMoney {
-  display: flex;
-  gap: $spacing-xxs;
-}
-
-@media screen and (max-width: $media-laptop-plus) {
+@media screen and (max-width: $media-tab) {
   .footerGrid {
+    grid-template-columns: 1fr;
     grid-template-areas:
-    "logo logo"
-    "rights rights"
-    "telegram telegram"
-    "sep-menu sep-menu"
-    "menu menu"
-    "support support"
-    "sep-money sep-money"
-    "money money"
-    "sep-support sep-support"
-    ;
+      "logo"
+      "rights"
+      "telegram"
+      "sep-menu"
+      "menu"
+      "sep-money"
+      "money"
+      "sep-support"
+      "support";
+  }
+
+  .footerLtdText {
+    display: none;
+  }
+
+  .footerTelegram {
+    justify-self: start;
+    margin-top: $spacing-md;
   }
 }
