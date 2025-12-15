@@ -54,6 +54,11 @@
   }
 }
 
+.viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
 @media (max-width: $media-laptop) {
   .carousel-title {
     h3 {
