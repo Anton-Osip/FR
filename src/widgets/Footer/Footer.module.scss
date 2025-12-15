@@ -1,11 +1,15 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .footer {
-  padding: $spacing-2xl 240px;
+  padding: $spacing-2xl $spacing-md;
   background-color: $color-bg-banner;
 }
 
-.footer-grid {
+.footerGrid {
+  max-width: $container-max-width;
+  width: 100%;
+  margin: 0 auto;
+
   display: grid;
 
   grid-template-columns: 1fr auto;
@@ -27,119 +31,76 @@
   margin: $spacing-xl 0;
 }
 
-.footer-logo {
+.logo {
   grid-area: logo;
 }
 
-.footer-rights {
+.footerRight {
   grid-area: rights;
   color: $color-text-secondary;
   font-weight: $font-weight-light;
   margin-top: $spacing-md;
 }
 
-.footer-telegram {
+.footerTelegram {
   grid-area: telegram;
   color: $color-text-primary;
   background-color: $color-bg-on-block;
-  width: fit-content;
   justify-self: end;
 
-  &-gradient {
-    fill: url(#tgGradient);
-  }
-
-  &:hover {
-    background-color: $color-bg-on-block-hover;
+  & > span:nth-child(1) {
+    height: auto !important;
   }
 }
 
-.footer-menu {
+.footerMenu {
   grid-area: menu;
 }
 
-.footer-support {
+.footerSupport {
   grid-area: support;
 }
 
-.footer-money {
+.separatorMoney {
   grid-area: money;
 }
 
-.footer-ltd-text {
+.footerLtdText {
   grid-area: ltd;
   color: $color-bg-on-block-hover;
   font-weight: 450;
   font-size: $font-size-xs-plus;
 }
 
-.separator-menu {
+.separatorMenu {
   grid-area: sep-menu;
 }
 
-.separator-money {
+.separatorMoney {
   grid-area: sep-money;
 }
 
-.separator-support {
+.separatorSupport {
   grid-area: sep-support;
 }
 
-.footer-money {
+.footerMoney {
   display: flex;
   gap: $spacing-xxs;
 }
 
-@media (max-width: $media-desktop) {
-  .footer {
-    padding: $spacing-3xl;
-  }
-}
-
-@media (max-width: $media-laptop) {
-  .footer {
-    padding: $spacing-2xl;
-  }
-
-  .footer-grid {
+@media screen and (max-width: $media-laptop-plus) {
+  .footerGrid {
     grid-template-areas:
-      "logo logo"
-      "rights rights"
-      "sep-menu sep-menu"
-      "menu menu"
-      "sep-money sep-money"
-      "money telegram"
-      "sep-support sep-support"
-      "support support"
-      "ltd ltd";
-  }
-}
-
-@media (max-width: $media-tab) {
-  .footer {
-    padding: $spacing-md;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "logo"
-      "rights"
-      "telegram"
-      "sep-menu"
-      "menu"
-      "sep-money"
-      "money"
-      "sep-support"
-      "support";
-  }
-
-  .footer-ltd-text {
-    display: none;
-  }
-
-  .footer-telegram {
-    justify-self: start;
-    margin-top: $spacing-md;
+    "logo logo"
+    "rights rights"
+    "telegram telegram"
+    "sep-menu sep-menu"
+    "menu menu"
+    "support support"
+    "sep-money sep-money"
+    "money money"
+    "sep-support sep-support"
+    ;
   }
 }
