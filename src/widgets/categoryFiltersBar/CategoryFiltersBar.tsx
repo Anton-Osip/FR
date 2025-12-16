@@ -80,7 +80,7 @@ export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({className}) => 
                 className={`${styles.inputWrapper} ${isInputExpanded ? styles.inputWrapperExpanded : ''}`}
                 onClick={handleInputWrapperClick}
             >
-                <Input ref={inputRef} icon={<SearchIcon/>}/>
+                <Input ref={inputRef} icon={<SearchIcon/>} placeholder={"Поиск"}/>
             </div>
         </div>
     );

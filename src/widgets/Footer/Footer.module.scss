@@ -1,7 +1,7 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .footer {
-  padding: $spacing-2xl $spacing-md;
+  padding: 43px $spacing-md $spacing-2xl;
   background-color: $color-bg-banner;
 }
 
@@ -26,7 +26,7 @@
   background-color: $color-bg-on-block;
   height: 1px;
   width: 100%;
-  margin: $spacing-xl 0;
+  margin: 28px 0;
 }
 
 .logo {
@@ -37,7 +37,7 @@
   grid-area: rights;
   color: $color-text-secondary;
   font-weight: $font-weight-light;
-  margin-top: $spacing-md;
+  margin-top: 9px;
 }
 
 .footerTelegram {
@@ -63,6 +63,7 @@
   grid-area: money;
   display: flex;
   gap: $spacing-xxs;
+  height: 39px;
 }
 
 .footerLtdText {
@@ -78,10 +79,12 @@
 
 .separatorMoney {
   grid-area: sep-money;
+  margin-bottom: 32px;
 }
 
 .separatorSupport {
   grid-area: sep-support;
+  margin-bottom: 38px;
 }
 
 @media screen and (max-width: $media-laptop) {

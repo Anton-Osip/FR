@@ -3,10 +3,11 @@
 .footer-money-item {
   background-color: $color-bg-on-block;
   border-radius: $radius-xxl;
-  padding: $spacing-xs $spacing-md;
+  padding: 10px 8px 10px 16px;
   display: flex;
-  gap: $spacing-xs;
+  gap: 11px;
   align-items: center;
+  letter-spacing: -0.16px;
 
   &-wrap {
     display: flex;
@@ -27,9 +28,11 @@
     &:nth-child(1) {
       z-index: 1;
     }
+
     &:nth-child(2) {
       z-index: 2;
     }
+
     &:nth-child(3) {
       z-index: 3;
     }
@@ -66,7 +69,7 @@
 @media (max-width: $media-mobile-mini) {
   .footer-money-item {
     justify-content: center;
-    
+
     span {
       display: none;
     }

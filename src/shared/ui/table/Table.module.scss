@@ -31,6 +31,7 @@
   width: 100%;
   transition: background $transition-hover;
   cursor: pointer;
+  height: 39px;
 
   &:hover {
     background: $color-bg-on-block;
@@ -48,10 +49,11 @@
   background: $color-bg-on-block;
 
   &:first-of-type {
-    padding-left: $spacing-md;
+    padding-left: 17px;
   }
   &:last-of-type {
     padding-right: $spacing-md;
+    padding-left: 0;
   }
 }
 

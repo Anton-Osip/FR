@@ -1,7 +1,7 @@
 @use "../../../../shared/styles/variables.scss" as *;
 
 .footer-support {
-  padding: $spacing-md;
+  padding: 20px 16px 16px 16px;
   border-radius: $radius-xl;
   height: fit-content;
   background: linear-gradient(rgba(22, 28, 41, 0.8), rgba(22, 28, 41, 0.8)),
@@ -15,8 +15,12 @@
   h3 {
     font-size: $font-size-lg;
     display: flex;
-    margin-bottom: 25px;
+    margin-bottom: 23px;
     gap: $spacing-xxs;
+    letter-spacing: -0.2px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 28px */
   }
 
   button {
@@ -32,7 +36,7 @@
     font-size: $font-size-xs-plus;
     font-weight: $font-weight-bold;
     background-color: $color-primary;
-    padding: $spacing-4xs $spacing-12;
+    padding: 1px 13px;
     border-radius: 160px;
   }
 }

@@ -7,6 +7,10 @@
   gap: $spacing-xxs;
 }
 
+.game {
+  padding-left: 10px;
+}
+
 .userAvatar {
   width: $spacing-lg;
   height: $spacing-lg;
@@ -22,9 +26,9 @@
 }
 
 .gameIcon {
-  width: $spacing-sm-plus;
-  height: $spacing-lg;
-  border-radius: $radius-md;
+  width: 15px;
+  height: 19px;
+  border-radius: 2px;
   background: $color-bg-on-block;
 }
 
@@ -42,6 +46,14 @@
   font-weight: $font-weight-light;
   font-size: $font-size-md;
   color: $color-text-secondary;
+}
+
+.payoutCell{
+  padding-left: 0;
+}
+
+.gameCellBody {
+  padding-left: 11px;
 }
 
 .payoutCell--win {

@@ -8,12 +8,13 @@
 }
 
 .footer-column-title {
-  margin-bottom: $spacing-md;
+  margin-bottom: 15px;
+  letter-spacing: -0.16px;
 }
 
 .footer-links {
   li:not(:last-child) {
-    margin-bottom: $spacing-md;
+    margin-bottom: 10px;
   }
   li {
     a {

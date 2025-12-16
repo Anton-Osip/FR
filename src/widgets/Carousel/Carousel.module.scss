@@ -24,7 +24,11 @@
     align-items: center;
 
     h3 {
-      font-size: $font-size-xl;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.26px;
     }
 
     svg {
