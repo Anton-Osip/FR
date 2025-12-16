@@ -84,6 +84,21 @@
   grid-area: sep-support;
 }
 
+@media screen and (max-width: $media-laptop) {
+  .footerGrid {
+    grid-template-areas:
+      "logo logo"
+      "rights rights"
+      "sep-menu sep-menu"
+      "menu menu"
+      "sep-money sep-money"
+      "money telegram"
+      "sep-support sep-support"
+      "support support"
+      "ltd ltd";
+  }
+}
+
 @media screen and (max-width: $media-tab) {
   .footerGrid {
     grid-template-columns: 1fr;

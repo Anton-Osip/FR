@@ -1,12 +1,12 @@
 @use "sass:string";
 
-$container-max-width:1184px;
+$container-max-width: 1184px;
 
 // Цвета
 $color-primary: #1873f2;
 $color-button-hover: #3580e9;
-$color-bg:#090D14;
-$color-bg-banner: #0F141F;
+$color-bg: #090d14;
+$color-bg-banner: #0f141f;
 $color-bg-block: #131824;
 $color-bg-on-block: #212738;
 $color-bg-on-block-hover: #282f42;
@@ -15,7 +15,7 @@ $color-text-secondary: #727e9b;
 $color-like-primary: #f2ba49;
 $color-like-default: #313b52;
 $color-win-primary: #00e544;
-$color-neutral: #E1E4EA;
+$color-neutral: #e1e4ea;
 
 // Шрифты
 $font-family-base: "SuisseIntl", sans-serif;
@@ -41,7 +41,6 @@ $tracking-light: -0.26px;
 $tracking-normal: 0;
 //$tracking-wide: 0.02em;
 //$tracking-wider: 0.88em;
-
 
 // Отступы
 $spacing-5xs: 4px;
@@ -75,15 +74,13 @@ $aspect-square: string.unquote("1 / 1");
 $aspect-video: string.unquote("16 / 9");
 $aspect-terminal: string.unquote("9 / 16");
 
-
 // Плавные переходы
 $transition-hover: 0.3s ease;
 
 // медиазапросы
 $media-desktop: 1440px;
 $media-laptop-plus: 1200px;
-$media-laptop: 1000px;
-$media-tab: 800px;
+$media-laptop: 1024px;
+$media-tab: 864px;
 $media-tab-mini: 600px;
 $media-mobile: 390px;
-

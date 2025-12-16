@@ -37,7 +37,7 @@
   display: none !important;
 }
 
-@media screen and (max-width: 864px) {
+@media screen and (max-width: $media-tab) {
   .layout {
     grid-template-columns: auto;
     grid-template-areas:

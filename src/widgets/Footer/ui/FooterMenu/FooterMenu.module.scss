@@ -28,6 +28,13 @@
   }
 }
 
+@media (max-width: $media-laptop) {
+  .footer-menu {
+    margin-right: 0;
+    gap: $spacing-lg-plus;
+  }
+}
+
 @media (max-width: $media-tab) {
   .footer-menu {
     grid-template-columns: repeat(2, 1fr);
