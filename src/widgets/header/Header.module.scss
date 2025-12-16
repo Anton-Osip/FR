@@ -29,7 +29,7 @@
 
 
 
-@media screen and (max-width: 678px) {
+@media screen and (max-width: $media-tab-mini) {
   .header {
     padding:$spacing-12 $spacing-md;
   }
