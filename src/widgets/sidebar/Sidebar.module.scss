@@ -8,7 +8,7 @@
   min-height: 100dvh;
   max-height: 1080px;
   background: $color-bg-block;
-  padding: 17px 14px 16px 18px;
+  padding: 17px 14px 16px 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -17,6 +17,7 @@
 
   &.isOpen {
     max-width: 83px;
+    padding: 17px 14px 16px 18px;
 
     & .navigation{
       margin-top: -4px;

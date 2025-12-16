@@ -22,3 +22,4 @@ export { WindowIcon } from "./WindowIcon.tsx";
 export { FireIcon } from "./FireIcon.tsx";
 export { SearchSecondaryIcon } from "./SearchSecondaryIcon.tsx";
 export { BurgerSecondaryIcon } from "./BurgerSecondaryIcon.tsx";
+export { ChevronHeaderIcon } from "./ChevronHeaderIcon.tsx";

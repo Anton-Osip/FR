@@ -9,10 +9,21 @@
   transition: color $transition-hover;
 
   .text {
-    font-family: 'Suisse Intl', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
+    font-family: $font-family-base;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    letter-spacing: $tracking-light;
+  }
+}
+
+@media screen and (max-width: $media-tab) {
+  .brand{
+    .text {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-base;
+      letter-spacing: -0.2px;
+      line-height: 140%;
+    }
   }
 }
 
