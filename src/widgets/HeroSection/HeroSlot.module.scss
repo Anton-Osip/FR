@@ -115,9 +115,12 @@
   }
 }
 
-@media screen and (max-width: $media-laptop-plus) {
+@media screen and (max-width: $media-tab-mini-plus) {
   .slotCarousel {
     border-radius: 16px;
+  }
+  .heroSlot {
+    padding-top: 26px;
   }
 }
 

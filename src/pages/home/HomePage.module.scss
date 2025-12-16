@@ -3,9 +3,9 @@
 .main-carousel-section {
   display: flex;
   flex-direction: column;
-  gap: 39px;
+  gap: 31px;
   margin-top: $spacing-xl;
-  margin-bottom: 55px;
+  margin-bottom: 46px;
 }
 
 .tableFilter {
@@ -51,7 +51,7 @@
   .main-carousel-section {
     margin-top: 23px;
     margin-bottom: 19px;
-    gap: 25px;
+    gap: 23px;
   }
 
   .tabs {
@@ -75,6 +75,10 @@
     gap: $spacing-md;
   }
   .main-carousel-section {
-    gap: 24px;
+    gap: 23px;
+  }
+
+  .tableFilter {
+    margin-bottom:18px;
   }
 }

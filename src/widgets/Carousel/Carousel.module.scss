@@ -4,7 +4,7 @@
   &-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 17px;
+    margin-bottom: 25px;
 
     &-buttons {
       display: flex;
@@ -66,6 +66,11 @@
 }
 
 @media (max-width: $media-laptop) {
+  .carousel {
+    &-header {
+      margin-bottom: 18px;
+    }
+  }
   .carousel-title {
     h3 {
       font-size: $font-size-lg;
