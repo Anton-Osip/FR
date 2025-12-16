@@ -39,9 +39,9 @@ const selectItems = [
 export const HomePage = () => {
   return (
     <>
+      <HeroSection />
+      <CategoryFiltersBar />
       <div className={styles["main-carousel-section"]}>
-        <HeroSection />
-        <CategoryFiltersBar />
         {carouselData.map((item) => {
           return (
             <Carousel
@@ -52,21 +52,17 @@ export const HomePage = () => {
             />
           );
         })}
-        <div className={styles.tableFilter}>
-          <h4 className={styles.title}>Таблица ставок</h4>
-          <div className={styles.wrapper}>
-            <Tabs items={TabsItem} size={"s"} />
-            <div className={styles.dropdownWrapper}>
-              <Dropdown
-                value={"10"}
-                options={selectItems}
-                onChange={() => {}}
-              />
-            </div>
+      </div>
+      <div className={styles.tableFilter}>
+        <h4 className={styles.title}>Таблица ставок</h4>
+        <div className={styles.wrapper}>
+          <Tabs items={TabsItem} size={"s"} />
+          <div className={styles.dropdownWrapper}>
+            <Dropdown value={"10"} options={selectItems} onChange={() => {}} />
           </div>
         </div>
-        <BettingTable items={TABLE_DATA} />
       </div>
+      <BettingTable items={TABLE_DATA} />
     </>
   );
 };

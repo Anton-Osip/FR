@@ -3,8 +3,9 @@
 .main-carousel-section {
   display: flex;
   flex-direction: column;
-  padding: 24px;
   gap: $spacing-xl;
+  margin-top: $spacing-xl;
+  margin-bottom: $spacing-2xl;
 }
 
 .tableFilter {
@@ -14,14 +15,13 @@
 }
 
 .title {
-  color: #FFF;
+  color: #fff;
   font-size: 26px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.26px;
 }
-
 
 .wrapper {
   display: flex;
@@ -43,7 +43,6 @@
   .title {
     font-size: 20px;
   }
-
 }
 
 @media screen and (max-width: 768px) {
