@@ -53,7 +53,6 @@ export const HomePage = () => {
           );
         })}
       </div>
-
       <div className={styles.tableFilter}>
         <h4 className={styles.title}>Таблица ставок</h4>
         <div className={styles.wrapper}>

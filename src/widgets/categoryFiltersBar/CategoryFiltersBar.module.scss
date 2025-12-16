@@ -24,13 +24,15 @@
   padding-right: 0;
 }
 
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: $media-laptop) {
   .root {
     background: transparent;
     gap: 8px;
     width: 100%;
     overflow: hidden;
+    padding-right: 0;
   }
+
   .tabs {
     order: 2;
     padding-right: 6px;
@@ -44,6 +46,8 @@
     height: 100%;
     padding: 6px;
     transition: max-width $transition-hover;
+    background-color: $color-bg-block;
+    border-radius: $radius-lg;
 
     &:focus-within,
     &.inputWrapperExpanded {
