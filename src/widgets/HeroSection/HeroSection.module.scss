@@ -149,6 +149,18 @@
   }
 }
 
+@media (max-width: $media-mobile-plus) {
+  .hero {
+    &-slot {
+      height: 240px;
+    }
+
+    &-cashback {
+      height: 240px;
+    }
+  }
+}
+
 @media (max-width: $media-mobile) {
   .hero {
     &-bonus {
@@ -161,6 +173,43 @@
 
     &-cashback {
       height: 224px;
+    }
+  }
+}
+
+@media (max-width: $media-mobile-mini) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "bonus"
+      "slot"
+      "cashback";
+
+    &-bonus {
+      padding: $spacing-md;
+
+      h3 {
+        font-size: $font-size-lg;
+      }
+
+      &-number {
+        top: 12px;
+        left: 108px;
+      }
+    }
+
+    &-slot {
+      height: 179px;
+      background-position: top;
+      background-size: cover;
+      padding: $spacing-md;
+    }
+
+    &-cashback {
+      height: 179px;
+      background-position: center;
+      background-size: cover;
+      padding: $spacing-md;
     }
   }
 }
