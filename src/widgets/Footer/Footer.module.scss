@@ -147,3 +147,9 @@
 
 
 }
+
+@media screen and (max-width: $media-tab-mini) {
+  .footer {
+    padding: 17px 16px 27px 16px;
+  }
+}

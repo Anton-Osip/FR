@@ -110,5 +110,13 @@
   .heroCashback {
     padding-top: 28px;
   }
+  .hero-cashback {
+    border-radius: 20px;
+  }
 }
 
+@media screen and (max-width: $media-laptop-plus) {
+  .hero-cashback {
+    border-radius: 16px;
+  }
+}

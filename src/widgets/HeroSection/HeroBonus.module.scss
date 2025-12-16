@@ -76,7 +76,6 @@
 
 .bonusAnimation {
   position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +131,7 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
-  .title{
+  .title {
     font-size: 26px;
     letter-spacing: -0.26px;
   }
@@ -141,13 +140,27 @@
     left: 134px;
     width: 142px;
   }
-  .heroBonus{
+  .heroBonus {
     padding: 24px;
+  }
+  .bonusAnimation {
+    bottom: -1px;
+    right: -10px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .hero-bonus-button {
+    margin-top: 6px;
+  }
+  .bonusAnimation {
+    bottom: 1px;
+    right: -40px;
   }
 }
 
 @media screen and (max-width: $media-mobile) {
-  .title{
+  .title {
     font-size: 20px;
     letter-spacing: -0.2px;
   }

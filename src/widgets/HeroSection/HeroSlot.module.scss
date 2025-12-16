@@ -103,12 +103,21 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
-  .slotTitle{
+  .slotTitle {
     font-size: 20px;
     letter-spacing: -0.2px;
   }
   .heroSlot {
     padding-top: 28px;
+  }
+  .slotCarousel {
+    border-radius: 20px;
+  }
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .slotCarousel {
+    border-radius: 16px;
   }
 }
 
