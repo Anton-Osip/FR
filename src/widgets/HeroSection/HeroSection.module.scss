@@ -8,24 +8,6 @@
   gap: $spacing-md;
   justify-content: center;
   height: 360px;
+  margin-bottom: 48px;
 }
 
-.hero-slot,
-.hero-cashback {
-  background: $color-bg-block;
-  border-radius: $radius-xl-plus;
-  color: $color-text-primary;
-  padding: $spacing-xl;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 360px;
-}
-
-.hero-slot {
-  grid-area: slot;
-}
-
-.hero-cashback {
-  grid-area: cashback;
-}
