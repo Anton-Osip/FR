@@ -44,3 +44,15 @@
     color: $color-text-primary;
   }
 }
+
+@media screen and (max-width: $media-mobile-mini) {
+  .tabMenuItem {
+    padding: $spacing-5xs;
+    font-size: $font-size-xxs;
+
+    &::before {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

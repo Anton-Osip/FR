@@ -48,6 +48,10 @@
       "footer";
   }
 
+  .layoutMain {
+    padding: $spacing-lg-plus $spacing-md;
+  }
+
   .sidebarLayout {
     display: none !important;
   }
