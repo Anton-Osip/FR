@@ -17,13 +17,20 @@
 }
 
 @media screen and (max-width: $media-tab) {
-  .brand{
+  .brand {
     .text {
       font-size: $font-size-lg;
       font-weight: $font-weight-base;
       letter-spacing: -0.2px;
       line-height: 140%;
     }
+  }
+}
+
+@media screen and (max-width: $media-mobile-mini) {
+  .brand {
+    gap: $spacing-5xs;
+    margin-right: $spacing-5xs;
   }
 }
 

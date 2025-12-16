@@ -21,16 +21,22 @@
     gap: $spacing-12;
   }
 
-  .chevronHeader{
+  .chevronHeader {
     padding-left: 0;
     padding-right: 0;
   }
 }
 
-
-
 @media screen and (max-width: $media-tab-mini) {
   .header {
-    padding:$spacing-12 $spacing-md;
+    padding: $spacing-12 $spacing-md;
+  }
+}
+
+@media screen and (max-width: $media-mobile-mini) {
+  .header {
+    .wrapper {
+      gap: $spacing-5xs;
+    }
   }
 }
