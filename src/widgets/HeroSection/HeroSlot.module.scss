@@ -3,6 +3,7 @@
 .slotCarousel {
   position: relative;
   grid-area: slot;
+  width: 100%;
   height: 100%;
   border-radius: $radius-xl-plus;
   background: $color-bg-block;
@@ -99,5 +100,12 @@
   background: $color-text-secondary;
   cursor: pointer;
   transition: background-color $transition-hover, transform $transition-hover;
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .slotTitle{
+    font-size: 20px;
+    letter-spacing: -0.2px;
+  }
 }
 

@@ -3,11 +3,28 @@
 .hero {
   width: 100%;
   display: grid;
+  aspect-ratio: 1184 / 360;
   grid-template-columns: 49.3% 24% 24%;
   grid-template-areas: "bonus slot cashback";
   gap: $spacing-md;
   justify-content: center;
-  height: 360px;
+  height: auto;
   margin-bottom: 48px;
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .hero {
+    aspect-ratio: 768 / 224;
+    grid-template-columns: 46.6% 24.2% 24.2%;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .hero {
+    aspect-ratio: 358 / 411;
+    grid-template-rows: 43.5% 54.5%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "bonus bonus""slot cashback";
+  }
 }
 

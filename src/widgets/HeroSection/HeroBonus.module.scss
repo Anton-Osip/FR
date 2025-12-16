@@ -3,6 +3,7 @@
 .heroBonusCarousel {
   position: relative;
   grid-area: bonus;
+  width: 100%;
   height: 100%;
   border-radius: $radius-xl-plus;
   overflow: hidden;
@@ -32,7 +33,7 @@
   background: $color-bg-block;
   color: $color-text-primary;
   overflow: hidden;
-  min-height: 360px;
+  height: 100%;
 }
 
 .title {
@@ -129,4 +130,28 @@
   cursor: pointer;
   transition: background-color $transition-hover, transform $transition-hover;
 }
+
+@media screen and (max-width: $media-laptop-plus) {
+  .title{
+    font-size: 26px;
+    letter-spacing: -0.26px;
+  }
+  .heroBonusNumber {
+    top: 3px;
+    left: 134px;
+    width: 142px;
+  }
+  .heroBonus{
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: $media-mobile) {
+  .title{
+    font-size: 20px;
+    letter-spacing: -0.2px;
+  }
+}
+
+
 
