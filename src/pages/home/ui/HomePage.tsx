@@ -39,33 +39,31 @@ export const HomePage = () => {
     return (
         <>
 
-            <div className={styles["main-carousel-section"]}>
-                <HeroSection/>
-                <CategoryFiltersBar/>
-                {carouselData.map((item) => {
-                    return (
-                        <Carousel
-                            key={item.title}
-                            icon={item.icon}
-                            title={item.title}
-                            items={item.items}
-                        />
-                    );
-                })}
-                <div className={styles.tableFilter}>
-                    <h4 className={styles.title}>Таблица ставок</h4>
-                    <div className={styles.wrapper}>
-                        <Tabs items={TabsItem} size={'s'}/>
-                        <div className={styles.dropdownWrapper}>
-                            <Dropdown value={'10'} options={selectItems}
-                                      onChange={() => {
-                                      }}/>
-                        </div>
-
+            <HeroSection/>
+            <CategoryFiltersBar/>
+            {carouselData.map((item) => {
+                return (
+                    <Carousel
+                        key={item.title}
+                        icon={item.icon}
+                        title={item.title}
+                        items={item.items}
+                    />
+                );
+            })}
+            <div className={styles.tableFilter}>
+                <h4 className={styles.title}>Таблица ставок</h4>
+                <div className={styles.wrapper}>
+                    <Tabs items={TabsItem} size={'s'}/>
+                    <div className={styles.dropdownWrapper}>
+                        <Dropdown value={'10'} options={selectItems}
+                                  onChange={() => {
+                                  }}/>
                     </div>
+
                 </div>
-                <BettingTable items={TABLE_DATA}/>
             </div>
+            <BettingTable items={TABLE_DATA}/>
         </>
     );
 };
