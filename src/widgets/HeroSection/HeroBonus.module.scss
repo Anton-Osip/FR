@@ -1,0 +1,132 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.heroBonusCarousel {
+  position: relative;
+  grid-area: bonus;
+  height: 100%;
+  border-radius: $radius-xl-plus;
+  overflow: hidden;
+}
+
+.heroBonusViewport {
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroBonusContainer {
+  display: flex;
+  height: 100%;
+}
+
+.heroBonusSlide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.heroBonus {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding: $spacing-xl;
+  background: $color-bg-block;
+  color: $color-text-primary;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+.title {
+  margin: 0;
+  font-size: 40px;
+  font-style: normal;
+  letter-spacing: -0.4px;
+  font-family: $font-family-base;
+  font-weight: $font-weight-base;
+  line-height: normal;
+  max-width: 400px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroBonusNumber {
+  position: absolute;
+  top: 8px;
+  left: 198px;
+  margin-top: $spacing-lg;
+  width: 240px;
+  max-width: 100%;
+  z-index: 1;
+}
+
+.hero-bonus-number {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.35));
+}
+
+.hero-bonus-button {
+  margin-top: auto;
+  width: fit-content;
+  box-shadow: 0 12px 32px rgba($color-primary, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.bonusAnimation {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.heroBonusPagination {
+  position: absolute;
+  right: $spacing-xl;
+  bottom: $spacing-xl;
+  display: flex;
+  width: 88px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 160px;
+  background: rgba($color-text-primary, 0.1);
+  padding: 4px;
+  z-index: 1;
+}
+
+.heroBonusPaginationTrack {
+  width: 56px;
+  height: 4px;
+  border-radius: 160px;
+  background: $color-text-primary;
+  display: flex;
+  align-items: center;
+}
+
+.heroBonusPaginationDots {
+  display: flex;
+  gap: $spacing-4xs;
+  align-items: center;
+}
+
+.heroBonusDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: $color-text-secondary;
+  cursor: pointer;
+  transition: background-color $transition-hover, transform $transition-hover;
+}
+

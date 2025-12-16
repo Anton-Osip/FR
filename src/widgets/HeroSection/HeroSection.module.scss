@@ -1,215 +1,31 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .hero {
+  width: 100%;
   display: grid;
-  grid-template-columns:
-    calc((100% - 2 * #{$spacing-md}) * 0.5)
-    calc((100% - 2 * #{$spacing-md}) * 0.25)
-    calc((100% - 2 * #{$spacing-md}) * 0.25);
+  grid-template-columns: 49.3% 24% 24%;
   grid-template-areas: "bonus slot cashback";
   gap: $spacing-md;
   justify-content: center;
-  margin-bottom: $spacing-2xl;
   height: 360px;
-
-  &-bonus {
-    grid-area: bonus;
-    background-color: $color-bg-block;
-    border-radius: $radius-xl-plus;
-    padding: $spacing-xl;
-    position: relative;
-    background-image: url("../../assets/images/hero-bonus.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
-
-    h3 {
-      font-size: 40px;
-      line-height: 100%;
-    }
-
-    &-number {
-      position: absolute;
-      top: 34px;
-      left: 214px;
-      width: 184px;
-      z-index: 10;
-      object-fit: cover;
-      filter: drop-shadow(11.9px 23.8px 35.7px rgba(173, 201, 255, 0.2))
-        drop-shadow(1.49px 2.98px 11.9px rgba(0, 0, 0, 0.05));
-    }
-
-    &-button {
-      position: absolute;
-      left: $spacing-xl;
-      bottom: $spacing-xl;
-    }
-  }
-
-  &-slot {
-    grid-area: slot;
-    background-color: $color-bg-block;
-    border-radius: $radius-xl-plus;
-    padding: $spacing-xl;
-    background-image: url("../../assets/images/hero-slot.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: contain;
-
-    h3 {
-      font-size: 32px;
-      text-align: center;
-      line-height: 100%;
-    }
-  }
-
-  &-cashback {
-    grid-area: cashback;
-    background-color: $color-bg-block;
-    border-radius: $radius-xl-plus;
-    padding: $spacing-xl;
-    background-image: url("../../assets/images/hero-cashback.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: contain;
-
-    h3 {
-      font-size: 32px;
-      text-align: center;
-      line-height: 100%;
-    }
-  }
 }
 
-@media (max-width: $media-laptop-plus) {
-  .hero {
-    height: 224px;
-    gap: $spacing-xxs;
-
-    &-bonus {
-      padding: $spacing-lg-plus;
-      font-size: $font-size-xl;
-
-      h3 {
-        font-size: $font-size-xl;
-        letter-spacing: -0.2px;
-      }
-
-      &-number {
-        top: 25px;
-        left: 144px;
-        width: 105px;
-      }
-
-      &-button {
-        left: $spacing-lg-plus;
-        bottom: $spacing-lg-plus;
-      }
-    }
-
-    &-slot {
-      padding: $spacing-lg-plus;
-
-      h3 {
-        font-size: $font-size-lg;
-        letter-spacing: -0.8px;
-      }
-    }
-
-    &-cashback {
-      padding: $spacing-lg-plus;
-
-      h3 {
-        font-size: $font-size-lg;
-        letter-spacing: -0.8px;
-      }
-    }
-  }
+.hero-slot,
+.hero-cashback {
+  background: $color-bg-block;
+  border-radius: $radius-xl-plus;
+  color: $color-text-primary;
+  padding: $spacing-xl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
 }
 
-@media (max-width: $media-tab-mini) {
-  .hero {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "bonus bonus"
-      "slot cashback";
-    height: fit-content;
-
-    &-bonus {
-      height: 200px;
-    }
-
-    &-slot {
-      height: 280px;
-    }
-
-    &-cashback {
-      height: 280px;
-    }
-  }
+.hero-slot {
+  grid-area: slot;
 }
 
-@media (max-width: $media-mobile-plus) {
-  .hero {
-    &-slot {
-      height: 240px;
-    }
-
-    &-cashback {
-      height: 240px;
-    }
-  }
-}
-
-@media (max-width: $media-mobile) {
-  .hero {
-    &-bonus {
-      height: 179px;
-    }
-
-    &-slot {
-      height: 224px;
-    }
-
-    &-cashback {
-      height: 224px;
-    }
-  }
-}
-
-@media (max-width: $media-mobile-mini) {
-  .hero {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "bonus"
-      "slot"
-      "cashback";
-
-    &-bonus {
-      padding: $spacing-md;
-
-      h3 {
-        font-size: $font-size-lg;
-      }
-
-      &-number {
-        top: 12px;
-        left: 108px;
-      }
-    }
-
-    &-slot {
-      height: 179px;
-      background-position: top;
-      background-size: cover;
-      padding: $spacing-md;
-    }
-
-    &-cashback {
-      height: 179px;
-      background-position: center;
-      background-size: cover;
-      padding: $spacing-md;
-    }
-  }
+.hero-cashback {
+  grid-area: cashback;
 }
