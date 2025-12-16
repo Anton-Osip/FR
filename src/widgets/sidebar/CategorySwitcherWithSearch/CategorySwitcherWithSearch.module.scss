@@ -47,7 +47,7 @@
   background-position: center center;
   background-size: 57px 57px;
   background-repeat: no-repeat;
-  transition: height $transition-hover, padding $transition-hover;
+  transition: all $transition-hover;
 
   & > span {
     opacity: 1;
