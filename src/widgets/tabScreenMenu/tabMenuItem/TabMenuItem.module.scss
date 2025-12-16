@@ -36,7 +36,7 @@
     transform: translate(-50%, -50%) scaleY(0);
     transform-origin: bottom center;
     width: 60px;
-    height: 50px;
+    height: 42px;
     background-color: $color-bg-block;
     border-radius: $radius-full;
     z-index: -1;
@@ -61,7 +61,7 @@
 
     &::before {
       width: 40px;
-      height: 40px;
+      height: 32px;
     }
   }
 }

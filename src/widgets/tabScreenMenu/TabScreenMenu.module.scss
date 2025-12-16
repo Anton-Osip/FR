@@ -1,6 +1,7 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .tabMenu {
+  margin-top: 10px;
   background-color: $color-bg-block;
   display: flex;
   color: $color-text-secondary;
