@@ -47,6 +47,7 @@
   max-width: 400px;
   position: relative;
   z-index: 1;
+  color: white;
 }
 
 .heroBonusNumber {
@@ -101,7 +102,7 @@
   align-items: center;
   gap: 4px;
   border-radius: 160px;
-  background: rgba($color-text-primary, 0.1);
+  background: rgba(white, 0.1);
   padding: 4px;
   z-index: 1;
 }
