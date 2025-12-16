@@ -1,6 +1,7 @@
 @use "../../styles/variables" as *;
 
 .root {
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -26,10 +27,12 @@
   }
   &.input-size-s {
     padding: $spacing-9 $spacing-md $spacing-9 $spacing-13;
+    max-height: 39px ;
   }
 
   &.input-size-m {
     padding: $spacing-12 $spacing-md $spacing-13 $spacing-13;
+    max-height: 47px ;
   }
 }
 

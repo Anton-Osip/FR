@@ -17,12 +17,12 @@ export const CategorySwitcherWithSearch: FC<CategorySwitcherWithSearchProps> = (
             inputRef.current.focus()
         }
     }
-    return (<div className = {`${styles.root} ${isOpen ? '' : styles.isOpen}`}>
-        <Button className = {styles.casinoButton} variant = {'primary'} size = {'m'} fullWidth>Казино</Button>
-        <Button className = {styles.sportButton} variant = {'secondary'} size = {'m'} fullWidth>Спорт</Button>
-        <div onClick = {focusOnInput} className = {styles.searchInput}>
-            <Input ref = {inputRef} size = {'m'} placeholder = {'label'} icon = {<SearchIcon/>}
-                   onFocus = {openSidebar}/>
+    return (<div className={`${styles.root} ${isOpen ? '' : styles.isOpen}`}>
+        <Button className={styles.casinoButton} variant={'primary'} size={'m'} fullWidth>Казино</Button>
+        <Button className={styles.sportButton} variant={'secondary'} size={'m'} fullWidth>Спорт</Button>
+        <div onClick={focusOnInput} className={styles.searchInput}>
+            <Input ref={inputRef} size={'m'} placeholder={'Поиск'} icon={<SearchIcon/>}
+                   onFocus={openSidebar}/>
         </div>
 
     </div>)

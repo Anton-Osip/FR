@@ -8,7 +8,7 @@
   min-height: 100dvh;
   max-height: 1080px;
   background: $color-bg-block;
-  padding: $spacing-md;
+  padding: 17px 14px 16px 18px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -17,10 +17,25 @@
 
   &.isOpen {
     max-width: 83px;
+
+    & .navigation{
+      margin-top: -4px;
+      margin-left: -2px;
+    }
   }
 }
 
+.burgerButton {
+  margin-left: -15px;
+  transition: margin-left 0.5s ease;
+}
+
+.isOpenBurger {
+  margin-left: -3px;
+}
+
 .navigation {
+  margin-top: 1px;
   width: 100%;
   flex-grow: 1;
   display: flex;
@@ -28,5 +43,4 @@
   align-items: flex-start;
   gap: $spacing-md;
   position: relative;
-  margin-bottom: 50px;
 }

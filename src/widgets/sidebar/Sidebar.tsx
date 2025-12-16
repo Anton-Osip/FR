@@ -61,7 +61,7 @@ export const Sidebar: FC<SidebarProps> = ({className}) => {
         setIsOpen(true)
     }
     return <div className = {`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
-        <Button variant = {'ghost'} onClick = {toggleIsOpen}><BurgerIcon/></Button>
+        <Button variant = {'ghost'} onClick = {toggleIsOpen} className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}><BurgerIcon/></Button>
         <CategorySwitcherWithSearch isOpen = {isOpen} openSidebar = {openSidebar}/>
         <nav className = {styles.navigation}>
             <MenuSection list = {NavigationItems} title = "Навигация" isOpen = {isOpen}/>

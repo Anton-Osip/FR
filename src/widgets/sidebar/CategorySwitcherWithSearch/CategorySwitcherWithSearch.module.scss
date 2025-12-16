@@ -10,6 +10,8 @@
   &.isOpen {
     display: flex;
     flex-direction: column;
+    margin-left: -2px;
+
 
     & .casinoButton,
     & .sportButton {
@@ -40,9 +42,8 @@
   }
 }
 
-
-.casinoButton {
-  background-image: url("../../../shared/assets/icons/slot.svg");
+.sportButton,
+.casinoButton{
   background-position: center center;
   background-size: 57px 57px;
   background-repeat: no-repeat;
@@ -56,18 +57,12 @@
   }
 }
 
-.sportButton {
-  background-size: 57px 57px;
-  background: $color-bg-on-block url("../../../shared/assets/icons/sport.svg") no-repeat center center;
-  color: $color-text-primary;
-  transition: height $transition-hover, padding $transition-hover;
+.casinoButton {
+  background-image: url("../../../shared/assets/icons/slot.svg");
+}
 
-  & > span {
-    opacity: 1;
-    visibility: visible;
-    max-width: 100%;
-    transition: opacity $transition-hover, visibility $transition-hover, max-width $transition-hover;
-  }
+.sportButton {
+  background: $color-bg-on-block url("../../../shared/assets/icons/sport.svg") no-repeat center center;
 }
 
 .searchInput {
