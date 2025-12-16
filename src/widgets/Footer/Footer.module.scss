@@ -10,7 +10,7 @@
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
     "logo logo"
     "rights rights"
@@ -101,7 +101,7 @@
 
 @media screen and (max-width: $media-tab) {
   .footerGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "logo"
       "rights"

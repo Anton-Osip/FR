@@ -117,3 +117,4 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
     </div>
   );
 };
+

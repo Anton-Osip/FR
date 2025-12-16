@@ -62,3 +62,13 @@
     justify-content: space-between;
   }
 }
+
+@media (max-width: $media-mobile-mini) {
+  .footer-money-item {
+    justify-content: center;
+    
+    span {
+      display: none;
+    }
+  }
+}

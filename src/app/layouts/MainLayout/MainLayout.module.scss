@@ -7,7 +7,7 @@
     "sidebar header"
     "sidebar content"
     "sidebar footer";
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
   background-color: $color-bg;
   color: $color-text-primary;
@@ -25,11 +25,13 @@
   grid-area: content;
   padding: $spacing-2xl $spacing-md;
   overflow: auto;
+  width: 100%;
 }
 
 .layoutMainContainer {
   max-width: $container-max-width;
   width: 100%;
+
   margin: 0 auto;
 }
 
@@ -39,7 +41,7 @@
 
 @media screen and (max-width: $media-tab) {
   .layout {
-    grid-template-columns: auto;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "header"
       "content"

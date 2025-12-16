@@ -79,3 +79,11 @@
     gap: $spacing-xxs;
   }
 }
+
+@media (max-width: $media-mobile-mini) {
+  .carousel-title {
+    svg {
+      display: none;
+    }
+  }
+}
