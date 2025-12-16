@@ -54,8 +54,13 @@
 
   .balanceCard .btn {
     gap: 0;
-    padding:$spacing-9;
+    padding: $spacing-9;
   }
-
 }
 
+@media screen and (max-width: $media-mobile-mini) {
+  .balanceCard {
+    gap: $spacing-xxs;
+    padding: 0 0 0 $spacing-xxs;
+  }
+}
