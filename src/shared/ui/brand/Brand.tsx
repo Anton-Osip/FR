@@ -8,7 +8,9 @@ interface BrandProps {
 
 export const Brand: FC<BrandProps> = ({className}) => {
     return <div className={`${styles.brand} ${className ? className : ""}`}>
-        <FrostyIcon/>
+        <div className={styles.frostyIcon}>
+            <FrostyIcon/>
+        </div>
         <span className={styles.text}>Frosty</span>
     </div>
 }

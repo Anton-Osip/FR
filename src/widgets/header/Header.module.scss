@@ -27,9 +27,9 @@
   }
 }
 
-@media screen and (max-width: $media-tab-mini) {
+@media screen and (max-width: $media-tab) {
   .header {
-    padding: $spacing-12 $spacing-md;
+    padding: 12px $spacing-md 10px $spacing-md;
   }
 }
 

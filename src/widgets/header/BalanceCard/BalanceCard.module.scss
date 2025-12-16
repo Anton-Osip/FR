@@ -40,7 +40,7 @@
   letter-spacing: $tracking-tight;
 }
 
-@media screen and (max-width: $media-tab-mini) {
+@media screen and (max-width: $media-tab) {
   .balanceCard {
     height: 39px;
   }
@@ -52,9 +52,19 @@
     height: 21px;
   }
 
+  .balanceValue {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+
   .balanceCard .btn {
     gap: 0;
     padding: $spacing-9;
+    width: 39px;
+    height: 39px;
   }
 }
 
@@ -63,4 +73,5 @@
     gap: $spacing-xxs;
     padding: 0 0 0 $spacing-xxs;
   }
+
 }

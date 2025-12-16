@@ -8,6 +8,9 @@
   gap: 11px;
   align-items: center;
   letter-spacing: -0.16px;
+  font-weight: 600;
+  justify-content: center;
+  height: 39px;
 
   &-wrap {
     display: flex;
@@ -43,7 +46,6 @@
       left: 50%;
       transform: translate(-50%, -50%);
       display: block;
-      object-fit: cover;
       z-index: 1;
     }
 
@@ -58,11 +60,15 @@
   }
 }
 
-@media (max-width: $media-tab) {
+@media (max-width: $media-laptop) {
   .footer-money-item {
     width: 100%;
-    padding: $spacing-xs $spacing-md;
+    padding: 10px 6px 10px 15px;
     justify-content: space-between;
+    letter-spacing: -0.14px;
+    font-size: 14px;
+    font-weight: 500;
+    height: 36px;
   }
 }
 

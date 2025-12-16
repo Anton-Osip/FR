@@ -10,6 +10,7 @@
 .footer-column-title {
   margin-bottom: 15px;
   letter-spacing: -0.16px;
+  font-weight: 600;
 }
 
 .footer-links {
@@ -21,6 +22,7 @@
       color: $color-text-secondary;
       font-weight: $font-weight-light;
       transition: color $transition-hover;
+      letter-spacing: -0.16px;
 
       &:hover {
         color: $color-text-primary;
@@ -31,16 +33,27 @@
 
 @media (max-width: $media-laptop) {
   .footer-menu {
-    margin-right: 0;
-    gap: $spacing-lg-plus;
-  }
-}
-
-@media (max-width: $media-tab) {
-  .footer-menu {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
-    row-gap: $spacing-lg-plus;
     margin-right: 0;
+    row-gap: 20px;
+  }
+  .footer-column-title {
+    font-size: 14px;
+    letter-spacing: -0.14px;
+    font-weight: 600;
+    margin-bottom: 9px;
+  }
+  .footer-links {
+    li:not(:last-child) {
+      margin-bottom: 7px;
+    }
+    li {
+      a {
+        font-weight: $font-weight-light;
+        font-size: 14px;
+        letter-spacing: -0.14px;
+      }
+    }
   }
 }

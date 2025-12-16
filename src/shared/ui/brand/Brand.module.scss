@@ -16,21 +16,26 @@
   }
 }
 
+.frostyIcon{
+  width: 30px;
+  height: 30px;
+}
+
 @media screen and (max-width: $media-tab) {
+  .frostyIcon{
+    width: 25px;
+    height: 33px;
+  }
   .brand {
+    gap: 9px;
+    margin-right: $spacing-5xs;
+
     .text {
       font-size: $font-size-lg;
       font-weight: $font-weight-base;
       letter-spacing: -0.2px;
       line-height: 140%;
     }
-  }
-}
-
-@media screen and (max-width: $media-mobile-mini) {
-  .brand {
-    gap: $spacing-5xs;
-    margin-right: $spacing-5xs;
   }
 }
 

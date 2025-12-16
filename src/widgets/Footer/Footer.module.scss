@@ -100,11 +100,23 @@
       "support support"
       "ltd ltd";
   }
-}
-
-@media screen and (max-width: $media-tab) {
   .footer {
-    padding: $spacing-md;
+    padding: 14px 16px 27px 16px;
+  }
+
+  .footerRight{
+    font-size: 14px;
+    letter-spacing: -0.14px;
+    margin-top: 11px;
+  }
+
+  .footerTelegram {
+    justify-self: start;
+    margin-top: 13px;
+  }
+
+  .separatorMenu{
+    margin: 23px 0;
   }
 
   .footerGrid {
@@ -125,8 +137,13 @@
     display: none;
   }
 
-  .footerTelegram {
-    justify-self: start;
-    margin-top: $spacing-md;
+  .separatorMoney {
+    margin: 22px 0;
   }
+
+  .separatorSupport{
+    margin: 22px 0;
+  }
+
+
 }

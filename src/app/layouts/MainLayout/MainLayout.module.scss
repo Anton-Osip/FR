@@ -39,7 +39,9 @@
   display: none !important;
 }
 
-@media screen and (max-width: $media-tab) {
+
+
+@media screen and (max-width: $media-laptop-plus) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:

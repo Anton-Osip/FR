@@ -56,7 +56,7 @@ export const HomePage = () => {
       <div className={styles.tableFilter}>
         <h4 className={styles.title}>Таблица ставок</h4>
         <div className={styles.wrapper}>
-          <Tabs items={TabsItem} size={"s"} />
+          <Tabs items={TabsItem} size={"s"} className={styles.tabs}/>
           <div className={styles.dropdownWrapper}>
             <Dropdown value={"10"} options={selectItems} onChange={() => {}} />
           </div>

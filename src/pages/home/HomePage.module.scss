@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: $spacing-xl;
   margin-top: $spacing-xl;
-  margin-bottom:47px;
+  margin-bottom: 47px;
 }
 
 .tableFilter {
@@ -43,6 +43,19 @@
 @media screen and (max-width: $media-laptop) {
   .title {
     font-size: $font-size-lg;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.2px;
+  }
+  .main-carousel-section {
+    margin-top: 23px;
+    margin-bottom: 19px;
+    gap: 25px;
+  }
+
+  .tabs {
+    max-width: 372px;
   }
 }
 
