@@ -22,13 +22,21 @@
 }
 
 .amount {
-  font-size: $font-size-xxl;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   letter-spacing: -0.32px;
+  margin-bottom: 10px;
 }
 
 .text {
   color: $color-text-secondary;
-  margin-bottom: $spacing-2xl;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 48px;
 }
 
 .balanceButton {

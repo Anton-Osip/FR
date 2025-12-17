@@ -1,7 +1,6 @@
 @use "../../../../shared/styles/variables.scss" as *;
 
 .userAmountBlock {
-  margin-top: $spacing-lg-plus;
   display: flex;
   flex-direction: column;
   gap: $spacing-md;
@@ -11,23 +10,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.16px;
 }
+
 
 .amountButton {
   justify-content: center;
   gap: $spacing-xs;
   padding: 0 !important;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
+
+  span {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 8px;
+  }
 
   svg {
     margin: auto;
   }
-}
-
-.amountButton > * {
-  display: inline-flex;
 }
 
 .progress {
@@ -56,6 +61,11 @@
 }
 
 .moneyItemWrap {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.16px;
   display: flex;
   gap: $spacing-xs;
   align-items: center;

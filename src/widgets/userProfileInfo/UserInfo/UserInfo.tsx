@@ -23,7 +23,7 @@ export const UserInfo: FC<Props> = ({ user }) => {
           <Avatar />
           <div className={styles.userData}>
             <p className={styles.userName}>{user.username}</p>
-            <p>
+            <p className={styles.userIdWrapper}>
               <span className={styles.userId}>UID: </span>
               {user.id}
             </p>

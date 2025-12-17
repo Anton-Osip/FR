@@ -4,11 +4,10 @@
   width: 100%;
   display: grid;
   gap: $spacing-md;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 49.3% 24% 24%;
   grid-template-areas: "info main-balance bonus-balance";
   justify-content: center;
   height: auto;
-  margin: $spacing-2xl 0;
 }
 
 @media screen and (max-width: $media-tab-mini) {

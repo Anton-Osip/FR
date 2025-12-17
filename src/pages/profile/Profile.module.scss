@@ -1,1 +1,11 @@
 @use "../../shared/styles/variables.scss" as *;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: -4px 0 0 -1px;
+}
+
+.breadcrumbs{
+}
