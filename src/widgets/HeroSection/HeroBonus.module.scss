@@ -134,6 +134,10 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
+  .heroBonusCarousel {
+    border-radius: 20px;
+  }
+
   .title {
     font-size: 26px;
     letter-spacing: -0.26px;
