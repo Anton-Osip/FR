@@ -13,7 +13,6 @@ import {
     SevenIcon,
     StarIcon,
     TwoUsersIcon,
-    SupportIcon
 } from "@shared/ui/icons";
 import {CategorySwitcherWithSearch} from "./CategorySwitcherWithSearch/CategorySwitcherWithSearch.tsx";
 import {MenuSection} from "./MenuSection/MenuSection.tsx";
@@ -70,10 +69,6 @@ export const Sidebar: FC<SidebarProps> = ({className}) => {
         </nav>
 
         <div className={styles.sidebarFooter}>
-            <Button className={styles.support} variant={'secondary'} size={'m'}>
-                <span className={styles.supportIcon}>{<SupportIcon/>}</span>
-                <span className={styles.supportLabel}>Тех. поддержка</span>
-            </Button>
             <SidebarFooter isOpen={isOpen}/>
         </div>
     </div>
