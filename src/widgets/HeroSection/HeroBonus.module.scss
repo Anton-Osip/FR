@@ -5,13 +5,15 @@
   grid-area: bonus;
   width: 100%;
   height: 100%;
-  border-radius: $radius-xl-plus;
+  max-width: 100%;
   overflow: hidden;
 }
 
 .heroBonusViewport {
   height: 100%;
+  width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .heroBonusContainer {
@@ -21,14 +23,20 @@
 
 .heroBonusSlide {
   flex: 0 0 100%;
+  min-width: 0;
   height: 100%;
+  margin-right: $spacing-md;
+  border-radius: $radius-xl-plus;
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .heroBonus {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
+  justify-content: space-between;
   padding: $spacing-xl;
   background: $color-bg-block;
   color: $color-text-primary;
@@ -134,6 +142,10 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
+  .heroBonusCarousel {
+    border-radius: 20px;
+  }
+
   .title {
     font-size: 26px;
     letter-spacing: -0.26px;
@@ -143,9 +155,11 @@
     left: 134px;
     width: 142px;
   }
+
   .heroBonus {
     padding: 24px;
   }
+
   .bonusAnimation {
     bottom: -1px;
     right: -10px;
@@ -173,6 +187,7 @@
     left: 111px;
   }
 }
+
 
 
 

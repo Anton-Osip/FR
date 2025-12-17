@@ -15,8 +15,12 @@ const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(
 Table.displayName = 'Table'
 
 const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
-    ({className, ...props}, ref) => (
-        <thead className={`${styles.thead} ${className}`} ref={ref} {...props} />
+    ({className, children, ...props}, ref) => (
+        <thead className={`${styles.thead} ${className}`} ref={ref} {...props}>
+            <tr className={styles.tr}>
+                {children}
+            </tr>
+        </thead>
     )
 )
 

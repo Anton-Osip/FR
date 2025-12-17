@@ -1,47 +1,64 @@
 @use "../../shared/styles/variables" as *;
 
 .sidebar {
-  position: sticky;
-  top: 0;
-  max-width: 256px;
-  width: 100%;
-  min-height: 100dvh;
-  max-height: 1080px;
+  padding-bottom: $spacing-md;
+  overflow: hidden;
+  width: 256px;
+  height: 100%;
   background: $color-bg-block;
-  padding: 17px 14px 16px 15px;
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: $spacing-md;
-  transition: max-width 0.5s ease;
+  flex-direction: column;
+  gap: 17px;
+  transition: width 0.5s ease;
 
   &.isOpen {
-    max-width: 83px;
-    padding: 17px 14px 16px 18px;
+    width: 83px;
 
-    & .navigation{
-      margin-top: -4px;
-      margin-left: -2px;
+    & .navigation {
+      width: 100%;
+
+    }
+
+    .support {
+      padding: 14px;
+
+      & > span {
+        gap: 0;
+      }
+
+      .supportLabel {
+        width: 0;
+        overflow: hidden;
+      }
     }
   }
+
 }
 
+
 .burgerButton {
-  margin-left: -15px;
-  transition: margin-left 0.5s ease;
+  margin-top: 16px;
+  transition: margin-left 0.5s ease, color 0.3s ease;
 }
 
 .isOpenBurger {
-  margin-left: -3px;
+  margin-left: 16px;
 }
 
 .navigation {
-  margin-top: 1px;
   width: 100%;
-  flex-grow: 1;
+  padding: 0 $spacing-md;
+  max-height: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: $spacing-md;
-  position: relative;
+}
+
+.sidebarFooter {
+  width: 100%;
+  padding: 0 16px;
+  margin: auto 0 0;
 }

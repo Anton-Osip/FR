@@ -14,7 +14,7 @@
 }
 
 .balanceValue {
-  color: var(--light-title);
+  color: $color-text-primary;
   width: 100%;
   min-width: 0;
   overflow: hidden;
@@ -53,7 +53,7 @@
   }
 
   .balanceValue {
-    font-size: 16px;
+    font-size: $font-size-md;
     font-style: normal;
     font-weight: 600;
     line-height: normal;

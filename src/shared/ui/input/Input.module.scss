@@ -9,8 +9,12 @@
   background-color: $color-bg-block;
   border: 2px solid $color-bg-on-block;
   border-radius: $radius-lg;
-  transition: border-color $transition-hover;
+  transition: border-color $transition-hover,border $transition-hover ;
   cursor: pointer;
+
+  &:hover{
+    border: 2px solid #282F42;
+  }
 
   &:focus-within {
     border-color: $color-primary;

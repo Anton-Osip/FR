@@ -21,13 +21,11 @@ export const BettingTable: FC<BettingTableProps> = ({items}) => {
     return (
         <Table>
             <TableHeader>
-                <TableRow>
-                    {headerData.map((item) => {
-                        return <TableHead key={item.id} className={`${styles.th} ${styles[item.id]}`}>
-                            {item.label}
-                        </TableHead>
-                    })}
-                </TableRow>
+                {headerData.map((item) => {
+                    return <TableHead key={item.id} className={`${styles.th} ${styles[item.id]}`}>
+                        {item.label}
+                    </TableHead>
+                })}
             </TableHeader>
             <TableBody>
                 {items.map(item => {

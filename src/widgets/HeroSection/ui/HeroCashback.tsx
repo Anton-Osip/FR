@@ -1,6 +1,7 @@
 import styles from "../HeroCashback.module.scss";
 import useEmblaCarousel from "embla-carousel-react";
 import {useEffect, useMemo, useState} from "react";
+import slotImage from "/src/assets/images/hero-cashback.png";
 
 export const HeroCashback = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -40,7 +41,6 @@ export const HeroCashback = () => {
         };
     }, [emblaApi]);
 
-    const slotImage = "/src/assets/images/hero-cashback.png";
 
     return (
         <div className={styles['hero-cashback']}>

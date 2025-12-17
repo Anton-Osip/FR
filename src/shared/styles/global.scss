@@ -1,3 +1,31 @@
 @use "./variables" as *;
 @use "./reset" as *;
 @use "./fonts" as *;
+
+
+body {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+
+body ::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+body ::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background-color: $color-bg-block;
+}
+
+body ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: $color-primary;
+  transition:background $transition-hover ;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: $color-button-hover;
+}

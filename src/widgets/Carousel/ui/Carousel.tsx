@@ -31,11 +31,24 @@ export const Carousel: FC<Props> = ({ title, icon: Icon, items }) => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   const scrollPrev = useCallback(() => {
-    emblaApi?.scrollPrev();
+    if (!emblaApi) return;
+    
+    const currentIndex = emblaApi.selectedScrollSnap();
+    const visibleSlides = emblaApi.slidesInView().length;
+    const targetIndex = Math.max(0, currentIndex - visibleSlides);
+    
+    emblaApi.scrollTo(targetIndex);
   }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    emblaApi?.scrollNext();
+    if (!emblaApi) return;
+    
+    const currentIndex = emblaApi.selectedScrollSnap();
+    const visibleSlides = emblaApi.slidesInView().length;
+    const totalSlides = emblaApi.slideNodes().length;
+    const targetIndex = Math.min(totalSlides - 1, currentIndex + visibleSlides);
+    
+    emblaApi.scrollTo(targetIndex);
   }, [emblaApi]);
 
   const updateButtons = useCallback(() => {

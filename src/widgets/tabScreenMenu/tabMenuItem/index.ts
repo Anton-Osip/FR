@@ -1,1 +1,1 @@
-export { TabMenuItem } from "./tabMenuItem";
+export { TabMenuItem } from "./TabMenuItem";

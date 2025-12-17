@@ -29,21 +29,6 @@
     height: 24px;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%) scaleY(0);
-    transform-origin: bottom center;
-    width: 60px;
-    height: 50px;
-    background-color: $color-bg-block;
-    border-radius: $radius-full;
-    z-index: -1;
-    opacity: 0;
-    transition: transform $transition-hover, opacity $transition-hover;
-  }
-
   &:hover::before {
     transform: translate(-50%, -50%) scaleY(1);
     opacity: 1;
@@ -54,14 +39,13 @@
   }
 }
 
+.active {
+  color: $color-text-primary;
+}
+
 @media screen and (max-width: $media-mobile-mini) {
   .tabMenuItem {
     padding: $spacing-5xs;
     font-size: $font-size-xxs;
-
-    &::before {
-      width: 40px;
-      height: 40px;
-    }
   }
 }

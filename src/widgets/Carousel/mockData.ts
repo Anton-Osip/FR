@@ -53,4 +53,54 @@ export const mockData = [
         img: img1,
         link: "/",
     },
+    {
+        id: "11",
+        img: img1,
+        link: "/",
+    },
+    {
+        id: "12",
+        img: img2,
+        link: "/",
+    },
+    {
+        id: "13",
+        img: img3,
+        link: "/",
+    },
+    {
+        id: "14",
+        img: img1,
+        link: "/",
+    },
+    {
+        id: "15",
+        img: img2,
+        link: "/",
+    },
+    {
+        id: "16",
+        img: img3,
+        link: "/",
+    },
+    {
+        id: "17",
+        img: img1,
+        link: "/",
+    },
+    {
+        id: "18",
+        img: img2,
+        link: "/",
+    },
+    {
+        id: "19",
+        img: img3,
+        link: "/",
+    },
+    {
+        id: "20",
+        img: img1,
+        link: "/",
+    },
 ];

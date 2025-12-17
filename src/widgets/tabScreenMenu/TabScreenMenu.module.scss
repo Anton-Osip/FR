@@ -1,24 +1,41 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .tabMenu {
-  background-color: $color-bg-block;
-  display: flex;
+  background-color: transparent;
   color: $color-text-secondary;
-  border-radius: $radius-xl $radius-xl 0 0;
-  overflow: visible;
 
-  > *:not(:last-child) {
+  .container {
+    background-color: $color-bg-block;
+    border-radius: $radius-xl $radius-xl 0 0;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     position: relative;
 
-    &::after {
-      content: "";
+    .eclipse {
       position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 24px;
-      background-color: $color-bg-on-block;
+      top: -10px;
+      transition: left $transition-hover;
+      pointer-events: none;
     }
+
+    .container *:not(:first-child),
+    .container *:not(:last-child) {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 24px;
+        background-color: $color-bg-on-block;
+      }
+    }
+
   }
 }

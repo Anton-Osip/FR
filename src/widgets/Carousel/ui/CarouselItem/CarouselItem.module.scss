@@ -2,7 +2,8 @@
 
 .carousel-item {
   flex: 0 0 auto;
-  width: 155px;
+  width: calc((100% - 6 * $spacing-md) / 7);
+  height: auto;
   aspect-ratio: 155 / 208;
   background-size: cover;
   background-position: center;
@@ -12,21 +13,21 @@
   transition: transform $transition-hover;
 
   &:hover {
-    transform: translateY(-$spacing-5xs);
+    transform: translateY(-5px);
   }
 }
 
-@media (max-width: $media-laptop-plus) {
+@media (max-width: $media-tab) {
   .carousel-item {
     border-radius: 10px;
-    width: 121px;
+    width: calc((100% - 5 * $spacing-xxs) / 6);
     aspect-ratio: 121 / 165;
   }
 }
 
-@media (max-width: $media-tab-mini) {
+@media (max-width: $media-mobile-plus) {
   .carousel-item {
-    width: 114px;
+    width: calc((100% - 2 * $spacing-xxs) / 3);
     aspect-ratio: 114 / 149;
   }
 }
