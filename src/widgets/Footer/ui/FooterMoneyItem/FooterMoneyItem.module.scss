@@ -77,3 +77,9 @@
     justify-content: center;
   }
 }
+
+@media (max-width: $media-mobile) {
+  .footer-money-item {
+    gap: 0;
+  }
+}

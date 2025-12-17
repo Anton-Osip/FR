@@ -5,9 +5,10 @@ interface Props {
   title: string;
   icon: FC<SVGProps<SVGSVGElement>>;
   onClick?: () => void;
+    isActive?: boolean;
 }
 
-export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick }) => {
+export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick,isActive }) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -17,7 +18,7 @@ export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick }) => {
 
   return (
     <div
-      className={styles.tabMenuItem}
+      className={`${styles.tabMenuItem} ${isActive?styles.active:''}` }
       onClick={onClick || (() => {})}
       role="button"
       tabIndex={0}
