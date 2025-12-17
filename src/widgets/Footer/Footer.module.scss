@@ -1,12 +1,12 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .footer {
-  padding: 43px $spacing-md $spacing-2xl;
   background-color: $color-bg-banner;
 }
 
 .footerGrid {
   max-width: $container-max-width;
+  padding: 43px $spacing-md $spacing-2xl;
   width: 100%;
   margin: 0 auto;
   display: grid;
@@ -89,6 +89,7 @@
 
 @media screen and (max-width: $media-laptop) {
   .footerGrid {
+    padding: 14px 16px 16px 16px;
     grid-template-areas:
       "logo logo"
       "rights rights"
@@ -99,9 +100,6 @@
       "sep-support sep-support"
       "support support"
       "ltd ltd";
-  }
-  .footer {
-    padding: 14px 16px 16px 16px;
   }
 
   .footerRight{

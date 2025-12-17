@@ -3,11 +3,11 @@
 .header {
   width: 100%;
   background: $color-bg-block;
-  padding: $spacing-md;
   color: $color-text-primary;
 
   .container {
     max-width: $container-max-width;
+    padding: $spacing-md;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -29,7 +29,8 @@
 
 @media screen and (max-width: $media-tab) {
   .header {
-    padding: 12px $spacing-md 10px $spacing-md;
+    .container {
+      padding: 12px $spacing-md 10px $spacing-md;}
   }
 }
 

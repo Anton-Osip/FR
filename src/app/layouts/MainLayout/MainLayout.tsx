@@ -12,8 +12,8 @@ export const MainLayout = () => {
         <div className={styles.layoutMainContainer}>
           <Outlet />
         </div>
+          <Footer />
       </main>
-      <Footer />
       <TabScreenMenu className={styles.tabScreenMenu}/>
     </div>
   );
