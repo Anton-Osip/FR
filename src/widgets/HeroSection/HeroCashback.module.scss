@@ -5,10 +5,9 @@
   grid-area: cashback;
   width: 100%;
   height: 100%;
-  border-radius: $radius-xl-plus;
-  background: $color-bg-block;
-  overflow: hidden;
+  background-color: #090d14;
   color: $color-text-primary;
+
 }
 
 .slotViewport {
@@ -24,6 +23,10 @@
 .cashbackSlide {
   flex: 0 0 100%;
   height: 100%;
+  margin-right: $spacing-md;
+  overflow: hidden;
+  border-radius: $radius-xl-plus;
+  background: $color-bg-block;
 }
 
 .heroCashback {
