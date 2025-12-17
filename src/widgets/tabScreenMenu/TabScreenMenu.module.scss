@@ -1,8 +1,7 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .tabMenu {
-  padding-top: 10px;
-  background-color: $color-bg;
+  background-color: transparent;
   color: $color-text-secondary;
 
   .container {

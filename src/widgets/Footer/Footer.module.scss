@@ -86,6 +86,11 @@
   grid-area: sep-support;
   margin-bottom: 38px;
 }
+@media screen and (max-width: $media-laptop-plus){
+  .footer{
+    margin-bottom: 10px;
+  }
+}
 
 @media screen and (max-width: $media-laptop) {
   .footerGrid {
