@@ -5,11 +5,15 @@
   grid-area: bonus;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .heroBonusViewport {
   height: 100%;
+  width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .heroBonusContainer {
@@ -19,16 +23,20 @@
 
 .heroBonusSlide {
   flex: 0 0 100%;
+  min-width: 0;
   height: 100%;
   margin-right: $spacing-md;
   border-radius: $radius-xl-plus;
   overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .heroBonus {
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: $spacing-lg;
   padding: $spacing-xl;
   background: $color-bg-block;

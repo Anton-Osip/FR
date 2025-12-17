@@ -12,7 +12,7 @@
   transition: transform $transition-hover;
 
   &:hover {
-    transform: translateY(-$spacing-5xs);
+    transform: translateY(-5px);
   }
 }
 
