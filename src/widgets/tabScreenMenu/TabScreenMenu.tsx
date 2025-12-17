@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { useState, useMemo } from "react";
 import { TAB_MENU_DATA } from "./constants/constants";
 import { TabMenuItem } from "./tabMenuItem";
-import styles from "./tabScreenMenu.module.scss";
+import styles from "./TabScreenMenu.module.scss";
 
 interface Props {
   className?: string;
