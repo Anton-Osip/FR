@@ -30,7 +30,7 @@
 @media screen and (max-width: $media-tab) {
   .header {
     .container {
-      padding: 12px $spacing-md 10px $spacing-md;}
+      padding: $spacing-12 $spacing-md $spacing-xs $spacing-md;}
   }
 }
 
