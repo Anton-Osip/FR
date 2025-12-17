@@ -1,14 +1,16 @@
-import { Breadcrumbs } from "@shared/ui/breadcrumbs";
-import { UserProfileInfo } from "@widgets/userProfileInfo";
+import {Breadcrumbs} from "@shared/ui/breadcrumbs";
+import {UserProfileInfo} from "@widgets/userProfileInfo";
 import styles from "./Profile.module.scss";
+import {TransactionHistory} from "@widgets/transactionHistory";
 
-const breadCrumbsItems = [{ label: "Профиль" }];
+const breadCrumbsItems = [{label: "Профиль"}];
 
 export const Profile = () => {
-  return (
-    <div className={styles.profile}>
-      <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs}/>
-      <UserProfileInfo  />
-    </div>
-  );
+    return (
+        <div className={styles.profile}>
+            <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs}/>
+            <UserProfileInfo/>
+            <TransactionHistory/>
+        </div>
+    );
 };
