@@ -2,7 +2,7 @@
 
 .sidebar {
   padding-bottom: $spacing-md;
-  overflow:hidden;
+  overflow: hidden;
   width: 256px;
   height: 100%;
   background: $color-bg-block;
@@ -10,10 +10,10 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 17px;
-  transition: max-width 0.5s ease;
+  transition: width 0.5s ease;
 
   &.isOpen {
-    max-width: 83px;
+    width: 83px;
 
     & .navigation {
       width: 100%;
@@ -39,7 +39,7 @@
 
 .burgerButton {
   margin-top: 16px;
-  transition: margin-left 0.5s ease;
+  transition: margin-left 0.5s ease, color 0.3s ease;
 }
 
 .isOpenBurger {
@@ -82,6 +82,7 @@
     .supportLabel {
       width: 100%;
       transition: width 0.1s ease;
+      white-space: nowrap;
     }
 
     & > span {
