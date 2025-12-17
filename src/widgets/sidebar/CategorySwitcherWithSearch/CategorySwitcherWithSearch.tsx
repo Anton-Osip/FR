@@ -1,29 +1,23 @@
 import styles from './CategorySwitcherWithSearch.module.scss'
-import {Button, Input} from "@shared/ui";
+import {Button} from "@shared/ui";
 import {SearchIcon} from "@shared/ui/icons";
-import {type FC, useRef} from "react";
+import {type FC} from "react";
 
 interface CategorySwitcherWithSearchProps {
     isOpen: boolean
-    openSidebar: () => void
+    className?: string
 }
 
 
-export const CategorySwitcherWithSearch: FC<CategorySwitcherWithSearchProps> = ({isOpen, openSidebar}) => {
-    const inputRef = useRef<HTMLInputElement>(null)
-    const focusOnInput = () => {
-        openSidebar()
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }
-    return (<div className={`${styles.root} ${isOpen ? '' : styles.isOpen}`}>
+export const CategorySwitcherWithSearch: FC<CategorySwitcherWithSearchProps> = ({isOpen, className}) => {
+
+    return (<div className={`${styles.root} ${isOpen ? '' : styles.isOpen} ${className ? className : ''}`}>
         <Button className={styles.casinoButton} variant={'primary'} size={'m'} fullWidth>Казино</Button>
         <Button className={styles.sportButton} variant={'secondary'} size={'m'} fullWidth>Спорт</Button>
-        <div onClick={focusOnInput} className={styles.searchInput}>
-            <Input ref={inputRef} size={'m'} placeholder={'Поиск'} icon={<SearchIcon/>}
-                   onFocus={openSidebar}/>
-        </div>
+        <Button className={styles.searchButton} variant={'secondary'} size={'m'}>
+            <span className={styles.searchIcon}>{<SearchIcon/>}</span>
+            <span className={styles.searchLabel}>Поиск</span>
+        </Button>
 
     </div>)
 }

@@ -12,7 +12,8 @@ import {
     RouletteIcon,
     SevenIcon,
     StarIcon,
-    TwoUsersIcon
+    TwoUsersIcon,
+    SupportIcon
 } from "@shared/ui/icons";
 import {CategorySwitcherWithSearch} from "./CategorySwitcherWithSearch/CategorySwitcherWithSearch.tsx";
 import {MenuSection} from "./MenuSection/MenuSection.tsx";
@@ -57,17 +58,23 @@ export const Sidebar: FC<SidebarProps> = ({className}) => {
     const [isOpen, setIsOpen] = useState<boolean>(true)
 
     const toggleIsOpen = () => setIsOpen(!isOpen)
-    const openSidebar = () => {
-        setIsOpen(true)
-    }
-    return <div className = {`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
-        <Button variant = {'ghost'} onClick = {toggleIsOpen} className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}><BurgerIcon/></Button>
-        <CategorySwitcherWithSearch isOpen = {isOpen} openSidebar = {openSidebar}/>
-        <nav className = {styles.navigation}>
-            <MenuSection list = {NavigationItems} title = "Навигация" isOpen = {isOpen}/>
-            <MenuSection list = {Game1Items} title = "Игры" isOpen = {isOpen}/>
-            <MenuSection list = {Game2Items} title = "Игры" isOpen = {isOpen}/>
+
+    return <div className={`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
+        <Button variant={'ghost'} onClick={toggleIsOpen}
+                className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}><BurgerIcon/></Button>
+        <CategorySwitcherWithSearch className={styles.categorySwitcherWithSearch} isOpen={isOpen}/>
+        <nav className={styles.navigation}>
+            <MenuSection list={NavigationItems} title="Навигация" isOpen={isOpen}/>
+            <MenuSection list={Game1Items} title="Игры" isOpen={isOpen}/>
+            <MenuSection list={Game2Items} title="Игры" isOpen={isOpen}/>
         </nav>
-        <SidebarFooter isOpen = {isOpen}/>
+
+        <div className={styles.sidebarFooter}>
+            <Button className={styles.support} variant={'secondary'} size={'m'}>
+                <span className={styles.supportIcon}>{<SupportIcon/>}</span>
+                <span className={styles.supportLabel}>Тех. поддержка</span>
+            </Button>
+            <SidebarFooter isOpen={isOpen}/>
+        </div>
     </div>
 };

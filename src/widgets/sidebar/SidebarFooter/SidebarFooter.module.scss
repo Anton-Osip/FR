@@ -2,7 +2,6 @@
 
 .footer {
   position: relative;
-  overflow: hidden;
   width: 100%;
   height: 115px;
   border-radius: $spacing-md;
@@ -15,7 +14,7 @@
     background: url("../../../shared/assets/icons/sideBarBg.svg") no-repeat right -24px center;
     background-size: 115px;
     opacity: 0.3;
-    transition: background-position 0.5s ease;
+    transition: background-position 0.3s ease;
     pointer-events: none;
   }
 
