@@ -1,5 +1,37 @@
+import type { FC } from "react";
+import { Avatar } from "@shared/ui";
+import { UserAmountProgress } from "./UserAmountProgress";
+import silverBg from '@assets/icons/silver-bg.svg?url'
 import styles from "./UserInfo.module.scss";
 
-export const UserInfo = () => {
-  return <div className={styles.info}>Info</div>;
+interface User {
+  id: string;
+  username: string;
+  balance: string;
+  avatar?: string;
+}
+
+interface Props {
+  user: User;
+}
+
+export const UserInfo: FC<Props> = ({ user }) => {
+  return (
+    <div className={styles.info}>
+      <div className={styles.infoWrap}>
+        <div className={styles.user}>
+          <Avatar />
+          <div className={styles.userData}>
+            <p className={styles.userName}>{user.username}</p>
+            <p>
+              <span className={styles.userId}>UID: </span>
+              {user.id}
+            </p>
+          </div>
+        </div>
+        <UserAmountProgress amount={user.balance} />
+      </div>
+      <img className={styles.userInfoImage} src={silverBg} alt="silver" />
+    </div>
+  );
 };

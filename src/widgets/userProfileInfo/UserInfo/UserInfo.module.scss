@@ -3,10 +3,44 @@
 .info {
   grid-area: info;
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   background: $color-bg-block;
   border-radius: 20px;
   padding: $spacing-xl;
+  gap: $spacing-lg-plus;
+}
+
+.infoWrap {
+  width: 327px;
+}
+
+.user {
+  display: flex;
+  gap: $spacing-md;
+
+  span {
+    width: 57px;
+    height: 57px;
+  }
+}
+
+.userData {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.userName {
+  font-size: $font-size-lg;
+  letter-spacing: -0.2px;
+}
+
+.userId {
+  color: $color-text-secondary;
+}
+
+.userInfoImage {
+    width: 161px;
+    height: 161px;
 }

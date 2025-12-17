@@ -1,5 +1,5 @@
-export {ChevronHorizontal} from './ChevronHorizontal.tsx'
-export {SupportIcon} from './SupportIcon.tsx'
+export { ChevronHorizontal } from "./ChevronHorizontal.tsx";
+export { SupportIcon } from "./SupportIcon.tsx";
 export { GlobalIcon } from "./GlobalIcon.tsx";
 export { BurgerIcon } from "./BurgerIcon.tsx";
 export { SearchIcon } from "./SearchIcon.tsx";
@@ -23,3 +23,5 @@ export { FireIcon } from "./FireIcon.tsx";
 export { SearchSecondaryIcon } from "./SearchSecondaryIcon.tsx";
 export { BurgerSecondaryIcon } from "./BurgerSecondaryIcon.tsx";
 export { ChevronHeaderIcon } from "./ChevronHeaderIcon.tsx";
+export { SilverIcon } from "./SilverIcon.tsx";
+export { GoldIcon } from "./GoldIcon.tsx";
