@@ -39,6 +39,26 @@
   display: none !important;
 }
 
+.scrollTopButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: opacity $transition-hover, transform $transition-hover;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .scrollTopButton {
+    bottom: 80px;
+    right: 16px;
+  }
+}
+
 
 
 @media screen and (max-width: $media-laptop-plus) {
