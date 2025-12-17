@@ -1,6 +1,6 @@
-import {Input, Tabs} from "@shared/ui";
+import {Button, Input, Tabs} from "@shared/ui";
 import {FireIcon, FlashIcon, MicrophoneIcon, SearchIcon, SevenIcon, WindowIcon} from "@shared/ui/icons";
-import {type FC, useRef, useState} from "react";
+import {type FC, useState} from "react";
 import styles from './CategoryFiltersBar.module.scss'
 
 const INITIAL_TABS = [
@@ -47,8 +47,6 @@ interface CategoryFiltersBarProps {
 
 export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({className}) => {
     const [tabs, setTabs] = useState(INITIAL_TABS);
-    const [isInputExpanded, setIsInputExpanded] = useState(false);
-    const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleTabChange = (value: string) => {
         setTabs(prev =>
@@ -59,28 +57,21 @@ export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({className}) => 
         );
     };
 
-    const handleInputWrapperClick = () => {
-        setIsInputExpanded((prev) => {
-            const next = !prev;
-
-            if (next) {
-                inputRef.current?.focus();
-            } else {
-                inputRef.current?.blur();
-            }
-
-            return next;
-        });
-    };
 
     return (
         <div className={`${styles.root} ${className ?? ''}`}>
-            <Tabs items={tabs} onChange={handleTabChange} size={'m'} className={styles.tabs}/>
+            <div className={styles.buttonWrapper}>
+                <Button variant={'secondary'}>
+                    <SearchIcon/>
+                </Button>
+            </div>
+            <div className={styles.tabs}>
+                <Tabs items={tabs} onChange={handleTabChange} size={'m'}/>
+            </div>
             <div
-                className={`${styles.inputWrapper} ${isInputExpanded ? styles.inputWrapperExpanded : ''}`}
-                onClick={handleInputWrapperClick}
+                className={`${styles.inputWrapper}`}
             >
-                <Input ref={inputRef} icon={<SearchIcon/>} placeholder={"Поиск"}/>
+                <Input icon={<SearchIcon/>} placeholder={"Поиск"}/>
             </div>
         </div>
     );
