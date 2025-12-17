@@ -1,0 +1,33 @@
+@use "../../styles/variables.scss" as *;
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-child)::after {
+    content: "/";
+    margin: 0 $spacing-4xs;
+    color: $color-text-secondary;
+  }
+}
+
+.link {
+  color: $color-text-secondary;
+  text-decoration: none;
+  transition: color $transition-hover;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+.current {
+  color: $color-text-primary;
+  cursor: default;
+}
