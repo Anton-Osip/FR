@@ -1,0 +1,36 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.balance {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-xl;
+  background: $color-bg-block;
+  border-radius: 20px;
+  height: 100%;
+  background-image: url("../../../assets/icons/logo-bg.svg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
+}
+
+.mainBalance {
+  grid-area: main-balance;
+}
+
+.bonusBalance {
+  grid-area: bonus-balance;
+}
+
+.amount {
+  font-size: $font-size-xxl;
+  letter-spacing: -0.32px;
+}
+
+.text {
+  color: $color-text-secondary;
+  margin-bottom: $spacing-2xl;
+}
+
+.balanceButton {
+  width: fit-content;
+}

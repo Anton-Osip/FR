@@ -35,6 +35,11 @@
     color: $color-text-secondary;
   }
 
+  &-tertiary {
+    background: $color-bg-on-block;
+    color: $color-text-primary;
+  }
+
   &-ghost {
     background: transparent;
     color: $color-text-secondary;
@@ -131,6 +136,10 @@
       .buttonIcon {
         fill: $color-text-primary;
       }
+    }
+
+    &-tertiary:hover {
+      background-color: $color-bg-on-block-hover;
     }
 
     &-ghost:hover {

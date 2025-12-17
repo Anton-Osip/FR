@@ -18,7 +18,7 @@ type IconType =
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode;
     icon?: ReactNode | IconType;
-    variant?: "primary" | "secondary" | "ghost";
+    variant?: "primary" | "secondary" | "tertiary" | "ghost";
     size?: "s" | "m";
     fullWidth?: boolean;
     active?: boolean;
