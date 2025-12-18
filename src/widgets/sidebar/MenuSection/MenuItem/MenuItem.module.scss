@@ -27,7 +27,6 @@
     transform: translateX(0);
     margin-left: calc(19px + #{$spacing-xs} + #{-2px});
     transition: all 0.3s ease;
-    transition-delay: 0.2s;
   }
 
   .iconWrapper {
@@ -39,6 +38,10 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
+
+    & svg{
+      transition: color 0.3s ease;
+    }
   }
 
   &.isActive {
