@@ -12,7 +12,7 @@
 
   &:not(:last-child)::after {
     content: "/";
-    margin: 0 $spacing-4xs;
+    margin: 0 7px;
     color: $color-text-secondary;
   }
 }
@@ -34,4 +34,5 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  letter-spacing: -0.16px;
 }

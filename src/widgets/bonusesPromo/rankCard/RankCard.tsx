@@ -1,6 +1,5 @@
 import styles from './RankCard.module.scss'
 import silverBg from '@assets/images/silver.png'
-import {Button} from "@shared/ui";
 import * as Progress from "@radix-ui/react-progress";
 import {GoldIcon, SilverIcon} from "@shared/ui/icons";
 
@@ -21,9 +20,9 @@ export const RankCard = () => {
                     <p>
                         {amount}K&nbsp;₽&nbsp;&nbsp;/&nbsp;&nbsp;{maxAmountinK}K&nbsp;₽
                     </p>
-                    <Button className={styles.amountButton} variant="ghost">
+                    <p className={styles.description}>
                         Оборот
-                    </Button>
+                    </p>
                 </div>
                 <Progress.Root className={styles.progress} value={progressPercent}>
                     <Progress.Indicator

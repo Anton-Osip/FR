@@ -3,7 +3,7 @@
 .rankCard {
   display: flex;
   justify-content: space-between;
-  padding: 32px;
+  padding: 32px 31px 32px 35px;
   border-radius: 24px;
   background: #131824;
   min-height: 242px;
@@ -107,14 +107,14 @@
   align-items: center;
 }
 
-.image{
+.image {
   width: 31%;
   max-width: 161px;
   aspect-ratio: 1 / 1;
   align-self: flex-start;
   flex-shrink: 0;
 
-  .userInfoImage{
+  .userInfoImage {
     width: 100%;
     height: 100%;
     object-fit: contain;
