@@ -1,0 +1,36 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.supportPanel {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.button {
+  & > span {
+    width: 100%;
+  }
+
+  &Container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 19px;
+  }
+
+  &Label {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+
+  &Chevron {
+    height: 16px;
+
+  }
+}
+
