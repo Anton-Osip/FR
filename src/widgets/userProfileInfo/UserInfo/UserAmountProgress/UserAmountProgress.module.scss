@@ -17,7 +17,6 @@
   letter-spacing: -0.16px;
 }
 
-
 .amountButton {
   justify-content: center;
   gap: $spacing-xs;
@@ -69,4 +68,9 @@
   display: flex;
   gap: $spacing-xs;
   align-items: center;
+
+  svg {
+    width: 19px;
+    height: 19px;
+  }
 }

@@ -1,0 +1,16 @@
+@use "../../shared/styles/variables.scss" as *;
+
+.wrapper {
+  width: 100%;
+}
+
+.title {
+  color: #ffffff;
+  margin-bottom: $spacing-lg-plus;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-md;
+}

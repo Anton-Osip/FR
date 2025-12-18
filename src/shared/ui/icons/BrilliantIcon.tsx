@@ -1,4 +1,4 @@
-export const GoldIcon = () => {
+export const BrilliantIcon = () => {
   return (
     <svg
       width="48"
@@ -9,43 +9,43 @@ export const GoldIcon = () => {
     >
       <path
         d="M9.88125 38.1176V9.88242H38.1164V38.1176H9.88125Z"
-        fill="#FFE4AD"
+        fill="#ADC9FF"
       />
       <path
         d="M9.88281 38.1177H38.118L32.2465 32.2462H15.7543L9.88281 38.1177Z"
-        fill="#FFC95C"
+        fill="#6B9CFF"
       />
       <path
         d="M9.88125 9.88242V38.1176L15.7528 32.2461V15.7539L9.88125 9.88242Z"
-        fill="#FFD685"
+        fill="#85ADFF"
       />
       <path
         d="M38.118 9.88232H9.88281L15.7543 15.7538H32.2465L38.118 9.88232Z"
-        fill="#FFC95C"
+        fill="#6B9CFF"
       />
       <path
         d="M38.1176 38.1176V9.88242L32.2461 15.7539V32.2461L38.1176 38.1176Z"
-        fill="#FFD685"
+        fill="#85ADFF"
       />
       <path
         d="M4.03516 23.9999L24.0004 4.03467L43.9657 23.9999L24.0004 43.9652L4.03516 23.9999Z"
-        fill="#FFE4AD"
+        fill="#ADC9FF"
       />
       <path
         d="M4.03516 24L24.0004 43.9653V35.6617L12.3387 24H4.03516Z"
-        fill="#FFC95C"
+        fill="#6B9CFF"
       />
       <path
         d="M24.0004 4.03467L4.03516 23.9999H12.3387L24.0004 12.3382V4.03467Z"
-        fill="#FFD685"
+        fill="#85ADFF"
       />
       <path
         d="M43.9653 23.9999L24 4.03467V12.3382L35.6617 23.9999H43.9653Z"
-        fill="#FFC95C"
+        fill="#6B9CFF"
       />
       <path
         d="M24 43.9653L43.9653 24H35.6617L24 35.6617V43.9653Z"
-        fill="#FFD685"
+        fill="#85ADFF"
       />
     </svg>
   );

@@ -25,3 +25,7 @@ export { BurgerSecondaryIcon } from "./BurgerSecondaryIcon.tsx";
 export { ChevronHeaderIcon } from "./ChevronHeaderIcon.tsx";
 export { SilverIcon } from "./SilverIcon.tsx";
 export { GoldIcon } from "./GoldIcon.tsx";
+export { BronzeIcon } from "./BronzeIcon.tsx";
+export { BrilliantIcon } from "./BrilliantIcon.tsx";
+export { BgSilverIcon } from "./BgSilverIcon.tsx";
+export { BgGoldIcon } from "./BgGoldIcon.tsx";
