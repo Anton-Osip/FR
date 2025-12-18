@@ -1,5 +1,4 @@
 import {Button} from "@shared/ui";
-import bonusImage from "@assets/icons/500.svg?url";
 import animation from "@assets/images/hero-bonus.png";
 import {Swiper, SwiperSlide} from "swiper/react";
 import { useState} from "react";
@@ -40,13 +39,7 @@ export const HeroBonus = () => {
                                     Бонус до
                                     <br/> на первый депозит
                                 </h3>
-                                <div className={styles.heroBonusNumber}>
-                                    <img
-                                        src={bonusImage}
-                                        alt="500"
-                                        className={styles["hero-bonus-number"]}
-                                    />
-                                </div>
+
                                 <Button className={styles["hero-bonus-button"]}>Подробнее</Button>
                                 <div className={styles.bonusAnimation}>
                                     <img src={animation} alt="bonus-animation"/>
