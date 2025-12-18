@@ -19,19 +19,21 @@ import {MenuSection} from "./MenuSection/MenuSection.tsx";
 import {type FC, type ReactNode, useState} from "react";
 import {PopularIcon} from "@shared/ui/icons/PopularIcon.tsx";
 import {SidebarFooter} from "./SidebarFooter/SidebarFooter.tsx";
+import {APP_PATH} from "@shared/constants/constants";
 
 interface MenuItems {
     id: string;
     icon: ReactNode
     label: string
     isActive: boolean
+    path?: string
 }
 
 const NavigationItems: MenuItems[] = [
-    {id: '1 Главная', icon: <HomeIcon/>, label: 'Главная', isActive: true},
-    {id: '2 Избранное', icon: <HeartIcon/>, label: 'Избранное', isActive: false},
-    {id: '3 Инвайт', icon: <TwoUsersIcon/>, label: 'Инвайт', isActive: false},
-    {id: '4 Бонусы', icon: <BonusIcon/>, label: 'Бонусы', isActive: false},
+    {id: '1 Главная', icon: <HomeIcon/>, label: 'Главная', isActive: false, path: APP_PATH.main},
+    {id: '2 Избранное', icon: <HeartIcon/>, label: 'Избранное', isActive: false, path: APP_PATH.favorites},
+    {id: '3 Инвайт', icon: <TwoUsersIcon/>, label: 'Инвайт', isActive: false, path: APP_PATH.invite},
+    {id: '4 Бонусы', icon: <BonusIcon/>, label: 'Бонусы', isActive: false, path: APP_PATH.bonuses},
 ]
 
 const Game1Items: MenuItems[] = [

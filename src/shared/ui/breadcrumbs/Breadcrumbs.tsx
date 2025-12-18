@@ -1,5 +1,7 @@
 import type {FC} from "react";
+import {Link} from "react-router-dom";
 import styles from "./Breadcrumbs.module.scss";
+import {APP_PATH} from "@shared/constants/constants";
 
 interface BreadcrumbItem {
     label: string;
@@ -16,9 +18,9 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({items, className}) => {
         <nav aria-label="Breadcrumb" className={className ?? className}>
             <ol className={styles.list}>
                 <li className={styles.item}>
-                    <a href="/" className={styles.link}>
+                    <Link to={APP_PATH.main} className={styles.link}>
                         Главная
-                    </a>
+                    </Link>
                 </li>
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
@@ -28,9 +30,9 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({items, className}) => {
                             {isLast || !item.href ? (
                                 <span className={styles.current}>{item.label}</span>
                             ) : (
-                                <a href={item.href} className={styles.link}>
+                                <Link to={item.href} className={styles.link}>
                                     {item.label}
-                                </a>
+                                </Link>
                             )}
                         </li>
                     );

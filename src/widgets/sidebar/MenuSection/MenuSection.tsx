@@ -13,6 +13,7 @@ interface MenuItems {
     icon: ReactNode
     label: string
     isActive: boolean
+    path?: string
 }
 
 export const MenuSection: FC<MenuSectionProps> = ({list, title, isOpen}) => {
@@ -25,6 +26,7 @@ export const MenuSection: FC<MenuSectionProps> = ({list, title, isOpen}) => {
                 label = {item.label}
                 isActive = {item.isActive}
                 isOpen={isOpen}
+                path={item.path}
             />
         ))}
     </div>)
