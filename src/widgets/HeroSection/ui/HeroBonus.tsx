@@ -2,36 +2,35 @@ import {Button} from "@shared/ui";
 import bonusImage from "@assets/icons/500.svg?url";
 import animation from "@assets/images/hero-bonus.png";
 import {Swiper, SwiperSlide} from "swiper/react";
-import type {Swiper as SwiperType} from "swiper";
-import {useMemo, useState} from "react";
+import { useState} from "react";
 import styles from "../HeroBonus.module.scss";
 
 export const HeroBonus = () => {
-    const slides = [1, 2, 3, 4];
-    const [swiper, setSwiper] = useState<SwiperType | null>(null);
+    const slides = [1];
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const dotsBefore = useMemo(
-        () => Array.from({length: selectedIndex}, (_, idx) => idx),
-        [selectedIndex],
-    );
-    const dotsAfter = useMemo(
-        () =>
-            Array.from(
-                {length: slides.length - selectedIndex - 1},
-                (_, idx) => idx + selectedIndex + 1,
-            ),
-        [slides.length, selectedIndex],
-    );
+
+    const renderCustomPagination = () => {
+        return (
+            <div className={styles.heroBonusPagination}>
+                {slides.map((idx, index) => (
+                    <div
+                        key={idx}
+                        className={`${styles.bonusDot} ${selectedIndex === index ? styles.activeDote : ''}`}
+                        aria-label={`Слайд ${idx + 1}`}
+                    />
+                ))}
+            </div>
+        );
+    };
 
     return (
         <div className={styles.heroBonusCarousel}>
             <div className={styles.heroBonusViewport}>
                 <Swiper
                     className={styles.heroBonusContainer}
-                    loop
                     slidesPerView={1}
+                    speed={800}
                     spaceBetween={16}
-                    onSwiper={setSwiper}
                     onSlideChange={(swiperInstance) => setSelectedIndex(swiperInstance.realIndex)}
                 >
                     {slides.map((slide) => (
@@ -57,33 +56,9 @@ export const HeroBonus = () => {
                     ))}
                 </Swiper>
             </div>
+            {slides.length > 1 && renderCustomPagination()}
 
-            <div className={styles.heroBonusPagination}>
-                {dotsBefore.map((idx) => (
-                    <button
-                        key={idx}
-                        type="button"
-                        className={styles.heroBonusDot}
-                        onClick={() => swiper?.slideToLoop(idx)}
-                        aria-label={`Слайд ${idx + 1}`}
-                    />
-                ))}
 
-                <div className={styles.heroBonusPaginationTrack}>
-                </div>
-
-                <div className={styles.heroBonusPaginationDots}>
-                    {dotsAfter.map((targetIndex) => (
-                        <button
-                            key={targetIndex}
-                            type="button"
-                            className={styles.heroBonusDot}
-                            onClick={() => swiper?.slideToLoop(targetIndex)}
-                            aria-label={`Слайд ${targetIndex + 1}`}
-                        />
-                    ))}
-                </div>
-            </div>
         </div>
     );
 };

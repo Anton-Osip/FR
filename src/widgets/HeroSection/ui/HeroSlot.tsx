@@ -2,18 +2,18 @@ import styles from "../HeroSlot.module.scss";
 import {useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
+import type SwiperType from "swiper";
 import slotImage from "/src/assets/images/hero-slot.png";
-
 // @ts-expect-error - Swiper CSS imports
 import "swiper/css";
 // @ts-expect-error - Swiper CSS imports
 import "swiper/css/autoplay";
 
 export const HeroSlot = () => {
-    const slides = [1, 2, 3, 4];
+    const slides = [1];
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const handleSlideChange = (swiper: any) => {
+    const handleSlideChange = (swiper: SwiperType) => {
         setActiveIndex(swiper.realIndex);
     };
 
@@ -51,7 +51,7 @@ export const HeroSlot = () => {
         <div className={styles.slotCarousel}>
             <Swiper
                 modules={[Autoplay]}
-                loop={true}
+                loop={slides.length>3}
                 autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,
@@ -70,14 +70,14 @@ export const HeroSlot = () => {
                             <h3 className={styles.slotTitle}>Слот недели</h3>
 
                             <div className={styles.slotCardWrapper}>
-                            <img src={slotImage} alt="Слот недели" draggable={false}/>
+                                <img src={slotImage} alt="Слот недели" draggable={false}/>
                             </div>
                         </div>
                     </SwiperSlide>
                 ))}
             </Swiper>
 
-            {renderCustomPagination()}
+            {slides.length > 1 && renderCustomPagination()}
         </div>
     );
 };

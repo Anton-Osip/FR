@@ -2,6 +2,7 @@ import styles from "../HeroCashback.module.scss";
 import {useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
+import type SwiperType from "swiper";
 import slotImage from "/src/assets/images/hero-cashback.png";
 
 // @ts-expect-error - Swiper CSS imports
@@ -13,34 +14,18 @@ export const HeroCashback = () => {
     const slides = [1, 2, 3, 4];
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const handleSlideChange = (swiper: any) => {
+    const handleSlideChange = (swiper: SwiperType) => {
         setActiveIndex(swiper.realIndex);
     };
 
     const renderCustomPagination = () => {
-        const dotsBefore = Array.from({length: activeIndex}, (_, idx) => idx);
-        const dotsAfter = Array.from(
-            {length: slides.length - activeIndex - 1},
-            (_, idx) => idx + activeIndex + 1,
-        );
-
         return (
             <div className={styles.cashbackPagination}>
-                {dotsBefore.map((idx) => (
+                {slides.map((idx, index) => (
                     <div
                         key={idx}
-                        className={styles.cashbackDot}
+                        className={`${styles.cashbackDot} ${activeIndex === index ? styles.activeDote : ''}`}
                         aria-label={`Слайд ${idx + 1}`}
-                    />
-                ))}
-
-                <div className={styles.cashbackPaginationBar}/>
-
-                {dotsAfter.map((targetIndex) => (
-                    <div
-                        key={targetIndex}
-                        className={styles.cashbackDot}
-                        aria-label={`Слайд ${targetIndex + 1}`}
                     />
                 ))}
             </div>
@@ -52,8 +37,9 @@ export const HeroCashback = () => {
             <Swiper
                 modules={[Autoplay]}
                 loop={true}
+                speed={800}
                 autoplay={{
-                    delay: 3000,
+                    delay: 5000,
                     disableOnInteraction: false,
                     pauseOnMouseEnter: false,
                     waitForTransition: true,

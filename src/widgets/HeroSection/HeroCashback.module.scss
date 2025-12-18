@@ -89,14 +89,7 @@
   padding: 4px;
 }
 
-.cashbackPaginationBar {
-  width: 56px;
-  height: 4px;
-  border-radius: 160px;
-  background: $color-text-primary;
-  display: flex;
-  align-items: center;
-}
+
 
 .cashbackDot {
   width: 4px;
@@ -106,7 +99,17 @@
   padding: 0;
   background: $color-text-secondary;
   cursor: pointer;
-  transition: background-color $transition-hover, transform $transition-hover;
+  transition: width $transition-hover, 
+              height $transition-hover, 
+              background-color $transition-hover, 
+              border-radius $transition-hover;
+
+  &.activeDote {
+    width: 56px;
+    height: 4px;
+    border-radius: 160px;
+    background: $color-text-primary;
+  }
 }
 
 @media screen and (max-width: $media-laptop-plus) {

@@ -104,8 +104,7 @@
   border: none;
   padding: 0;
   background: $color-text-secondary;
-  cursor: pointer;
-  transition: background-color $transition-hover, transform $transition-hover;
+  transition: transform $transition-hover;
 }
 
 @media screen and (max-width: $media-laptop-plus) {
