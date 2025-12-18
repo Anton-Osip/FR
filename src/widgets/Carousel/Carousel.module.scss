@@ -88,13 +88,16 @@
 }
 
 @media (max-width: $media-mobile-plus) {
+  .carousel-header-buttons {
+    gap: $spacing-xxs;
+  }
+}
+@media (max-width: 330px) {
   .carousel-title {
     svg {
       display: none;
     }
   }
 
-  .carousel-header-buttons {
-    gap: $spacing-xxs;
-  }
+
 }
