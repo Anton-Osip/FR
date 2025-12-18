@@ -1,17 +1,14 @@
 import {Button} from "@shared/ui";
 import bonusImage from "@assets/icons/500.svg?url";
 import animation from "@assets/images/hero-bonus.png";
-import useEmblaCarousel from "embla-carousel-react";
-import {useEffect, useMemo, useState} from "react";
+import {Swiper, SwiperSlide} from "swiper/react";
+import type {Swiper as SwiperType} from "swiper";
+import {useMemo, useState} from "react";
 import styles from "../HeroBonus.module.scss";
 
 export const HeroBonus = () => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        loop: true,
-        align: "start",
-    });
-
     const slides = [1, 2, 3, 4];
+    const [swiper, setSwiper] = useState<SwiperType | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const dotsBefore = useMemo(
         () => Array.from({length: selectedIndex}, (_, idx) => idx),
@@ -26,27 +23,19 @@ export const HeroBonus = () => {
         [slides.length, selectedIndex],
     );
 
-    useEffect(() => {
-        if (!emblaApi) return;
-
-        const onSelect = () => {
-            setSelectedIndex(emblaApi.selectedScrollSnap());
-        };
-
-        onSelect();
-        emblaApi.on("select", onSelect);
-
-        return () => {
-            emblaApi.off("select", onSelect);
-        };
-    }, [emblaApi]);
-
     return (
         <div className={styles.heroBonusCarousel}>
-            <div className={styles.heroBonusViewport} ref={emblaRef}>
-                <div className={styles.heroBonusContainer}>
+            <div className={styles.heroBonusViewport}>
+                <Swiper
+                    className={styles.heroBonusContainer}
+                    loop
+                    slidesPerView={1}
+                    spaceBetween={16}
+                    onSwiper={setSwiper}
+                    onSlideChange={(swiperInstance) => setSelectedIndex(swiperInstance.realIndex)}
+                >
                     {slides.map((slide) => (
-                        <div className={styles.heroBonusSlide} key={slide}>
+                        <SwiperSlide className={styles.heroBonusSlide} key={slide}>
                             <div className={styles.heroBonus}>
                                 <h3 className={styles.title}>
                                     Бонус до
@@ -64,9 +53,9 @@ export const HeroBonus = () => {
                                     <img src={animation} alt="bonus-animation"/>
                                 </div>
                             </div>
-                        </div>
+                        </SwiperSlide>
                     ))}
-                </div>
+                </Swiper>
             </div>
 
             <div className={styles.heroBonusPagination}>
@@ -75,7 +64,7 @@ export const HeroBonus = () => {
                         key={idx}
                         type="button"
                         className={styles.heroBonusDot}
-                        onClick={() => emblaApi?.scrollTo(idx)}
+                        onClick={() => swiper?.slideToLoop(idx)}
                         aria-label={`Слайд ${idx + 1}`}
                     />
                 ))}
@@ -89,7 +78,7 @@ export const HeroBonus = () => {
                             key={targetIndex}
                             type="button"
                             className={styles.heroBonusDot}
-                            onClick={() => emblaApi?.scrollTo(targetIndex)}
+                            onClick={() => swiper?.slideToLoop(targetIndex)}
                             aria-label={`Слайд ${targetIndex + 1}`}
                         />
                     ))}
