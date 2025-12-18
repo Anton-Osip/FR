@@ -8,4 +8,5 @@ export {SupportPanel} from "./supportPanel";
 export {RankCard, PromoCodeCard,CashbackCard} from "./bonusesPromo";
 export {RewardsCards} from "./rewardsCards";
 export {BenefitsSection} from "./benefitsSection";
+export {ProgramTerms} from "./programTerms";
 

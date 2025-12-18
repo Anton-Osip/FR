@@ -29,3 +29,6 @@ export { BronzeIcon } from "./BronzeIcon.tsx";
 export { BrilliantIcon } from "./BrilliantIcon.tsx";
 export { BgSilverIcon } from "./BgSilverIcon.tsx";
 export { BgGoldIcon } from "./BgGoldIcon.tsx";
+export { GraphIcon } from "./GraphIcon.tsx";
+export { PercentageCircleIcon } from "./PercentageCircleIcon.tsx";
+export { CalendarIcon } from "./CalendarIcon.tsx";
