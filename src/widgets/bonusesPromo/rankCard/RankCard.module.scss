@@ -1,0 +1,122 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.rankCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 31px 32px 35px;
+  border-radius: 24px;
+  background: #131824;
+  min-height: 242px;
+}
+
+.info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 327px;
+}
+
+.title {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: $color-text-secondary;
+}
+
+
+.userAmountBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.amountWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.16px;
+}
+
+
+.amountButton {
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: 0 !important;
+
+  span {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 8px;
+  }
+
+  svg {
+    margin: auto;
+  }
+}
+
+.progress {
+  position: relative;
+  overflow: hidden;
+  background: $color-bg-banner;
+  border-radius: 160px;
+  width: 100%;
+  height: 10px;
+  transform: translateZ(0);
+}
+
+.progressIndicator {
+  background-color: $color-primary;
+  width: 100%;
+  height: 100%;
+  border-radius: 160px;
+  transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.moneyWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.moneyItemWrap {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.16px;
+  display: flex;
+  gap: $spacing-xs;
+  align-items: center;
+}
+
+.image {
+  width: 31%;
+  max-width: 161px;
+  aspect-ratio: 1 / 1;
+  align-self: flex-start;
+  flex-shrink: 0;
+
+  .userInfoImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
