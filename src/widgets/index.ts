@@ -4,3 +4,4 @@ export {CategoryFiltersBar} from "./categoryFiltersBar";
 export {BettingTable} from "./bettingTable";
 export {TabScreenMenu} from "./tabScreenMenu";
 export {TransactionHistory} from "./transactionHistory";
+export {SupportPanel} from "./supportPanel";
