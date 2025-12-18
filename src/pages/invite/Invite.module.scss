@@ -1,33 +1,13 @@
 @use "../../shared/styles/variables.scss" as *;
 
-.invite {
-  width: 100%;
-  min-height: 100vh;
-  padding: $spacing-lg;
-}
-
-.breadcrumbs {
-  margin-bottom: $spacing-lg;
-}
-
-.content {
+.invite{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  text-align: center;
+  gap: 48px;
+  margin: -4px -3px 0 0;
+}
 
-  h2 {
-    font-size: 32px;
-    font-weight: $font-weight-base;
-    color: $color-text-primary;
-    margin-bottom: $spacing-md;
-  }
-
-  p {
-    font-size: 16px;
-    color: $color-text-secondary;
-  }
+.rewardsCard {
+  margin-bottom: 48px;
 }
 

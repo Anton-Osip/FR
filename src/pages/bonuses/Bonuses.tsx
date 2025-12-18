@@ -1,7 +1,7 @@
 import {Breadcrumbs} from "@shared/ui/breadcrumbs";
 import styles from "./Bonuses.module.scss";
+import {BenefitsSection} from "@widgets/benefitsSection";
 import {CashbackCard, PromoCodeCard, RankCard} from "@widgets/bonusesPromo";
-import {BenefitsSection} from "@widgets/benefitsSection/BenefitsSection";
 
 const breadCrumbsItems = [{label: "Бонусы"}];
 export const Bonuses = () => {
