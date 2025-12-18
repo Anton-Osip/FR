@@ -7,6 +7,12 @@
   padding: $spacing-xl;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition:transform .3s ease ;
+
+  &:hover{
+  transform: translateY(-5px);
+}
 
   &:last-child {
     background-color: $color-bg;
