@@ -9,6 +9,11 @@
   overflow: hidden;
   background-color: #090d14;
   color: $color-text-primary;
+  transition: transform $transition-hover;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .slotViewport {
@@ -18,16 +23,8 @@
   position: relative;
 }
 
-.slotContainer {
-  display: flex;
-  height: 100%;
-}
-
 .slotSlide {
-  flex: 0 0 100%;
-  min-width: 0;
   height: 100%;
-  margin-right: $spacing-md;
   overflow: hidden;
   border-radius: $radius-xl-plus;
   background: $color-bg-block;

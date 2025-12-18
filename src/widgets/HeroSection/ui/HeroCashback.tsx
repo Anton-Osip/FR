@@ -1,73 +1,35 @@
 import styles from "../HeroCashback.module.scss";
-import useEmblaCarousel from "embla-carousel-react";
-import {useEffect, useMemo, useState} from "react";
+import {useState} from "react";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Autoplay} from "swiper/modules";
 import slotImage from "/src/assets/images/hero-cashback.png";
 
+// @ts-expect-error - Swiper CSS imports
+import "swiper/css";
+// @ts-expect-error - Swiper CSS imports
+import "swiper/css/autoplay";
+
 export const HeroCashback = () => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        loop: true,
-        align: "start",
-    });
-
     const slides = [1, 2, 3, 4];
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const dotsBefore = useMemo(
-        () => Array.from({length: selectedIndex}, (_, idx) => idx),
-        [selectedIndex],
-    );
+    const handleSlideChange = (swiper: any) => {
+        setActiveIndex(swiper.realIndex);
+    };
 
-    const dotsAfter = useMemo(
-        () =>
-            Array.from(
-                {length: slides.length - selectedIndex - 1},
-                (_, idx) => idx + selectedIndex + 1,
-            ),
-        [slides.length, selectedIndex],
-    );
+    const renderCustomPagination = () => {
+        const dotsBefore = Array.from({length: activeIndex}, (_, idx) => idx);
+        const dotsAfter = Array.from(
+            {length: slides.length - activeIndex - 1},
+            (_, idx) => idx + activeIndex + 1,
+        );
 
-    useEffect(() => {
-        if (!emblaApi) return;
-
-        const onSelect = () => {
-            setSelectedIndex(emblaApi.selectedScrollSnap());
-        };
-
-        onSelect();
-        emblaApi.on("select", onSelect);
-
-        return () => {
-            emblaApi.off("select", onSelect);
-        };
-    }, [emblaApi]);
-
-
-    return (
-        <div className={styles['hero-cashback']}>
-            <div className={styles.slotViewport} ref={emblaRef}>
-                <div className={styles.cashbackContainer}>
-                    {slides.map((slide) => (
-                        <div className={styles.cashbackSlide} key={slide}>
-                            <div className={styles.heroCashback}>
-                                <h3 className={styles.cashbackTitle}>Кэшбек <br/>
-                                    по средам</h3>
-
-                                <div className={styles.cashbackCardWrapper}>
-                                    <img src={slotImage} alt="Слот недели"/>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
+        return (
             <div className={styles.cashbackPagination}>
                 {dotsBefore.map((idx) => (
-                    <button
+                    <div
                         key={idx}
-                        type="button"
                         className={styles.cashbackDot}
-                        onClick={() => emblaApi?.scrollTo(idx)}
                         aria-label={`Слайд ${idx + 1}`}
                     />
                 ))}
@@ -75,15 +37,48 @@ export const HeroCashback = () => {
                 <div className={styles.cashbackPaginationBar}/>
 
                 {dotsAfter.map((targetIndex) => (
-                    <button
+                    <div
                         key={targetIndex}
-                        type="button"
                         className={styles.cashbackDot}
-                        onClick={() => emblaApi?.scrollTo(targetIndex)}
                         aria-label={`Слайд ${targetIndex + 1}`}
                     />
                 ))}
             </div>
+        );
+    };
+
+    return (
+        <div className={styles['hero-cashback']}>
+            <Swiper
+                modules={[Autoplay]}
+                loop={true}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: false,
+                    waitForTransition: true,
+                }}
+                allowTouchMove={false}
+                onSlideChange={handleSlideChange}
+                className={styles.slotViewport}
+                slidesPerView={1}
+                spaceBetween={16}
+            >
+                {slides.map((slide) => (
+                    <SwiperSlide key={slide} className={styles.cashbackSlide}>
+                        <div className={styles.heroCashback}>
+                            <h3 className={styles.cashbackTitle}>Кэшбек <br/>
+                                по средам</h3>
+
+                            <div className={styles.cashbackCardWrapper}>
+                                <img src={slotImage} alt="Кэшбек по средам" draggable={false}/>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+
+            {renderCustomPagination()}
         </div>
     );
 };
