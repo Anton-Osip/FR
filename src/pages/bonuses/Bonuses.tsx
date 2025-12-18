@@ -1,9 +1,9 @@
-import { Breadcrumbs } from "@shared/ui/breadcrumbs";
+import {Breadcrumbs} from "@shared/ui/breadcrumbs";
 import styles from "./Bonuses.module.scss";
-import {PromoCodeCard, RankCard} from "@widgets/bonusesPromo";
-import { BenefitsSection } from "@widgets/benefitsSection/BenefitsSection";
+import {CashbackCard, PromoCodeCard, RankCard} from "@widgets/bonusesPromo";
+import {BenefitsSection} from "@widgets/benefitsSection/BenefitsSection";
 
-const breadCrumbsItems = [{ label: "Бонусы" }];
+const breadCrumbsItems = [{label: "Бонусы"}];
 export const Bonuses = () => {
     return (
         <div className={styles.bonuses}>
@@ -11,8 +11,9 @@ export const Bonuses = () => {
             <div className={styles.promoGrid}>
                 <RankCard/>
                 <PromoCodeCard/>
+                <CashbackCard/>
             </div>
-             <BenefitsSection />
+            <BenefitsSection/>
         </div>
     );
 };
