@@ -11,21 +11,59 @@ body {
 
 
 body ::-webkit-scrollbar {
-  width: 6px;
-  height: 4px;
+  width: 11px;
+  height: 11px;
 }
 
 body ::-webkit-scrollbar-track {
-  border-radius: 4px;
-  background-color: $color-bg-block;
+  background-color: transparent;
 }
 
 body ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: $color-primary;
-  transition:background $transition-hover ;
+  border-radius: $radius-lg;
+  background-color: $color-bg-on-block;
+  border: 3.5px solid transparent;
+  background-clip: padding-box;
+  transition: background-color $transition-hover;
+  cursor: pointer;
 }
 
 body ::-webkit-scrollbar-thumb:hover {
-  background: $color-button-hover;
+  background-color: $color-bg-on-block-hover;
+  background-clip: padding-box;
+}
+
+body ::-webkit-scrollbar-button {
+  width: 11px;
+  height: 6px;
+  display: block;
+  background-color: transparent;
+  border: none;
+  -webkit-appearance: none;
+}
+
+// Скрываем все кнопки по умолчанию
+body ::-webkit-scrollbar-button:vertical {
+  display: none;
+}
+
+// Показываем только верхнюю стрелку вверх (decrement в начале)
+body ::-webkit-scrollbar-button:vertical:start:decrement {
+  display: block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='6' viewBox='0 0 11 6' fill='none'%3E%3Cpath d='M10.7495 4.55545L8.22649 2.03533L6.68598 0.488714C6.03363 -0.162905 4.97257 -0.162905 4.32021 0.488714L0.24888 4.55545C-0.28558 5.0893 0.0995458 6 0.846218 6H5.25552H10.1521C10.9066 6 11.2839 5.0893 10.7495 4.55545Z' fill='%23212738'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px 6px;
+  cursor: pointer;
+}
+
+// Показываем только нижнюю стрелку вниз (increment в конце)
+body ::-webkit-scrollbar-button:vertical:end:increment {
+  display: block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='6' viewBox='0 0 11 6' fill='none'%3E%3Cpath d='M10.15 0H5.25522H0.847567C0.0933163 0 -0.283809 0.910697 0.250452 1.44455L4.32026 5.51129C4.97237 6.1629 6.03304 6.1629 6.68515 5.51129L8.23294 3.96467L10.755 1.44455C11.2814 0.910697 10.9042 0 10.15 0Z' fill='%23212738'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px 6px;
+  cursor: pointer;
+
 }

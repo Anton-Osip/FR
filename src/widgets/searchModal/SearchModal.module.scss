@@ -1,0 +1,86 @@
+@use "../../shared/styles/variables" as *;
+
+.modal {
+  padding-top: 37px;
+
+}
+
+.body {
+  max-width: 516px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 623px;
+
+  .searchWrapper {
+    width: 100%;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+.tabs{
+  padding: 0;
+}
+}
+
+.games {
+  padding: 0 28px 0 32px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 10px;
+
+    .tabIcon {
+      width: 19px;
+      height: 19px;
+      color: $color-text-secondary;
+    }
+
+    .tabTitle {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.2px;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-height: 354px;
+    overflow-y: scroll;
+    padding-top: 5px;
+
+    .imageWrapper {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform .3s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+  }
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 12px;
+  }
+}

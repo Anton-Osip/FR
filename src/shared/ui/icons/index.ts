@@ -33,3 +33,4 @@ export { GraphIcon } from "./GraphIcon.tsx";
 export { PercentageCircleIcon } from "./PercentageCircleIcon.tsx";
 export { CalendarIcon } from "./CalendarIcon.tsx";
 export { CrossIcon } from "./CrossIcon.tsx";
+export { RepeatIcon } from "./RepeatIcon.tsx";

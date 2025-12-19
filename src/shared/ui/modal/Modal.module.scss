@@ -3,8 +3,8 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(9, 13, 20, 0.8);
-  backdrop-filter: blur(4px);
+  background: rgba(9, 13, 20, 0.80);
+  backdrop-filter: blur(16px);
   z-index: 1000;
   animation: overlayShow 0.2s ease-out;
 }
@@ -22,7 +22,7 @@
   flex-direction: column;
   animation: contentShow 0.3s ease-out;
   overflow: hidden;
-  padding: 32px;
+  padding: 32px 0;
   color: $color-text-primary;
   gap: 24px;
 
@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 32px;
 }
 
 .title {
@@ -57,7 +58,6 @@
 }
 
 .body {
-  padding: $spacing-xl;
   overflow-y: auto;
   flex: 1;
 }
