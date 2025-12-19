@@ -11,6 +11,7 @@
   aspect-ratio: $aspect-square;
   border-radius: $radius-full;
   background-color: $color-bg-on-block;
+  -webkit-user-drag: none;
 }
 
 .avatarImage {
@@ -18,6 +19,8 @@
   height: 100%;
   object-fit: cover;
   border-radius: inherit;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .avatarFallback {

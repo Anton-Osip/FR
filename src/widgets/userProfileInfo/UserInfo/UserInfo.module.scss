@@ -43,7 +43,7 @@
   letter-spacing: -0.2px;
 }
 
-.userIdWrapper{
+.userIdWrapper {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -55,6 +55,8 @@
 }
 
 .userInfoImage {
-    width: 161px;
-    height: 161px;
+  width: 161px;
+  height: 161px;
+  user-select: none;
+  -webkit-user-drag: none;
 }
