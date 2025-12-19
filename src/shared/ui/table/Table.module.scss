@@ -26,6 +26,12 @@
   background: $color-bg-block;
 }
 
+.tfoot .th{
+
+  border-top: 1px solid #212738;
+  background: #0F141F;
+}
+
 
 .tr {
   width: 100%;
@@ -51,6 +57,7 @@
   &:first-of-type {
     padding-left: 17px;
   }
+
   &:last-of-type {
     padding-right: $spacing-md;
     padding-left: 0;
@@ -64,9 +71,11 @@
   font-weight: $font-weight-light;
   font-size: $font-size-md;
   color: $color-text-secondary;
+
   &:first-of-type {
     padding-left: $spacing-md;
   }
+
   &:last-of-type {
     padding-right: $spacing-md;
   }

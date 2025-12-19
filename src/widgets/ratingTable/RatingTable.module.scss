@@ -1,0 +1,71 @@
+@use "../../shared/styles/variables.scss" as *;
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.title {
+  color: #fff;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.26px;
+  min-width: 232px;
+}
+
+.tabs {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+.userBody,
+.user{
+  padding: 7px 10px;
+}
+
+
+.amountBody{
+  padding-left: 0;
+}
+
+
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .userAvatar {
+    display: block;
+    width: 19px;
+    height: 19px;
+    aspect-ratio: 1/1;
+    border-radius: 1600px;
+    background: #212738;
+  }
+
+  .userName {
+    color: $color-text-primary
+  }
+}
+
+.isMe{
+  background: #0F141F;
+
+}
+
+.tFooter{
+  .th{
+    color: $color-text-secondary;
+  }
+
+  .userBody{
+    background: #0F141F;
+    padding: 7px 10px;
+  }
+
+}

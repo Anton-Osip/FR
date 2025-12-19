@@ -2,6 +2,7 @@ import {Breadcrumbs} from "@shared/ui/breadcrumbs";
 import styles from "./Invite.module.scss";
 import {RewardsCards} from "@widgets/rewardsCards";
 import {ProgramTerms} from "@widgets/programTerms";
+import {RatingTable} from "@widgets/ratingTable";
 
 const breadCrumbsItems = [{label: "Инвайт"}];
 
@@ -11,6 +12,7 @@ export const Invite = () => {
             <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs}/>
             <RewardsCards className={styles.rewardsCards}/>
             <ProgramTerms/>
+            <RatingTable/>
         </div>
     );
 };

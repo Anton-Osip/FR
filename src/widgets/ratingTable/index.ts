@@ -1,0 +1,1 @@
+export {RatingTable} from './RatingTable.tsx'
