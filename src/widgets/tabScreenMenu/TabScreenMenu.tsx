@@ -1,7 +1,10 @@
 import type { FC } from "react";
 import { useState, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { TAB_MENU_DATA } from "./constants/constants";
 import { TabMenuItem } from "./tabMenuItem";
+import { SearchModal } from "../searchModal";
+import { APP_PATH } from "@shared/constants/constants";
 import styles from "./TabScreenMenu.module.scss";
 
 interface Props {
@@ -9,15 +12,59 @@ interface Props {
 }
 
 export const TabScreenMenu: FC<Props> = ({ className }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  // Вычисляем активный индекс на основе текущего маршрута и состояния модалки
+  const currentActiveIndex = useMemo(() => {
+    if (isSearchModalOpen) {
+      return 0; // Поиск
+    }
+    
+    const path = location.pathname;
+    if (path === APP_PATH.invite) {
+      return 1; // Инвайт
+    } else if (path === APP_PATH.main) {
+      return 2; // Главная
+    } else if (path === APP_PATH.bonuses) {
+      return 3; // Бонусы
+    }
+    
+    return 0; // По умолчанию
+  }, [location.pathname, isSearchModalOpen]);
 
   const eclipseLeft = useMemo(() => {
     if (!TAB_MENU_DATA.length) return "50%";
     const itemWidth = 100 / TAB_MENU_DATA.length;
-    const centerPercent = itemWidth * activeIndex + itemWidth / 2;
+    const centerPercent = itemWidth * currentActiveIndex + itemWidth / 2;
     // 46px ширина SVG, смещаем на половину
     return `calc(${centerPercent}% - 23px)`;
-  }, [activeIndex]);
+  }, [currentActiveIndex]);
+
+  const handleItemClick = (index: number) => {
+    // Навигация по индексам:
+    // 0 - Поиск (открывает модалку)
+    // 1 - Инвайт
+    // 2 - Главная
+    // 3 - Бонусы
+    // 4 - Меню (пока без действия)
+    
+    if (index === 0) {
+      // Поиск - открываем модалку
+      setIsSearchModalOpen(true);
+    } else if (index === 1) {
+      // Инвайт
+      navigate(APP_PATH.invite);
+    } else if (index === 2) {
+      // Главная
+      navigate(APP_PATH.main);
+    } else if (index === 3) {
+      // Бонусы
+      navigate(APP_PATH.bonuses);
+    }
+    // Индекс 4 (Меню) пока без действия - активный индекс останется прежним
+  };
 
   return (
     <div className={`${styles.tabMenu} ${className || ""}`}>
@@ -41,11 +88,15 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
             key={item.id}
             title={item.title}
             icon={item.icon}
-            isActive={index === activeIndex}
-            onClick={() => setActiveIndex(index)}
+            isActive={index === currentActiveIndex}
+            onClick={() => handleItemClick(index)}
           />
         ))}
       </div>
+      <SearchModal
+        open={isSearchModalOpen}
+        onOpenChange={setIsSearchModalOpen}
+      />
     </div>
   );
 };

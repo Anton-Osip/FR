@@ -9,7 +9,9 @@ import img2 from '../../assets/images/popular/db08f947f8ba82b0fef1c3ae9cf9001d61
 import img3 from '../../assets/images/popular/3030066f70f536d8c0c12cb6501a6862d3e7cd59.png'
 
 interface SearchModalProps {
-    trigger: ReactNode;
+    trigger?: ReactNode;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
 }
 
 const INITIAL_TABS: Omit<Tab, 'active'>[] = [
@@ -61,9 +63,29 @@ const GAMES_DATA = [
     {id: 13, img: img1},
     {id: 14, img: img2},
     {id: 15, img: img3},
+    {id: 16, img: img3},
+    {id: 17, img: img3},
+    {id: 18, img: img3},
+    {id: 19, img: img3},
+    {id: 20, img: img3},
+    {id: 21, img: img3},
+    {id: 22, img: img3},
+    {id: 23, img: img3},
+    {id: 24, img: img3},
+    {id: 25, img: img3},
+    {id: 26, img: img3},
+    {id: 27, img: img3},
+    {id: 28, img: img3},
+    {id: 29, img: img3},
+    {id: 30, img: img3},
+    {id: 31, img: img3},
+    {id: 32, img: img3},
+    {id: 33, img: img3},
+    {id: 34, img: img3},
+
 ]
 
-export const SearchModal: FC<SearchModalProps> = ({trigger}) => {
+export const SearchModal: FC<SearchModalProps> = ({trigger, open, onOpenChange}) => {
     const [activeTab, setActiveTab] = useState<string>('all');
 
     const tabs: Tab[] = INITIAL_TABS.map(tab => ({
@@ -82,6 +104,8 @@ export const SearchModal: FC<SearchModalProps> = ({trigger}) => {
     return (
         <Modal
             trigger={trigger}
+            open={open}
+            onOpenChange={onOpenChange}
             title="Поиск"
             contentClassName={styles.modal}
         >
@@ -99,12 +123,20 @@ export const SearchModal: FC<SearchModalProps> = ({trigger}) => {
                         </div>
                         <h3 className={styles.tabTitle}>{activeTabData.label}</h3>
                     </header>
-                    <div className={styles.grid}>
-                        {GAMES_DATA.map(g => (
-                            <div className={styles.imageWrapper} key={g.id}>
-                                <img src={g.img} alt="img"/>
-                            </div>
-                        ))}
+                    <div className={styles.slots}>
+                        <div className={styles.grid}>
+                            {GAMES_DATA.map(g => (
+                                <div className={styles.imageWrapper} key={g.id}>
+                                    <img src={g.img} alt="img"/>
+                                </div>
+                            ))}
+                        </div>
+                        <div className={styles.more}>
+                            <p className={styles.text}>Показано: 60 из 90</p>
+                            <Button variant={'tertiary'} size={'s'} icon={<RepeatIcon/>}>
+                                Показать еще
+                            </Button>
+                        </div>
                     </div>
                 </div>
                 <footer className={styles.footer}>

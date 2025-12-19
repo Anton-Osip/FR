@@ -65,5 +65,12 @@ body ::-webkit-scrollbar-button:vertical:end:increment {
   background-position: center;
   background-size: 11px 6px;
   cursor: pointer;
+}
 
+// На экранах 800px и меньше скрываем стрелки скроллбара
+@media (max-width: 800px) {
+  body ::-webkit-scrollbar-button:vertical:start:decrement,
+  body ::-webkit-scrollbar-button:vertical:end:increment {
+    display: none !important;
+  }
 }

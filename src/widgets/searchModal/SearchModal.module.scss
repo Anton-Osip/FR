@@ -2,7 +2,6 @@
 
 .modal {
   padding-top: 37px;
-
 }
 
 .body {
@@ -20,9 +19,10 @@
     flex-direction: column;
     gap: 24px;
   }
-.tabs{
-  padding: 0;
-}
+
+  .tabs {
+    padding: 0;
+  }
 }
 
 .games {
@@ -49,12 +49,16 @@
     }
   }
 
+  .slots {
+    max-height: 354px;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    max-height: 354px;
-    overflow-y: scroll;
     padding-top: 5px;
 
     .imageWrapper {
@@ -62,6 +66,7 @@
       border-radius: 10px;
       overflow: hidden;
       transition: transform .3s;
+      cursor: pointer;
 
       &:hover {
         transform: translateY(-5px);
@@ -70,17 +75,116 @@
   }
 }
 
+.more {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 16px;
+  margin-top: 24px;
+}
+
 .footer {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .text {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 12px;
+
+}
+
+.text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 12px;
+}
+
+@media (max-width: $media-laptop) {
+  .modal {
+    padding-top: 20px;
+  }
+  .header {
+    .tabIcon {
+      display: none;
+    }
+  }
+  .body {
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+
+    .searchWrapper {
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+
+    .games {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 0 12px 0 16px;
+
+      .header {
+        flex-shrink: 0;
+      }
+    }
+
+    .grid {
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: auto;
+      gap: 8px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-top: 5px;
+
+      .imageWrapper {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        display: block;
+        border-radius: 10px;
+        padding-bottom: calc(110 / 119 * 100%);
+        height: 0;
+
+        > img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+
+    .more {
+      display: flex;
+    }
+
+    .footer {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $media-tab-mini) {
+  .body {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+
+      .imageWrapper {
+        padding-bottom: calc(110 / 110 * 100%);
+      }
+    }
+    .slots {
+      max-height: 357px;
+    }
   }
 }

@@ -41,6 +41,7 @@
 .wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;

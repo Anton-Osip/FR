@@ -7,6 +7,10 @@
   backdrop-filter: blur(16px);
   z-index: 1000;
   animation: overlayShow 0.2s ease-out;
+
+  &[data-state="closed"] {
+    animation: overlayHide 0.2s ease-out;
+  }
 }
 
 .content {
@@ -25,6 +29,12 @@
   padding: 32px 0;
   color: $color-text-primary;
   gap: 24px;
+  height: auto;
+  max-height: 95dvh;
+
+  &[data-state="closed"] {
+    animation: contentHide 0.3s ease-out;
+  }
 
   &:focus {
     outline: none;
@@ -58,7 +68,6 @@
 }
 
 .body {
-  overflow-y: auto;
   flex: 1;
 }
 
@@ -89,6 +98,15 @@ button.closeButton {
   }
 }
 
+@keyframes overlayHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes contentShow {
   from {
     opacity: 0;
@@ -100,22 +118,55 @@ button.closeButton {
   }
 }
 
-@media (max-width: $media-tab-mini) {
+@keyframes contentHide {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+}
+
+@keyframes contentShowMobile {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentHideMobile {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: $media-laptop) {
   .content {
-    width: 95vw;
-    max-height: 90vh;
-  }
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    max-height: calc(100dvh - 64px);
+    transform: translateY(0);
+    animation: contentShowMobile 0.3s ease-out;
+    border-radius: $radius-xl $radius-xl 0 0;
+    padding: 20px 0 16px;
 
-  .header {
-    padding: $spacing-lg $spacing-lg $spacing-md;
-  }
-
-  .body {
-    padding: $spacing-lg;
-  }
-
-  .title {
-    font-size: $font-size-lg;
+    &[data-state="closed"] {
+      animation: contentHideMobile 0.3s ease-out;
+    }
   }
 }
 

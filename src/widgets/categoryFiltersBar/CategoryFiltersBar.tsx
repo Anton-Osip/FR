@@ -2,6 +2,7 @@ import {Button, Input, Tabs} from "@shared/ui";
 import {FireIcon, FlashIcon, MicrophoneIcon, SearchIcon, SevenIcon, WindowIcon} from "@shared/ui/icons";
 import {type FC, useState} from "react";
 import styles from './CategoryFiltersBar.module.scss'
+import {SearchModal} from "@widgets/searchModal";
 
 const INITIAL_TABS = [
     {
@@ -61,9 +62,12 @@ export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({className}) => 
     return (
         <div className={`${styles.root} ${className ?? ''}`}>
             <div className={styles.buttonWrapper}>
-                <Button variant={'secondary'}>
-                    <SearchIcon/>
-                </Button>
+                <SearchModal trigger={
+                    <Button variant={'secondary'}>
+                        <SearchIcon/>
+                    </Button>}
+                />
+
             </div>
             <div className={styles.tabs}>
                 <Tabs items={tabs} onChange={handleTabChange} size={'m'}/>
