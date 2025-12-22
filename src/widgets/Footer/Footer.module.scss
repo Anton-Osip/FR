@@ -20,7 +20,7 @@
   width: 100%;
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: 43px $spacing-md $spacing-2xl;
+  padding: 43px 11px 48px 22px;
 }
 
 .separator {
@@ -89,8 +89,8 @@
   margin-bottom: 38px;
 }
 
-@media screen and (max-width: $media-laptop-plus){
-  .footer{
+@media screen and (max-width: $media-laptop-plus) {
+  .footer {
     margin-bottom: 10px;
   }
 }
@@ -100,17 +100,30 @@
     grid-template-areas:
       "logo logo"
       "rights rights"
+      "telegram telegram"
       "sep-menu sep-menu"
       "menu menu"
       "sep-money sep-money"
-      "money telegram"
+      "money money"
       "sep-support sep-support"
       "support support"
       "ltd ltd";
-    padding: 14px 16px 16px;
+    padding: 14px 5px 16px 16px;
   }
 
-  .footerRight{
+  .separatorSupport{
+    margin: 23px 0 20px;
+  }
+
+  .footerLtdText{
+    display: none;
+  }
+
+  .separatorMoney{
+    margin: 20px 0 24px;
+  }
+
+  .footerRight {
     margin-top: 11px;
     font-size: 14px;
     letter-spacing: -0.14px;
@@ -121,9 +134,10 @@
     margin-top: 13px;
   }
 
-  .separatorMenu{
+  .separatorMenu {
     margin: 23px 0;
   }
+
 }
 
 @media screen and (max-width: $media-tab-mini) {
@@ -149,7 +163,7 @@
     margin: 22px 0;
   }
 
-  .separatorSupport{
+  .separatorSupport {
     margin: 22px 0;
   }
 
