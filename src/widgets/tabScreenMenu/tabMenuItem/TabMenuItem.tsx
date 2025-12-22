@@ -1,4 +1,4 @@
-import React, { type FC, type KeyboardEvent, type SVGProps } from 'react';
+import { type FC, type KeyboardEvent, type SVGProps } from 'react';
 
 import styles from './TabMenuItem.module.scss';
 

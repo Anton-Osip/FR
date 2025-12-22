@@ -7,9 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from '../HeroCashback.module.scss';
 import slotImage from '/src/assets/images/hero-cashback.png';
 
-// @ts-expect-error - Swiper CSS imports
 import 'swiper/css';
-// @ts-expect-error - Swiper CSS imports
 import 'swiper/css/autoplay';
 
 const SLIDES_COUNT = 4;
