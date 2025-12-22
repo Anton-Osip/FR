@@ -24,7 +24,7 @@ import { MenuSection } from './MenuSection/MenuSection';
 import styles from './Sidebar.module.scss';
 import { SidebarFooter } from './SidebarFooter/SidebarFooter';
 
-interface MenuItems {
+export interface MenuItems {
   id: string;
   icon: ReactNode;
   label: string;

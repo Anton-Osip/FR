@@ -1,0 +1,70 @@
+@use "../../../../shared/styles/variables" as *;
+
+.item {
+  cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  gap: $spacing-xs;
+  align-items: center;
+
+  width: 100%;
+  height: 42px;
+  padding: 10px 14px;
+
+  color: $color-text-secondary;
+
+  background: transparent;
+  border-color: transparent;
+  border-radius: $radius-md;
+
+  .label {
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.18px;
+
+    transition: all 0.3s ease;
+  }
+
+  .iconWrapper {
+    width: 19px;
+    height: 19px;
+
+    & svg {
+      transition: color 0.3s ease;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 18%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(24, 115, 242, 70%);
+    outline-offset: 2px;
+  }
+}
+
+.item.isActive {
+  color: $color-text-primary;
+  background-color: $color-bg-on-block-hover;
+
+  .iconWrapper {
+    color: $color-primary;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item:hover {
+    color: $color-text-primary;
+    background-color: $color-bg-on-block;
+  }
+
+}
+
+

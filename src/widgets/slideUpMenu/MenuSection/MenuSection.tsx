@@ -6,8 +6,8 @@ import styles from './MenuSection.module.scss';
 interface MenuSectionProps {
   list: MenuItems[];
   title: string;
-  isOpen: boolean;
   className?: string;
+  onItemClick?: () => void;
 }
 
 interface MenuItems {
@@ -18,18 +18,18 @@ interface MenuItems {
   path?: string;
 }
 
-export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, className }) => {
+export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onItemClick }) => {
   return (
     <div className={`${styles.menuSection} ${className ?? ''}`}>
-      <h3 className={`${styles.title} ${!isOpen ? styles.hidden : ''}`}>{title}</h3>
+      <h3 className={`${styles.title}`}>{title}</h3>
       {list.map(item => (
         <MenuItem
           key={item.id}
           icon={item.icon}
           label={item.label}
           isActive={item.isActive}
-          isOpen={isOpen}
           path={item.path}
+          onItemClick={onItemClick}
         />
       ))}
     </div>

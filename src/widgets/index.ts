@@ -12,3 +12,4 @@ export { BenefitsSection } from './benefitsSection';
 export { ProgramTerms } from './programTerms';
 export { RatingTable } from './ratingTable';
 export { SearchModal } from './searchModal';
+export { SlideUpMenu } from './slideUpMenu';

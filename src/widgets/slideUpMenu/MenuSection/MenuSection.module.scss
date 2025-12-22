@@ -1,0 +1,17 @@
+@use "../../../shared/styles/variables" as *;
+
+.menuSection {
+  position: relative;
+  width: 100%;
+  color: $color-text-primary;
+
+  .title {
+    margin-bottom: 12px;
+
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 140%;
+    letter-spacing: -0.2px;
+  }
+}

@@ -6,6 +6,7 @@
 
   .container {
     position: relative;
+    z-index: 999;
 
     overflow: visible;
     display: flex;
@@ -20,7 +21,7 @@
     .eclipse {
       pointer-events: none;
       position: absolute;
-      top: -10px;
+      top: -9px;
       transition: left $transition-hover;
     }
 

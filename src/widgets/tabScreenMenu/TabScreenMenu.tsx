@@ -9,7 +9,7 @@ import { TAB_MENU_DATA } from './constants/constants';
 import { TabMenuItem } from './tabMenuItem';
 import styles from './TabScreenMenu.module.scss';
 
-import { SearchModal } from '@/widgets';
+import { SearchModal, SlideUpMenu } from '@/widgets';
 
 interface Props {
   className?: string;
@@ -26,30 +26,44 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [isSlideUpMenuOpen, setIsSlideUpMenuOpen] = useState(false);
 
   // Вычисляем активный индекс на основе текущего маршрута и состояния модалки
-  const currentActiveIndex = useMemo(() => {
-    const SEARCH_INDEX = 0;
-    const INVITE_INDEX = 1;
-    const MAIN_INDEX = 2;
-    const BONUSES_INDEX = 3;
+  // Вычисляем напрямую в рендере для гарантии актуальности значения
+  const SEARCH_INDEX = 0;
+  const INVITE_INDEX = 1;
+  const MAIN_INDEX = 2;
+  const BONUSES_INDEX = 3;
+  const MENU_INDEX = 4;
 
+  let currentActiveIndex: number;
+
+  // Если меню закрыто, никогда не возвращаем MENU_INDEX
+  if (!isSlideUpMenuOpen) {
     if (isSearchModalOpen) {
-      return SEARCH_INDEX; // Поиск
+      currentActiveIndex = SEARCH_INDEX; // Поиск
+    } else {
+      // Определяем активный индекс на основе текущего маршрута
+      const path = location.pathname;
+
+      if (path === APP_PATH.invite) {
+        currentActiveIndex = INVITE_INDEX; // Инвайт
+      } else if (path === APP_PATH.main) {
+        currentActiveIndex = MAIN_INDEX; // Главная
+      } else if (path === APP_PATH.bonuses) {
+        currentActiveIndex = BONUSES_INDEX; // Бонусы
+      } else {
+        currentActiveIndex = SEARCH_INDEX; // По умолчанию
+      }
     }
-
-    const path = location.pathname;
-
-    if (path === APP_PATH.invite) {
-      return INVITE_INDEX; // Инвайт
-    } else if (path === APP_PATH.main) {
-      return MAIN_INDEX; // Главная
-    } else if (path === APP_PATH.bonuses) {
-      return BONUSES_INDEX; // Бонусы
+  } else {
+    // Меню открыто
+    if (isSearchModalOpen) {
+      currentActiveIndex = SEARCH_INDEX; // Поиск имеет приоритет
+    } else {
+      currentActiveIndex = MENU_INDEX; // Меню активно только когда открыто
     }
-
-    return SEARCH_INDEX; // По умолчанию
-  }, [location.pathname, isSearchModalOpen]);
+  }
 
   const eclipseLeft = useMemo((): string => {
     if (!TAB_MENU_DATA.length) return `${DEFAULT_CENTER}%`;
@@ -60,18 +74,28 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
     return `calc(${centerPercent}% - ${SVG_HALF_WIDTH}px)`;
   }, [currentActiveIndex]);
 
+  const handleSlideUpMenuChange = (open: boolean): void => {
+    setIsSlideUpMenuOpen(open);
+  };
+
   const handleItemClick = (index: number): void => {
     // Навигация по индексам:
     // 0 - Поиск (открывает модалку)
     // 1 - Инвайт
     // 2 - Главная
     // 3 - Бонусы
-    // 4 - Меню (пока без действия)
+    // 4 - Меню (открывает SlideUpMenu)
 
     const SEARCH_INDEX = 0;
     const INVITE_INDEX = 1;
     const MAIN_INDEX = 2;
     const BONUSES_INDEX = 3;
+    const MENU_INDEX = 4;
+
+    // Закрываем меню при клике на любую кнопку, если оно открыто
+    if (isSlideUpMenuOpen && index !== MENU_INDEX) {
+      setIsSlideUpMenuOpen(false);
+    }
 
     if (index === SEARCH_INDEX) {
       // Поиск - открываем модалку
@@ -85,8 +109,10 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
     } else if (index === BONUSES_INDEX) {
       // Бонусы
       navigate(APP_PATH.bonuses);
+    } else if (index === MENU_INDEX) {
+      // Меню - переключаем SlideUpMenu (toggle)
+      setIsSlideUpMenuOpen(prev => !prev);
     }
-    // Индекс 4 (Меню) пока без действия - активный индекс останется прежним
   };
 
   return (
@@ -111,6 +137,7 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
         ))}
       </div>
       <SearchModal open={isSearchModalOpen} onOpenChange={setIsSearchModalOpen} />
+      <SlideUpMenu open={isSlideUpMenuOpen} onOpenChange={handleSlideUpMenuChange} />
     </div>
   );
 };

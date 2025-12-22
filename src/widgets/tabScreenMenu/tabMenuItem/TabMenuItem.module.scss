@@ -33,19 +33,23 @@
     width: 24px;
     height: 24px;
   }
-
-  &:hover::before {
-    transform: translate(-50%, -50%) scaleY(1);
-    opacity: 1;
-  }
-
-  &:hover {
-    color: $color-text-primary;
-  }
 }
 
 .active {
   color: $color-text-primary;
+}
+
+@media (hover: hover) {
+  .tabMenuItem {
+    &:hover::before {
+      transform: translate(-50%, -50%) scaleY(1);
+      opacity: 1;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
 }
 
 @media screen and (max-width: $media-mobile-mini) {
