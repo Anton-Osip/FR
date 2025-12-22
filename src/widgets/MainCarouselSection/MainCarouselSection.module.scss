@@ -1,0 +1,19 @@
+.categoryFiltersBar{
+  margin-bottom: 33px;
+}
+
+.caruseles{
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+}
+
+@media screen and (width <=1024px ) {
+  .categoryFiltersBar{
+    margin-bottom: 26px;
+  }
+
+  .caruseles{
+    gap: 23px;
+  }
+}

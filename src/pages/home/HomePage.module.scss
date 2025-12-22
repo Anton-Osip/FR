@@ -1,89 +1,18 @@
 @use "../../shared/styles/variables.scss" as *;
 
-.main-carousel-section {
+.homePage{
   display: flex;
   flex-direction: column;
-  gap: 31px;
-
-  margin-top: $spacing-xl;
-  margin-bottom: 46px;
+  gap: 48px;
 }
 
-.tableFilter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-}
-
-.title {
-  font-size: $font-size-xl;
-  font-weight: $font-weight-base;
-  font-style: normal;
-  line-height: normal;
-  color: #fff;
-  letter-spacing: -0.26px;
-}
-
-.wrapper {
-  display: flex;
-  gap: $spacing-xxs;
-  align-items: center;
-  justify-content: flex-end;
-
-  width: 100%;
-  max-width: 574px;
-}
-
-.dropdownWrapper {
-  width: 89px;
-  padding: 8px;
-  background: var(--bg-block, #131824);
-  border-radius: var(--radius-16, 16px);
-}
-
-@media screen and (max-width: $media-laptop) {
-  .title {
-    font-size: $font-size-lg;
-    font-weight: 600;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.2px;
-  }
-
-  .main-carousel-section {
-    gap: 23px;
-    margin-top: 23px;
-    margin-bottom: 19px;
-  }
-
-  .tabs {
-    max-width: 372px;
-  }
-}
-
-@media screen and (max-width: $media-tab) {
-  .tableFilter {
-    margin-bottom: $spacing-md;
-  }
-}
-
-@media screen and (max-width: $media-tab-mini) {
-  .title {
-    display: none;
-  }
-
-  .wrapper {
-    gap: $spacing-md;
-    justify-content: space-between;
-    max-width: 100%;
-  }
-
-  .main-carousel-section {
+@media screen and (max-width:$media-laptop ) {
+  .homePage{
+    display: flex;
+    flex-direction: column;
     gap: 23px;
   }
-
-  .tableFilter {
-    margin-bottom:18px;
-  }
 }
+
+
+

@@ -8,7 +8,7 @@ import { HeroSlot } from './HeroSlot';
 
 export const HeroSection: FC = () => {
   return (
-    <div className={styles['hero']}>
+    <div className={styles.hero}>
       <HeroBonus />
       <HeroSlot />
       <HeroCashback />
