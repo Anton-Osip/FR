@@ -21,10 +21,12 @@
   background-color: #131824;
 
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-.input{
-  height: 56px;
-  max-height: 56px;
-}
+
+  .input {
+    height: 56px;
+    max-height: 56px;
+  }
+
   &.open {
     transform: translateY(0);
     opacity: 1;
@@ -47,10 +49,11 @@
   .support {
     display: flex;
     gap: 8px;
-    max-width: 353px;
-    padding: 0 16px;
+
     width: 100%;
+    max-width: 353px;
     margin: auto auto 0;
+    padding: 0 16px;
 
     .supportButton {
       flex-shrink: 0;
@@ -114,7 +117,6 @@
 
 @media screen and (width <= 389px) {
   .slideUpMenu {
-
     .banner {
       .text {
         font-size: 16px;
