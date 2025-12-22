@@ -43,6 +43,14 @@
     animation: content-hide 0.3s ease-out;
   }
 
+  &.swipeClosing {
+    animation: none !important;
+
+    &[data-state="closed"] {
+      animation: none !important;
+    }
+  }
+
   &:focus {
     outline: none;
   }
@@ -183,6 +191,14 @@ button.closeButton {
 
     &[data-state="closed"] {
       animation: content-hide-mobile 0.3s ease-out;
+    }
+
+    &.swipeClosing {
+      animation: none !important;
+
+      &[data-state="closed"] {
+        animation: none !important;
+      }
     }
   }
 }
