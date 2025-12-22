@@ -14,12 +14,11 @@ const BG_ICONS_COUNT = 7;
 const FIRST_ROW_COUNT = 2;
 const SECOND_ROW_COUNT = 3;
 const THIRD_ROW_COUNT = 2;
-const ROW_SCHEME = [FIRST_ROW_COUNT, SECOND_ROW_COUNT, THIRD_ROW_COUNT];
 
 export const TierBenefitsCard: FC<Props> = ({ card }) => {
   const IconComponent = card.icon;
   const bgIcons = Array(BG_ICONS_COUNT).fill(card.bgIcon);
-  const rowScheme = ROW_SCHEME;
+  const rowScheme = [FIRST_ROW_COUNT, SECOND_ROW_COUNT, THIRD_ROW_COUNT];
 
   return (
     <div className={styles.card}>
@@ -38,12 +37,10 @@ export const TierBenefitsCard: FC<Props> = ({ card }) => {
                 </div>
               );
 
-              const newAccumulator = {
+              return {
                 row: [...accumulator.row, rowElement],
                 index: accumulator.index + iconsInRow,
               };
-
-              return newAccumulator;
             },
             { row: [], index: 0 },
           ).row
