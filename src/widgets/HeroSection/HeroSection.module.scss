@@ -14,8 +14,9 @@
 
 @media screen and (max-width: $media-laptop-plus) {
   .hero {
-    grid-template-columns: 48.6% 23.2% 23.2%;
+    grid-template-columns: 49.48% 24.22% 24.22%;
     aspect-ratio: 768 / 224;
+    gap: 8px;
   }
 }
 
