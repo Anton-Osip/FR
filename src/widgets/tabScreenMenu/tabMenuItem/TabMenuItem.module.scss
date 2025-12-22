@@ -1,26 +1,31 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .tabMenuItem {
-  flex: 1;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-light;
-  padding: $spacing-9;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: $spacing-xxs;
   cursor: pointer;
-  transition: color $transition-hover;
+
   position: relative;
   z-index: 1;
 
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  align-items: center;
+  justify-content: center;
+
+  padding: $spacing-9;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
+
+  transition: color $transition-hover;
+
   & h3{
-    text-align: center;
     font-size: 12px;
-    font-style: normal;
     font-weight: 500;
+    font-style: normal;
     line-height: normal;
+    text-align: center;
     letter-spacing: -0.12px;
   }
 

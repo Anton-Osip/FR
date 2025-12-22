@@ -1,36 +1,47 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .avatarRoot {
+  user-select: none;
+
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: middle;
-  overflow: hidden;
-  user-select: none;
-  height: 39px;
+
   aspect-ratio: $aspect-square;
-  border-radius: $radius-full;
+  height: 39px;
+
+  vertical-align: middle;
+
   background-color: $color-bg-on-block;
+  border-radius: $radius-full;
+
   -webkit-user-drag: none;
 }
 
 .avatarImage {
+  user-select: none;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   border-radius: inherit;
-  user-select: none;
+
   -webkit-user-drag: none;
 }
 
 .avatarFallback {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $color-bg-on-block;
-  color: $color-text-primary;
-  line-height: 1;
+
+  width: 100%;
+  height: 100%;
+
   font-weight: $font-weight-light;
+  line-height: 1;
+  color: $color-text-primary;
+
+  background-color: $color-bg-on-block;
 }

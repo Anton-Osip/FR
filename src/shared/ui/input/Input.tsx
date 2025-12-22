@@ -1,32 +1,21 @@
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
-import styles from "./Input.module.scss";
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+import styles from './Input.module.scss';
+
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   icon?: ReactNode;
-  size?: "s" | "m";
+  size?: 's' | 'm';
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ icon, className, size = "m", ...props }, ref) => {
-    const mergedClassName = [
-      styles.root,
-      styles[`input-size-${size}`],
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ icon, className, size = 'm', ...props }, ref) => {
+  const mergedClassName = [styles.root, styles[`input-size-${size}`], className].filter(Boolean).join(' ');
 
-    return (
-      <div className={mergedClassName}>
-        {icon && <span className={styles.icon}>{icon}</span>}
-        <input
-          ref={ref}
-          className={styles.input}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
+  return (
+    <div className={mergedClassName}>
+      {icon && <span className={styles.icon}>{icon}</span>}
+      <input ref={ref} className={styles.input} {...props} />
+    </div>
+  );
+});
 
-Input.displayName = "Input";
+Input.displayName = 'Input';

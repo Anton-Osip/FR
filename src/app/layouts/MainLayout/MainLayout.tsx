@@ -1,32 +1,40 @@
-import { Footer } from "@widgets/Footer";
-import { Outlet } from "react-router-dom";
-import styles from "./MainLayout.module.scss";
-import { Header, Sidebar, TabScreenMenu } from "../../../widgets";
-import { Button } from "@shared/ui/button";
-import { ChevronUpIcon } from "@radix-ui/react-icons";
-import { useEffect, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState } from 'react';
 
-export const MainLayout = () => {
+import { ChevronUpIcon } from '@radix-ui/react-icons';
+import { Outlet } from 'react-router-dom';
+
+import { Button } from '@shared/ui';
+
+import { Footer } from '@widgets/Footer';
+
+import styles from './MainLayout.module.scss';
+
+import { Header, Sidebar, TabScreenMenu } from '@/widgets';
+
+const SCROLL_THRESHOLD = 300;
+
+export const MainLayout: FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
 
-  const scrollToTop = () => {
-    mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = (): void => {
+    mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     const mainElement = mainRef.current;
+
     if (!mainElement) return;
 
-    const handleScroll = () => {
-      setShowScrollTop(mainElement.scrollTop > 300);
+    const handleScroll = (): void => {
+      setShowScrollTop(mainElement.scrollTop > SCROLL_THRESHOLD);
     };
 
-    mainElement.addEventListener("scroll", handleScroll);
+    mainElement.addEventListener('scroll', handleScroll);
     handleScroll(); // Проверяем начальное состояние
 
     return () => {
-      mainElement.removeEventListener("scroll", handleScroll);
+      mainElement.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -38,9 +46,9 @@ export const MainLayout = () => {
         <div className={styles.layoutMainContainer}>
           <Outlet />
         </div>
-          <Footer />
+        <Footer />
       </main>
-      <TabScreenMenu className={styles.tabScreenMenu}/>
+      <TabScreenMenu className={styles.tabScreenMenu} />
       {showScrollTop && (
         <Button
           variant="secondary"

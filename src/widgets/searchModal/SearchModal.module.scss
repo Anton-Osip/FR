@@ -5,19 +5,21 @@
 }
 
 .body {
-  max-width: 516px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  width: 100%;
+  max-width: 516px;
   max-height: 623px;
 
   .searchWrapper {
-    width: 100%;
-    padding: 0 32px;
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    width: 100%;
+    padding: 0 32px;
   }
 
   .tabs {
@@ -30,8 +32,8 @@
 
   .header {
     display: flex;
-    align-items: center;
     gap: 9px;
+    align-items: center;
     margin-bottom: 10px;
 
     .tabIcon {
@@ -42,17 +44,17 @@
 
     .tabTitle {
       font-size: 20px;
-      font-style: normal;
       font-weight: 600;
+      font-style: normal;
       line-height: normal;
       letter-spacing: -0.2px;
     }
   }
 
   .slots {
-    max-height: 354px;
-    overflow-y: scroll;
     scrollbar-gutter: stable;
+    overflow-y: scroll;
+    max-height: 354px;
   }
 
   .grid {
@@ -62,11 +64,15 @@
     padding-top: 5px;
 
     .imageWrapper {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform .3s;
       cursor: pointer;
+
+      overflow: hidden;
+
+      width: 100%;
+
+      border-radius: 10px;
+
+      transition: transform .3s;
 
       &:hover {
         transform: translateY(-5px);
@@ -77,56 +83,62 @@
 
 .more {
   display: none;
-  width: 100%;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 16px;
+
+  width: 100%;
   margin-top: 24px;
+  padding-bottom: 16px;
 }
 
 .footer {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 
 
 }
 
 .text {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
   margin-bottom: 12px;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
 }
 
 @media (max-width: $media-laptop) {
   .modal {
     padding-top: 20px;
   }
+
   .header {
     .tabIcon {
       display: none;
     }
   }
+
   .body {
-    max-width: 100%;
-    flex: 1;
-    min-height: 0;
     display: flex;
+    flex: 1;
     flex-direction: column;
 
+    max-width: 100%;
+    min-height: 0;
+
     .searchWrapper {
-      padding: 0 16px;
       flex-shrink: 0;
+      padding: 0 16px;
     }
 
     .games {
-      flex: 1;
-      min-height: 0;
       display: flex;
+      flex: 1;
       flex-direction: column;
+
+      min-height: 0;
       padding: 0 12px 0 16px;
 
       .header {
@@ -135,29 +147,35 @@
     }
 
     .grid {
-      grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: auto;
-      gap: 8px;
-      flex: 1;
-      min-height: 0;
       overflow-y: auto;
+      grid-auto-rows: auto;
+      grid-template-columns: repeat(6, 1fr);
+      flex: 1;
+      gap: 8px;
+
+      min-height: 0;
       padding-top: 5px;
 
       .imageWrapper {
-        width: 100%;
-        overflow: hidden;
         position: relative;
+
+        overflow: hidden;
         display: block;
-        border-radius: 10px;
-        padding-bottom: calc(110 / 119 * 100%);
+
+        width: 100%;
         height: 0;
+        padding-bottom: calc(110 / 119 * 100%);
+
+        border-radius: 10px;
 
         > img {
           position: absolute;
           top: 0;
           left: 0;
+
           width: 100%;
           height: 100%;
+
           object-fit: cover;
           object-position: center;
         }
@@ -183,6 +201,7 @@
         padding-bottom: calc(110 / 110 * 100%);
       }
     }
+
     .slots {
       max-height: 357px;
     }

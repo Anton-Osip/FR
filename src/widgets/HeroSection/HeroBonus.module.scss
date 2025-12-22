@@ -2,18 +2,20 @@
 
 .heroBonusCarousel {
   position: relative;
-  grid-area: bonus;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
+
   overflow: hidden;
+  grid-area: bonus;
+
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
 }
 
 .heroBonusViewport {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .heroBonusContainer {
@@ -22,40 +24,50 @@
 }
 
 .heroBonusSlide {
+  cursor: pointer;
+
+  overflow: hidden;
   flex: 0 0 100%;
+
+  box-sizing: border-box;
   min-width: 0;
   height: 100%;
   margin-right: 0;
+
   border-radius: $radius-xl-plus;
-  overflow: hidden;
-  cursor: pointer;
-  box-sizing: border-box;
 }
 
 .heroBonus {
   position: relative;
+
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: $spacing-xl 0 $spacing-xl $spacing-xl;
-  background: $color-bg-block;
-  color: $color-text-primary;
-  overflow: hidden;
+
   height: 100%;
+  padding: $spacing-xl 0 $spacing-xl $spacing-xl;
+
+  color: $color-text-primary;
+
+  background: $color-bg-block;
 }
 
 .title {
-  margin: 0;
-  font-size: calc(26px + (40 - 26) * ((100vw - 800px) / (1920 - 800)));
-  letter-spacing: calc(-0.26px + (-0.4 - (-0.26)) * ((100vw - 800px) / (1920 - 800)));
-  font-style: normal;
-  font-family: $font-family-base;
-  font-weight: $font-weight-base;
-  line-height: normal;
-  max-width: fit-content;
   position: relative;
   z-index: 1;
+
+  max-width: fit-content;
+  margin: 0;
+
+  font-family: $font-family-base;
+  font-size: calc(26px + (40 - 26) * ((100vw - 800px) / (1920 - 800)));
+  font-weight: $font-weight-base;
+  font-style: normal;
+  line-height: normal;
   color: white;
+  letter-spacing: calc(-0.26px + (-0.4 - (-0.26)) * ((100vw - 800px) / (1920 - 800)));
+
   background: url("../../assets/icons/500.svg") no-repeat;
   background-position:
           top -4px
@@ -65,39 +77,45 @@
 
 .heroBonusNumber {
   position: absolute;
+  z-index: 1;
   top: 7%;
   left: 34%;
+
   width: 240px;
   max-width: 100%;
-  z-index: 1;
 }
 
 .hero-bonus-number {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 35%));
 }
 
 .hero-bonus-button {
-  margin-top: auto;
-  width: fit-content;
-  box-shadow: 0 12px 32px rgba($color-primary, 0.35);
   position: relative;
   z-index: 1;
+
+  width: fit-content;
+  margin-top: auto;
+
+  box-shadow: 0 12px 32px rgba($color-primary, 0.35);
 }
 
 .bonusAnimation {
+  pointer-events: none;
+
   position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 1px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  bottom: 1px;
-  right: 0;
 
   img {
     width: 100%;
@@ -107,26 +125,32 @@
 
 .heroBonusPagination {
   position: absolute;
+  z-index: 1;
   right: 5%;
   bottom: 9%;
+
   display: flex;
-  width: 88px;
-  align-items: center;
   gap: 4px;
-  border-radius: 160px;
-  background: rgba(white, 0.1);
+  align-items: center;
+
+  width: 88px;
   padding: 4px;
-  z-index: 1;
+
+  background: rgba(white, 0.1);
+  border-radius: 160px;
 }
 
 .bonusDot {
+  cursor: pointer;
+
   width: 4px;
   height: 4px;
-  border-radius: 50%;
-  border: none;
   padding: 0;
+
   background: $color-text-secondary;
-  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+
   transition: width $transition-hover,
   height $transition-hover,
   background-color $transition-hover,
@@ -135,8 +159,8 @@
   &.activeDote {
     width: 56px;
     height: 4px;
-    border-radius: 160px;
     background: $color-text-primary;
+    border-radius: 160px;
   }
 }
 
@@ -156,8 +180,8 @@
   }
 
   .bonusAnimation {
-    bottom: -1px;
     right: -10px;
+    bottom: -1px;
   }
 }
 
@@ -170,12 +194,14 @@
             right calc(-2px + (-18 - (-2)) * ((100vw - 390px) / (800 - 390)));
     background-size: calc(143px + (232 - 143) * ((100vw - 390px) / (800 - 390)));
   }
+
   .hero-bonus-button {
     margin-top: 6px;
   }
+
   .bonusAnimation {
-    bottom: 1px;
     right: -40px;
+    bottom: 1px;
   }
 }
 

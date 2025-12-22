@@ -1,1 +1,1 @@
-export { UserAmountProgress } from "./UserAmountProgress";
+export { UserAmountProgress } from './UserAmountProgress';

@@ -19,7 +19,6 @@ $color-neutral: #e1e4ea;
 
 // Шрифты
 $font-family-base: "SuisseIntl", sans-serif;
-
 $font-size-xxs: 10px;
 $font-size-xs: 12px;
 $font-size-xs-plus: 14px;
@@ -27,22 +26,23 @@ $font-size-md: 16px;
 $font-size-lg: 20px;
 $font-size-xl: 26px;
 $font-size-xxl: 32px;
-
 $font-weight-base: 600;
 $font-weight-light: 500;
 $font-weight-bold: 700;
 
-//$leading-tight: 0.8;
-//$leading-snug: 0.9;
+// $leading-tight: 0.8;
+// $leading-snug: 0.9;
 $leading-normal: normal;
-//$leading-relaxed: 1.2;
-//$leading-loose: 1.5;
+
+// $leading-relaxed: 1.2;
+// $leading-loose: 1.5;
 
 $tracking-tight: -0.16px;
 $tracking-light: -0.26px;
 $tracking-normal: 0;
-//$tracking-wide: 0.02em;
-//$tracking-wider: 0.88em;
+
+// $tracking-wide: 0.02em;
+// $tracking-wider: 0.88em;
 
 // Отступы
 $spacing-5xs: 4px;

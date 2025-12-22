@@ -1,1 +1,1 @@
-export { FooterSupport } from "./FooterSupport";
+export { FooterSupport } from './FooterSupport';

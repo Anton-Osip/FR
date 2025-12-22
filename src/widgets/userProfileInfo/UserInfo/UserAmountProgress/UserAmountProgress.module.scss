@@ -10,23 +10,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   font-size: 16px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.16px;
 }
 
 .amountButton {
-  justify-content: center;
   gap: $spacing-xs;
+  justify-content: center;
   padding: 0 !important;
 
   span {
     display: flex;
+    gap: 8px;
     align-items: center;
     white-space: nowrap;
-    gap: 8px;
   }
 
   svg {
@@ -36,38 +37,44 @@
 
 .progress {
   position: relative;
+  transform: translateZ(0);
+
   overflow: hidden;
-  background: $color-bg-banner;
-  border-radius: 160px;
+
   width: 100%;
   height: 10px;
-  transform: translateZ(0);
+
+  background: $color-bg-banner;
+  border-radius: 160px;
 }
 
 .progressIndicator {
-  background-color: $color-primary;
   width: 100%;
   height: 100%;
+
+  background-color: $color-primary;
   border-radius: 160px;
+
   transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .moneyWrap {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .moneyItemWrap {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.16px;
   display: flex;
   gap: $spacing-xs;
   align-items: center;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.16px;
 
   svg {
     width: 19px;

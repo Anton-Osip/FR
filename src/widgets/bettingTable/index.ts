@@ -1,1 +1,1 @@
-export {BettingTable} from './BettingTable.tsx'
+export { BettingTable } from './BettingTable';

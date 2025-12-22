@@ -1,86 +1,74 @@
-import styles from "../HeroSlot.module.scss";
-import {useState} from "react";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {Autoplay} from "swiper/modules";
-import type SwiperType from "swiper";
-import slotImage from "/src/assets/images/hero-slot.png";
-// @ts-expect-error - Swiper CSS imports
-import "swiper/css";
-// @ts-expect-error - Swiper CSS imports
-import "swiper/css/autoplay";
+import { type FC, type ReactElement, useState } from 'react';
 
-export const HeroSlot = () => {
-    const slides = [1];
-    const [activeIndex, setActiveIndex] = useState(0);
+import type SwiperType from 'swiper';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
-    const handleSlideChange = (swiper: SwiperType) => {
-        setActiveIndex(swiper.realIndex);
-    };
+import styles from '../HeroSlot.module.scss';
+import slotImage from '/src/assets/images/hero-slot.png';
 
-    const renderCustomPagination = () => {
-        const dotsBefore = Array.from({length: activeIndex}, (_, idx) => idx);
-        const dotsAfter = Array.from(
-            {length: slides.length - activeIndex - 1},
-            (_, idx) => idx + activeIndex + 1,
-        );
+const MIN_SLIDES_FOR_LOOP = 3;
 
-        return (
-            <div className={styles.slotPagination}>
-                {dotsBefore.map((idx) => (
-                    <div
-                        key={idx}
-                        className={styles.slotDot}
-                        aria-label={`Слайд ${idx + 1}`}
-                    />
-                ))}
+export const HeroSlot: FC = () => {
+  const slides = [1];
+  const [activeIndex, setActiveIndex] = useState(0);
 
-                <div className={styles.slotPaginationBar}/>
+  const handleSlideChange = (swiper: SwiperType): void => {
+    setActiveIndex(swiper.realIndex);
+  };
 
-                {dotsAfter.map((targetIndex) => (
-                    <div
-                        key={targetIndex}
-                        className={styles.slotDot}
-                        aria-label={`Слайд ${targetIndex + 1}`}
-                    />
-                ))}
-            </div>
-        );
-    };
+  const renderCustomPagination = (): ReactElement => {
+    const dotsBefore = Array.from({ length: activeIndex }, (_, idx) => idx);
+    const dotsAfter = Array.from({ length: slides.length - activeIndex - 1 }, (_, idx) => idx + activeIndex + 1);
 
     return (
-        <div className={styles.slotCarousel}>
-            <Swiper
-                modules={[Autoplay]}
-                loop={slides.length>3}
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: false,
-                    waitForTransition: true,
-                }}
-                allowTouchMove={false}
-                onSlideChange={handleSlideChange}
-                className={styles.slotViewport}
-                slidesPerView={1}
-                spaceBetween={16}
-            >
-                {slides.map((slide) => (
-                    <SwiperSlide key={slide} className={styles.slotSlide}>
-                        <div className={styles.heroSlot}>
-                            <h3 className={styles.slotTitle}>Слот недели</h3>
+      <div className={styles.slotPagination}>
+        {dotsBefore.map(idx => (
+          <div key={idx} className={styles.slotDot} aria-label={`Слайд ${idx + 1}`} />
+        ))}
 
-                            <div className={styles.slotCardWrapper}>
-                                <img src={slotImage} alt="Слот недели" draggable={false}/>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+        <div className={styles.slotPaginationBar} />
 
-            {slides.length > 1 && renderCustomPagination()}
-        </div>
+        {dotsAfter.map(targetIndex => (
+          <div key={targetIndex} className={styles.slotDot} aria-label={`Слайд ${targetIndex + 1}`} />
+        ))}
+      </div>
     );
+  };
+
+  return (
+    <div className={styles.slotCarousel}>
+      <Swiper
+        modules={[Autoplay]}
+        loop={slides.length > MIN_SLIDES_FOR_LOOP}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+          waitForTransition: true,
+        }}
+        allowTouchMove={false}
+        onSlideChange={handleSlideChange}
+        className={styles.slotViewport}
+        slidesPerView={1}
+        spaceBetween={16}
+      >
+        {slides.map(slide => (
+          <SwiperSlide key={slide} className={styles.slotSlide}>
+            <div className={styles.heroSlot}>
+              <h3 className={styles.slotTitle}>Слот недели</h3>
+
+              <div className={styles.slotCardWrapper}>
+                <img src={slotImage} alt="Слот недели" draggable={false} />
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {slides.length > 1 && renderCustomPagination()}
+    </div>
+  );
 };
-
-
-

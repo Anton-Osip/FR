@@ -6,11 +6,17 @@
   gap: 20px;
 }
 
-.radioGroupItemWrapper {
-  display: flex;
-  align-items: center;
-  gap: $spacing-xxs;
+.radioGroupLabel {
   cursor: pointer;
+  color: $color-text-secondary;
+  transition: color $transition-hover;
+}
+
+.radioGroupItemWrapper {
+  cursor: pointer;
+  display: flex;
+  gap: $spacing-xxs;
+  align-items: center;
 
   &:hover {
     .radioGroupLabel {
@@ -24,23 +30,19 @@
 }
 
 .radioGroupItem {
+  cursor: pointer;
+
   width: 19px;
   height: 19px;
-  border-radius: $radius-full;
+
   background-color: $color-bg-on-block;
   border: none;
-  cursor: pointer;
+  border-radius: $radius-full;
 
   &[data-state="checked"] {
-    background-color: $color-primary;
     color: $color-win-primary;
+    background-color: $color-primary;
   }
-}
-
-.radioGroupLabel {
-  color: $color-text-secondary;
-  transition: color $transition-hover;
-  cursor: pointer;
 }
 
 .radioGroupItem[data-state="checked"] + label.radioGroupLabel {

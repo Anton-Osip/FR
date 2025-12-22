@@ -2,28 +2,29 @@
 
 .header {
   width: 100%;
-  background: $color-bg-block;
   color: $color-text-primary;
+  background: $color-bg-block;
 
   .container {
-    max-width: $container-max-width;
-    padding: $spacing-md;
-    width: 100%;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: $spacing-md;
   }
 
   .wrapper {
     display: flex;
-    align-items: center;
     gap: $spacing-12;
+    align-items: center;
   }
 
   .chevronHeader {
-    padding-left: 0;
     padding-right: 0;
+    padding-left: 0;
   }
 }
 

@@ -1,22 +1,25 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .info {
-  grid-area: info;
   display: flex;
+  grid-area: info;
   justify-content: space-between;
+
   aspect-ratio: 584/225;
   width: 100%;
+  padding: $spacing-xl;
+
   background: $color-bg-block;
   border-radius: 20px;
-  padding: $spacing-xl;
 }
 
 .infoWrap {
-  width: 100%;
-  max-width: 327px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  width: 100%;
+  max-width: 327px;
 }
 
 .user {
@@ -37,16 +40,16 @@
 
 .userName {
   font-size: 20px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: 140%;
   letter-spacing: -0.2px;
 }
 
 .userIdWrapper {
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
+  font-style: normal;
   line-height: normal;
 }
 
@@ -55,8 +58,9 @@
 }
 
 .userInfoImage {
+  user-select: none;
   width: 161px;
   height: 161px;
-  user-select: none;
+
   -webkit-user-drag: none;
 }

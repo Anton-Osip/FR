@@ -1,5 +1,6 @@
-import type { FC } from "react";
-import styles from "./CarouselItem.module.scss";
+import type { FC } from 'react';
+
+import styles from './CarouselItem.module.scss';
 
 interface Props {
   img: string;
@@ -8,11 +9,6 @@ interface Props {
 
 export const CarouselItem: FC<Props> = ({ img, link }) => {
   return (
-    <a
-      href={link}
-      className={styles["carousel-item"]}
-      style={{ backgroundImage: `url(${img})` }}
-      draggable={false}
-    ></a>
+    <a href={link} className={styles['carousel-item']} style={{ backgroundImage: `url(${img})` }} draggable={false}></a>
   );
 };

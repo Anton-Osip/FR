@@ -8,8 +8,9 @@
 
 .promoGrid{
   display: grid;
-  aspect-ratio: 1184 / 500;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 16px;
+
+  aspect-ratio: 1184 / 500;
 }

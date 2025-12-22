@@ -1,16 +1,17 @@
-import type { FC, SVGProps } from "react";
-import styles from "./TabMenuItem.module.scss";
+import React, { type FC, type KeyboardEvent, type SVGProps } from 'react';
+
+import styles from './TabMenuItem.module.scss';
 
 interface Props {
   title: string;
   icon: FC<SVGProps<SVGSVGElement>>;
   onClick?: () => void;
-    isActive?: boolean;
+  isActive?: boolean;
 }
 
-export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick,isActive }) => {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
+export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick, isActive }) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>): void => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       (onClick || (() => {}))();
     }
@@ -18,7 +19,7 @@ export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick,isActive }) 
 
   return (
     <div
-      className={`${styles.tabMenuItem} ${isActive?styles.active:''}` }
+      className={`${styles.tabMenuItem} ${isActive ? styles.active : ''}`}
       onClick={onClick || (() => {})}
       role="button"
       tabIndex={0}

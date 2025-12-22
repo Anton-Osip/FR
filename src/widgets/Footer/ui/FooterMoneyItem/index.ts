@@ -1,1 +1,1 @@
-export { FooterMoneyItem } from "./FooterMoneyItem";
+export { FooterMoneyItem } from './FooterMoneyItem';

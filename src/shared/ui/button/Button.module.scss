@@ -1,48 +1,53 @@
 @use "../../styles/variables" as *;
 
 .button {
+  cursor: pointer;
+
   display: flex;
+  gap: $spacing-xs;
   align-items: center;
   justify-content: center;
-  gap: $spacing-xs;
-  border: none;
-  transition: background-color $transition-hover, color $transition-hover,
-    transform 0.1s ease, box-shadow 0.1s ease;
-  cursor: pointer;
+
+  min-width: fit-content;
+
   font-family: $font-family-base;
   font-size: $font-size-md;
   font-weight: $font-weight-base;
   line-height: $leading-normal;
   letter-spacing: $tracking-tight;
-  min-width: fit-content;
+
+  border: none;
+
+  transition: background-color $transition-hover, color $transition-hover,
+    transform 0.1s ease, box-shadow 0.1s ease;
 
   .buttonIcon {
     width: 19px;
     height: 19px;
 
     path {
-      fill: currentColor;
+      fill: currentcolor;
     }
   }
 
   &-primary {
-    background-color: $color-primary;
     color: $color-text-primary;
+    background-color: $color-primary;
   }
 
   &-secondary {
-    background: $color-bg-block;
     color: $color-text-secondary;
+    background: $color-bg-block;
   }
 
   &-tertiary {
-    background: $color-bg-on-block;
     color: $color-text-primary;
+    background: $color-bg-on-block;
   }
 
   &-ghost {
-    background: transparent;
     color: $color-text-secondary;
+    background: transparent;
   }
 
   &.is-active {
@@ -68,15 +73,15 @@
   }
 
   &.button-size-s {
+    max-height: 39px;
     padding: $spacing-xs $spacing-md;
     border-radius: $radius-md;
-    max-height: 39px;
   }
 
   &.button-size-m {
+    max-height: 47px;
     padding: $spacing-sm $spacing-md;
     border-radius: $radius-lg;
-    max-height: 47px;
   }
 
   &.button-full {
@@ -98,28 +103,28 @@
     }
   }
 
-  &:disabled {
-    cursor: default;
-    transform: none;
-    box-shadow: none;
-    pointer-events: none;
-
-    &:hover,
-    &:active {
-      background-color: $color-bg-block;
-      transform: none;
-      box-shadow: none;
-    }
-  }
-
   &:active {
     transform: scale(0.95);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 18%);
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(24, 115, 242, 0.7);
+    outline: 2px solid rgba(24, 115, 242, 70%);
     outline-offset: 2px;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+      background-color: $color-bg-block;
+      box-shadow: none;
+    }
   }
 }
 
@@ -130,8 +135,8 @@
     }
 
     &-secondary:hover {
-      background-color: $color-bg-on-block;
       color: $color-text-primary;
+      background-color: $color-bg-on-block;
 
       .buttonIcon {
         fill: $color-text-primary;

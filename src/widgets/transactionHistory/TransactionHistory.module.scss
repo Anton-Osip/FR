@@ -3,12 +3,13 @@
 }
 
 .title {
+  margin-bottom: 24px;
+
   font-size: 26px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.26px;
-  margin-bottom: 24px;
 }
 
 .th {
@@ -20,7 +21,7 @@
 }
 
 .dateCellBody {
-  padding: 7px 7px;
+  padding: 7px;
 }
 
 .statusCell {

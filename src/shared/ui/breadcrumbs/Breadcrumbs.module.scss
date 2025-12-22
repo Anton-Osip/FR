@@ -12,23 +12,26 @@
 
   &:not(:last-child)::after {
     content: "/";
+
     margin: 0 7px;
-    color: $color-text-secondary;
+
     font-size: 16px;
-    font-style: normal;
     font-weight: 500;
+    font-style: normal;
     line-height: normal;
+    color: $color-text-secondary;
   }
 }
 
 .link {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
   color: $color-text-secondary;
   text-decoration: none;
+
   transition: color $transition-hover;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 
   &:hover {
     color: $color-text-primary;
@@ -36,11 +39,12 @@
 }
 
 .current {
-  color: $color-text-primary;
   cursor: default;
+
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
+  font-style: normal;
   line-height: normal;
+  color: $color-text-primary;
   letter-spacing: -0.16px;
 }

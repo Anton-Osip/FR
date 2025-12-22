@@ -3,8 +3,8 @@
 .userCell,
 .gameCell {
   display: flex;
-  align-items: center;
   gap: $spacing-xxs;
+  align-items: center;
 }
 
 .game {
@@ -14,28 +14,28 @@
 .userAvatar {
   width: $spacing-lg;
   height: $spacing-lg;
-  border-radius: $radius-xxl;
   background: $color-bg-on-block;
+  border-radius: $radius-xxl;
 }
 
 .userName {
   font-family: $font-family-base;
-  font-weight: $font-weight-light;
   font-size: $font-size-md;
+  font-weight: $font-weight-light;
   color: $color-text-secondary;
 }
 
 .gameIcon {
   width: 15px;
   height: 19px;
-  border-radius: 2px;
   background: $color-bg-on-block;
+  border-radius: 2px;
 }
 
 .gameName {
   font-family: $font-family-base;
-  font-weight: $font-weight-light;
   font-size: $font-size-md;
+  font-weight: $font-weight-light;
   color: $color-text-primary;
 }
 
@@ -43,8 +43,8 @@
 .multiplierCell,
 .payoutCell {
   font-family: $font-family-base;
-  font-weight: $font-weight-light;
   font-size: $font-size-md;
+  font-weight: $font-weight-light;
   color: $color-text-secondary;
 }
 
@@ -64,6 +64,7 @@
   .th, .td {
     width: 33%;
   }
+
   .payout,
   .payoutCell {
     text-align: right;
@@ -82,10 +83,12 @@
   .th, .td {
     width: 50%;
   }
+
   .userHead,
   .user {
     display: none;
   }
+
   .game,
   .gameCellBody {
     padding-left: $spacing-md;

@@ -1,1 +1,1 @@
-export {SupportPanel} from './SupportPanel.tsx'
+export { SupportPanel } from './SupportPanel';

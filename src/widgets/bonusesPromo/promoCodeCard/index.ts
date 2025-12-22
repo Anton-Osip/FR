@@ -1,1 +1,1 @@
-export {PromoCodeCard} from './PromoCodeCard.tsx'
+export { PromoCodeCard } from './PromoCodeCard';

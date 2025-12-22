@@ -9,13 +9,14 @@
 }
 
 .title {
-  color: #fff;
-  font-size: 26px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.26px;
   min-width: 232px;
+
+  font-size: 26px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #fff;
+  letter-spacing: -0.26px;
 }
 
 .tabs {
@@ -23,6 +24,7 @@
   min-width: 0;
   max-width: 100%;
 }
+
 .userBody,
 .user{
   padding: 7px 10px;
@@ -36,16 +38,18 @@
 
 .userCell {
   display: flex;
-  align-items: center;
   gap: 8px;
+  align-items: center;
 
   .userAvatar {
     display: block;
+
+    aspect-ratio: 1/1;
     width: 19px;
     height: 19px;
-    aspect-ratio: 1/1;
-    border-radius: 1600px;
+
     background: #212738;
+    border-radius: 1600px;
   }
 
   .userName {
@@ -64,9 +68,9 @@
   }
 
   .userBody{
-    border-top: 1px solid #212738;
-    background: #0F141F;
     padding: 7px 10px;
+    background: #0F141F;
+    border-top: 1px solid #212738;
   }
 
 }

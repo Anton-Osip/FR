@@ -1,28 +1,32 @@
 @use "../../../shared/styles/variables" as *;
 
 .menuSection {
-  color: $color-text-primary;
-  width: 100%;
   position: relative;
+  width: 100%;
+  color: $color-text-primary;
 
   .title {
+    overflow: hidden;
+
+    max-height: 100px;
+    margin-bottom: $spacing-12;
+
     font-family: $font-family-base;
     font-size: $font-size-md;
     font-weight: $font-weight-base;
     line-height: $leading-normal;
     letter-spacing: $tracking-tight;
-    margin-bottom: $spacing-12;
-    opacity: 1;
+
     visibility: visible;
-    max-height: 100px;
-    overflow: hidden;
+    opacity: 1;
+
     transition: opacity $transition-hover, visibility $transition-hover, max-height $transition-hover, margin-bottom $transition-hover;
 
     &.hidden {
-      opacity: 0;
-      visibility: hidden;
       max-height: 0;
       margin-bottom: 0;
+      visibility: hidden;
+      opacity: 0;
     }
   }
 }

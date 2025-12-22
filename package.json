@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && npx stylelint \"**/*.scss\"",
+    "lint-fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint-style-fix": "npx stylelint \"**/*.scss\" --fix"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.2",
@@ -34,10 +36,19 @@
     "@vitejs/plugin-react": "^5.1.1",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prettier": "^3.0.0",
     "sass": "^1.96.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-clean-order": "^6.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",

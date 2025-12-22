@@ -7,22 +7,22 @@ import {
   type ReactNode,
   type RefAttributes,
   type SVGProps,
-} from "react";
-import type { IconProps } from "@radix-ui/react-icons/dist/types";
-import styles from "./Button.module.scss";
+} from 'react';
 
-type IconType =
-  | FC<SVGProps<SVGSVGElement>>
-  | ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+import type { IconProps } from '@radix-ui/react-icons/dist/types';
+
+import styles from './Button.module.scss';
+
+type IconType = FC<SVGProps<SVGSVGElement>> | ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    children?: ReactNode;
-    icon?: ReactNode | IconType;
-    variant?: "primary" | "secondary" | "tertiary" | "ghost";
-    size?: "s" | "m";
-    fullWidth?: boolean;
-    active?: boolean;
-    square?: boolean;
+  children?: ReactNode;
+  icon?: ReactNode | IconType;
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
+  size?: 's' | 'm';
+  fullWidth?: boolean;
+  active?: boolean;
+  square?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -30,37 +30,35 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       icon: Icon,
-      variant = "primary",
-      size = "m",
+      variant = 'primary',
+      size = 'm',
       fullWidth = false,
       active = false,
       square = false,
       className,
-      type = "button",
+      type = 'button',
       ...props
     },
-    ref
+    ref,
   ) => {
     const mergedClassName = [
       styles.button,
       styles[`button-${variant}`],
       styles[`button-size-${size}`],
-      fullWidth ? styles["button-full"] : "",
-      active ? styles["is-active"] : "",
-      square ? styles["button-square"] : "",
+      fullWidth ? styles['button-full'] : '',
+      active ? styles['is-active'] : '',
+      square ? styles['button-square'] : '',
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
-    const renderIcon = () => {
+    const renderIcon = (): ReactNode => {
       if (!Icon) return null;
 
-      if (
-        typeof Icon === "function" ||
-        (typeof Icon === "object" && "render" in Icon)
-      ) {
+      if (typeof Icon === 'function' || (typeof Icon === 'object' && 'render' in Icon)) {
         const IconComponent = Icon as IconType;
+
         return <IconComponent className={styles.buttonIcon} />;
       }
 
@@ -77,7 +75,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children && <span className={styles.buttonText}>{children}</span>}
       </button>
     );
-  }
+  },
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

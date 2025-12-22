@@ -1,1 +1,1 @@
-export {Table} from './Table.tsx'
+export { Table, TableHeader, TableHead, TableBody, TableRow, TableCell, TableFooter } from './Table';

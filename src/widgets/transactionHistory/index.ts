@@ -1,1 +1,1 @@
-export {TransactionHistory} from './TransactionHistory.tsx'
+export { TransactionHistory } from './TransactionHistory';

@@ -1,30 +1,29 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .rewardsCards {
-  width: 100%;
   display: grid;
-  aspect-ratio: 1184 / 277;
-  grid-template-columns: 49.3% 24% 24%;
   grid-template-areas: "bonus slot cashback";
+  grid-template-columns: 49.3% 24% 24%;
   gap: $spacing-md;
   justify-content: center;
+
+  aspect-ratio: 1184 / 277;
+  width: 100%;
   height: auto;
 }
 
 @media screen and (max-width: $media-laptop-plus) {
   .rewardsCards {
-    aspect-ratio: 768 / 224;
     grid-template-columns: 48.6% 23.2% 23.2%;
+    aspect-ratio: 768 / 224;
     margin-bottom: 23px;
   }
 }
 
 @media screen and (max-width: $media-tab-mini) {
   .rewardsCards {
-    aspect-ratio: 358 / 411;
-    grid-template-rows: 43% 54%;
+    grid-template: "bonus bonus" 43% "slot cashback" 54% / 1fr 1fr;
     gap: 10px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "bonus bonus""slot cashback";
+    aspect-ratio: 358 / 411;
   }
 }

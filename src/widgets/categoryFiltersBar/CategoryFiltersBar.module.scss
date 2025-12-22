@@ -2,35 +2,43 @@
 
 .root {
   display: flex;
-  align-items: center;
   flex-wrap: nowrap;
+  align-items: center;
+
+  padding-right: 6px;
+
   background: $color-bg-block;
   border-radius: 16px;
-  padding-right: 6px;
 }
 
 .buttonWrapper {
-  padding: 6px;
-  background: $color-bg-block;
   display: none;
+
   width: 63px;
+  padding: 6px;
+
+  background: $color-bg-block;
   border-radius: 16px;
 
   & > button {
-    padding-left: 14px !important;
     padding-right: 14px !important;
-    border: 2px solid var(--bg-on-block, #212738);
-    transition: border 0.3s ease, color 0.3s ease;
+    padding-left: 14px !important;
+
     color: #282F42;
+
+    border: 2px solid var(--bg-on-block, #212738);
+
+    transition: border 0.3s ease, color 0.3s ease;
+
     & > span{
       min-width: 19px;
       height: 19px;
     }
 
     &:hover{
-      border: 2px solid  $color-text-secondary;
-      background-color:  $color-bg-block;
       color: $color-text-secondary;
+      background-color:  $color-bg-block;
+      border: 2px solid  $color-text-secondary;
     }
   }
 }
@@ -44,22 +52,27 @@
   flex-shrink: 0;
 }
 
-@media screen and (max-width: 986px) {
+@media screen and (width <= 986px) {
   .root {
-    background: transparent;
-    justify-content: space-between;
-    border-radius: 16px;
-    padding-right: 0;
     gap: 8px;
+    justify-content: space-between;
+
+    padding-right: 0;
+
+    background: transparent;
+    border-radius: 16px;
   }
+
   .tabs{
     flex: 0 1 auto;
     min-width: 0;
     max-width: 100%;
   }
+
   .inputWrapper {
     display: none;
   }
+
   .buttonWrapper {
     display: block;
   }

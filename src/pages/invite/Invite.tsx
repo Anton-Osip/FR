@@ -1,19 +1,22 @@
-import {Breadcrumbs} from "@shared/ui/breadcrumbs";
-import styles from "./Invite.module.scss";
-import {RewardsCards} from "@widgets/rewardsCards";
-import {ProgramTerms} from "@widgets/programTerms";
-import {RatingTable} from "@widgets/ratingTable";
+import { type FC } from 'react';
 
-const breadCrumbsItems = [{label: "Инвайт"}];
+import { Breadcrumbs } from '@shared/ui/breadcrumbs';
 
-export const Invite = () => {
-    return (
-        <div className={styles.invite}>
-            <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs}/>
-            <RewardsCards className={styles.rewardsCards}/>
-            <ProgramTerms/>
-            <RatingTable/>
-        </div>
-    );
+import { ProgramTerms } from '@widgets/programTerms';
+import { RatingTable } from '@widgets/ratingTable';
+import { RewardsCards } from '@widgets/rewardsCards';
+
+import styles from './Invite.module.scss';
+
+const breadCrumbsItems = [{ label: 'Инвайт' }];
+
+export const Invite: FC = () => {
+  return (
+    <div className={styles.invite}>
+      <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />
+      <RewardsCards className={styles.rewardsCards} />
+      <ProgramTerms />
+      <RatingTable />
+    </div>
+  );
 };
-

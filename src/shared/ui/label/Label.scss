@@ -1,33 +1,27 @@
 @use "../../styles/variables" as *;
 
 .label {
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $color-bg-block;
-  color: $color-text-secondary;
-  padding: $spacing-xs $spacing-md;
-  gap: $spacing-xs;
-  border-radius: $radius-md;
   cursor: pointer;
+
+  display: flex;
+  gap: $spacing-xs;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  padding: $spacing-xs $spacing-md;
+
+  color: $color-text-secondary;
+
+  background-color: $color-bg-block;
+  border-radius: $radius-md;
+
   transition: background-color $transition-hover;
   transition: color $transition-hover;
 
   &:hover {
-    background-color: $color-bg-on-block;
     color: $color-text-primary;
-  }
-
-  &.active {
     background-color: $color-bg-on-block;
-    color: $color-text-primary;
-
-    .labelIcon {
-      svg {
-        color: $color-primary;
-      }
-    }
   }
 }
 
@@ -39,5 +33,16 @@
   svg {
     width: 19px;
     height: 19px;
+  }
+}
+
+.label.active {
+  color: $color-text-primary;
+  background-color: $color-bg-on-block;
+
+  .labelIcon {
+    svg {
+      color: $color-primary;
+    }
   }
 }

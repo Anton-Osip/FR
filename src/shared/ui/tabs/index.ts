@@ -1,1 +1,1 @@
-export {Tabs} from './Tabs.tsx'
+export { Tabs } from './Tabs';

@@ -3,14 +3,16 @@
 .balance {
   display: flex;
   flex-direction: column;
-  padding: $spacing-xl;
-  background: $color-bg-block;
-  border-radius: 20px;
+
   height: 100%;
+  padding: $spacing-xl;
+
+  background: $color-bg-block;
   background-image: url("../../../assets/icons/logo-bg.svg");
   background-repeat: no-repeat;
   background-position: right bottom;
   background-size: contain;
+  border-radius: 20px;
 }
 
 .mainBalance {
@@ -22,21 +24,23 @@
 }
 
 .amount {
+  margin-bottom: 10px;
+
   font-size: 32px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.32px;
-  margin-bottom: 10px;
 }
 
 .text {
-  color: $color-text-secondary;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
   margin-bottom: 48px;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: $color-text-secondary;
 }
 
 .balanceButton {

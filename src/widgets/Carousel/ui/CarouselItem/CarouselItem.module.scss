@@ -1,15 +1,19 @@
 @use "../../../../shared/styles/variables.scss" as *;
 
 .carousel-item {
+  cursor: pointer;
+
   flex: 0 0 auto;
+
+  aspect-ratio: 155 / 208;
   width: calc((100% - 6 * $spacing-md) / 7);
   height: auto;
-  aspect-ratio: 155 / 208;
-  background-size: cover;
-  background-position: center;
+
   background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   border-radius: $radius-xl;
-  cursor: pointer;
+
   transition: transform $transition-hover;
 
   &:hover {
@@ -19,15 +23,15 @@
 
 @media (max-width: $media-tab) {
   .carousel-item {
-    border-radius: 10px;
-    width: calc((100% - 5 * $spacing-xxs) / 6);
     aspect-ratio: 121 / 165;
+    width: calc((100% - 5 * $spacing-xxs) / 6);
+    border-radius: 10px;
   }
 }
 
 @media (max-width: $media-mobile-plus) {
   .carousel-item {
-    width: calc((100% - 2 * $spacing-xxs) / 3);
     aspect-ratio: 114 / 149;
+    width: calc((100% - 2 * $spacing-xxs) / 3);
   }
 }

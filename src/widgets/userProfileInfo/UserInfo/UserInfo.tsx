@@ -1,8 +1,11 @@
-import type { FC } from "react";
-import { Avatar } from "@shared/ui";
-import { UserAmountProgress } from "./UserAmountProgress";
-import silverBg from '@assets/icons/silver-bg.svg?url'
-import styles from "./UserInfo.module.scss";
+import type { FC } from 'react';
+
+import { Avatar } from '@shared/ui';
+
+import { UserAmountProgress } from './UserAmountProgress';
+import styles from './UserInfo.module.scss';
+
+import silverBg from '@assets/icons/silver-bg.svg?url';
 
 interface User {
   id: string;

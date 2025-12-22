@@ -1,1 +1,1 @@
-export {RewardsCard} from './RewardsCard.tsx'
+export { RewardsCard } from './RewardsCard';

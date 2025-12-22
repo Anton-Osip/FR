@@ -1,96 +1,104 @@
-import type {FC, ReactNode} from "react";
-import {useEffect, useRef, useState} from "react";
-import styles from './Tabs.module.scss'
-import {Button} from "@shared/ui";
+import type { FC, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { Button } from '@shared/ui';
+
+import styles from './Tabs.module.scss';
 
 export interface Tab {
-    id: string;
-    value: string;
-    label: string;
-    icon?: ReactNode;
-    active: boolean
+  id: string;
+  value: string;
+  label: string;
+  icon?: ReactNode;
+  active: boolean;
 }
 
 interface TabsProps {
-    className?: string;
-    items: Tab[];
-    onChange?: (value: string) => void;
-    size?: 's' | 'm'
+  className?: string;
+  items: Tab[];
+  onChange?: (value: string) => void;
+  size?: 's' | 'm';
 }
 
-export const Tabs: FC<TabsProps> = ({className, items, onChange, size = 's'}) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-    const [isScrollable, setIsScrollable] = useState(false);
+const DIVISOR_FOR_CENTER = 2;
+const SCROLL_THRESHOLD = 1;
 
-    useEffect(() => {
-        if (!containerRef.current) return;
+export const Tabs: FC<TabsProps> = ({ className, items, onChange, size = 's' }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [isScrollable, setIsScrollable] = useState(false);
 
-        const activeIndex = items.findIndex(tab => tab.active);
-        if (activeIndex === -1) return;
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-        const activeTab = tabRefs.current[activeIndex];
-        const container = containerRef.current;
-        if (!activeTab) return;
+    const activeIndex = items.findIndex(tab => tab.active);
 
-        const containerRect = container.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
+    if (activeIndex === -1) return;
 
-        const tabCenter = tabRect.left + tabRect.width / 2;
-        const containerCenter = containerRect.left + containerRect.width / 2;
-        const delta = tabCenter - containerCenter;
+    const activeTab = tabRefs.current[activeIndex];
+    const container = containerRef.current;
 
-        container.scrollTo({
-            left: container.scrollLeft + delta,
-            behavior: "smooth",
-        });
+    if (!activeTab) return;
 
-        // обновляем флаг скролла после позиционирования
-        const {scrollWidth, clientWidth} = container;
-        setIsScrollable(scrollWidth > clientWidth + 1);
-    }, [items]);
+    const containerRect = container.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
 
-    useEffect(() => {
-        if (!containerRef.current) return;
-        const container = containerRef.current;
-        const updateScrollable = () => {
-            const {scrollWidth, clientWidth} = container;
-            setIsScrollable(scrollWidth > clientWidth + 1);
-        };
+    const tabCenter = tabRect.left + tabRect.width / DIVISOR_FOR_CENTER;
+    const containerCenter = containerRect.left + containerRect.width / DIVISOR_FOR_CENTER;
+    const delta = tabCenter - containerCenter;
 
-        updateScrollable();
-        window.addEventListener('resize', updateScrollable);
-        return () => window.removeEventListener('resize', updateScrollable);
-    }, []);
+    container.scrollTo({
+      left: container.scrollLeft + delta,
+      behavior: 'smooth',
+    });
 
-    const rootClassName = [
-        styles.root,
-        !isScrollable ? styles['root--no-fade'] : '',
-        className ?? ''
-    ].filter(Boolean).join(' ');
+    // обновляем флаг скролла после позиционирования
+    const { scrollWidth, clientWidth } = container;
 
-    return (
-        <div className={rootClassName}>
-            <div className={styles.wrapper} ref={containerRef}>
-                {items.map((item, index) => {
-                    return (
-                        <Button
-                            size={size}
-                            key={item.id}
-                            variant={'secondary'}
-                            className={`${styles.tab} ${item.active ? styles.activeTabs : ''}`}
-                            icon={item.icon}
-                            active={item.active}
-                            onClick={() => onChange?.(item.value)}
-                            ref={el => {
-                                tabRefs.current[index] = el;
-                            }}
-                        >
-                            {item.label}
-                        </Button>
-                    );
-                })}
-            </div>
-        </div>
-    );
-}
+    setIsScrollable(scrollWidth > clientWidth + SCROLL_THRESHOLD);
+  }, [items]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const container = containerRef.current;
+    const updateScrollable = (): void => {
+      const { scrollWidth, clientWidth } = container;
+
+      setIsScrollable(scrollWidth > clientWidth + SCROLL_THRESHOLD);
+    };
+
+    updateScrollable();
+    window.addEventListener('resize', updateScrollable);
+
+    return () => window.removeEventListener('resize', updateScrollable);
+  }, []);
+
+  const rootClassName = [styles.root, !isScrollable ? styles['root--no-fade'] : '', className ?? '']
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div className={rootClassName}>
+      <div className={styles.wrapper} ref={containerRef}>
+        {items.map((item, index) => {
+          return (
+            <Button
+              size={size}
+              key={item.id}
+              variant={'secondary'}
+              className={`${styles.tab} ${item.active ? styles.activeTabs : ''}`}
+              icon={item.icon}
+              active={item.active}
+              onClick={() => onChange?.(item.value)}
+              ref={el => {
+                tabRefs.current[index] = el;
+              }}
+            >
+              {item.label}
+            </Button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};

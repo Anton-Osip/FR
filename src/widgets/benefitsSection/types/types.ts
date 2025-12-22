@@ -1,4 +1,4 @@
-import type { FC, SVGProps } from "react";
+import type { FC, SVGProps } from 'react';
 
 interface BenefitItem {
   id: string;

@@ -1,1 +1,1 @@
-export {ProgramTerms} from './ProgramTerms.tsx'
+export { ProgramTerms } from './ProgramTerms';

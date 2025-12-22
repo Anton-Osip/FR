@@ -1,1 +1,1 @@
-export {CashbackCard} from './CashbackCard.tsx'
+export { CashbackCard } from './CashbackCard';

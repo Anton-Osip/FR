@@ -2,19 +2,22 @@
 
 .container {
   position: relative;
+  overflow-x: auto;
   width: 100%;
   min-width: 0;
-  overflow-x: auto;
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  text-align: left;
-  table-layout: fixed;
-  border-radius: $radius-lg;
   overflow: hidden;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  width: 100%;
+
+  text-align: left;
+
+  border-radius: $radius-lg;
 }
 
 .thead {
@@ -26,17 +29,11 @@
   background: $color-bg-block;
 }
 
-.tfoot .th{
-  border-top: 1px solid #212738;
-  background: #0F141F;
-}
-
-
 .tr {
-  width: 100%;
-  transition: background $transition-hover;
   cursor: pointer;
+  width: 100%;
   height: 39px;
+  transition: background $transition-hover;
 
   &:hover {
     background: $color-bg-on-block;
@@ -46,11 +43,13 @@
 .th {
   width: 20%;
   padding: $spacing-3xs $spacing-5xs;
+
   font-family: $font-family-base;
-  font-weight: $font-weight-base;
   font-size: $font-size-md;
-  letter-spacing: $tracking-tight;
+  font-weight: $font-weight-base;
   color: $color-text-primary;
+  letter-spacing: $tracking-tight;
+
   background: $color-bg-on-block;
 
   &:first-of-type {
@@ -63,12 +62,18 @@
   }
 }
 
+.tfoot .th{
+  background: #0F141F;
+  border-top: 1px solid #212738;
+}
+
 .td {
   width: 20%;
   padding: $spacing-3xs $spacing-5xs;
+
   font-family: $font-family-base;
-  font-weight: $font-weight-light;
   font-size: $font-size-md;
+  font-weight: $font-weight-light;
   color: $color-text-secondary;
 
   &:first-of-type {

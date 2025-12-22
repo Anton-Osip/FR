@@ -1,1 +1,1 @@
-export { TabScreenMenu } from "./TabScreenMenu";
+export { TabScreenMenu } from './TabScreenMenu';

@@ -1,1 +1,1 @@
-export {SearchModal} from './SearchModal.tsx'
+export { SearchModal } from './SearchModal';

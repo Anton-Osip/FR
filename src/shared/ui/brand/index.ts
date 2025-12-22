@@ -1,1 +1,1 @@
-export {Brand} from './Brand.tsx'
+export { Brand } from './Brand';

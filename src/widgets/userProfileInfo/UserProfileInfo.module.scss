@@ -1,21 +1,20 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .userInfo {
-  width: 100%;
   display: grid;
-  gap: $spacing-md;
-  grid-template-columns: 2fr 1fr 1fr;
   grid-template-areas: "info main-balance bonus-balance";
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: $spacing-md;
   justify-content: center;
+
+  width: 100%;
   height: auto;
 }
 
 @media screen and (max-width: $media-tab-mini) {
   .userInfo {
-    aspect-ratio: 358 / 411;
-    grid-template-rows: 43% 54%;
+    grid-template: "info info" 43% "main-balance bonus-balance" 54% / 1fr 1fr;
     gap: $spacing-xs;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "info info" "main-balance bonus-balance";
+    aspect-ratio: 358 / 411;
   }
 }

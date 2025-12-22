@@ -1,1 +1,1 @@
-export {RatingTable} from './RatingTable.tsx'
+export { RatingTable } from './RatingTable';

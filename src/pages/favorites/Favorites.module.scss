@@ -15,14 +15,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   min-height: 400px;
+
   text-align: center;
 
   h2 {
+    margin-bottom: $spacing-md;
     font-size: 32px;
     font-weight: $font-weight-base;
     color: $color-text-primary;
-    margin-bottom: $spacing-md;
   }
 
   p {

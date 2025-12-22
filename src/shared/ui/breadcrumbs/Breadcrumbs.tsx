@@ -1,43 +1,46 @@
-import type {FC} from "react";
-import {Link} from "react-router-dom";
-import styles from "./Breadcrumbs.module.scss";
-import {APP_PATH} from "@shared/constants/constants";
+import type { FC } from 'react';
+
+import { Link } from 'react-router-dom';
+
+import { APP_PATH } from '@shared/constants/constants';
+
+import styles from './Breadcrumbs.module.scss';
 
 interface BreadcrumbItem {
-    label: string;
-    href?: string;
+  label: string;
+  href?: string;
 }
 
 interface BreadcrumbsProps {
-    items: BreadcrumbItem[];
-    className?: string;
+  items: BreadcrumbItem[];
+  className?: string;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({items, className}) => {
-    return (
-        <nav aria-label="Breadcrumb" className={className ?? className}>
-            <ol className={styles.list}>
-                <li className={styles.item}>
-                    <Link to={APP_PATH.main} className={styles.link}>
-                        Главная
-                    </Link>
-                </li>
-                {items.map((item, index) => {
-                    const isLast = index === items.length - 1;
+export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, className }) => {
+  return (
+    <nav aria-label="Breadcrumb" className={className ?? className}>
+      <ol className={styles.list}>
+        <li className={styles.item}>
+          <Link to={APP_PATH.main} className={styles.link}>
+            Главная
+          </Link>
+        </li>
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
 
-                    return (
-                        <li key={item.label} className={styles.item}>
-                            {isLast || !item.href ? (
-                                <span className={styles.current}>{item.label}</span>
-                            ) : (
-                                <Link to={item.href} className={styles.link}>
-                                    {item.label}
-                                </Link>
-                            )}
-                        </li>
-                    );
-                })}
-            </ol>
-        </nav>
-    );
+          return (
+            <li key={item.label} className={styles.item}>
+              {isLast || !item.href ? (
+                <span className={styles.current}>{item.label}</span>
+              ) : (
+                <Link to={item.href} className={styles.link}>
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
 };

@@ -1,1 +1,1 @@
-export {RankCard} from './RankCard'
+export { RankCard } from './RankCard';

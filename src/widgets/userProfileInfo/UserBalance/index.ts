@@ -1,1 +1,1 @@
-export { UserBalance } from "./UserBalance";
+export { UserBalance } from './UserBalance';

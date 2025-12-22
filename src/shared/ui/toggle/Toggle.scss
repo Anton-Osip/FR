@@ -3,21 +3,26 @@
 .toggleGroup {
   width: fit-content;
   padding: 6px;
+
+  color: $color-text-secondary;
+
   background-color: $color-bg-block;
   border-radius: $radius-xl;
-  color: $color-text-secondary;
 }
 
 .toggleGroupItem {
-  background-color: inherit;
-  color: $color-text-secondary;
-  padding: $spacing-xs $spacing-md;
-  border: none;
   cursor: pointer;
+
+  padding: $spacing-xs $spacing-md;
+
+  color: $color-text-secondary;
+
+  background-color: inherit;
+  border: none;
 }
 
 .toggleGroupItem[data-state="on"] {
-  background-color: $color-bg-on-block-hover;
   color: $color-text-primary;
+  background-color: $color-bg-on-block-hover;
   border-radius: $radius-md;
 }
