@@ -1,0 +1,22 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  margin: 0 0 32px;
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+

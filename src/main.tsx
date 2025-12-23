@@ -3,10 +3,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import '@shared/styles/global.scss';
+import { LoggingProvider } from '@app/providers/LoggingProvider.tsx';
+
 import App from './App';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <LoggingProvider />
     <App />
   </StrictMode>,
 );
