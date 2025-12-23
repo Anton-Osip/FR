@@ -11,23 +11,108 @@ import { HomePage } from '@pages/home';
 import { Invite } from '@pages/invite';
 import { Profile } from '@pages/profile';
 
+import { LOGIN_HOSTNAME, LOGIN_ORIGIN, TELEGRAM_BOT_NAME } from '@shared/config/constants.ts';
 import { APP_PATH } from '@shared/constants/constants';
 
+import { TelegramLoginWidget } from '@widgets/TelegramLoginWidget.tsx';
+
+import { useAuthFlow } from '@/features/auth/useAuthFlow.ts';
+
 const App: FC = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path={APP_PATH.bonuses} element={<Bonuses />} />
-          <Route path={APP_PATH.profile} element={<Profile />} />
-          <Route path={APP_PATH.invite} element={<Invite />} />
-          <Route path={APP_PATH.favorites} element={<Favorites />} />
-          <Route path="*" element={<Navigate to={APP_PATH.main} replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  const { authStatus, errorMessage, me, mode, showSiteLogin } = useAuthFlow();
+
+  const showError = authStatus === 'error' && !!errorMessage;
+
+  const isLoginHost = typeof window !== 'undefined' && !!LOGIN_HOSTNAME && window.location.hostname === LOGIN_HOSTNAME;
+
+  const goToLogin = (): void => {
+    if (typeof window === 'undefined') return;
+    const u = new URL(LOGIN_ORIGIN);
+
+    u.pathname = '/';
+    u.searchParams.set('return_to', window.location.href);
+    window.location.assign(u.toString());
+  };
+
+  const content = (() => {
+    if (mode === 'unknown') {
+      return (
+        <>
+          <h1>Skylon</h1>
+          <p>Определяем формат запуска...</p>
+          <div>
+            <div />
+          </div>
+        </>
+      );
+    }
+
+    if (authStatus === 'checking') {
+      return (
+        <>
+          <h1>Skylon</h1>
+          <p>{mode === 'webapp' ? 'Вход через Telegram...' : 'Проверка аутентификации...'}</p>
+          <div>
+            <div />
+          </div>
+          <div>Пожалуйста, подождите</div>
+        </>
+      );
+    }
+
+    if (authStatus === 'authenticated' && me) {
+      return (
+        <BrowserRouter>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path={APP_PATH.bonuses} element={<Bonuses />} />
+              <Route path={APP_PATH.profile} element={<Profile />} />
+              <Route path={APP_PATH.invite} element={<Invite />} />
+              <Route path={APP_PATH.favorites} element={<Favorites />} />
+              <Route path="*" element={<Navigate to={APP_PATH.main} replace />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      );
+    }
+
+    return (
+      <>
+        <h1>Skylon</h1>
+        <p>
+          {mode === 'webapp'
+            ? 'Откройте приложение внутри Telegram, чтобы автоматически войти'
+            : 'Добро пожаловать! Войдите через Telegram для продолжения'}
+        </p>
+
+        {showError && <div>{errorMessage}</div>}
+
+        {mode === 'webapp' ? (
+          <div>
+            <div>Если вы открыли страницу как обычный сайт — используйте вход через виджет ниже.</div>
+            <div>
+              <button onClick={() => showSiteLogin()}>Показать вход для сайта</button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            {isLoginHost ? (
+              <TelegramLoginWidget botName={TELEGRAM_BOT_NAME} />
+            ) : (
+              <button onClick={() => goToLogin()}>Войти через Telegram</button>
+            )}
+          </div>
+        )}
+
+        <p className="text-xs text-center text-gray-500 dark:text-gray-500 mt-4">
+          Нажимая кнопку, вы соглашаетесь с условиями использования
+        </p>
+      </>
+    );
+  })();
+
+  return <> {content}</>;
 };
 
 export default App;

@@ -3,6 +3,7 @@ import { type FC, useEffect, useRef, useState } from 'react';
 import { ChevronUpIcon } from '@radix-ui/react-icons';
 import { Outlet } from 'react-router-dom';
 
+import { initLogging } from '@shared/telemetry/initLogging.ts';
 import { Button } from '@shared/ui';
 
 import { Footer } from '@widgets/Footer';
@@ -20,6 +21,10 @@ export const MainLayout: FC = () => {
   const scrollToTop = (): void => {
     mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    initLogging();
+  }, []);
 
   useEffect(() => {
     const mainElement = mainRef.current;
