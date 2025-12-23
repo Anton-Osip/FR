@@ -17,6 +17,7 @@ import { APP_PATH } from '@shared/constants/constants';
 import { TelegramLoginWidget } from '@widgets/TelegramLoginWidget.tsx';
 
 import { useAuthFlow } from '@/features/auth/useAuthFlow.ts';
+import { Preloader } from '@/widgets';
 
 const App: FC = () => {
   const { authStatus, errorMessage, me, mode, showSiteLogin } = useAuthFlow();
@@ -36,28 +37,15 @@ const App: FC = () => {
 
   const content = (() => {
     if (mode === 'unknown') {
-      return (
-        <>
-          <h1>Skylon</h1>
-          <p>Определяем формат запуска...</p>
-          <div>
-            <div />
-          </div>
-        </>
-      );
+      console.log('Определяем формат запуска...');
+
+      return <Preloader />;
     }
 
     if (authStatus === 'checking') {
-      return (
-        <>
-          <h1>Skylon</h1>
-          <p>{mode === 'webapp' ? 'Вход через Telegram...' : 'Проверка аутентификации...'}</p>
-          <div>
-            <div />
-          </div>
-          <div>Пожалуйста, подождите</div>
-        </>
-      );
+      console.log(mode === 'webapp' ? 'Вход через Telegram...' : 'Проверка аутентификации...');
+
+      return <Preloader />;
     }
 
     if (authStatus === 'authenticated' && me) {
@@ -76,6 +64,11 @@ const App: FC = () => {
         </BrowserRouter>
       );
     }
+    console.log(
+      mode === 'webapp'
+        ? 'Откройте приложение внутри Telegram, чтобы автоматически войти'
+        : 'Добро пожаловать! Войдите через Telegram для продолжения',
+    );
 
     return (
       <>

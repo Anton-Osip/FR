@@ -24,6 +24,7 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "lottie-react": "^2.4.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.10.1",
