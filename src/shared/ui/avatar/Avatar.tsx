@@ -5,9 +5,9 @@ import * as RadixAvatar from '@radix-ui/react-avatar';
 import styles from './Avatar.module.scss';
 
 interface Props {
-  avatar: string | null | undefined;
-  name: string | null | undefined;
-  userFirstname: string | null | undefined;
+  avatar?: string | null | undefined;
+  name?: string | null | undefined;
+  userFirstname?: string | null | undefined;
 }
 
 export const Avatar: FC<Props> = ({ avatar }) => {
