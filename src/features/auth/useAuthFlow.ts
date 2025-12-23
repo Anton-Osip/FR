@@ -1,8 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { authenticateTelegramLoginWidget, authenticateTelegramWebApp } from '@/features/auth/api';
+import { useAuthStore } from '@/features/auth/authStore';
 import { getUserBalance, getUserMe } from '@/features/user/api';
 import { BFF, CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@/shared/config/constants';
 import { collectClientProfilePayload } from '@/shared/fingerprint';
@@ -151,17 +152,18 @@ function maybeRedirectToReturnTo(): void {
  * - Telegram WebApp: initData -> BFF -> cookie session
  */
 export const useAuthFlow = (): UseAuthFlowResult => {
-  const [authStatus, setAuthStatus] = useState<AuthStatus>('idle');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [me, setMe] = useState<UserMe | null>(null);
-  const [mode, setMode] = useState<AppMode>('unknown');
-
-  const showSiteLogin = useCallback((): void => {
-    setMode('site');
-    if (authStatus === 'checking') return;
-    if (authStatus === 'authenticated') return;
-    setAuthStatus('unauthenticated');
-  }, [authStatus]);
+  const {
+    authStatus,
+    errorMessage,
+    me,
+    mode,
+    showSiteLogin,
+    setAuthStatus,
+    setErrorMessage,
+    setMe,
+    setMode,
+    resetError,
+  } = useAuthStore();
 
   const checkSession = useCallback(async (): Promise<boolean> => {
     feLog.info('app.check_session_start');
@@ -185,13 +187,13 @@ export const useAuthFlow = (): UseAuthFlowResult => {
     feLog.warn('app.session_invalid', { status: meRes.status, error: meRes.error });
 
     return false;
-  }, []);
+  }, [setAuthStatus, setMe]);
 
   const handleWebAppAuth = useCallback(
     async (initData: string): Promise<void> => {
       setMode('webapp');
       setAuthStatus('checking');
-      setErrorMessage('');
+      resetError();
       setMe(null);
       const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
       const authResult = await authenticateTelegramWebApp(initData, clientProfile);
@@ -204,14 +206,14 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       }
       await checkSession();
     },
-    [checkSession],
+    [checkSession, resetError, setAuthStatus, setErrorMessage, setMe, setMode],
   );
 
   const handleLoginWidgetAuth = useCallback(
     async (widgetData: TelegramLoginWidgetData): Promise<void> => {
       setMode('site');
       setAuthStatus('checking');
-      setErrorMessage('');
+      resetError();
       setMe(null);
       const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
       const authResult = await authenticateTelegramLoginWidget(widgetData, clientProfile);
@@ -226,7 +228,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
 
       if (ok) maybeRedirectToReturnTo();
     },
-    [checkSession],
+    [checkSession, resetError, setAuthStatus, setErrorMessage, setMe, setMode],
   );
 
   useEffect(() => {
@@ -234,6 +236,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       try {
         setAuthStatus('checking');
         setMode('unknown');
+        resetError();
         const widgetData = getTelegramLoginWidgetData();
 
         if (widgetData) {
@@ -286,7 +289,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
     };
 
     void init();
-  }, [checkSession, handleLoginWidgetAuth, handleWebAppAuth]);
+  }, [checkSession, handleLoginWidgetAuth, handleWebAppAuth, resetError, setAuthStatus, setErrorMessage, setMode]);
 
   useEffect(() => {
     if (authStatus !== 'authenticated') return;
@@ -403,7 +406,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       }
       cleanupEs();
     };
-  }, [authStatus, me?.user_id]);
+  }, [authStatus, me?.user_id, setMe]);
 
   return useMemo(
     () => ({

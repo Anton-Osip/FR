@@ -5,10 +5,21 @@ import { WalletIcon } from '@shared/ui/icons';
 
 import styles from './BalanceCard.module.scss';
 
-export const BalanceCard: FC = () => {
+interface Props {
+  balance: number | null | undefined;
+}
+
+const formatBalance = (value: number): string => {
+  return new Intl.NumberFormat('ru-RU', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
+export const BalanceCard: FC<Props> = ({ balance }) => {
   return (
     <div className={styles.balanceCard}>
-      <p className={styles.balanceValue}>10 005,84 ₽</p>
+      <p className={styles.balanceValue}>{formatBalance(balance || 0)} ₽</p>
       <Button
         className={styles.btn}
         icon={

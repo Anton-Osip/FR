@@ -4,19 +4,22 @@ import * as RadixAvatar from '@radix-ui/react-avatar';
 
 import styles from './Avatar.module.scss';
 
-export const Avatar: FC = () => {
+interface Props {
+  avatar: string | null | undefined;
+  name: string | null | undefined;
+  userFirstname: string | null | undefined;
+}
+
+export const Avatar: FC<Props> = ({ avatar }) => {
   const avatarData = {
-    src: 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80',
+    src: avatar || '',
     alt: 'avatar',
-    initials: 'CT',
   };
 
   return (
     <RadixAvatar.Root className={styles.avatarRoot}>
       <RadixAvatar.Image className={styles.avatarImage} src={avatarData.src} alt={avatarData.alt} />
-      <RadixAvatar.Fallback className={styles.avatarFallback} delayMs={600}>
-        {avatarData.initials}
-      </RadixAvatar.Fallback>
+      <RadixAvatar.Fallback className={styles.avatarFallback} delayMs={600}></RadixAvatar.Fallback>
     </RadixAvatar.Root>
   );
 };

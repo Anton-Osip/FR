@@ -31,12 +31,7 @@ export default defineConfig({
     const DEV_HOST = process.env.DEV_HOST || '0.0.0.0';
     const port = Number(process.env.DEV_PORT || DEFAULT_DEV_PORT);
 
-    // Выбираем подходящую пару сертификатов: сначала dev-webapp, потом localhost.
-    const certCandidates = [
-      ['dev-webapp.fr0.me+3.pem', 'dev-webapp.fr0.me+3-key.pem'],
-      ['dev-webapp+2.pem', 'dev-webapp+2-key.pem'],
-      ['localhost+2.pem', 'localhost+2-key.pem'],
-    ];
+    const certCandidates = [['fr0.me.pem', 'fr0.me-key.pem']];
     const pair = certCandidates.find(([c, k]) => {
       const certPath = path.resolve(__dirname, c);
       const keyPath = path.resolve(__dirname, k);
