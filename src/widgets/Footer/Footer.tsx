@@ -7,9 +7,9 @@ import { Brand } from '@shared/ui';
 import { Button } from '@shared/ui/button';
 import { TgIcon } from '@shared/ui/icons';
 
-import { FooterMenu } from '@widgets/footer/FooterMenu';
-import { FooterMoneyItem } from '@widgets/footer/FooterMoneyItem';
-import { FooterSupport } from '@widgets/footer/FooterSupport';
+import { FooterMenu } from '@widgets/Footer/FooterMenu';
+import { FooterMoneyItem } from '@widgets/Footer/FooterMoneyItem';
+import { FooterSupport } from '@widgets/Footer/FooterSupport';
 
 import { getFooterBanking, getFooterCrypto, getFooterMenu } from './constants/constants.ts';
 import styles from './Footer.module.scss';
