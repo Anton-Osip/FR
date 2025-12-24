@@ -7,9 +7,11 @@ import { Outlet } from 'react-router-dom';
 import { initLogging } from '@shared/telemetry';
 import { Button } from '@shared/ui';
 
+import { Footer } from '@widgets/Footer';
+
 import styles from './MainLayout.module.scss';
 
-import { Footer, Header, Sidebar, TabScreenMenu } from '@/widgets';
+import { Header, Sidebar, TabScreenMenu } from '@/widgets';
 
 const SCROLL_THRESHOLD = 300;
 

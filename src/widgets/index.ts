@@ -18,4 +18,3 @@ export { TelegramLoginWidget } from './telegramLoginWidget';
 export { Carousel } from './Carousel';
 export { MainCarouselSection } from './MainCarouselSection';
 export { HeroSection } from './HeroSection';
-export { Footer } from './Footer/Footer';
