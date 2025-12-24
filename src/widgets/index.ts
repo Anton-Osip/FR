@@ -15,7 +15,7 @@ export { SearchModal } from './searchModal';
 export { SlideUpMenu } from './slideUpMenu';
 export { Preloader } from './preloader';
 export { TelegramLoginWidget } from './telegramLoginWidget';
-export { Footer } from './Footer';
 export { Carousel } from './carousel';
 export { MainCarouselSection } from './mainCarouselSection';
 export { HeroSection } from './HeroSection';
+export { Footer } from './footer/Footer';
