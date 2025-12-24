@@ -1,0 +1,54 @@
+@use "../../../shared/styles/variables" as *;
+
+.carousel-item {
+  cursor: pointer;
+
+  flex: 0 0 auto;
+
+  aspect-ratio: 155 / 208;
+  width: calc((100% - 6 * $spacing-md) / 7);
+  height: auto;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: $radius-xl;
+
+  transition: transform $transition-hover;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+@media (max-width: $media-tab) {
+  .carousel-item {
+    aspect-ratio: 121 / 165;
+    width: calc((100% - 5 * $spacing-xxs) / 6);
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: $media-mobile-plus) {
+  .carousel-item {
+    aspect-ratio: 114 / 149;
+    width: calc((100% - 2 * $spacing-xxs) / 3);
+  }
+}
+
+.skeleton {
+  pointer-events: none;
+  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

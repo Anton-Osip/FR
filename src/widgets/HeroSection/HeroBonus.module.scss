@@ -57,7 +57,7 @@
   position: relative;
   z-index: 1;
 
-  max-width: fit-content;
+  max-width: calc(249px + (383 - 249) * ((100vw - 800px) / (1920 - 800)));
   margin: 0;
 
   font-family: $font-family-base;
@@ -69,9 +69,7 @@
   letter-spacing: calc(-0.26px + (-0.4 - (-0.26)) * ((100vw - 800px) / (1920 - 800)));
 
   background: url("../../assets/icons/500.svg") no-repeat;
-  background-position:
-          top -4px
-          right calc(-2px + (-18 - (-2)) * ((100vw - 800px) / (1920 - 800)));
+  background-position: top -4px right calc(-2px + (-18 - (-2)) * ((100vw - 800px) / (1920 - 800)));
   background-size: calc(143px + (232 - 143) * ((100vw - 800px) / (1920 - 800)));
 }
 
@@ -187,12 +185,14 @@
 
 @media screen and (max-width: $media-tab-mini) {
   .title {
+    max-width: calc(249px + (331 - 249) * ((100vw - 390px) / (640 - 390)));
+
     font-size: calc(26px + (40 - 26) * ((100vw - 390px) / (800 - 390)));
     letter-spacing: calc(-0.26px + (-0.4 - (-0.26)) * ((100vw - 390px) / (800 - 390)));
-    background-position:
-            top -4px
-            right calc(-2px + (-18 - (-2)) * ((100vw - 390px) / (800 - 390)));
+
+    background-position: top -4px right calc(-2px + (-18 - (-2)) * ((100vw - 390px) / (800 - 390)));
     background-size: calc(143px + (232 - 143) * ((100vw - 390px) / (800 - 390)));
+
   }
 
   .hero-bonus-button {

@@ -1,8 +1,8 @@
-import { fetchJSON } from '@/shared/api/http';
-import { BFF, CLIENT_VERSION } from '@/shared/config/constants';
+import { fetchJSON } from '@/shared/api';
+import { BFF, CLIENT_VERSION } from '@/shared/config';
 import type { UserBalance, UserMe } from '@/shared/schemas';
 export type { UserBalance, UserMe } from '@/shared/schemas';
-import { feLog } from '@/shared/telemetry/feLogger';
+import { feLog } from '@/shared/telemetry';
 
 /**
  * Возвращает текущего пользователя по cookie-сессии (BFF).

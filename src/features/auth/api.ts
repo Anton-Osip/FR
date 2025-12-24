@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-import { getCookie } from '@/shared/api/http';
+import { getCookie } from '@shared/api';
+import { AuthResult, ClientProfilePayload, TelegramLoginWidgetData } from '@shared/schemas';
+import { feLog } from '@shared/telemetry';
+
 import { BFF, CLIENT_VERSION } from '@/shared/config/constants';
-import type { ClientProfilePayload } from '@/shared/schemas';
-import type { AuthResult, TelegramLoginWidgetData } from '@/shared/schemas';
-export type { AuthResult, TelegramLoginWidgetData } from '@/shared/schemas';
-import { feLog } from '@/shared/telemetry/feLogger';
 
 const HTTP_SUCCESS_MIN = 200;
 const HTTP_SUCCESS_MAX = 299;

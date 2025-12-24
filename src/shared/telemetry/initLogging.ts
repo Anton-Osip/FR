@@ -1,5 +1,3 @@
-'use client';
-
 import { type CLSMetric, type INPMetric, type LCPMetric, onCLS, onINP, onLCP } from 'web-vitals';
 
 import { feLog } from '@/shared/telemetry/feLogger';

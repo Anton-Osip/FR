@@ -1,0 +1,42 @@
+{
+  "pageTitle": "Profile",
+  "userInfo": {
+    "uid": "UID:",
+    "silverAlt": "Silver"
+  },
+  "userBalance": {
+    "mainBalance": "Main balance",
+    "bonusBalance": "Bonus balance",
+    "topUp": "Top up",
+    "bonuses": "Bonuses"
+  },
+  "userAmountProgress": {
+    "moreDetails": "More details",
+    "silver": "Silver",
+    "gold": "Gold"
+  },
+  "transactionHistory": {
+    "title": "Transaction history",
+    "headers": {
+      "transactionType": "Transaction type",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status"
+    },
+    "transactionTypes": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal"
+    },
+    "statuses": {
+      "success": "Success",
+      "rejected": "Rejected"
+    }
+  },
+  "supportPanel": {
+    "news": "News",
+    "chat": "Chat",
+    "agreement": "Agreement",
+    "support": "Support"
+  }
+}
+

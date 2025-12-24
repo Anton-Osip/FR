@@ -1,0 +1,33 @@
+{
+  "tabScreenMenu": {
+    "search": "Search",
+    "invite": "Invite",
+    "home": "Home",
+    "bonuses": "Bonuses",
+    "menu": "Menu"
+  },
+  "scrollTop": {
+    "ariaLabel": "Scroll to top"
+  },
+  "slideUpMenu": {
+    "searchPlaceholder": "Search",
+    "sections": {
+      "navigation": "Navigation",
+      "games": "Games"
+    },
+    "menuItems": {
+      "home": "Home",
+      "favorites": "Favorites",
+      "invite": "Invite",
+      "bonuses": "Bonuses",
+      "slots": "Slots",
+      "popular": "Popular",
+      "quickGames": "Quick games",
+      "new": "New"
+    },
+    "support": {
+      "title": "Support"
+    }
+  }
+}
+

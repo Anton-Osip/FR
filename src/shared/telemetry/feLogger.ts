@@ -88,7 +88,7 @@ function flush(): void {
 }
 
 function push(level: Level, msg: string, ctx?: Ctx): void {
-  if (typeof msg === 'string' && /bearer\s+[a-z0-9._-]+/i.test(msg)) return;
+  if (/bearer\s+[a-z0-9._-]+/i.test(msg)) return;
   const reqId = (() => {
     if (!ctx || typeof ctx !== 'object') return undefined;
     const v = (ctx as Record<string, unknown>).reqId;

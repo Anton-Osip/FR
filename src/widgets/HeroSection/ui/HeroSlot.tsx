@@ -1,5 +1,6 @@
 import { type FC, type ReactElement, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +13,7 @@ import slotImage from '/src/assets/images/hero-slot.png';
 const MIN_SLIDES_FOR_LOOP = 3;
 
 export const HeroSlot: FC = () => {
+  const { t } = useTranslation('home');
   const slides = [1];
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -26,13 +28,13 @@ export const HeroSlot: FC = () => {
     return (
       <div className={styles.slotPagination}>
         {dotsBefore.map(idx => (
-          <div key={idx} className={styles.slotDot} aria-label={`Слайд ${idx + 1}`} />
+          <div key={idx} className={styles.slotDot} aria-label={`${t('heroSlot.slide')} ${idx + 1}`} />
         ))}
 
         <div className={styles.slotPaginationBar} />
 
         {dotsAfter.map(targetIndex => (
-          <div key={targetIndex} className={styles.slotDot} aria-label={`Слайд ${targetIndex + 1}`} />
+          <div key={targetIndex} className={styles.slotDot} aria-label={`${t('heroSlot.slide')} ${targetIndex + 1}`} />
         ))}
       </div>
     );
@@ -58,10 +60,10 @@ export const HeroSlot: FC = () => {
         {slides.map(slide => (
           <SwiperSlide key={slide} className={styles.slotSlide}>
             <div className={styles.heroSlot}>
-              <h3 className={styles.slotTitle}>Слот недели</h3>
+              <h3 className={styles.slotTitle}>{t('heroSlot.title')}</h3>
 
               <div className={styles.slotCardWrapper}>
-                <img src={slotImage} alt="Слот недели" draggable={false} />
+                <img src={slotImage} alt={t('heroSlot.title')} draggable={false} />
               </div>
             </div>
           </SwiperSlide>

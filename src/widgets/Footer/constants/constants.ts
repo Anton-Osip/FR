@@ -1,5 +1,3 @@
-import type { BankItem } from '../types/types';
-
 import SbpIcon from '@assets/icons/bank1.svg?url';
 import SberIcon from '@assets/icons/bank3.svg?url';
 import TetherIcon from '@assets/icons/crypto2.svg?url';
@@ -7,85 +5,96 @@ import BitcoinIcon from '@assets/icons/crypto3.svg?url';
 import VechainIcon from '@assets/images/crypto1.png';
 import TbankIcon from '@assets/images/tbank.png';
 
-export const FOOTER_RIGHTS = 'Все права защищены 2025 ©';
+export interface BankItem {
+  id: string;
+  label: string;
+  image: string;
+  gradient?: string;
+}
 
-export const FOOTER_LTD_TEXT =
-  'www.frosty.games принадлежит и управляется компанией Frosty Gaming Ltd, зарегистрированной в соответствии с законодательством Автономного острова Анжуан, регистрационный номер: 15774, юридический адрес: Hamchako, Mutsamudu, Автономный остров Анжуан, Союз Коморских Островов. ' +
-  'www.frosty.games лицензирован и регулируется Правительством Автономного острова Анжуан, Союз Коморских Островов, и осуществляет деятельность под лицензией № ALSI-192407050-FI3. ' +
-  'www.frosty.games прошел все регуляторные проверки и юридически уполномочен проводить игровые операции для любых азартных игр и ставок.';
+interface FooterMenuItem {
+  title: string;
+  links: {
+    text: string;
+    url: string;
+    shortText?: string;
+  }[];
+}
 
-export const FOOTER_MENU = [
+export const getFooterMenu = (t: (key: string) => string): FooterMenuItem[] => [
   {
-    title: 'Поддержка',
+    title: t('menu.support.title'),
     links: [
       {
-        text: 'Тех. поддержка',
+        text: t('menu.support.techSupport'),
         url: '/',
       },
       {
-        text: 'Безопасность',
+        text: t('menu.support.security'),
         url: '/',
       },
       {
-        text: 'Партнерская программа',
+        text: t('menu.support.affiliateProgram'),
+        url: '/',
+        shortText: t('menu.support.affiliateProgramShort'),
+      },
+    ],
+  },
+  {
+    title: t('menu.loyalty.title'),
+    links: [
+      {
+        text: t('menu.loyalty.invite'),
+        url: '/',
+      },
+      {
+        text: t('menu.loyalty.affiliateSupport'),
+        url: '/',
+        shortText: t('menu.loyalty.affiliateSupportShort'),
+      },
+      {
+        text: t('menu.loyalty.bonuses'),
         url: '/',
       },
     ],
   },
   {
-    title: 'Лояльность',
+    title: t('menu.casino.title'),
     links: [
       {
-        text: 'Инвайт',
+        text: t('menu.casino.games'),
         url: '/',
       },
       {
-        text: 'Партнерская поддержка',
+        text: t('menu.casino.liveGames'),
         url: '/',
       },
       {
-        text: 'Бонусы',
+        text: t('menu.casino.slots'),
         url: '/',
       },
     ],
   },
   {
-    title: 'Казино',
+    title: t('menu.rulesAndBonuses.title'),
     links: [
       {
-        text: 'Игры',
+        text: t('menu.rulesAndBonuses.rankSystem'),
         url: '/',
       },
       {
-        text: 'Live-игры',
+        text: t('menu.rulesAndBonuses.promotions'),
         url: '/',
       },
       {
-        text: 'Слоты',
-        url: '/',
-      },
-    ],
-  },
-  {
-    title: 'Правила и бонусы',
-    links: [
-      {
-        text: 'Ранговая система',
-        url: '/',
-      },
-      {
-        text: 'Акции',
-        url: '/',
-      },
-      {
-        text: 'Кэшбек',
+        text: t('menu.rulesAndBonuses.cashback'),
         url: '/',
       },
     ],
   },
 ];
 
-export const FOOTER_BANKING: BankItem[] = [
+export const getFooterBanking = (): BankItem[] => [
   {
     id: 'sbp',
     label: 'sbp',
@@ -105,7 +114,7 @@ export const FOOTER_BANKING: BankItem[] = [
   },
 ];
 
-export const FOOTER_CRYPTO: BankItem[] = [
+export const getFooterCrypto = (): BankItem[] => [
   {
     id: 'vechain',
     label: 'vechain',

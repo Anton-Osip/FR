@@ -1,11 +1,11 @@
-'use client';
-
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { authenticateTelegramLoginWidget, authenticateTelegramWebApp } from '@/features/auth/api';
-import { useAuthStore } from '@/features/auth/authStore';
-import { getUserBalance, getUserMe } from '@/features/user/api';
-import { BFF, CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@/shared/config/constants';
+import { BFF, CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
+import { feLog } from '@shared/telemetry';
+
+import { useAuthStore } from '@/features/auth';
+import { authenticateTelegramLoginWidget, authenticateTelegramWebApp } from '@/features/auth';
+import { getUserBalance, getUserMe } from '@/features/user';
 import { collectClientProfilePayload } from '@/shared/fingerprint';
 import type { AppMode, AuthStatus, BalanceStreamPayload, TelegramLoginWidgetData, UserMe } from '@/shared/schemas';
 import {
@@ -14,7 +14,7 @@ import {
   waitForInitData,
   waitForTelegramWebApp,
 } from '@/shared/telegram';
-import { feLog } from '@/shared/telemetry/feLogger';
+
 export type { AppMode, AuthStatus } from '@/shared/schemas';
 
 type UseAuthFlowResult = {
@@ -322,7 +322,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
         const payload = parseBalancePayload(parsed);
 
         if (!payload) return;
-        setMe(prev => (prev ? { ...prev, balance: payload.balance } : prev));
+        setMe(prev => (prev ? { ...prev, balance: String(payload.balance) } : prev));
       } catch {
         /* noop */
       }

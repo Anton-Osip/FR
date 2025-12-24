@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { AmountCard } from '@widgets/rewardsCards/amountCard';
 import { RewardsCard } from '@widgets/rewardsCards/rewardsCard';
 
@@ -10,11 +12,13 @@ interface RewardsCardsProps {
 }
 
 export const RewardsCards: FC<RewardsCardsProps> = ({ className }) => {
+  const { t } = useTranslation('invite');
+
   return (
     <div className={`${styles.rewardsCards} ${className ?? ''}`}>
       <RewardsCard />
-      <AmountCard description={'Сумма бонусов'} amount={'17 058,94 ₽'} />
-      <AmountCard description={'Инвайтов'} amount={'19'} />
+      <AmountCard description={t('rewardsCards.bonusAmount')} amount={'17 058,94 ₽'} />
+      <AmountCard description={t('rewardsCards.invitesCount')} amount={'19'} />
     </div>
   );
 };

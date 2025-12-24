@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { APP_PATH } from '@shared/constants/constants';
@@ -16,6 +17,7 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ className }) => {
+  const { t } = useTranslation('header');
   const navigate = useNavigate();
   const { me } = useAuthStore();
 
@@ -24,9 +26,15 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       <div className={styles.container}>
         <Brand />
         <div className={styles.wrapper}>
-          <BalanceCard balance={me?.balance} />
-          <Avatar avatar={me?.avatar_url} name={me?.username} userFirstname={me?.user_firstname} />
-          <Button variant={'ghost'} className={styles.chevronHeader} onClick={() => navigate(APP_PATH.profile)}>
+          <BalanceCard balance={me?.balance ?? ''} />
+          <Avatar avatar={me?.avatar_url} name={me?.user_name} userFirstname={me?.user_firstname} />
+          <Button
+            variant={'ghost'}
+            className={styles.chevronHeader}
+            onClick={() => navigate(APP_PATH.profile)}
+            aria-label={t('goToProfile')}
+            title={t('goToProfile')}
+          >
             <ChevronHeaderIcon />
           </Button>
         </div>

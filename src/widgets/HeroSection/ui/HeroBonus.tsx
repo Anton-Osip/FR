@@ -1,5 +1,6 @@
 import { type FC, type ReactElement, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from '@shared/ui';
@@ -9,6 +10,7 @@ import styles from '../HeroBonus.module.scss';
 import animation from '@assets/images/hero-bonus.png';
 
 export const HeroBonus: FC = () => {
+  const { t } = useTranslation('home');
   const slides = [1];
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -19,7 +21,7 @@ export const HeroBonus: FC = () => {
           <div
             key={idx}
             className={`${styles.bonusDot} ${selectedIndex === index ? styles.activeDote : ''}`}
-            aria-label={`Слайд ${idx + 1}`}
+            aria-label={`${t('heroBonus.slide')} ${idx + 1}`}
           />
         ))}
       </div>
@@ -40,11 +42,11 @@ export const HeroBonus: FC = () => {
             <SwiperSlide className={styles.heroBonusSlide} key={slide}>
               <div className={styles.heroBonus}>
                 <h3 className={styles.title}>
-                  Бонус до
-                  <br /> на первый депозит
+                  {t('heroBonus.title')}
+                  <br /> {t('heroBonus.titleSecondLine')}
                 </h3>
 
-                <Button className={styles['hero-bonus-button']}>Подробнее</Button>
+                <Button className={styles['hero-bonus-button']}>{t('heroBonus.button')}</Button>
                 <div className={styles.bonusAnimation}>
                   <img src={animation} alt="bonus-animation" />
                 </div>

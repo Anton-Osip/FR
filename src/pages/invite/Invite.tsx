@@ -1,4 +1,6 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { Breadcrumbs } from '@shared/ui/breadcrumbs';
 
@@ -8,9 +10,11 @@ import { RewardsCards } from '@widgets/rewardsCards';
 
 import styles from './Invite.module.scss';
 
-const breadCrumbsItems = [{ label: 'Инвайт' }];
-
 export const Invite: FC = () => {
+  const { t: tBreadcrumbs } = useTranslation('breadcrumbs');
+
+  const breadCrumbsItems = useMemo(() => [{ label: tBreadcrumbs('pages.invite') }], [tBreadcrumbs]);
+
   return (
     <div className={styles.invite}>
       <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />

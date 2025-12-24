@@ -1,0 +1,49 @@
+{
+  "heroBonus": {
+    "title": "Bonus up",
+    "titleSecondLine": "to on first deposit",
+    "button": "Learn more",
+    "slide": "Slide"
+  },
+  "heroSlot": {
+    "title": "Slot of the week",
+    "slide": "Slide"
+  },
+  "heroCashback": {
+    "title": "Cashback",
+    "titleSecondLine": "on Wednesdays",
+    "slide": "Slide"
+  },
+  "carousel": {
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGames": "Live games",
+    "quickGames": "Quick games",
+    "quickGamesShort": "Quick",
+    "all": "All"
+  },
+  "categoryFiltersBar": {
+    "allGames": "All games",
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGames": "Live games",
+    "quickGames": "Quick games",
+    "searchPlaceholder": "Search"
+  },
+  "betsSection": {
+    "title": "Bets table",
+    "tabs": {
+      "lastBets": "Last bets",
+      "myBets": "My bets",
+      "bigPlayers": "Big players"
+    },
+    "table": {
+      "user": "User",
+      "game": "Game",
+      "amount": "Bet amount",
+      "multiplier": "Multiplier",
+      "payout": "Payout"
+    }
+  }
+}
+

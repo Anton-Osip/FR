@@ -1,80 +1,80 @@
 export interface TransactionTableItem {
   id: number;
-  transactionType: 'Депозит' | 'Вывод';
+  transactionType: string;
   amount: string;
   date: string;
-  status: 'Отказ' | 'Успешно';
+  status: string;
 }
 
-export const TABLE_DATA: TransactionTableItem[] = [
+export const getTableData = (t: (key: string) => string): TransactionTableItem[] => [
   {
     id: 1323989,
-    transactionType: 'Депозит',
+    transactionType: t('transactionHistory.transactionTypes.deposit'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Успешно',
+    status: t('transactionHistory.statuses.success'),
   },
   {
     id: 1323990,
-    transactionType: 'Вывод',
+    transactionType: t('transactionHistory.transactionTypes.withdrawal'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Отказ',
+    status: t('transactionHistory.statuses.rejected'),
   },
   {
     id: 1323991,
-    transactionType: 'Депозит',
+    transactionType: t('transactionHistory.transactionTypes.deposit'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Успешно',
+    status: t('transactionHistory.statuses.success'),
   },
   {
     id: 1323992,
-    transactionType: 'Вывод',
+    transactionType: t('transactionHistory.transactionTypes.withdrawal'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Отказ',
+    status: t('transactionHistory.statuses.rejected'),
   },
   {
     id: 1323993,
-    transactionType: 'Депозит',
+    transactionType: t('transactionHistory.transactionTypes.deposit'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Успешно',
+    status: t('transactionHistory.statuses.success'),
   },
   {
     id: 1323994,
-    transactionType: 'Вывод',
+    transactionType: t('transactionHistory.transactionTypes.withdrawal'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Отказ',
+    status: t('transactionHistory.statuses.rejected'),
   },
   {
     id: 1323995,
-    transactionType: 'Депозит',
+    transactionType: t('transactionHistory.transactionTypes.deposit'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Успешно',
+    status: t('transactionHistory.statuses.success'),
   },
   {
     id: 1323996,
-    transactionType: 'Вывод',
+    transactionType: t('transactionHistory.transactionTypes.withdrawal'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Отказ',
+    status: t('transactionHistory.statuses.rejected'),
   },
   {
     id: 1323997,
-    transactionType: 'Депозит',
+    transactionType: t('transactionHistory.transactionTypes.deposit'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Успешно',
+    status: t('transactionHistory.statuses.success'),
   },
   {
     id: 1323998,
-    transactionType: 'Вывод',
+    transactionType: t('transactionHistory.transactionTypes.withdrawal'),
     amount: '10 000,05',
     date: '01.02.2025',
-    status: 'Отказ',
+    status: t('transactionHistory.statuses.rejected'),
   },
 ];

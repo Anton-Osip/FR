@@ -1,4 +1,6 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
+import React, { FC, useEffect, useState, useRef, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { APP_PATH } from '@shared/constants/constants.ts';
 import { Button, Input } from '@shared/ui';
@@ -26,24 +28,11 @@ interface Props {
   onOpenChange?: (open: boolean) => void;
 }
 
-const NavigationItems: MenuItems[] = [
-  { id: '1 Главная', icon: <HomeIcon />, label: 'Главная', isActive: false, path: APP_PATH.main },
-  { id: '2 Избранное', icon: <HeartIcon />, label: 'Избранное', isActive: false, path: APP_PATH.favorites },
-  { id: '3 Инвайт', icon: <TwoUsersIcon />, label: 'Инвайт', isActive: false, path: APP_PATH.invite },
-  { id: '4 Бонусы', icon: <BonusIcon />, label: 'Бонусы', isActive: false, path: APP_PATH.bonuses },
-];
-
-const Game1Items: MenuItems[] = [
-  { id: '1 Слоты', icon: <SevenIcon />, label: 'Слоты', isActive: false },
-  { id: '2 Популярное', icon: <PopularIcon />, label: 'Популярное', isActive: false },
-  { id: '3 Быстрые игры', icon: <FlashIcon />, label: 'Быстрые игры', isActive: false },
-  { id: '4 Новинки', icon: <StarIcon />, label: 'Новинки', isActive: false },
-];
-
 const ANIMATION_DURATION_MS = 300;
 const MIN_SWIPE_DISTANCE = 50; // Минимальное расстояние для быстрого свайпа
 
 export const SlideUpMenu: FC<Props> = ({ className, open = false, onOpenChange }) => {
+  const { t } = useTranslation('tabScreenMenu');
   const [isVisible, setIsVisible] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -51,6 +40,44 @@ export const SlideUpMenu: FC<Props> = ({ className, open = false, onOpenChange }
   const touchStartTime = useRef<number>(0);
   const touchStartScrollTop = useRef<number>(0);
   const isSwiping = useRef<boolean>(false);
+
+  const navigationItems: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <HomeIcon />, label: t('slideUpMenu.menuItems.home'), isActive: false, path: APP_PATH.main },
+      {
+        id: '2',
+        icon: <HeartIcon />,
+        label: t('slideUpMenu.menuItems.favorites'),
+        isActive: false,
+        path: APP_PATH.favorites,
+      },
+      {
+        id: '3',
+        icon: <TwoUsersIcon />,
+        label: t('slideUpMenu.menuItems.invite'),
+        isActive: false,
+        path: APP_PATH.invite,
+      },
+      {
+        id: '4',
+        icon: <BonusIcon />,
+        label: t('slideUpMenu.menuItems.bonuses'),
+        isActive: false,
+        path: APP_PATH.bonuses,
+      },
+    ],
+    [t],
+  );
+
+  const game1Items: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <SevenIcon />, label: t('slideUpMenu.menuItems.slots'), isActive: false },
+      { id: '2', icon: <PopularIcon />, label: t('slideUpMenu.menuItems.popular'), isActive: false },
+      { id: '3', icon: <FlashIcon />, label: t('slideUpMenu.menuItems.quickGames'), isActive: false },
+      { id: '4', icon: <StarIcon />, label: t('slideUpMenu.menuItems.new'), isActive: false },
+    ],
+    [t],
+  );
 
   useEffect(() => {
     if (!open) {
@@ -194,22 +221,33 @@ export const SlideUpMenu: FC<Props> = ({ className, open = false, onOpenChange }
       onTouchEnd={handleTouchEnd}
     >
       <div className={styles.inputWrapper}>
-        <Input className={styles.input} type="text" size={'m'} icon={<SearchIcon />} />
+        <Input
+          className={styles.input}
+          placeholder={t('slideUpMenu.searchPlaceholder')}
+          type="text"
+          size={'m'}
+          icon={<SearchIcon />}
+        />
       </div>
       <div className={styles.separator} />
       <MenuSection
         className={styles.navigation}
-        list={NavigationItems}
-        title="Навигация"
+        list={navigationItems}
+        title={t('slideUpMenu.sections.navigation')}
         onItemClick={handleItemClick}
       />
-      <MenuSection className={styles.navigation} list={Game1Items} title="Игры" onItemClick={handleItemClick} />
+      <MenuSection
+        className={styles.navigation}
+        list={game1Items}
+        title={t('slideUpMenu.sections.games')}
+        onItemClick={handleItemClick}
+      />
       <div className={styles.support}>
         <Button variant={'tertiary'} className={styles.supportButton}>
           <SupportIcon />
         </Button>
         <div className={styles.banner}>
-          <span className={styles.text}>Тех. поддержка</span>
+          <span className={styles.text}>{t('slideUpMenu.support.title')}</span>
           <span className={styles.time}>24/7</span>
         </div>
       </div>

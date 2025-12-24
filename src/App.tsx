@@ -14,7 +14,7 @@ import { Profile } from '@pages/profile';
 import { LOGIN_HOSTNAME, LOGIN_ORIGIN, TELEGRAM_BOT_NAME } from '@shared/config/constants.ts';
 import { APP_PATH } from '@shared/constants/constants';
 
-import { TelegramLoginWidget } from '@widgets/TelegramLoginWidget.tsx';
+import { TelegramLoginWidget } from '@widgets/telegramLoginWidget/TelegramLoginWidget.tsx';
 
 import { useAuthFlow } from '@/features/auth/useAuthFlow.ts';
 import { Preloader } from '@/widgets';

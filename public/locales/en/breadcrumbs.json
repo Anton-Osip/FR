@@ -1,0 +1,11 @@
+{
+  "home": "Home",
+  "ariaLabel": "Breadcrumb",
+  "pages": {
+    "bonuses": "Bonuses",
+    "profile": "Profile",
+    "invite": "Invite",
+    "favorites": "Favorites"
+  }
+}
+

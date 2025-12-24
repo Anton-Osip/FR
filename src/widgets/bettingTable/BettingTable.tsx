@@ -1,4 +1,6 @@
-import type { FC } from 'react';
+import { FC, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { Table } from '@shared/ui';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui/table';
@@ -10,15 +12,20 @@ interface BettingTableProps {
   items: BettingTableItem[];
 }
 
-const headerData = [
-  { id: 'user', label: 'Пользователь' },
-  { id: 'game', label: 'Игра' },
-  { id: 'amount', label: 'Сумма ставки' },
-  { id: 'multiplier', label: 'Множитель' },
-  { id: 'payout', label: 'Выплата' },
-];
-
 export const BettingTable: FC<BettingTableProps> = ({ items }) => {
+  const { t } = useTranslation('home');
+
+  const headerData = useMemo(
+    () => [
+      { id: 'user', label: t('betsSection.table.user') },
+      { id: 'game', label: t('betsSection.table.game') },
+      { id: 'amount', label: t('betsSection.table.amount') },
+      { id: 'multiplier', label: t('betsSection.table.multiplier') },
+      { id: 'payout', label: t('betsSection.table.payout') },
+    ],
+    [t],
+  );
+
   return (
     <Table>
       <TableHeader>

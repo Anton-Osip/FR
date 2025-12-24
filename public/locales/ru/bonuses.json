@@ -1,0 +1,36 @@
+{
+  "pageTitle": "Бонусы",
+  "rankCard": {
+    "silver": "Серебро",
+    "gold": "Золото",
+    "currentRank": "Актуальный ранг",
+    "turnover": "Оборот"
+  },
+  "promoCodeCard": {
+    "title": "Промокод",
+    "description": "Введите промокод в поле, чтобы получить бонус",
+    "placeholder": "Промокод",
+    "activate": "Активировать"
+  },
+  "cashbackCard": {
+    "title": "Кэшбек",
+    "description": "Введите промокод в поле, чтобы получить бонус",
+    "claim": "Забрать"
+  },
+  "benefitsSection": {
+    "title": "Ранги",
+    "ranks": {
+      "bronze": "Бронза",
+      "silver": "Серебро",
+      "gold": "Золото",
+      "diamond": "Бриллиант"
+    },
+    "turnover": "Оборот",
+    "benefits": {
+      "weeklyCashback": "Недельный кэшбек 10%",
+      "monthlyCashback": "Месячный кэшбек 10%",
+      "vipManager": "Личный VIP-менеджер"
+    }
+  }
+}
+

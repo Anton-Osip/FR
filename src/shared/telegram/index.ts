@@ -30,7 +30,8 @@ export function getInitData(): string {
   })();
 
   if (fromSearch) return fromSearch;
-  const fromHash = (() => {
+
+  return (() => {
     try {
       const h = w.location.hash?.startsWith('#') ? w.location.hash.slice(1) : '';
 
@@ -39,8 +40,6 @@ export function getInitData(): string {
       return '';
     }
   })();
-
-  return fromHash;
 }
 
 /**

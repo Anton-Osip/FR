@@ -1,4 +1,6 @@
-import { type FC, type ReactNode, useState } from 'react';
+import { type FC, type ReactNode, useMemo, useState } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { APP_PATH } from '@shared/constants/constants';
 import { Button } from '@shared/ui';
@@ -32,36 +34,52 @@ export interface MenuItems {
   path?: string;
 }
 
-const NavigationItems: MenuItems[] = [
-  { id: '1 Главная', icon: <HomeIcon />, label: 'Главная', isActive: false, path: APP_PATH.main },
-  { id: '2 Избранное', icon: <HeartIcon />, label: 'Избранное', isActive: false, path: APP_PATH.favorites },
-  { id: '3 Инвайт', icon: <TwoUsersIcon />, label: 'Инвайт', isActive: false, path: APP_PATH.invite },
-  { id: '4 Бонусы', icon: <BonusIcon />, label: 'Бонусы', isActive: false, path: APP_PATH.bonuses },
-];
-
-const Game1Items: MenuItems[] = [
-  { id: '1 Слоты', icon: <SevenIcon />, label: 'Слоты', isActive: false },
-  { id: '2 Популярное', icon: <PopularIcon />, label: 'Популярное', isActive: false },
-  { id: '3 Быстрые игры', icon: <FlashIcon />, label: 'Быстрые игры', isActive: false },
-  { id: '4 Новинки', icon: <StarIcon />, label: 'Новинки', isActive: false },
-  { id: '5 Рекомендованное', icon: <LikeIcon />, label: 'Рекомендованное', isActive: false },
-];
-
-const Game2Items: MenuItems[] = [
-  { id: '1 Блэкджек', icon: <CardsIcon />, label: 'Блэкджек', isActive: false },
-  { id: '2 Рулетка', icon: <RouletteIcon />, label: 'Рулетка', isActive: false },
-  { id: '3 Live-игры', icon: <MicrophoneIcon />, label: 'Live-игры', isActive: false },
-  { id: '4 Баккара', icon: <BaccareIcon />, label: 'Баккара', isActive: false },
-];
-
 interface SidebarProps {
   className?: string;
 }
 
 export const Sidebar: FC<SidebarProps> = ({ className }) => {
+  const { t } = useTranslation('sidebar');
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const toggleIsOpen = (): void => setIsOpen(!isOpen);
+
+  const NavigationItems: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <HomeIcon />, label: t('menuItems.home'), isActive: false, path: APP_PATH.main },
+      {
+        id: '2',
+        icon: <HeartIcon />,
+        label: t('menuItems.favorites'),
+        isActive: false,
+        path: APP_PATH.favorites,
+      },
+      { id: '3', icon: <TwoUsersIcon />, label: t('menuItems.invite'), isActive: false, path: APP_PATH.invite },
+      { id: '4', icon: <BonusIcon />, label: t('menuItems.bonuses'), isActive: false, path: APP_PATH.bonuses },
+    ],
+    [t],
+  );
+
+  const Game1Items: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <SevenIcon />, label: t('menuItems.slots'), isActive: false },
+      { id: '2', icon: <PopularIcon />, label: t('menuItems.popular'), isActive: false },
+      { id: '3', icon: <FlashIcon />, label: t('menuItems.quickGames'), isActive: false },
+      { id: '4', icon: <StarIcon />, label: t('menuItems.new'), isActive: false },
+      { id: '5', icon: <LikeIcon />, label: t('menuItems.recommended'), isActive: false },
+    ],
+    [t],
+  );
+
+  const Game2Items: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <CardsIcon />, label: t('menuItems.blackjack'), isActive: false },
+      { id: '2', icon: <RouletteIcon />, label: t('menuItems.roulette'), isActive: false },
+      { id: '3', icon: <MicrophoneIcon />, label: t('menuItems.liveGames'), isActive: false },
+      { id: '4', icon: <BaccareIcon />, label: t('menuItems.baccarat'), isActive: false },
+    ],
+    [t],
+  );
 
   return (
     <div className={`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
@@ -69,14 +87,16 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
         variant={'ghost'}
         onClick={toggleIsOpen}
         className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}
+        aria-label={t('buttons.toggleMenu')}
+        title={t('buttons.toggleMenu')}
       >
         <BurgerIcon />
       </Button>
       <CategorySwitcherWithSearch className={styles.categorySwitcherWithSearch} isOpen={isOpen} />
       <nav className={styles.navigation}>
-        <MenuSection list={NavigationItems} title="Навигация" isOpen={isOpen} />
-        <MenuSection list={Game1Items} title="Игры" isOpen={isOpen} />
-        <MenuSection list={Game2Items} title="Игры" isOpen={isOpen} />
+        <MenuSection list={NavigationItems} title={t('sections.navigation')} isOpen={isOpen} />
+        <MenuSection list={Game1Items} title={t('sections.games')} isOpen={isOpen} />
+        <MenuSection list={Game2Items} title={t('sections.games')} isOpen={isOpen} />
       </nav>
 
       <div className={styles.sidebarFooter}>

@@ -1,20 +1,20 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 
 import { ChevronUpIcon } from '@radix-ui/react-icons';
+import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 
-import { initLogging } from '@shared/telemetry/initLogging.ts';
+import { initLogging } from '@shared/telemetry';
 import { Button } from '@shared/ui';
-
-import { Footer } from '@widgets/Footer';
 
 import styles from './MainLayout.module.scss';
 
-import { Header, Sidebar, TabScreenMenu } from '@/widgets';
+import { Footer, Header, Sidebar, TabScreenMenu } from '@/widgets';
 
 const SCROLL_THRESHOLD = 300;
 
 export const MainLayout: FC = () => {
+  const { t } = useTranslation('tabScreenMenu');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
 
@@ -61,7 +61,7 @@ export const MainLayout: FC = () => {
           icon={ChevronUpIcon}
           onClick={scrollToTop}
           className={styles.scrollTopButton}
-          aria-label="Прокрутить вверх"
+          aria-label={t('scrollTop.ariaLabel')}
         />
       )}
     </div>

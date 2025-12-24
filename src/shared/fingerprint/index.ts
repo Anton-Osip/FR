@@ -158,9 +158,9 @@ export async function collectClientProfile(): Promise<ClientProfileBase> {
   const platform = String(
     (uaData && typeof uaData.platform === 'string' ? uaData.platform : '') || navigator.platform || '',
   );
-  const hardwareConcurrency = typeof nav.hardwareConcurrency === 'number' ? nav.hardwareConcurrency : undefined;
+  const hardwareConcurrency = nav.hardwareConcurrency;
   const deviceMemory = typeof nav.deviceMemory === 'number' ? nav.deviceMemory : undefined;
-  const maxTouchPoints = typeof nav.maxTouchPoints === 'number' ? nav.maxTouchPoints : undefined;
+  const maxTouchPoints = nav.maxTouchPoints;
   const { vendor: webglVendor, renderer: webglRenderer } = getWebglInfoCached();
   const canvasHash = await getCanvasHashCached();
   const browserId = getBrowserId();

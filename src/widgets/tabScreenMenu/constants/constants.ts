@@ -1,33 +1,43 @@
+import { type FC, type SVGProps } from 'react';
+
+import { TFunction } from 'i18next';
+
 import { SearchSecondaryIcon } from '@shared/ui/icons';
 import { TwoUsersIcon } from '@shared/ui/icons';
 import { HomeIcon } from '@shared/ui/icons';
 import { BonusIcon } from '@shared/ui/icons';
 import { BurgerSecondaryIcon } from '@shared/ui/icons';
 
-export const TAB_MENU_DATA = [
+interface TabMenuDataItem {
+  id: string;
+  title: string;
+  icon: FC<SVGProps<SVGSVGElement>>;
+}
+
+export const getTabMenuData = (t: TFunction): TabMenuDataItem[] => [
   {
     id: '1',
-    title: 'Поиск',
+    title: t('tabScreenMenu.search'),
     icon: SearchSecondaryIcon,
   },
   {
     id: '2',
-    title: 'Инвайт',
+    title: t('tabScreenMenu.invite'),
     icon: TwoUsersIcon,
   },
   {
     id: '3',
-    title: 'Главная',
+    title: t('tabScreenMenu.home'),
     icon: HomeIcon,
   },
   {
     id: '4',
-    title: 'Бонусы',
+    title: t('tabScreenMenu.bonuses'),
     icon: BonusIcon,
   },
   {
     id: '5',
-    title: 'Меню',
+    title: t('tabScreenMenu.menu'),
     icon: BurgerSecondaryIcon,
   },
 ];

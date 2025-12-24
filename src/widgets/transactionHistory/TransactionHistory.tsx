@@ -1,22 +1,31 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { Table } from '@shared/ui';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui/table/Table';
 
-import { TABLE_DATA } from './mockTable';
+import { getTableData } from './mockTable';
 import styles from './TransactionHistory.module.scss';
 
-const headerData = [
-  { id: 'transactionType', label: 'Тип транзакции' },
-  { id: 'amount', label: 'Сумма' },
-  { id: 'date', label: 'Дата' },
-  { id: 'status', label: 'Статус' },
-];
-
 export const TransactionHistory: FC = () => {
+  const { t } = useTranslation('profile');
+
+  const headerData = useMemo(
+    () => [
+      { id: 'transactionType', label: t('transactionHistory.headers.transactionType') },
+      { id: 'amount', label: t('transactionHistory.headers.amount') },
+      { id: 'date', label: t('transactionHistory.headers.date') },
+      { id: 'status', label: t('transactionHistory.headers.status') },
+    ],
+    [t],
+  );
+
+  const tableData = useMemo(() => getTableData(t), [t]);
+
   return (
     <div className={styles.transactionHistory}>
-      <h3 className={styles.title}>История транзакций</h3>
+      <h3 className={styles.title}>{t('transactionHistory.title')}</h3>
 
       <Table>
         <TableHeader>
@@ -29,9 +38,11 @@ export const TransactionHistory: FC = () => {
           })}
         </TableHeader>
         <TableBody>
-          {TABLE_DATA.map(item => {
+          {tableData.map(item => {
             const statusClassName =
-              item.status === 'Успешно' ? `${styles.statusCell} ${styles.win}` : styles.statusCell;
+              item.status === t('transactionHistory.statuses.success')
+                ? `${styles.statusCell} ${styles.win}`
+                : styles.statusCell;
 
             return (
               <TableRow key={item.id}>

@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 import { useState, useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { APP_PATH } from '@shared/constants/constants';
 
-import { TAB_MENU_DATA } from './constants/constants';
+import { getTabMenuData } from './constants/constants';
 import { TabMenuItem } from './tabMenuItem';
 import styles from './TabScreenMenu.module.scss';
 
@@ -23,10 +24,13 @@ const PERCENTAGE_MULTIPLIER = 100;
 const DIVISOR_FOR_CENTER = 2;
 
 export const TabScreenMenu: FC<Props> = ({ className }) => {
+  const { t } = useTranslation('tabScreenMenu');
   const navigate = useNavigate();
   const location = useLocation();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isSlideUpMenuOpen, setIsSlideUpMenuOpen] = useState(false);
+
+  const tabMenuData = useMemo(() => getTabMenuData(t), [t]);
 
   // Вычисляем активный индекс на основе текущего маршрута и состояния модалки
   // Вычисляем напрямую в рендере для гарантии актуальности значения
@@ -66,13 +70,13 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
   }
 
   const eclipseLeft = useMemo((): string => {
-    if (!TAB_MENU_DATA.length) return `${DEFAULT_CENTER}%`;
-    const itemWidth = PERCENTAGE_MULTIPLIER / TAB_MENU_DATA.length;
+    if (!tabMenuData.length) return `${DEFAULT_CENTER}%`;
+    const itemWidth = PERCENTAGE_MULTIPLIER / tabMenuData.length;
     const centerPercent = itemWidth * currentActiveIndex + itemWidth / DIVISOR_FOR_CENTER;
 
     // 46px ширина SVG, смещаем на половину
     return `calc(${centerPercent}% - ${SVG_HALF_WIDTH}px)`;
-  }, [currentActiveIndex]);
+  }, [currentActiveIndex, tabMenuData.length]);
 
   const handleSlideUpMenuChange = (open: boolean): void => {
     setIsSlideUpMenuOpen(open);
@@ -126,7 +130,7 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
             />
           </svg>
         </div>
-        {TAB_MENU_DATA.map((item, index) => (
+        {tabMenuData.map((item, index) => (
           <TabMenuItem
             key={item.id}
             title={item.title}

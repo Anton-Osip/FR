@@ -1,15 +1,19 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
 
-import { Breadcrumbs } from '@shared/ui/breadcrumbs';
+import { useTranslation } from 'react-i18next';
+
+import { Breadcrumbs } from '@shared/ui';
 
 import { BenefitsSection } from '@widgets/benefitsSection';
 import { CashbackCard, PromoCodeCard, RankCard } from '@widgets/bonusesPromo';
 
 import styles from './Bonuses.module.scss';
 
-const breadCrumbsItems = [{ label: 'Бонусы' }];
-
 export const Bonuses: FC = () => {
+  const { t } = useTranslation('breadcrumbs');
+
+  const breadCrumbsItems = useMemo(() => [{ label: t('pages.bonuses') }], [t]);
+
   return (
     <div className={styles.bonuses}>
       <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />

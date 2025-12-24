@@ -1,5 +1,6 @@
 import type { ApiErrorBody, FetchJsonResult } from '@/shared/schemas';
 import { feLog } from '@/shared/telemetry/feLogger';
+
 export type { ApiErrorBody, FetchJsonResult } from '@/shared/schemas';
 
 const RANDOM_RADIX = 36;
@@ -49,9 +50,8 @@ async function maybeAttachClientProfile(url: string, init?: RequestInit): Promis
   } catch {
     /* noop */
   }
-  const minIntervalMs = CLIENT_PROFILE_MIN_INTERVAL_MS;
 
-  if (now - last < minIntervalMs) return headers;
+  if (now - last < CLIENT_PROFILE_MIN_INTERVAL_MS) return headers;
   if (Math.random() >= CLIENT_PROFILE_SAMPLE_RATE) return headers;
   try {
     const [{ collectClientProfilePayload }, { CLIENT_VERSION }] = await Promise.all([

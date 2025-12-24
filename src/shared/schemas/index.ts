@@ -5,5 +5,15 @@ export type { NavigatorUserAgentData, NavigatorUserAgentDataBrand, NavigatorWith
 export type { TelegramWebApp } from './telegram';
 export type { Ctx, Entry, Level } from './telemetry';
 export type { StatusBadgeProps, StatusBadgeStatus, TelegramLoginWidgetProps } from './ui';
+export type {
+  GameKind,
+  GetShowcaseGamesParams,
+  ShowcaseGame,
+  ShowcaseGameProvider,
+  ShowcaseGamesMeta,
+  ShowcaseGamesResponse,
+  SortDirection,
+  SortType,
+} from './showcase';
 export type { BalanceStreamPayload, UserBalance, UserMe } from './user';
 export type { GL, WebGLDebugRendererInfoExt } from './webgl';

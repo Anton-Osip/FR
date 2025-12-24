@@ -1,25 +1,25 @@
 import { type FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '@shared/ui';
 import { WalletIcon } from '@shared/ui/icons';
+import { formatBalance } from '@shared/utils/formatBalance';
 
 import styles from './BalanceCard.module.scss';
 
 interface Props {
-  balance: number | null | undefined;
+  balance: string;
 }
 
-const formatBalance = (value: number): string => {
-  return new Intl.NumberFormat('ru-RU', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
 export const BalanceCard: FC<Props> = ({ balance }) => {
+  const { t } = useTranslation('header');
+  const balanceNumber = Number(balance);
+  const formattedValue = Number.isNaN(balanceNumber) ? 0 : balanceNumber;
+
   return (
     <div className={styles.balanceCard}>
-      <p className={styles.balanceValue}>{formatBalance(balance || 0)} ₽</p>
+      <p className={styles.balanceValue}>{formatBalance(formattedValue)} ₽</p>
       <Button
         className={styles.btn}
         icon={
@@ -28,7 +28,7 @@ export const BalanceCard: FC<Props> = ({ balance }) => {
           </div>
         }
       >
-        <span className={styles.btnText}>Пополнить</span>
+        <span className={styles.btnText}>{t('topUp')}</span>
       </Button>
     </div>
   );

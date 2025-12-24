@@ -1,0 +1,49 @@
+{
+  "heroBonus": {
+    "title": "Бонус до",
+    "titleSecondLine": "на первый депозит",
+    "button": "Подробнее",
+    "slide": "Слайд"
+  },
+  "heroSlot": {
+    "title": "Слот недели",
+    "slide": "Слайд"
+  },
+  "heroCashback": {
+    "title": "Кэшбек",
+    "titleSecondLine": "по средам",
+    "slide": "Слайд"
+  },
+  "carousel": {
+    "popular": "Популярное",
+    "slots": "Слоты",
+    "liveGames": "Live-игры",
+    "quickGames": "Быстрые игры",
+    "quickGamesShort": "Быстрые",
+    "all": "Все"
+  },
+  "categoryFiltersBar": {
+    "allGames": "Все игры",
+    "popular": "Популярное",
+    "slots": "Слоты",
+    "liveGames": "Live-игры",
+    "quickGames": "Быстрые игры",
+    "searchPlaceholder": "Поиск"
+  },
+  "betsSection": {
+    "title": "Таблица ставок",
+    "tabs": {
+      "lastBets": "Последние ставки",
+      "myBets": "Мои ставки",
+      "bigPlayers": "Крупные игроки"
+    },
+    "table": {
+      "user": "Пользователь",
+      "game": "Игра",
+      "amount": "Сумма ставки",
+      "multiplier": "Множитель",
+      "payout": "Выплата"
+    }
+  }
+}
+

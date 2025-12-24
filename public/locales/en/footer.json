@@ -1,0 +1,40 @@
+{
+  "rights": "All rights reserved 2025 ©",
+  "telegramChannel": "Telegram channel",
+  "banking": "Banking",
+  "crypto": "Crypto",
+  "ltdText": "www.frosty.games is owned and operated by Frosty Gaming Ltd, registered under the laws of the Autonomous Island of Anjouan, registration number: 15774, legal address: Hamchako, Mutsamudu, Autonomous Island of Anjouan, Union of the Comoros. www.frosty.games is licensed and regulated by the Government of the Autonomous Island of Anjouan, Union of the Comoros, and operates under license No. ALSI-192407050-FI3. www.frosty.games has passed all regulatory checks and is legally authorized to conduct gaming operations for any gambling games and bets.",
+  "menu": {
+    "support": {
+      "title": "Support",
+      "techSupport": "Tech support",
+      "security": "Security",
+      "affiliateProgram": "Affiliate program",
+      "affiliateProgramShort": "Affiliate."
+    },
+    "loyalty": {
+      "title": "Loyalty",
+      "invite": "Invite",
+      "affiliateSupport": "Affiliate support",
+      "affiliateSupportShort": "Affiliate.",
+      "bonuses": "Bonuses"
+    },
+    "casino": {
+      "title": "Casino",
+      "games": "Games",
+      "liveGames": "Live games",
+      "slots": "Slots"
+    },
+    "rulesAndBonuses": {
+      "title": "Rules and bonuses",
+      "rankSystem": "Rank system",
+      "promotions": "Promotions",
+      "cashback": "Cashback"
+    }
+  },
+  "support": {
+    "title": "Tech support",
+    "write": "Write"
+  }
+}
+

@@ -1,0 +1,33 @@
+{
+  "tabScreenMenu": {
+    "search": "Поиск",
+    "invite": "Инвайт",
+    "home": "Главная",
+    "bonuses": "Бонусы",
+    "menu": "Меню"
+  },
+  "scrollTop": {
+    "ariaLabel": "Прокрутить вверх"
+  },
+  "slideUpMenu": {
+    "searchPlaceholder": "Поиск",
+    "sections": {
+      "navigation": "Навигация",
+      "games": "Игры"
+    },
+    "menuItems": {
+      "home": "Главная",
+      "favorites": "Избранное",
+      "invite": "Инвайт",
+      "bonuses": "Бонусы",
+      "slots": "Слоты",
+      "popular": "Популярное",
+      "quickGames": "Быстрые игры",
+      "new": "Новинки"
+    },
+    "support": {
+      "title": "Тех. поддержка"
+    }
+  }
+}
+

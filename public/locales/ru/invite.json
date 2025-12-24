@@ -1,0 +1,47 @@
+{
+  "pageTitle": "Инвайт",
+  "rewardsCards": {
+    "title": "Награды",
+    "titleSecondLine": "за приглашения",
+    "description": "Получайте деньги на баланс за каждого приглашенного друга",
+    "inviteButton": "Пригласить",
+    "bonusAmount": "Сумма бонусов",
+    "invitesCount": "Инвайтов"
+  },
+  "programTerms": {
+    "title": "Условия программы",
+    "cards": {
+      "firstDeposit": {
+        "title": "Первый депозит",
+        "description": "Получите 50% до 500 ₽ за первый депозит"
+      },
+      "ggrBonus": {
+        "title": "GGR-бонус",
+        "description": "Получайте процент\nот игрового оборота"
+      },
+      "profitPercent": {
+        "title": "15% от прибыли",
+        "description": "Фиксированный процент от  дохода рефералов"
+      },
+      "weeklyPayments": {
+        "title": "Недельные выплаты",
+        "description": "Заберите награду за инвайты в конце недели"
+      }
+    }
+  },
+  "ratingTable": {
+    "title": "Таблица рейтинга",
+    "tabs": {
+      "thisWeek": "На этой неделе",
+      "lastWeek": "На прошлой неделе"
+    },
+    "headers": {
+      "place": "Место",
+      "user": "Пользователь",
+      "amount": "Сумма заработка"
+    },
+    "you": "Вы",
+    "player": "Игрок"
+  }
+}
+

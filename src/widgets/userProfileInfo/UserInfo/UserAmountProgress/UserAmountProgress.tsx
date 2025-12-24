@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 
 import * as Progress from '@radix-ui/react-progress';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@shared/ui';
 import { SilverIcon } from '@shared/ui/icons';
@@ -16,6 +17,7 @@ const MAX_AMOUNT_IN_K = 100;
 const PERCENTAGE_MULTIPLIER = 100;
 
 export const UserAmountProgress: FC<Props> = ({ amount }) => {
+  const { t } = useTranslation('profile');
   const maxAmountinK = MAX_AMOUNT_IN_K;
   const progressPercent = (parseFloat(amount) / maxAmountinK) * PERCENTAGE_MULTIPLIER;
 
@@ -26,7 +28,7 @@ export const UserAmountProgress: FC<Props> = ({ amount }) => {
           {amount}K&nbsp;₽&nbsp;&nbsp;/&nbsp;&nbsp;{maxAmountinK}K&nbsp;₽
         </p>
         <Button className={styles.amountButton} variant="ghost">
-          Подробнее
+          {t('userAmountProgress.moreDetails')}
           <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
             <path
               d="M1.00001 1L7 6.99995L1 13"
@@ -47,11 +49,11 @@ export const UserAmountProgress: FC<Props> = ({ amount }) => {
       <div className={styles.moneyWrap}>
         <div className={styles.moneyItemWrap}>
           <SilverIcon />
-          <p>Серебро</p>
+          <p>{t('userAmountProgress.silver')}</p>
         </div>
         <div className={styles.moneyItemWrap}>
           <GoldIcon />
-          <p>Золото</p>
+          <p>{t('userAmountProgress.gold')}</p>
         </div>
       </div>
     </div>

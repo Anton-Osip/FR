@@ -1,0 +1,95 @@
+@use "../../../shared/styles/variables" as *;
+
+.footer-money-item {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  justify-content: center;
+
+  height: 39px;
+  padding: 10px 8px 10px 16px;
+
+  font-weight: 600;
+  letter-spacing: -0.16px;
+
+  background-color: $color-bg-on-block;
+  border-radius: $radius-xxl;
+
+  &-wrap {
+    display: flex;
+  }
+
+  &-circle {
+    position: relative;
+
+    overflow: hidden;
+
+    width: 24px;
+    height: 24px;
+
+    border: solid 2px $color-bg-on-block;
+    border-radius: $radius-full;
+
+    &:not(:first-child) {
+      margin-left: -6px;
+    }
+
+    &:nth-child(1) {
+      z-index: 1;
+    }
+
+    &:nth-child(2) {
+      z-index: 2;
+    }
+
+    &:nth-child(3) {
+      z-index: 3;
+    }
+
+    img {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: block;
+    }
+
+    .circle-gradient {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .footer-money-item {
+    justify-content: space-between;
+
+    width: 100%;
+    height: 36px;
+    padding: 10px 6px 10px 15px;
+
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.14px;
+  }
+}
+
+@media (max-width: $media-mobile-mini) {
+  .footer-money-item {
+    justify-content: center;
+  }
+}
+
+@media (max-width: $media-mobile) {
+  .footer-money-item {
+    gap: 0;
+  }
+}

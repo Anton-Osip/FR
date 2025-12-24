@@ -1,0 +1,36 @@
+{
+  "pageTitle": "Bonuses",
+  "rankCard": {
+    "silver": "Silver",
+    "gold": "Gold",
+    "currentRank": "Current rank",
+    "turnover": "Turnover"
+  },
+  "promoCodeCard": {
+    "title": "Promo code",
+    "description": "Enter a promo code in the field to get a bonus",
+    "placeholder": "Promo code",
+    "activate": "Activate"
+  },
+  "cashbackCard": {
+    "title": "Cashback",
+    "description": "Enter a promo code in the field to get a bonus",
+    "claim": "Claim"
+  },
+  "benefitsSection": {
+    "title": "Ranks",
+    "ranks": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "diamond": "Diamond"
+    },
+    "turnover": "Turnover",
+    "benefits": {
+      "weeklyCashback": "Weekly cashback 10%",
+      "monthlyCashback": "Monthly cashback 10%",
+      "vipManager": "Personal VIP manager"
+    }
+  }
+}
+

@@ -1,5 +1,6 @@
 import { type FC, type ReactElement, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,6 +18,7 @@ const THIRD_SLIDE = 3;
 const SLIDE_INDICES = [FIRST_SLIDE, SECOND_SLIDE, THIRD_SLIDE, SLIDES_COUNT];
 
 export const HeroCashback: FC = () => {
+  const { t } = useTranslation('home');
   const slides = SLIDE_INDICES;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -31,7 +33,7 @@ export const HeroCashback: FC = () => {
           <div
             key={idx}
             className={`${styles.cashbackDot} ${activeIndex === index ? styles.activeDote : ''}`}
-            aria-label={`Слайд ${idx + 1}`}
+            aria-label={`${t('heroCashback.slide')} ${idx + 1}`}
           />
         ))}
       </div>
@@ -60,12 +62,16 @@ export const HeroCashback: FC = () => {
           <SwiperSlide key={slide} className={styles.cashbackSlide}>
             <div className={styles.heroCashback}>
               <h3 className={styles.cashbackTitle}>
-                Кэшбек <br />
-                по средам
+                {t('heroCashback.title')} <br />
+                {t('heroCashback.titleSecondLine')}
               </h3>
 
               <div className={styles.cashbackCardWrapper}>
-                <img src={slotImage} alt="Кэшбек по средам" draggable={false} />
+                <img
+                  src={slotImage}
+                  alt={`${t('heroCashback.title')} ${t('heroCashback.titleSecondLine')}`}
+                  draggable={false}
+                />
               </div>
             </div>
           </SwiperSlide>

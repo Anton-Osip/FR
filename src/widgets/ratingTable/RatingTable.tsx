@@ -1,9 +1,11 @@
-import type { FC } from 'react';
+import { FC, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { Table, Tabs } from '@shared/ui';
 import { TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@shared/ui/table/Table';
 
-import { TABLE_DATA } from '@widgets/ratingTable/mockTable';
+import { getTableData } from '@widgets/ratingTable/mockTable';
 
 import styles from './RatingTable.module.scss';
 
@@ -11,36 +13,44 @@ interface RatingTableProps {
   className?: string;
 }
 
-const items = [
-  {
-    id: '1',
-    value: 'thisWeek',
-    label: 'На этой неделе',
-    active: true,
-  },
-  {
-    id: '2',
-    value: 'lastWeek',
-    label: 'На прошлой неделе',
-    active: false,
-  },
-];
-
-const headerData = [
-  { id: 'place', label: 'Место' },
-  { id: 'user', label: 'Пользователь' },
-  { id: 'amount', label: 'Сумма заработка' },
-];
-
 const USER_ID = 1323992;
 
 export const RatingTable: FC<RatingTableProps> = ({ className }) => {
-  const me = TABLE_DATA.find(item => item.id === USER_ID);
+  const { t } = useTranslation('invite');
+  const tableData = useMemo(() => getTableData(t), [t]);
+  const me = tableData.find(item => item.id === USER_ID);
+
+  const items = useMemo(
+    () => [
+      {
+        id: '1',
+        value: 'thisWeek',
+        label: t('ratingTable.tabs.thisWeek'),
+        active: true,
+      },
+      {
+        id: '2',
+        value: 'lastWeek',
+        label: t('ratingTable.tabs.lastWeek'),
+        active: false,
+      },
+    ],
+    [t],
+  );
+
+  const headerData = useMemo(
+    () => [
+      { id: 'place', label: t('ratingTable.headers.place') },
+      { id: 'user', label: t('ratingTable.headers.user') },
+      { id: 'amount', label: t('ratingTable.headers.amount') },
+    ],
+    [t],
+  );
 
   return (
     <div className={`${styles.ratingTable} ${className ?? ''}`}>
       <header className={styles.header}>
-        <h2 className={styles.title}>Таблица рейтинга</h2>
+        <h2 className={styles.title}>{t('ratingTable.title')}</h2>
         <div className={styles.tabs}>
           <Tabs items={items} />
         </div>
@@ -57,14 +67,14 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
           })}
         </TableHeader>
         <TableBody>
-          {TABLE_DATA.map(item => {
+          {tableData.map(item => {
             return (
               <TableRow key={item.id} className={item.id === USER_ID ? styles.isMe : ''}>
                 <TableCell className={`${styles.placeBody} ${styles.td}`}>{item.place}</TableCell>
                 <TableCell className={`${styles.userBody} ${styles.td}`}>
                   <div className={styles.userCell}>
                     <span className={styles.userAvatar} />
-                    <span className={styles.userName}>{item.id !== USER_ID ? item.user : 'Вы'}</span>
+                    <span className={styles.userName}>{item.id !== USER_ID ? item.user : t('ratingTable.you')}</span>
                   </div>
                 </TableCell>
                 <TableCell className={`${styles.amountBody} ${styles.td}`}>{item.amount} ₽</TableCell>
@@ -78,7 +88,7 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
             <TableCell className={`${styles.userBody} ${styles.td}`}>
               <div className={styles.userCell}>
                 <span className={styles.userAvatar} />
-                <span className={styles.userName}>Вы</span>
+                <span className={styles.userName}>{t('ratingTable.you')}</span>
               </div>
             </TableCell>
             <TableHead className={`${styles.th} ${styles[styles.amountFooter]}`}>{me?.amount} ₽</TableHead>

@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Avatar } from '@shared/ui';
 
 import { UserAmountProgress } from './UserAmountProgress';
@@ -19,6 +21,8 @@ interface Props {
 }
 
 export const UserInfo: FC<Props> = ({ user }) => {
+  const { t } = useTranslation('profile');
+
   return (
     <div className={styles.info}>
       <div className={styles.infoWrap}>
@@ -27,14 +31,14 @@ export const UserInfo: FC<Props> = ({ user }) => {
           <div className={styles.userData}>
             <p className={styles.userName}>{user.username}</p>
             <p className={styles.userIdWrapper}>
-              <span className={styles.userId}>UID: </span>
+              <span className={styles.userId}>{t('userInfo.uid')} </span>
               {user.id}
             </p>
           </div>
         </div>
         <UserAmountProgress amount={user.balance} />
       </div>
-      <img className={styles.userInfoImage} src={silverBg} alt="silver" />
+      <img className={styles.userInfoImage} src={silverBg} alt={t('userInfo.silverAlt')} />
     </div>
   );
 };

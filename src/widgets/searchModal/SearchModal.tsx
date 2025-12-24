@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Button, Input, Modal, Tabs } from '@shared/ui';
 import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
 import type { Tab } from '@shared/ui/tabs/Tabs';
@@ -16,39 +18,6 @@ interface SearchModalProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
-
-const INITIAL_TABS: Omit<Tab, 'active'>[] = [
-  {
-    id: '1',
-    value: 'all',
-    label: 'Все игры',
-    icon: <WindowIcon />,
-  },
-  {
-    id: '2',
-    value: 'popular',
-    label: 'Популярное',
-    icon: <FireIcon />,
-  },
-  {
-    id: '3',
-    value: 'slots',
-    label: 'Слоты',
-    icon: <SevenIcon />,
-  },
-  {
-    id: '4',
-    value: 'liveGames',
-    label: 'Live-игры',
-    icon: <MicrophoneIcon />,
-  },
-  {
-    id: '5',
-    value: 'flashGames',
-    label: 'Быстрые игры',
-    icon: <FlashIcon />,
-  },
-];
 
 const GAMES_DATA = [
   { id: 1, img: img1 },
@@ -88,26 +57,66 @@ const GAMES_DATA = [
 ];
 
 export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange }) => {
+  const { t } = useTranslation('searchModal');
   const [activeTab, setActiveTab] = useState<string>('all');
 
-  const tabs: Tab[] = INITIAL_TABS.map(tab => ({
-    ...tab,
-    active: tab.value === activeTab,
-  }));
+  const initialTabs: Omit<Tab, 'active'>[] = useMemo(
+    () => [
+      {
+        id: '1',
+        value: 'all',
+        label: t('allGames'),
+        icon: <WindowIcon />,
+      },
+      {
+        id: '2',
+        value: 'popular',
+        label: t('popular'),
+        icon: <FireIcon />,
+      },
+      {
+        id: '3',
+        value: 'slots',
+        label: t('slots'),
+        icon: <SevenIcon />,
+      },
+      {
+        id: '4',
+        value: 'liveGames',
+        label: t('liveGames'),
+        icon: <MicrophoneIcon />,
+      },
+      {
+        id: '5',
+        value: 'flashGames',
+        label: t('quickGames'),
+        icon: <FlashIcon />,
+      },
+    ],
+    [t],
+  );
+
+  const tabs: Tab[] = useMemo(
+    () => initialTabs.map(tab => ({ ...tab, active: tab.value === activeTab })),
+    [initialTabs, activeTab],
+  );
 
   const activeTabData = useMemo(() => {
-    return INITIAL_TABS.find(tab => tab.value === activeTab) || INITIAL_TABS[0];
-  }, [activeTab]);
+    return initialTabs.find(tab => tab.value === activeTab) || initialTabs[0];
+  }, [initialTabs, activeTab]);
 
   const handleTabChange = (value: string): void => {
     setActiveTab(value);
   };
 
+  const shownCount = 60;
+  const totalCount = 90;
+
   return (
-    <Modal trigger={trigger} open={open} onOpenChange={onOpenChange} title="Поиск" contentClassName={styles.modal}>
+    <Modal trigger={trigger} open={open} onOpenChange={onOpenChange} title={t('title')} contentClassName={styles.modal}>
       <div className={styles.body}>
         <div className={styles.searchWrapper}>
-          <Input icon={<SearchIcon />} placeholder={'Поиск'} />
+          <Input icon={<SearchIcon />} placeholder={t('placeholder')} />
           <Tabs size={'m'} items={tabs} onChange={handleTabChange} className={styles.tabs} />
         </div>
 
@@ -125,17 +134,21 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
               ))}
             </div>
             <div className={styles.more}>
-              <p className={styles.text}>Показано: 60 из 90</p>
+              <p className={styles.text}>
+                {t('shown')}: {shownCount} {t('of')} {totalCount}
+              </p>
               <Button variant={'tertiary'} size={'s'} icon={<RepeatIcon />}>
-                Показать еще
+                {t('showMore')}
               </Button>
             </div>
           </div>
         </div>
         <footer className={styles.footer}>
-          <p className={styles.text}>Показано: 60 из 90</p>
+          <p className={styles.text}>
+            {t('shown')}: {shownCount} {t('of')} {totalCount}
+          </p>
           <Button variant={'tertiary'} size={'s'} icon={<RepeatIcon />}>
-            Показать еще
+            {t('showMore')}
           </Button>
         </footer>
       </div>

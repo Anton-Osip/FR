@@ -1,4 +1,6 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
 
 import { Breadcrumbs } from '@shared/ui/breadcrumbs';
 
@@ -8,9 +10,11 @@ import { UserProfileInfo } from '@widgets/userProfileInfo';
 
 import styles from './Profile.module.scss';
 
-const breadCrumbsItems = [{ label: 'Профиль' }];
-
 export const Profile: FC = () => {
+  const { t: tBreadcrumbs } = useTranslation('breadcrumbs');
+
+  const breadCrumbsItems = useMemo(() => [{ label: tBreadcrumbs('pages.profile') }], [tBreadcrumbs]);
+
   return (
     <div className={styles.profile}>
       <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />

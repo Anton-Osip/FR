@@ -1,0 +1,47 @@
+{
+  "pageTitle": "Invite",
+  "rewardsCards": {
+    "title": "Rewards",
+    "titleSecondLine": "for invitations",
+    "description": "Get money to your balance for each invited friend",
+    "inviteButton": "Invite",
+    "bonusAmount": "Bonus amount",
+    "invitesCount": "Invites"
+  },
+  "programTerms": {
+    "title": "Program terms",
+    "cards": {
+      "firstDeposit": {
+        "title": "First deposit",
+        "description": "Get 50% up to 500 ₽ for the first deposit"
+      },
+      "ggrBonus": {
+        "title": "GGR bonus",
+        "description": "Get a percentage\nof gaming turnover"
+      },
+      "profitPercent": {
+        "title": "15% of profit",
+        "description": "Fixed percentage of referral income"
+      },
+      "weeklyPayments": {
+        "title": "Weekly payments",
+        "description": "Claim your reward for invites at the end of the week"
+      }
+    }
+  },
+  "ratingTable": {
+    "title": "Rating table",
+    "tabs": {
+      "thisWeek": "This week",
+      "lastWeek": "Last week"
+    },
+    "headers": {
+      "place": "Place",
+      "user": "User",
+      "amount": "Earnings"
+    },
+    "you": "You",
+    "player": "Player"
+  }
+}
+

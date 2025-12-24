@@ -1,0 +1,42 @@
+{
+  "pageTitle": "Профиль",
+  "userInfo": {
+    "uid": "UID:",
+    "silverAlt": "Серебро"
+  },
+  "userBalance": {
+    "mainBalance": "Основной баланс",
+    "bonusBalance": "Бонусный баланс",
+    "topUp": "Пополнить",
+    "bonuses": "Бонусы"
+  },
+  "userAmountProgress": {
+    "moreDetails": "Подробнее",
+    "silver": "Серебро",
+    "gold": "Золото"
+  },
+  "transactionHistory": {
+    "title": "История транзакций",
+    "headers": {
+      "transactionType": "Тип транзакции",
+      "amount": "Сумма",
+      "date": "Дата",
+      "status": "Статус"
+    },
+    "transactionTypes": {
+      "deposit": "Депозит",
+      "withdrawal": "Вывод"
+    },
+    "statuses": {
+      "success": "Успешно",
+      "rejected": "Отказ"
+    }
+  },
+  "supportPanel": {
+    "news": "Новости",
+    "chat": "Чат",
+    "agreement": "Соглашение",
+    "support": "Поддержка"
+  }
+}
+

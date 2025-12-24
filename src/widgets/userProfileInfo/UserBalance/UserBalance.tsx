@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '@shared/ui';
 import { BonusIcon } from '@shared/ui/icons/BonusIcon';
 import { WalletIcon } from '@shared/ui/icons/WalletIcon';
@@ -13,9 +15,10 @@ interface Props {
 }
 
 export const UserBalance: FC<Props> = ({ isMain, amount }) => {
+  const { t } = useTranslation('profile');
   const formattedAmount = formatRubles(amount);
-  const text = isMain ? 'Основной баланс' : 'Бонусный баланс';
-  const buttonText = isMain ? 'Пополнить' : 'Бонусы';
+  const text = isMain ? t('userBalance.mainBalance') : t('userBalance.bonusBalance');
+  const buttonText = isMain ? t('userBalance.topUp') : t('userBalance.bonuses');
   const buttonVariant = isMain ? 'primary' : 'tertiary';
   const buttonIcon = isMain ? <WalletIcon /> : <BonusIcon />;
   const classNameValue = isMain ? 'mainBalance' : 'bonusBalance';

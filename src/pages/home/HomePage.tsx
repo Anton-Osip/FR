@@ -1,11 +1,8 @@
 import { type FC } from 'react';
 
-import { HeroSection } from '@widgets/HeroSection';
-import { MainCarouselSection } from '@widgets/MainCarouselSection';
-
 import styles from './HomePage.module.scss';
 
-import { BetsSection } from '@/widgets';
+import { BetsSection, HeroSection, MainCarouselSection } from '@/widgets';
 
 export const HomePage: FC = () => {
   return (

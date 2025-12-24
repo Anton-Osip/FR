@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "navigation": "Navigation",
+    "games": "Games"
+  },
+  "menuItems": {
+    "home": "Home",
+    "favorites": "Favorites",
+    "invite": "Invite",
+    "bonuses": "Bonuses",
+    "slots": "Slots",
+    "popular": "Popular",
+    "quickGames": "Quick Games",
+    "new": "New",
+    "recommended": "Recommended",
+    "blackjack": "Blackjack",
+    "roulette": "Roulette",
+    "liveGames": "Live Games",
+    "baccarat": "Baccarat"
+  },
+  "buttons": {
+    "toggleMenu": "Toggle menu"
+  },
+  "search": "Search",
+  "footer": {
+    "support": "Tech support",
+    "write": "Write"
+  }
+}
+
