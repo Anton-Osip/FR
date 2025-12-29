@@ -2,14 +2,16 @@ import { StrictMode } from 'react';
 
 import { createRoot } from 'react-dom/client';
 import { initReactI18next } from 'react-i18next';
+import { Provider } from 'react-redux';
 
 import '@shared/styles/global.scss';
-import i18n, { i18nConfig } from '@shared/lib/i18n/i18n';
 
-import App from './App';
+import { store } from '@app/store';
 
-// Инициализируем i18n с react-i18next асинхронно
-// Это гарантирует, что React контекст будет готов перед рендерингом компонентов
+import i18n, { i18nConfig } from '@shared/lib/i18n/i18n.ts';
+
+import App from './App.tsx';
+
 i18n.use(initReactI18next);
 
 const initApp = async (): Promise<void> => {
@@ -20,12 +22,13 @@ const initApp = async (): Promise<void> => {
     },
   });
 
-  // Рендерим приложение только после полной инициализации i18n
   const root = createRoot(document.getElementById('root')!);
 
   root.render(
     <StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </StrictMode>,
   );
 };

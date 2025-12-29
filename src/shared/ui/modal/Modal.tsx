@@ -3,6 +3,7 @@ import React, { type FC, type ReactNode, useEffect, useRef, useState } from 'rea
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { CrossIcon } from '@shared/ui/icons';
+import { VisuallyHidden } from '@shared/ui/visuallyHidden';
 
 import { Button } from '../button';
 
@@ -11,13 +12,14 @@ import styles from './Modal.module.scss';
 export interface ModalProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  title?: string;
+  title?: string | ReactNode;
   description?: string;
   children: ReactNode;
   trigger?: ReactNode;
   showCloseButton?: boolean;
   contentClassName?: string;
   overlayClassName?: string;
+  closeButtonClassName?: string;
 }
 
 const CLOSE_TIMEOUT = 350;
@@ -36,6 +38,7 @@ export const Modal: FC<ModalProps> = ({
   showCloseButton = true,
   contentClassName,
   overlayClassName,
+  closeButtonClassName,
 }: ModalProps) => {
   const [internalOpen, setInternalOpen] = useState<boolean>(false);
   const [swipeY, setSwipeY] = useState<number>(0);
@@ -277,17 +280,32 @@ export const Modal: FC<ModalProps> = ({
             touchAction: 'pan-y',
           }}
         >
-          {(title || description) && (
+          {title ? (
             <div ref={headerRef} className={styles.header}>
-              {title && <Dialog.Title className={styles.title}>{title}</Dialog.Title>}
-              {showCloseButton && (
-                <Dialog.Close asChild>
-                  <Button variant="secondary" className={styles.closeButton} size={'s'} aria-label="Закрыть">
-                    <CrossIcon />
-                  </Button>
-                </Dialog.Close>
+              {typeof title === 'string' ? (
+                <Dialog.Title className={styles.title}>{title}</Dialog.Title>
+              ) : (
+                <Dialog.Title asChild>
+                  <div>{title}</div>
+                </Dialog.Title>
               )}
             </div>
+          ) : (
+            <VisuallyHidden>
+              <Dialog.Title>Диалог</Dialog.Title>
+            </VisuallyHidden>
+          )}
+          {showCloseButton && (
+            <Dialog.Close asChild>
+              <Button
+                variant="secondary"
+                className={`${styles.closeButton} ${closeButtonClassName ?? ''}`}
+                size={'s'}
+                aria-label="Закрыть"
+              >
+                <CrossIcon />
+              </Button>
+            </Dialog.Close>
           )}
           <Dialog.Description className={styles.description} hidden={!description}>
             {description || ''}

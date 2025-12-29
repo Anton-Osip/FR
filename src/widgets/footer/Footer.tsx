@@ -7,12 +7,11 @@ import { Brand } from '@shared/ui';
 import { Button } from '@shared/ui/button';
 import { TgIcon } from '@shared/ui/icons';
 
-import { FooterMenu } from '@widgets/Footer/FooterMenu/FooterMenu.tsx';
-import { FooterMoneyItem } from '@widgets/Footer/FooterMoneyItem/FooterMoneyItem.tsx';
-import { FooterSupport } from '@widgets/Footer/FooterSupport/FooterSupport.tsx';
-
-import { getFooterBanking, getFooterCrypto, getFooterMenu } from './constants/constants.ts';
+import { getFooterBanking, getFooterCrypto, getFooterMenu } from './constants/constants';
 import styles from './Footer.module.scss';
+import { FooterMenu } from './FooterMenu/FooterMenu';
+import { FooterMoneyItem } from './FooterMoneyItem/FooterMoneyItem';
+import { FooterSupport } from './FooterSupport/FooterSupport';
 
 interface FooterProps {
   className?: string;

@@ -43,7 +43,7 @@ export interface GetShowcaseGamesParams {
   cursor?: string | null;
   search_query?: string;
   provider_ids?: number[];
-  game_kinds?: GameKind[];
+  game_kinds?: GameKind[] | null;
   only_mobile?: boolean | null;
   only_favorites?: boolean | null;
   only_new?: boolean | null;
@@ -52,4 +52,32 @@ export interface GetShowcaseGamesParams {
   include_blocked_regions?: boolean;
   sort?: SortType;
   sort_dir?: SortDirection;
+}
+
+export interface BettingTableBetItem {
+  uuid?: string;
+  user_name: string;
+  avatar_url: string;
+  game_title: string;
+  game_image_url: string;
+  stake: number;
+  payout: number;
+  multiplier: number;
+}
+
+export interface BettingTableBetsMeta {
+  page_size: number;
+  cursor: string;
+  next_cursor: string;
+  has_more: boolean;
+}
+
+export interface GetBettingTableBetsLatestParams {
+  page_size?: number;
+  cursor?: string | null;
+}
+
+export interface BettingTableBetsLatestResponse {
+  meta: BettingTableBetsMeta;
+  items: BettingTableBetItem[];
 }

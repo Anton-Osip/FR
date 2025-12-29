@@ -1,1 +1,1 @@
-export { useShowcaseGames } from './useShowcaseGames';
+export { showcaseApi, useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from './showcaseApi';

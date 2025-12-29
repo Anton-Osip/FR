@@ -16,9 +16,11 @@ body {
   font-family: $font-family-base;
   font-size: $font-size-md;
   font-weight: $font-weight-base;
-  color: #000;
+  color: $color-text-primary;
 
-  background-color: #fff;
+  background-color: $color-bg;
+
+  transition: background-color $transition-hover;
 }
 
 body {

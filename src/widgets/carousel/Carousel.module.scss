@@ -4,7 +4,7 @@
   &-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     &-buttons {
       display: flex;
@@ -56,21 +56,62 @@
 }
 
 .viewport {
+  position: relative;
+
   overflow: hidden;
+
+  width: 100%;
   margin: -5px 0;
   padding: 5px 0;
 }
 
-.carousel-flexbox {
-  display: flex;
-  gap: $spacing-md;
-  align-items: center;
+.swiper-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  :global(.swiper-wrapper) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.swiper-slide {
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.empty-item {
+  display: block;
+
+  aspect-ratio: 155 / 208;
+  width: 100%;
+  height: auto;
+  padding-top: 5px;
+
+  background-color: #212738;
+  border-radius: $radius-xl;
+}
+
+@media (max-width: $media-tab) {
+  .empty-item {
+    aspect-ratio: 121 / 165;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: $media-mobile-plus) {
+  .empty-item {
+    aspect-ratio: 114 / 149;
+  }
 }
 
 @media (max-width: $media-tab) {
   .carousel {
     &-header {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
   }
 
@@ -85,8 +126,10 @@
     }
   }
 
-  .carousel-flexbox {
-    gap: $spacing-xxs;
+  .swiper-container {
+    :global(.swiper-slide) {
+      margin-right: $spacing-xxs;
+    }
   }
 }
 
@@ -96,7 +139,7 @@
   }
 }
 
-@media (width <= 330px) {
+@media (width <= 350px) {
   .carousel-title {
     svg {
       display: none;

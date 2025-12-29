@@ -2,7 +2,9 @@ import { type FC, type ReactNode, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import { useAppSelector } from '@shared/api';
 import { APP_PATH } from '@shared/constants/constants';
+import { selectIsLoggedIn } from '@shared/store/slices/appSlice';
 import { Button } from '@shared/ui';
 import {
   BaccareIcon,
@@ -26,6 +28,8 @@ import { MenuSection } from './MenuSection/MenuSection';
 import styles from './Sidebar.module.scss';
 import { SidebarFooter } from './SidebarFooter/SidebarFooter';
 
+import { LoginModal } from '@/widgets/loginModal';
+
 export interface MenuItems {
   id: string;
   icon: ReactNode;
@@ -41,8 +45,11 @@ interface SidebarProps {
 export const Sidebar: FC<SidebarProps> = ({ className }) => {
   const { t } = useTranslation('sidebar');
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const toggleIsOpen = (): void => setIsOpen(!isOpen);
+  const openLoginModal = (): void => setIsLoginModalOpen(true);
 
   const NavigationItems: MenuItems[] = useMemo(
     () => [
@@ -94,7 +101,13 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
       </Button>
       <CategorySwitcherWithSearch className={styles.categorySwitcherWithSearch} isOpen={isOpen} />
       <nav className={styles.navigation}>
-        <MenuSection list={NavigationItems} title={t('sections.navigation')} isOpen={isOpen} />
+        <MenuSection
+          list={NavigationItems}
+          title={t('sections.navigation')}
+          isOpen={isOpen}
+          onRequireAuth={openLoginModal}
+          isLoggedIn={isLoggedIn}
+        />
         <MenuSection list={Game1Items} title={t('sections.games')} isOpen={isOpen} />
         <MenuSection list={Game2Items} title={t('sections.games')} isOpen={isOpen} />
       </nav>
@@ -102,6 +115,8 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
       <div className={styles.sidebarFooter}>
         <SidebarFooter isOpen={isOpen} />
       </div>
+
+      <LoginModal open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </div>
   );
 };

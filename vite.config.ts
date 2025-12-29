@@ -79,6 +79,6 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'zustand'],
+    include: ['react', 'react-dom', 'zustand', '@reduxjs/toolkit', 'react-redux'],
   },
 });

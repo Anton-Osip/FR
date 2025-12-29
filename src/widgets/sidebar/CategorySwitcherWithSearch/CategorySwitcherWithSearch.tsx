@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -16,12 +16,15 @@ interface CategorySwitcherWithSearchProps {
 
 export const CategorySwitcherWithSearch: FC<CategorySwitcherWithSearchProps> = ({ isOpen, className }) => {
   const { t } = useTranslation('sidebar');
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   return (
     <div className={`${styles.root} ${isOpen ? '' : styles.isOpen} ${className ? className : ''}`}>
       {/*<Button className={styles.casinoButton} variant={'primary'} size={'m'} fullWidth>Казино</Button>*/}
       {/*<Button className={styles.sportButton} variant={'secondary'} size={'m'} fullWidth>Спорт</Button>*/}
       <SearchModal
+        open={isSearchModalOpen}
+        onOpenChange={setIsSearchModalOpen}
         trigger={
           <Button className={styles.searchButton} variant={'secondary'} size={'m'}>
             <span className={styles.searchIcon}>{<SearchIcon />}</span>

@@ -16,11 +16,18 @@
     padding: $spacing-md;
   }
 
-  .wrapper {
+  .authenticatedWrapper {
     display: flex;
     gap: $spacing-12;
     align-items: center;
   }
+
+  .unauthenticatedWrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
 
   .chevronHeader {
     padding-right: 0;
@@ -28,10 +35,27 @@
   }
 }
 
+.signIn {
+  height: 47px;
+  color: #f0f5ff;
+  background-color: #212738;
+}
+
+.signUp{
+  height: 47px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .signIn:hover {
+    background-color: #282F42;
+  }
+}
+
 @media screen and (max-width: $media-laptop-plus) {
   .header {
     .container {
-      padding: $spacing-12 $spacing-md $spacing-xs $spacing-md;}
+      padding: $spacing-12 $spacing-md $spacing-xs $spacing-md;
+    }
   }
 }
 

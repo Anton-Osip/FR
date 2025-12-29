@@ -64,6 +64,7 @@
 }
 
 .title {
+  height: 32px;
   margin: 0;
 
   font-size: 26px;
@@ -89,6 +90,11 @@
 }
 
 button.closeButton {
+  position: absolute;
+  z-index: 10;
+  top: 32px;
+  right: 32px;
+
   width: 39px;
   max-width: 39px;
   height: 39px;
@@ -200,6 +206,11 @@ button.closeButton {
         animation: none !important;
       }
     }
+  }
+
+  button.closeButton {
+    top: 16px;
+    right: 16px;
   }
 }
 

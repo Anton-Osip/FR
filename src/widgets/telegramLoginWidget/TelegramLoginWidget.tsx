@@ -2,6 +2,9 @@ import { type FC, useEffect } from 'react';
 
 import type { TelegramLoginWidgetProps } from '@shared/schemas';
 import { feLog } from '@shared/telemetry/feLogger.ts';
+import { FrostyIcon } from '@shared/ui/icons';
+
+import styles from './TelegramLoginWidget.module.scss';
 
 export const TelegramLoginWidget: FC<TelegramLoginWidgetProps> = ({ botName }) => {
   useEffect(() => {
@@ -30,5 +33,17 @@ export const TelegramLoginWidget: FC<TelegramLoginWidgetProps> = ({ botName }) =
     };
   }, [botName]);
 
-  return <div id="telegram-login-widget" />;
+  return (
+    <div className={styles.tgWidget}>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.frostyIcon}>
+            <FrostyIcon />
+          </div>
+          <span className={styles.text}>Frosty</span>
+        </div>
+      </header>
+      <div id="telegram-login-widget" />
+    </div>
+  );
 };

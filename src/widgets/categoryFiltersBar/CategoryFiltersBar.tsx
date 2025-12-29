@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -18,11 +18,14 @@ interface CategoryFiltersBarProps {
 
 export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({ className, tabs, onTabChange }) => {
   const { t } = useTranslation('home');
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   return (
     <div className={`${styles.root} ${className ?? ''}`}>
       <div className={styles.buttonWrapper}>
         <SearchModal
+          open={isSearchModalOpen}
+          onOpenChange={setIsSearchModalOpen}
           trigger={
             <Button variant={'secondary'}>
               <SearchIcon />

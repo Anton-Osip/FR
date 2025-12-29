@@ -1,0 +1,241 @@
+@use "../../shared/styles/variables" as *;
+
+.modal {
+  max-width: 524px;
+  padding: 32px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  > svg {
+    width: 39px;
+    height: 32px;
+  }
+}
+
+.tgIcon > svg {
+  width: 24px;
+  height: 20px;
+}
+
+.closeButton {
+  max-width: 28px !important;
+  max-height: 28px !important;
+
+  > span {
+    width: 10px;
+    height: 10px;
+  }
+
+  > span svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: flex-start;
+
+  max-width: 524px;
+}
+
+.slider {
+  position: relative;
+}
+
+.bannerSwiper {
+  position: relative;
+  width: 100%;
+}
+
+.bannerSlide {
+  overflow: hidden;
+
+  min-height: 82px;
+  padding-left: 16px;
+
+  background: #131824;
+  border-radius: 12px;
+}
+
+.bannerImg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: url("../../assets/images/banerSlide.png") no-repeat right center;
+}
+
+.bannerSlideWrapper {
+  display: flex;
+  align-items: center;
+  min-height: 82px;
+}
+
+.bannerTitle {
+  position: relative;
+  z-index: 1;
+
+  max-width: 150px;
+
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 140%;
+  color: #F0F5FF;
+  letter-spacing: -0.18px;
+}
+
+.cashbackPagination {
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  bottom: 19%;
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+
+  width: 88px;
+  margin-top: $spacing-md;
+  padding: 4px;
+
+  background: rgba(white, 0.1);
+  border-radius: 160px;
+}
+
+
+.cashbackDot {
+  cursor: pointer;
+
+  width: 4px;
+  height: 4px;
+  padding: 0;
+
+  background: $color-text-secondary;
+  border: none;
+  border-radius: 50%;
+
+  transition: width $transition-hover,
+  height $transition-hover,
+  background-color $transition-hover,
+  border-radius $transition-hover;
+
+  &.activeDote {
+    width: 56px;
+    height: 4px;
+    background: $color-text-primary;
+    border-radius: 160px;
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+  text-align: center;
+  letter-spacing: -0.24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recover {
+  width: fit-content;
+  padding: 0 !important;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #1873F2;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lines {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background: var(--bg-on-block, #212738);
+    border-radius: 2px;
+  }
+
+  .footerTitle {
+    min-width: fit-content;
+
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+  }
+}
+
+.tgIcon {
+  max-width: 52px;
+  height: 52px;
+  min-height: 52px;
+  padding: 15px !important;
+
+  border: 2px solid #282F42;
+  border-radius: 12px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tgIcon:hover {
+    background-color: #212738;
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .body {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .closeButton {
+    top: 32px !important;
+    right: 32px !important;
+  }
+}
+
+@media (width <= 528px) {
+  .bannerImg {
+    background: url("../../assets/images/banerSlideMobile.png") no-repeat right center;
+  }
+
+}

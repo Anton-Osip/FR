@@ -34,3 +34,5 @@ export { PercentageCircleIcon } from './PercentageCircleIcon';
 export { CalendarIcon } from './CalendarIcon';
 export { CrossIcon } from './CrossIcon';
 export { RepeatIcon } from './RepeatIcon';
+export { MailIcon } from './MailIcon';
+export { LockIcon } from './LockeIcon';

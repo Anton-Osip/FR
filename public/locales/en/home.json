@@ -42,7 +42,8 @@
       "game": "Game",
       "amount": "Bet amount",
       "multiplier": "Multiplier",
-      "payout": "Payout"
+      "payout": "Payout",
+      "nothingFound": "Nothing found"
     }
   }
 }

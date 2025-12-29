@@ -1,13 +1,26 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BFF, CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
 import { feLog } from '@shared/telemetry';
 
-import { useAuthStore } from '@/features/auth';
-import { authenticateTelegramLoginWidget, authenticateTelegramWebApp } from '@/features/auth';
-import { getUserBalance, getUserMe } from '@/features/user';
+import { useAuthenticateTelegramWebAppMutation, useAuthenticateTelegramLoginWidgetMutation } from '@/features/auth/api';
+import { useGetUserMeQuery, useGetUserBalanceQuery } from '@/features/user/userApi';
 import { collectClientProfilePayload } from '@/shared/fingerprint';
-import type { AppMode, AuthStatus, BalanceStreamPayload, TelegramLoginWidgetData, UserMe } from '@/shared/schemas';
+import type { AppMode, AuthStatus, TelegramLoginWidgetData, UserMe } from '@/shared/schemas';
+import {
+  selectMe,
+  selectErrorMessage,
+  selectAppStatus,
+  selectAppSuccess,
+  setMe,
+  setErrorMessage,
+  resetError,
+  setShowSiteLogin,
+  setAppStatus,
+  setMode,
+} from '@/shared/store/slices/appSlice';
 import {
   getTelegramLoginWidgetData,
   isTelegramWebApp,
@@ -28,19 +41,19 @@ type UseAuthFlowResult = {
 const TELEGRAM_WEBAPP_WAIT_MS = 4000;
 const TELEGRAM_INITDATA_WEBAPP_TIMEOUT_MS = 4000;
 const TELEGRAM_INITDATA_SITE_TIMEOUT_MS = 1500;
-const BALANCE_SYNC_THROTTLE_MS = 3000;
-const BALANCE_STREAM_RECONNECT_BASE_MS = 500;
-const BALANCE_STREAM_RECONNECT_EXPONENT = 1.8;
-const BALANCE_STREAM_RECONNECT_MAX_MS = 15000;
-
-function parseBalancePayload(data: unknown): BalanceStreamPayload | null {
-  if (!data || typeof data !== 'object') return null;
-  const v = (data as Record<string, unknown>).balance;
-
-  if (typeof v !== 'number' || !Number.isFinite(v)) return null;
-
-  return { balance: v };
-}
+// const BALANCE_SYNC_THROTTLE_MS = 3000;
+// const BALANCE_STREAM_RECONNECT_BASE_MS = 500;
+// const BALANCE_STREAM_RECONNECT_EXPONENT = 1.8;
+// const BALANCE_STREAM_RECONNECT_MAX_MS = 15000;
+//
+// function parseBalancePayload(data: unknown): BalanceStreamPayload | null {
+//   if (!data || typeof data !== 'object') return null;
+//   const v = (data as Record<string, unknown>).balance;
+//
+//   if (typeof v !== 'number' || !Number.isFinite(v)) return null;
+//
+//   return { balance: v };
+// }
 
 /**
  * Удаляет параметры Telegram Login Widget / WebApp из URL, чтобы не светить PII и не мешать повторной инициализации.
@@ -152,99 +165,157 @@ function maybeRedirectToReturnTo(): void {
  * - Telegram WebApp: initData -> BFF -> cookie session
  */
 export const useAuthFlow = (): UseAuthFlowResult => {
-  const {
-    authStatus,
-    errorMessage,
-    me,
-    mode,
-    showSiteLogin,
-    setAuthStatus,
-    setErrorMessage,
-    setMe,
-    setMode,
-    resetError,
-  } = useAuthStore();
+  const dispatch = useDispatch();
+  const authStatus = useSelector(selectAppStatus);
+  const errorMessage = useSelector(selectErrorMessage);
+  const me = useSelector(selectMe);
+  const mode = useSelector(selectAppSuccess);
+
+  const [authenticateWebApp] = useAuthenticateTelegramWebAppMutation();
+  const [authenticateLoginWidget] = useAuthenticateTelegramLoginWidgetMutation();
+  const { data: userMe, refetch: refetchUserMe } = useGetUserMeQuery(undefined, {
+    skip: false,
+  });
+  const { data: userBalance, refetch: refetchUserBalance } = useGetUserBalanceQuery(undefined, {
+    skip: false,
+  });
+
+  const initRef = useRef(false);
+
+  useEffect(() => {
+    if (userMe && authStatus === 'authenticated') {
+      const meData: UserMe = {
+        ...userMe,
+        balance: userBalance?.balance ?? userMe.balance,
+      };
+
+      dispatch(setMe({ me: meData }));
+    }
+  }, [userMe, userBalance, authStatus, dispatch]);
 
   const checkSession = useCallback(async (): Promise<boolean> => {
     feLog.info('app.check_session_start');
-    const meRes = await getUserMe();
+    dispatch(setAppStatus({ status: 'checking' }));
 
-    if (meRes.ok && meRes.data) {
-      let data: UserMe = meRes.data;
-      const balanceRes = await getUserBalance();
+    try {
+      const meResult = await refetchUserMe();
 
-      if (balanceRes.ok && balanceRes.data) {
-        data = { ...data, balance: balanceRes.data.balance };
+      if (meResult.data && !meResult.isError) {
+        const balanceResult = await refetchUserBalance();
+        const meData: UserMe = {
+          ...meResult.data,
+          balance: balanceResult.data?.balance ?? meResult.data.balance,
+        };
+
+        dispatch(setMe({ me: meData }));
+        dispatch(setAppStatus({ status: 'authenticated' }));
+        feLog.info('app.session_valid', { user_id: meResult.data.user_id });
+
+        return true;
       }
-      setMe(data);
-      setAuthStatus('authenticated');
-      feLog.info('app.session_valid', { user_id: meRes.data.user_id });
+      dispatch(setMe({ me: null }));
+      dispatch(setAppStatus({ status: 'unauthenticated' }));
+      feLog.warn('app.session_invalid', { error: 'no_data' });
 
-      return true;
+      return false;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+
+      feLog.warn('app.session_invalid', { error: msg });
+      dispatch(setMe({ me: null }));
+      dispatch(setAppStatus({ status: 'unauthenticated' }));
+
+      return false;
     }
-    setMe(null);
-    setAuthStatus('unauthenticated');
-    feLog.warn('app.session_invalid', { status: meRes.status, error: meRes.error });
-
-    return false;
-  }, [setAuthStatus, setMe]);
+  }, [dispatch, refetchUserMe, refetchUserBalance]);
 
   const handleWebAppAuth = useCallback(
     async (initData: string): Promise<void> => {
-      setMode('webapp');
-      setAuthStatus('checking');
-      resetError();
-      setMe(null);
-      const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
-      const authResult = await authenticateTelegramWebApp(initData, clientProfile);
+      dispatch(setMode({ mode: 'webapp' }));
+      dispatch(setAppStatus({ status: 'checking' }));
+      dispatch(resetError());
+      dispatch(setMe({ me: null }));
 
-      if (!authResult.ok) {
-        setErrorMessage(formatAuthError(authResult.error));
-        setAuthStatus('error');
+      try {
+        const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
+        const authResult = await authenticateWebApp({ initData, clientProfile }).unwrap();
 
-        return;
+        if (authResult.ok) {
+          await checkSession();
+        } else {
+          dispatch(setErrorMessage({ errorMessage: formatAuthError(authResult.error) }));
+          dispatch(setAppStatus({ status: 'error' }));
+        }
+      } catch (err: unknown) {
+        const errorData = err && typeof err === 'object' && 'data' in err ? (err.data as { error?: string }) : null;
+        const error = errorData?.error || 'network_error';
+
+        dispatch(setErrorMessage({ errorMessage: formatAuthError(error) }));
+        dispatch(setAppStatus({ status: 'error' }));
       }
-      await checkSession();
     },
-    [checkSession, resetError, setAuthStatus, setErrorMessage, setMe, setMode],
+    [dispatch, authenticateWebApp, checkSession],
   );
 
   const handleLoginWidgetAuth = useCallback(
     async (widgetData: TelegramLoginWidgetData): Promise<void> => {
-      setMode('site');
-      setAuthStatus('checking');
-      resetError();
-      setMe(null);
-      const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
-      const authResult = await authenticateTelegramLoginWidget(widgetData, clientProfile);
+      dispatch(setMode({ mode: 'site' }));
+      dispatch(setAppStatus({ status: 'checking' }));
+      dispatch(resetError());
+      dispatch(setMe({ me: null }));
 
-      if (!authResult.ok) {
-        setErrorMessage(formatAuthError(authResult.error));
-        setAuthStatus('error');
+      try {
+        const clientProfile = await collectClientProfilePayload(CLIENT_VERSION);
+        const authResult = await authenticateLoginWidget({ data: widgetData, clientProfile }).unwrap();
 
-        return;
+        if (authResult.ok) {
+          const ok = await checkSession();
+
+          if (ok) maybeRedirectToReturnTo();
+        } else {
+          dispatch(setErrorMessage({ errorMessage: formatAuthError(authResult.error) }));
+          dispatch(setAppStatus({ status: 'error' }));
+          maybeRedirectToReturnTo();
+        }
+      } catch (err: unknown) {
+        const errorData = err && typeof err === 'object' && 'data' in err ? (err.data as { error?: string }) : null;
+        const error = errorData?.error || 'network_error';
+
+        dispatch(setErrorMessage({ errorMessage: formatAuthError(error) }));
+        dispatch(setAppStatus({ status: 'error' }));
+        maybeRedirectToReturnTo();
       }
-      const ok = await checkSession();
-
-      if (ok) maybeRedirectToReturnTo();
     },
-    [checkSession, resetError, setAuthStatus, setErrorMessage, setMe, setMode],
+    [dispatch, authenticateLoginWidget, checkSession],
   );
 
+  const showSiteLogin = useCallback(() => {
+    dispatch(setShowSiteLogin({ show: true }));
+  }, [dispatch]);
+
   useEffect(() => {
+    if (initRef.current) return;
+
     const init = async (): Promise<void> => {
+      if (initRef.current) return;
+      initRef.current = true;
+
       try {
-        setAuthStatus('checking');
-        setMode('unknown');
-        resetError();
         const widgetData = getTelegramLoginWidgetData();
 
         if (widgetData) {
+          dispatch(setMode({ mode: 'site' }));
+          dispatch(setAppStatus({ status: 'checking' }));
+          dispatch(resetError());
           stripTelegramParamsFromUrl();
           await handleLoginWidgetAuth(widgetData);
 
           return;
         }
+
+        dispatch(setAppStatus({ status: 'checking' }));
+        dispatch(setMode({ mode: 'unknown' }));
+        dispatch(resetError());
 
         await waitForTelegramWebApp(TELEGRAM_WEBAPP_WAIT_MS);
         const isWebApp = isTelegramWebApp();
@@ -277,136 +348,186 @@ export const useAuthFlow = (): UseAuthFlowResult => {
           return;
         }
 
-        setMode('site');
+        dispatch(setMode({ mode: 'site' }));
         await checkSession();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
 
         feLog.error('app.init_failed', { error: msg });
-        setErrorMessage('Ошибка инициализации');
-        setAuthStatus('error');
+        dispatch(setErrorMessage({ errorMessage: 'Ошибка инициализации' }));
+        dispatch(setAppStatus({ status: 'error' }));
+        initRef.current = false;
       }
     };
 
     void init();
-  }, [checkSession, handleLoginWidgetAuth, handleWebAppAuth, resetError, setAuthStatus, setErrorMessage, setMode]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => {
-    if (authStatus !== 'authenticated') return;
-    if (!me?.user_id) return;
-    const url = `${BFF}/api/v1/users/balance/stream`;
-    let es: EventSource | null = null;
-    let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
-    let reconnectDelayMs = BALANCE_STREAM_RECONNECT_BASE_MS;
-    let stopped = false;
-    let lastSyncAt = 0;
-
-    const sync = async (reason: string): Promise<void> => {
-      const now = Date.now();
-
-      if (now - lastSyncAt < BALANCE_SYNC_THROTTLE_MS) return;
-      lastSyncAt = now;
-      const balanceRes = await getUserBalance();
-
-      if (balanceRes.ok && balanceRes.data) {
-        const balance = balanceRes.data.balance;
-
-        setMe(prev => (prev ? { ...prev, balance } : prev));
-      }
-      feLog.debug('balance_stream.sync', { reason });
-    };
-
-    const onBalance = (ev: MessageEvent): void => {
-      try {
-        const parsed = JSON.parse(String(ev.data || '{}')) as unknown;
-        const payload = parseBalancePayload(parsed);
-
-        if (!payload) return;
-        setMe(prev => (prev ? { ...prev, balance: String(payload.balance) } : prev));
-      } catch {
-        /* noop */
-      }
-    };
-
-    const onReady = (): void => {
-      void sync('ready');
-    };
-
-    const onBalanceEvent: EventListener = ev => {
-      onBalance(ev as MessageEvent);
-    };
-    const onReadyEvent: EventListener = () => {
-      onReady();
-    };
-
-    const cleanupEs = (): void => {
-      if (!es) return;
-      try {
-        es.removeEventListener('balance', onBalanceEvent);
-      } catch {
-        /* empty */
-      }
-      try {
-        es.removeEventListener('ready', onReadyEvent);
-      } catch {
-        /* empty */
-      }
-      try {
-        es.close();
-      } catch {
-        /* empty */
-      }
-      es = null;
-    };
-
-    const scheduleReconnect = (reason: string): void => {
-      if (stopped) return;
-      if (reconnectTimer) return;
-      const delay = reconnectDelayMs;
-
-      reconnectDelayMs = Math.min(
-        Math.floor(reconnectDelayMs * BALANCE_STREAM_RECONNECT_EXPONENT),
-        BALANCE_STREAM_RECONNECT_MAX_MS,
-      );
-      feLog.warn('balance_stream.reconnect_scheduled', { reason, delay_ms: delay });
-      reconnectTimer = setTimeout(() => {
-        reconnectTimer = null;
-        connect('reconnect');
-      }, delay);
-    };
-
-    const connect = (reason: string): void => {
-      cleanupEs();
-      if (stopped) return;
-
-      const esInit: EventSourceInit = { withCredentials: true };
-
-      es = new EventSource(url, esInit);
-      es.addEventListener('balance', onBalanceEvent);
-      es.addEventListener('ready', onReadyEvent);
-      es.onopen = () => {
-        reconnectDelayMs = BALANCE_STREAM_RECONNECT_BASE_MS;
-        feLog.debug('balance_stream.open', { reason });
-        void sync('open');
-      };
-      es.onerror = () => {
-        feLog.warn('balance_stream.error');
-        void sync('error');
-        scheduleReconnect('error');
-      };
-    };
-
-    connect('init');
-
-    return () => {
-      stopped = true;
-      if (reconnectTimer) {
-        clearTimeout(reconnectTimer);
-        reconnectTimer = null;
-      }
-      cleanupEs();
-    };
-  }, [authStatus, me?.user_id, setMe]);
+  // useEffect(() => {
+  //   if (authStatus !== 'authenticated') return;
+  //   if (!me?.user_id) return;
+  //
+  //   // Преобразуем HTTP(S) URL в WebSocket URL
+  //   const getWebSocketUrl = (): string => {
+  //     const httpUrl = `${BFF}/api/v1/users/balance/ws`;
+  //
+  //     try {
+  //       const url = new URL(httpUrl);
+  //
+  //       url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+  //
+  //       return url.toString();
+  //     } catch {
+  //       // Fallback: простая замена протокола
+  //       return httpUrl.replace(/^https?:/, httpUrl.startsWith('https') ? 'wss:' : 'ws:');
+  //     }
+  //   };
+  //
+  //   const url = getWebSocketUrl();
+  //   let ws: WebSocket | null = null;
+  //   let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  //   let reconnectDelayMs = BALANCE_STREAM_RECONNECT_BASE_MS;
+  //   let stopped = false;
+  //   let lastSyncAt = 0;
+  //
+  //   const sync = async (reason: string): Promise<void> => {
+  //     const now = Date.now();
+  //
+  //     if (now - lastSyncAt < BALANCE_SYNC_THROTTLE_MS) return;
+  //     lastSyncAt = now;
+  //
+  //     try {
+  //       const balanceResult = await refetchUserBalance();
+  //
+  //       if (balanceResult.data) {
+  //         const balance = balanceResult.data.balance;
+  //
+  //         dispatch(setMe({ me: me ? { ...me, balance } : null }));
+  //       }
+  //     } catch {
+  //       /* noop */
+  //     }
+  //     feLog.debug('balance_stream.sync', { reason });
+  //   };
+  //
+  //   const onBalance = (data: unknown): void => {
+  //     try {
+  //       const payload = parseBalancePayload(data);
+  //
+  //       if (!payload) return;
+  //       dispatch(setMe({ me: me ? { ...me, balance: String(payload.balance) } : null }));
+  //     } catch {
+  //       /* noop */
+  //     }
+  //   };
+  //
+  //   const onReady = (): void => {
+  //     void sync('ready');
+  //   };
+  //
+  //   const handleMessage = (ev: MessageEvent): void => {
+  //     try {
+  //       const parsed = JSON.parse(String(ev.data || '{}')) as Record<string, unknown>;
+  //       const eventType = parsed.type || parsed.event;
+  //
+  //       if (eventType === 'balance') {
+  //         onBalance(parsed.data || parsed);
+  //       } else if (eventType === 'ready') {
+  //         onReady();
+  //       } else if (!eventType) {
+  //         // Если тип не указан, пытаемся обработать как баланс напрямую
+  //         onBalance(parsed);
+  //       }
+  //     } catch {
+  //       /* noop */
+  //     }
+  //   };
+  //
+  //   const cleanupWs = (): void => {
+  //     if (!ws) return;
+  //     try {
+  //       ws.onopen = null;
+  //       ws.onmessage = null;
+  //       ws.onerror = null;
+  //       ws.onclose = null;
+  //     } catch {
+  //       /* empty */
+  //     }
+  //     try {
+  //       if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+  //         ws.close();
+  //       }
+  //     } catch {
+  //       /* empty */
+  //     }
+  //     ws = null;
+  //   };
+  //
+  //   const scheduleReconnect = (reason: string): void => {
+  //     if (stopped) return;
+  //     if (reconnectTimer) return;
+  //     const delay = reconnectDelayMs;
+  //
+  //     reconnectDelayMs = Math.min(
+  //       Math.floor(reconnectDelayMs * BALANCE_STREAM_RECONNECT_EXPONENT),
+  //       BALANCE_STREAM_RECONNECT_MAX_MS,
+  //     );
+  //     feLog.warn('balance_stream.reconnect_scheduled', { reason, delay_ms: delay });
+  //     reconnectTimer = setTimeout(() => {
+  //       reconnectTimer = null;
+  //       connect('reconnect');
+  //     }, delay);
+  //   };
+  //
+  //   const connect = (reason: string): void => {
+  //     cleanupWs();
+  //     if (stopped) return;
+  //
+  //     try {
+  //       ws = new WebSocket(url);
+  //
+  //       ws.onopen = () => {
+  //         reconnectDelayMs = BALANCE_STREAM_RECONNECT_BASE_MS;
+  //         feLog.debug('balance_stream.open', { reason });
+  //         void sync('open');
+  //       };
+  //
+  //       ws.onmessage = handleMessage;
+  //
+  //       ws.onerror = () => {
+  //         feLog.warn('balance_stream.error');
+  //         void sync('error');
+  //       };
+  //
+  //       ws.onclose = (ev: CloseEvent) => {
+  //         feLog.warn('balance_stream.close', { code: ev.code, reason: ev.reason, wasClean: ev.wasClean });
+  //         void sync('close');
+  //
+  //         // Переподключаемся только если соединение было закрыто неожиданно
+  //         if (!ev.wasClean && !stopped) {
+  //           scheduleReconnect('close');
+  //         }
+  //       };
+  //     } catch (err: unknown) {
+  //       const msg = err instanceof Error ? err.message : String(err);
+  //
+  //       feLog.error('balance_stream.connect_error', { error: msg });
+  //       scheduleReconnect('connect_error');
+  //     }
+  //   };
+  //
+  //   connect('init');
+  //
+  //   return () => {
+  //     stopped = true;
+  //     if (reconnectTimer) {
+  //       clearTimeout(reconnectTimer);
+  //       reconnectTimer = null;
+  //     }
+  //     cleanupWs();
+  //   };
+  // }, [authStatus, me, dispatch, refetchUserBalance]);
 
   return useMemo(
     () => ({

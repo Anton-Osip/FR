@@ -6,7 +6,11 @@ export type { TelegramWebApp } from './telegram';
 export type { Ctx, Entry, Level } from './telemetry';
 export type { StatusBadgeProps, StatusBadgeStatus, TelegramLoginWidgetProps } from './ui';
 export type {
+  BettingTableBetItem,
+  BettingTableBetsLatestResponse,
+  BettingTableBetsMeta,
   GameKind,
+  GetBettingTableBetsLatestParams,
   GetShowcaseGamesParams,
   ShowcaseGame,
   ShowcaseGameProvider,

@@ -3,6 +3,8 @@ import { useRef, useState, useEffect } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { APP_PATH } from '@shared/constants/constants';
+
 import styles from './MenuItem.module.scss';
 
 interface MenuItemProps {
@@ -11,9 +13,14 @@ interface MenuItemProps {
   isActive: boolean;
   isOpen: boolean;
   path?: string;
+  onRequireAuth?: () => void;
+  isLoggedIn?: boolean;
 }
 
-export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, path }) => {
+// Пути, которые требуют авторизации
+const AUTH_REQUIRED_PATHS: string[] = [APP_PATH.favorites, APP_PATH.invite, APP_PATH.bonuses];
+
+export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, path, onRequireAuth, isLoggedIn }) => {
   const itemRef = useRef<HTMLButtonElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -21,6 +28,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
   const location = useLocation();
 
   const isCurrentPath = path && location.pathname === path;
+  const requiresAuth = path ? AUTH_REQUIRED_PATHS.includes(path) : false;
 
   useEffect(() => {
     if (isHovered && itemRef.current && !isOpen) {
@@ -36,9 +44,17 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
   }, [isHovered, isOpen]);
 
   const handleClick = (): void => {
-    if (path) {
-      navigate(path);
+    if (!path) return;
+
+    // Если путь требует авторизации и пользователь не авторизован, открываем модалку
+    if (requiresAuth && !isLoggedIn && onRequireAuth) {
+      onRequireAuth();
+
+      return;
     }
+
+    // Иначе переходим на страницу
+    navigate(path);
   };
 
   return (

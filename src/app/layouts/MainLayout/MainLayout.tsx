@@ -7,11 +7,9 @@ import { Outlet } from 'react-router-dom';
 import { initLogging } from '@shared/telemetry';
 import { Button } from '@shared/ui';
 
-import { Footer } from '@widgets/Footer';
-
 import styles from './MainLayout.module.scss';
 
-import { Header, Sidebar, TabScreenMenu } from '@/widgets';
+import { Header, Sidebar, TabScreenMenu, Footer } from '@/widgets';
 
 const SCROLL_THRESHOLD = 300;
 
@@ -38,7 +36,7 @@ export const MainLayout: FC = () => {
     };
 
     mainElement.addEventListener('scroll', handleScroll);
-    handleScroll(); // Проверяем начальное состояние
+    handleScroll();
 
     return () => {
       mainElement.removeEventListener('scroll', handleScroll);

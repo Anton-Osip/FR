@@ -9,7 +9,9 @@ interface Props {
 
 const CarouselItemComponent: FC<Props> = ({ img, link }) => {
   return (
-    <a href={link} className={styles['carousel-item']} style={{ backgroundImage: `url(${img})` }} draggable={false}></a>
+    <a href={link} className={styles['carousel-item']} draggable={false}>
+      <img src={img} alt="" className={styles['carousel-item__image']} draggable={false} />
+    </a>
   );
 };
 

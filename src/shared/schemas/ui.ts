@@ -7,4 +7,5 @@ export type StatusBadgeProps = {
 
 export type TelegramLoginWidgetProps = {
   botName: string;
+  autoClick?: boolean;
 };

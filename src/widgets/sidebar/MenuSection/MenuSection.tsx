@@ -8,6 +8,8 @@ interface MenuSectionProps {
   title: string;
   isOpen: boolean;
   className?: string;
+  onRequireAuth?: () => void;
+  isLoggedIn?: boolean;
 }
 
 interface MenuItems {
@@ -18,7 +20,7 @@ interface MenuItems {
   path?: string;
 }
 
-export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, className }) => {
+export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, className, onRequireAuth, isLoggedIn }) => {
   return (
     <div className={`${styles.menuSection} ${className ?? ''}`}>
       <h3 className={`${styles.title} ${!isOpen ? styles.hidden : ''}`}>{title}</h3>
@@ -30,6 +32,8 @@ export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, classNa
           isActive={item.isActive}
           isOpen={isOpen}
           path={item.path}
+          onRequireAuth={onRequireAuth}
+          isLoggedIn={isLoggedIn}
         />
       ))}
     </div>
