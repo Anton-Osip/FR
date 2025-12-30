@@ -1,6 +1,7 @@
 export type { ApiErrorBody, FetchJsonResult } from './api';
 export type { AppMode, AuthResult, AuthStatus, TelegramLoginWidgetData } from './auth';
 export type { ClientProfileBase, ClientProfilePayload, UaBrand } from './client-profile';
+export { type InviteOverview } from './invite';
 export type { NavigatorUserAgentData, NavigatorUserAgentDataBrand, NavigatorWithUserAgentData } from './navigator';
 export type { TelegramWebApp } from './telegram';
 export type { Ctx, Entry, Level } from './telemetry';

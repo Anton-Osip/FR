@@ -5,6 +5,7 @@ import { baseApi } from '@shared/api/baseApi.ts';
 import { appReducer } from '@shared/store/slices/appSlice.ts';
 
 import '@/features/auth/api.ts';
+import '@/features/invite/inviteApi.ts';
 import '@/features/showcase/showcaseApi.ts';
 import '@/features/user/userApi.ts';
 

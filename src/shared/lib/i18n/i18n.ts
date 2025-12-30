@@ -23,6 +23,7 @@ export const i18nConfig = {
     'invite',
     'tabScreenMenu',
     'profile',
+    'loginModal',
   ],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',

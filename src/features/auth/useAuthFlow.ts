@@ -20,6 +20,7 @@ import {
   setShowSiteLogin,
   setAppStatus,
   setMode,
+  setDeviceType,
 } from '@/shared/store/slices/appSlice';
 import {
   getTelegramLoginWidgetData,
@@ -27,6 +28,7 @@ import {
   waitForInitData,
   waitForTelegramWebApp,
 } from '@/shared/telegram';
+import { detectDeviceType } from '@/shared/utils/detectDeviceType';
 
 export type { AppMode, AuthStatus } from '@/shared/schemas';
 
@@ -301,6 +303,11 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       initRef.current = true;
 
       try {
+        // Определяем тип устройства при запуске приложения
+        const deviceType = detectDeviceType();
+
+        dispatch(setDeviceType({ type: deviceType }));
+
         const widgetData = getTelegramLoginWidgetData();
 
         if (widgetData) {

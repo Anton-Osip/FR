@@ -2,7 +2,9 @@ import { ChangeEvent, FC, ReactNode, useCallback, useEffect, useMemo, useRef, us
 
 import { useTranslation } from 'react-i18next';
 
+import { useAppSelector } from '@shared/api';
 import { GameKind, GetShowcaseGamesParams, ShowcaseGamesResponse } from '@shared/schemas';
+import { selectDeviceType } from '@shared/store/slices/appSlice.ts';
 import { Button, Input, Modal, Tabs } from '@shared/ui';
 import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
 import type { Tab } from '@shared/ui/tabs/Tabs';
@@ -44,6 +46,7 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
   const [isLoadingMoreLocal, setIsLoadingMoreLocal] = useState(false);
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isLoadingMoreRef = useRef(false);
+  const deviceType = useAppSelector(selectDeviceType);
   const [windowWidth, setWindowWidth] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth;
@@ -112,9 +115,9 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
       game_kinds: activeTab !== 'new' && activeTab !== 'all' ? [activeTab] : undefined,
       sort_dir: 'desc',
       search_query: searchQuery.trim() || undefined,
-      only_mobile: true,
+      only_mobile: deviceType === 'mobile',
     };
-  }, [open, activeTab, pageSize, searchQuery]);
+  }, [open, pageSize, activeTab, searchQuery, deviceType]);
 
   const { data: initialData, isLoading } = useGetShowcaseGamesQuery(queryParams, {
     skip: !open || !queryParams,
@@ -273,7 +276,7 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
           <div className={styles.slots}>
             {!isLoading && !isInitialLoading && accumulatedData?.items.length === 0 && (
               <div className={styles.emptyMessage}>
-                <span>Ничего не найдено</span>
+                <span>{t('nothingFound')}</span>
               </div>
             )}
 

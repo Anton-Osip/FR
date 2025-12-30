@@ -6,7 +6,10 @@
     "description": "Получайте деньги на баланс за каждого приглашенного друга",
     "inviteButton": "Пригласить",
     "bonusAmount": "Сумма бонусов",
-    "invitesCount": "Инвайтов"
+    "invitesCount_one": "Инвайт",
+    "invitesCount_few": "Инвайта",
+    "invitesCount_many": "Инвайтов",
+    "invitesCount_other": "Инвайтов"
   },
   "programTerms": {
     "title": "Условия программы",

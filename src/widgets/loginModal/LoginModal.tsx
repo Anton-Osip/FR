@@ -1,5 +1,6 @@
 import { FC, type ReactElement, ReactNode, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -23,6 +24,7 @@ const THIRD_SLIDE = 3;
 const SLIDE_INDICES = [FIRST_SLIDE, SECOND_SLIDE, THIRD_SLIDE, SLIDES_COUNT];
 
 export const LoginModal: FC<LoginModalProps> = ({ trigger, open, onOpenChange }) => {
+  const { t } = useTranslation('loginModal');
   const [internalOpen, setInternalOpen] = useState<boolean>(false);
   const slides = SLIDE_INDICES;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -83,7 +85,7 @@ export const LoginModal: FC<LoginModalProps> = ({ trigger, open, onOpenChange })
             {slides.map(slide => (
               <SwiperSlide key={slide} className={styles.bannerSlide}>
                 <div className={styles.bannerSlideWrapper}>
-                  <h3 className={styles.bannerTitle}>+5% на первый крипто-депозит</h3>
+                  <h3 className={styles.bannerTitle}>{t('bannerTitle')}</h3>
 
                   <div className={styles.bannerImg}></div>
                 </div>
@@ -93,22 +95,22 @@ export const LoginModal: FC<LoginModalProps> = ({ trigger, open, onOpenChange })
           {renderCustomPagination()}
         </div>
         <div className={styles.content}>
-          <h3 className={styles.title}>Войти</h3>
+          <h3 className={styles.title}>{t('title')}</h3>
           <form className={styles.form}>
-            <Input icon={<MailIcon />} placeholder={'Email'} />
-            <Input icon={<LockIcon />} placeholder={'Пароль'} />
+            <Input icon={<MailIcon />} placeholder={t('emailPlaceholder')} />
+            <Input icon={<LockIcon />} placeholder={t('passwordPlaceholder')} />
             <Button variant={'ghost'} className={styles.recover}>
-              Восстановить пароль
+              {t('recoverPassword')}
             </Button>
             <Button type={'button'} variant={'primary'} fullWidth={true}>
-              Войти
+              {t('loginButton')}
             </Button>
           </form>
         </div>
         <footer className={styles.footer}>
           <div className={styles.lines}>
             <div className={styles.line} />
-            <h3 className={styles.footerTitle}>Или войдите через</h3>
+            <h3 className={styles.footerTitle}>{t('orLoginVia')}</h3>
             <div className={styles.line} />
           </div>
           <div className={styles.lines}>

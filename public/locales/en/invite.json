@@ -6,7 +6,8 @@
     "description": "Get money to your balance for each invited friend",
     "inviteButton": "Invite",
     "bonusAmount": "Bonus amount",
-    "invitesCount": "Invites"
+    "invitesCount_one": "Invite",
+    "invitesCount_other": "Invites"
   },
   "programTerms": {
     "title": "Program terms",

@@ -12,7 +12,7 @@ export const appSlice = createSlice({
     status: 'idle' as AuthStatus,
     mode: 'unknown' as AppMode,
     userId: null as null | number,
-    deviceType: 'mobile' as DeviceType,
+    deviceType: 'desktop' as DeviceType,
     me: null as UserMe | null,
     errorMessage: '' as string,
     showSiteLogin: false as boolean,

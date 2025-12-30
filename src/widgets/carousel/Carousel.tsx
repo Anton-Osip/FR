@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useAppSelector } from '@shared/api';
 import { GameKind, GetShowcaseGamesParams, ShowcaseGamesResponse } from '@shared/schemas';
+import { selectDeviceType } from '@shared/store/slices/appSlice.ts';
 import { Button } from '@shared/ui/button';
 
 import 'swiper/css';
@@ -29,6 +31,7 @@ interface Props {
 const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
   const { t } = useTranslation('home');
   const { swiperRef, swiper, canScrollPrev, canScrollNext, scrollPrev, scrollNext, isNearEnd } = useCarousel();
+  const deviceType = useAppSelector(selectDeviceType);
 
   const options: GetShowcaseGamesParams = useMemo(
     () => ({
@@ -37,9 +40,9 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
       game_kinds: items !== 'popular' ? [items] : undefined,
       sort: 'popular',
       sort_dir: 'asc',
-      only_mobile: true,
+      only_mobile: deviceType === 'mobile',
     }),
-    [items],
+    [deviceType, items],
   );
 
   const { data: initialData, isLoading } = useGetShowcaseGamesQuery(options);
