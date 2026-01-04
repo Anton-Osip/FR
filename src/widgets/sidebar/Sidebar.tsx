@@ -1,5 +1,6 @@
 import { type FC, type ReactNode, useMemo, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@shared/api';
@@ -89,7 +90,7 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
   );
 
   return (
-    <div className={`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
+    <div className={clsx(styles.sidebar, !isOpen ? styles.isOpen : '', className ?? className)}>
       <Button
         variant={'ghost'}
         onClick={toggleIsOpen}
