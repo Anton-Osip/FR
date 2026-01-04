@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Breadcrumbs } from '@shared/ui';
 
-import { BenefitsSection } from '@widgets/benefitsSection';
-import { CashbackCard, PromoCodeCard, RankCard } from '@widgets/bonusesPromo';
-
 import styles from './Bonuses.module.scss';
+
+import { BenefitsSection, CashbackCard, PromoCodeCard, RankCard } from '@/widgets';
 
 export const Bonuses: FC = () => {
   const { t } = useTranslation('breadcrumbs');

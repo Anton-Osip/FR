@@ -1,6 +1,6 @@
 import { feLog } from '@shared/telemetry';
 
-import { baseApi } from '@/shared/api/baseApi';
+import { baseApi } from '@/shared/api';
 import { BFF } from '@/shared/config';
 import type { InviteOverview } from '@/shared/schemas';
 

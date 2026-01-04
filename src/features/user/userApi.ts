@@ -1,4 +1,4 @@
-import { baseApi } from '@/shared/api/baseApi';
+import { baseApi } from '@/shared/api';
 import { BFF } from '@/shared/config';
 import type { UserBalance, UserMe } from '@/shared/schemas';
 

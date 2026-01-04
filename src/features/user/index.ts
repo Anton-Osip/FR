@@ -1,1 +1,1 @@
-export { useGetUserMeQuery } from './userApi.ts';
+export { useGetUserMeQuery, useGetUserBalanceQuery } from './userApi.ts';

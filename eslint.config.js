@@ -202,6 +202,14 @@ export default tseslint.config(
     },
   },
   {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
     files: ['.js', '.ts', '.jsx', '.tsx', '**/*.spec.js', '**/*.test.ts', '**/*.test.tsx', '**/*.spec.tsx'],
     languageOptions: {
       globals: {

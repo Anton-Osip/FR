@@ -5,7 +5,7 @@ import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import styles from '../HeroCashback.module.scss';
+import styles from './HeroCashback.module.scss';
 import slotImage from '/src/assets/images/hero-cashback.png';
 
 import 'swiper/css';

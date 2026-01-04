@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from '@shared/ui';
 
-import styles from '../HeroBonus.module.scss';
+import styles from './HeroBonus.module.scss';
 
 import animation from '@assets/images/hero-bonus.png';
 

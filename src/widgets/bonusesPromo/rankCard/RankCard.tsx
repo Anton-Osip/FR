@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 
 import * as Progress from '@radix-ui/react-progress';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { GoldIcon, SilverIcon } from '@shared/ui/icons';
@@ -12,14 +13,18 @@ import silverBg from '@assets/images/silver.png';
 const MAX_AMOUNT_IN_K = 100;
 const PERCENTAGE_MULTIPLIER = 100;
 
-export const RankCard: FC = () => {
+interface RankCardProps {
+  className?: string;
+}
+
+export const RankCard: FC<RankCardProps> = ({ className }) => {
   const { t } = useTranslation('bonuses');
   const amount = '25.1';
-  const maxAmountinK = MAX_AMOUNT_IN_K;
-  const progressPercent = (parseFloat(amount) / maxAmountinK) * PERCENTAGE_MULTIPLIER;
+  const maxAmounting = MAX_AMOUNT_IN_K;
+  const progressPercent = (parseFloat(amount) / maxAmounting) * PERCENTAGE_MULTIPLIER;
 
   return (
-    <div className={styles.rankCard}>
+    <div className={clsx(styles.rankCard, className ?? className)}>
       <div className={styles.info}>
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{t('rankCard.silver')}</h3>
@@ -28,7 +33,7 @@ export const RankCard: FC = () => {
         <div className={styles.userAmountBlock}>
           <div className={styles.amountWrap}>
             <p>
-              {amount}K&nbsp;₽&nbsp;&nbsp;/&nbsp;&nbsp;{maxAmountinK}K&nbsp;₽
+              {amount}K&nbsp;₽&nbsp;&nbsp;/&nbsp;&nbsp;{maxAmounting}K&nbsp;₽
             </p>
             <p className={styles.description}>{t('rankCard.turnover')}</p>
           </div>

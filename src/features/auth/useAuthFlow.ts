@@ -3,32 +3,33 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
-import { feLog } from '@shared/telemetry';
-
-import { useAuthenticateTelegramWebAppMutation, useAuthenticateTelegramLoginWidgetMutation } from '@/features/auth/api';
-import { useGetUserMeQuery, useGetUserBalanceQuery } from '@/features/user/userApi';
-import { collectClientProfilePayload } from '@/shared/fingerprint';
-import type { AppMode, AuthStatus, TelegramLoginWidgetData, UserMe } from '@/shared/schemas';
 import {
-  selectMe,
-  selectErrorMessage,
+  resetError,
   selectAppStatus,
   selectAppSuccess,
-  setMe,
-  setErrorMessage,
-  resetError,
-  setShowSiteLogin,
+  selectErrorMessage,
+  selectMe,
   setAppStatus,
-  setMode,
   setDeviceType,
-} from '@/shared/store/slices/appSlice';
+  setErrorMessage,
+  setMe,
+  setMode,
+  setShowSiteLogin,
+} from '@shared/store';
+import { feLog } from '@shared/telemetry';
+import { detectDeviceType } from '@shared/utils';
+
+import { useAuthenticateTelegramLoginWidgetMutation, useAuthenticateTelegramWebAppMutation } from './api';
+
+import { useGetUserMeQuery, useGetUserBalanceQuery } from '@/features/user';
+import { collectClientProfilePayload } from '@/shared/fingerprint';
+import type { AppMode, AuthStatus, TelegramLoginWidgetData, UserMe } from '@/shared/schemas';
 import {
   getTelegramLoginWidgetData,
   isTelegramWebApp,
   waitForInitData,
   waitForTelegramWebApp,
 } from '@/shared/telegram';
-import { detectDeviceType } from '@/shared/utils/detectDeviceType';
 
 export type { AppMode, AuthStatus } from '@/shared/schemas';
 
@@ -249,7 +250,12 @@ export const useAuthFlow = (): UseAuthFlowResult => {
           dispatch(setAppStatus({ status: 'error' }));
         }
       } catch (err: unknown) {
-        const errorData = err && typeof err === 'object' && 'data' in err ? (err.data as { error?: string }) : null;
+        const errorData =
+          err && typeof err === 'object' && 'data' in err
+            ? (err.data as {
+                error?: string;
+              })
+            : null;
         const error = errorData?.error || 'network_error';
 
         dispatch(setErrorMessage({ errorMessage: formatAuthError(error) }));
@@ -280,7 +286,12 @@ export const useAuthFlow = (): UseAuthFlowResult => {
           maybeRedirectToReturnTo();
         }
       } catch (err: unknown) {
-        const errorData = err && typeof err === 'object' && 'data' in err ? (err.data as { error?: string }) : null;
+        const errorData =
+          err && typeof err === 'object' && 'data' in err
+            ? (err.data as {
+                error?: string;
+              })
+            : null;
         const error = errorData?.error || 'network_error';
 
         dispatch(setErrorMessage({ errorMessage: formatAuthError(error) }));

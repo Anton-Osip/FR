@@ -1,1 +1,6 @@
-export { authenticateTelegramLoginWidget, authenticateTelegramWebApp } from './api';
+export {
+  authenticateTelegramLoginWidget,
+  authenticateTelegramWebApp,
+  useAuthenticateTelegramLoginWidgetMutation,
+  useAuthenticateTelegramWebAppMutation,
+} from './api';

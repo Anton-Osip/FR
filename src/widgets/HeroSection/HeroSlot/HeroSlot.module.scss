@@ -1,4 +1,4 @@
-@use "../../shared/styles/variables.scss" as *;
+@use "../../../shared/styles/variables.scss" as *;
 
 .slotCarousel {
   position: relative;
@@ -139,10 +139,10 @@
 }
 
 @media screen and (max-width: $media-tab-mini) {
-.slotTitle{
-  font-size: calc(20px + (32 - 20) * ((100vw - 390px) / (800 - 390)));
-  letter-spacing: calc(-0.2px + (-0.32 - (-0.2)) * ((100vw - 390px) / (800 - 390)));
-}
+  .slotTitle{
+    font-size: calc(20px + (32 - 20) * ((100vw - 390px) / (800 - 390)));
+    letter-spacing: calc(-0.2px + (-0.32 - (-0.2)) * ((100vw - 390px) / (800 - 390)));
+  }
 
   .slotCarousel {
     border-radius: 16px;

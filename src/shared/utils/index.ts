@@ -1,0 +1,1 @@
+export { detectDeviceType } from './detectDeviceType';

@@ -18,5 +18,5 @@ export { TelegramLoginWidget } from './telegramLoginWidget';
 export { LoginModal } from './loginModal';
 export { Carousel } from './carousel';
 export { MainCarouselSection } from './mainCarouselSection';
-export { HeroSection } from './HeroSection';
+export { HeroSection } from './heroSection';
 export { Footer } from './footer';
