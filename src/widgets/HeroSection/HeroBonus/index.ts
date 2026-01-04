@@ -1,1 +1,0 @@
-export { HeroBonus } from './HeroBonus';

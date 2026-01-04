@@ -1,1 +1,0 @@
-export { HeroSlot } from './HeroSlot';

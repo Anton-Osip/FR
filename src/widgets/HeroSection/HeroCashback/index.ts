@@ -1,1 +1,0 @@
-export { HeroCashback } from './HeroCashback';

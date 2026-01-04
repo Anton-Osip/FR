@@ -1,10 +1,10 @@
-@use "../../../shared/styles/variables.scss" as *;
+@use "../../../shared/styles/variables" as *;
 
-.slotCarousel {
+.hero-cashback {
   position: relative;
 
   overflow: hidden;
-  grid-area: slot;
+  grid-area: cashback;
 
   width: 100%;
   max-width: 100%;
@@ -28,9 +28,7 @@
   height: 100%;
 }
 
-.slotSlide {
-  cursor: pointer;
-
+.cashbackSlide {
   overflow: hidden;
 
   box-sizing: border-box;
@@ -40,7 +38,8 @@
   border-radius: $radius-xl-plus;
 }
 
-.heroSlot {
+
+.heroCashback {
   position: relative;
 
   display: flex;
@@ -52,7 +51,8 @@
   padding-top: 32px;
 }
 
-.slotCardWrapper {
+
+.cashbackCardWrapper {
   position: absolute;
   z-index: 0;
   bottom: 0;
@@ -66,12 +66,12 @@
   height: 100%;
 }
 
-.slotCardWrapper img {
+.cashbackCardWrapper img {
   width: 100%;
   height: auto;
 }
 
-.slotTitle {
+.cashbackTitle {
   z-index: 1;
 
   margin: 0;
@@ -85,7 +85,7 @@
   letter-spacing: calc(-0.2px + (-0.32 - (-0.2)) * ((100vw - 800px) / (1920 - 800)));
 }
 
-.slotPagination {
+.cashbackPagination {
   position: absolute;
   z-index: 5;
   bottom: 9%;
@@ -105,18 +105,10 @@
   border-radius: 160px;
 }
 
-.slotPaginationBar {
-  display: flex;
-  align-items: center;
 
-  width: 56px;
-  height: 4px;
+.cashbackDot {
+  cursor: pointer;
 
-  background: $color-text-primary;
-  border-radius: 160px;
-}
-
-.slotDot {
   width: 4px;
   height: 4px;
   padding: 0;
@@ -125,30 +117,37 @@
   border: none;
   border-radius: 50%;
 
-  transition: transform $transition-hover;
+  transition: width $transition-hover,
+  height $transition-hover,
+  background-color $transition-hover,
+  border-radius $transition-hover;
+
+  &.activeDote {
+    width: 56px;
+    height: 4px;
+    background: $color-text-primary;
+    border-radius: 160px;
+  }
 }
 
 @media screen and (max-width: $media-laptop-plus) {
-  .heroSlot {
+  .heroCashback {
     padding-top: 28px;
   }
 
-  .slotCarousel {
+  .hero-cashback {
     border-radius: 20px;
   }
 }
 
 @media screen and (max-width: $media-tab-mini) {
-  .slotTitle{
+  .cashbackTitle{
     font-size: calc(20px + (32 - 20) * ((100vw - 390px) / (800 - 390)));
     letter-spacing: calc(-0.2px + (-0.32 - (-0.2)) * ((100vw - 390px) / (800 - 390)));
   }
 
-  .slotCarousel {
+  .hero-cashback {
     border-radius: 16px;
   }
-
-  .heroSlot {
-    padding-top: 26px;
-  }
 }
+
