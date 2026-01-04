@@ -1,13 +1,19 @@
 import { type FC } from 'react';
 
+import clsx from 'clsx';
+
 import { HeroBonus } from './HeroBonus';
 import { HeroCashback } from './HeroCashback';
 import styles from './HeroSection.module.scss';
 import { HeroSlot } from './HeroSlot';
 
-export const HeroSection: FC = () => {
+interface HeroSectionProps {
+  className?: string;
+}
+
+export const HeroSection: FC<HeroSectionProps> = ({ className }) => {
   return (
-    <div className={styles.hero}>
+    <div className={clsx(styles.hero, className ?? className)}>
       <HeroBonus />
       <HeroSlot />
       <HeroCashback />
