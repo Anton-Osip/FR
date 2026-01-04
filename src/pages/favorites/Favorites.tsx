@@ -2,7 +2,7 @@ import { type FC, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Breadcrumbs } from '@shared/ui/breadcrumbs';
+import { Breadcrumbs } from '@shared/ui';
 
 import styles from './Favorites.module.scss';
 

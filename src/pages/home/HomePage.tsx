@@ -8,7 +8,7 @@ export const HomePage: FC = () => {
   return (
     <div className={styles.homePage}>
       <HeroSection />
-      <MainCarouselSection className={styles['main-carousel-section']} />
+      <MainCarouselSection />
       <BetsSection />
     </div>
   );

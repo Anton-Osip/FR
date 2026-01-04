@@ -24,7 +24,7 @@ export const MainCarouselSection: FC<MainCarouselSectionProps> = ({ className })
   };
 
   return (
-    <div className={className}>
+    <div className={className ?? ''}>
       <CategoryFiltersBar className={styles.categoryFiltersBar} tabs={tabs} onTabChange={handleTabChange} />
 
       {activeTab === 'all' && (

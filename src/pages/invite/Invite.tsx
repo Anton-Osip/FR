@@ -2,13 +2,11 @@ import { type FC, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Breadcrumbs } from '@shared/ui/breadcrumbs';
-
-import { ProgramTerms } from '@widgets/programTerms';
-import { RatingTable } from '@widgets/ratingTable';
-import { RewardsCards } from '@widgets/rewardsCards';
+import { Breadcrumbs } from '@shared/ui';
 
 import styles from './Invite.module.scss';
+
+import { ProgramTerms, RatingTable, RewardsCards } from '@/widgets';
 
 export const Invite: FC = () => {
   const { t: tBreadcrumbs } = useTranslation('breadcrumbs');

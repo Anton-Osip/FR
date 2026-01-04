@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { formatBalance } from '@shared/utils/formatBalance.ts';
@@ -25,7 +26,7 @@ export const RewardsCards: FC<RewardsCardsProps> = ({ className }) => {
   const invited_count_formatted = formatBalance(invited_count);
 
   return (
-    <div className={`${styles.rewardsCards} ${className ?? ''}`}>
+    <div className={clsx(styles.rewardsCards, className ?? '')}>
       <RewardsCard />
       <AmountCard description={t('rewardsCards.bonusAmount')} amount={`${bonus_sum} ₽`} />
       <AmountCard

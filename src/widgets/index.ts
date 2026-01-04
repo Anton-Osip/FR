@@ -20,3 +20,4 @@ export { Carousel } from './carousel';
 export { MainCarouselSection } from './mainCarouselSection';
 export { HeroSection } from './heroSection';
 export { Footer } from './footer';
+export { UserProfileInfo } from './userProfileInfo';
