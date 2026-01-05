@@ -21,9 +21,8 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
   const { t } = useTranslation('invite');
   const tableData = useMemo(() => getTableData(t), [t]);
   const me = tableData.find(item => item.id === USER_ID);
-  const [activeTab, setActiveTab] = useState<'thisWeek' | 'lastWeek'>('thisWeek');
+  const [week, setWeek] = useState<'this' | 'prev'>('this');
 
-  const week = activeTab === 'thisWeek' ? 'this' : 'prev';
   const { data: leaderboardData } = useGetInviteLeaderboardQuery({ week });
 
   console.log(leaderboardData);
@@ -32,18 +31,18 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
     () => [
       {
         id: '1',
-        value: 'thisWeek',
+        value: 'this',
         label: t('ratingTable.tabs.thisWeek'),
-        active: activeTab === 'thisWeek',
+        active: week === 'this',
       },
       {
         id: '2',
-        value: 'lastWeek',
+        value: 'prev',
         label: t('ratingTable.tabs.lastWeek'),
-        active: activeTab === 'lastWeek',
+        active: week === 'prev',
       },
     ],
-    [t, activeTab],
+    [t, week],
   );
 
   const headerData = useMemo(
@@ -60,7 +59,7 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
       <header className={styles.header}>
         <h2 className={styles.title}>{t('ratingTable.title')}</h2>
         <div className={styles.tabs}>
-          <Tabs items={items} onChange={value => setActiveTab(value as 'thisWeek' | 'lastWeek')} />
+          <Tabs items={items} onChange={value => setWeek(value as 'this' | 'prev')} />
         </div>
       </header>
 
