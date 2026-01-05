@@ -24,9 +24,11 @@
       "@/*": ["./src/*"],
       "@app/*": ["./src/app/*"],
       "@pages/*": ["./src/pages/*"],
-      "@shared/*": ["./src/shared/*"],
       "@widgets/*": ["./src/widgets/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@features/*": ["./src/features/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@assets/*": ["./src/shared/assets/*"]
     }
   },
   "include": [

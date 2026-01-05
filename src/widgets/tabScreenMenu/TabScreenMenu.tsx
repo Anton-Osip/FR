@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/constants/constants';
+import { APP_PATH } from '@shared/config/routes.ts';
 
 import { getTabMenuData } from './constants/constants';
 import { TabMenuItem } from './tabMenuItem';

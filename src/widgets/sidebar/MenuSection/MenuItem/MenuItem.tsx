@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/constants/constants';
+import { APP_PATH } from '@shared/config/routes.ts';
 
 import styles from './MenuItem.module.scss';
 

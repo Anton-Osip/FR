@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/constants/constants';
+import { APP_PATH } from '@shared/config/routes.ts';
 import { FrostyIcon } from '@shared/ui/icons';
 
 import styles from './Brand.module.scss';

@@ -68,7 +68,7 @@
   color: white;
   letter-spacing: calc(-0.26px + (-0.4 - (-0.26)) * ((100vw - 800px) / (1920 - 800)));
 
-  background: url("../../../assets/icons/500.svg") no-repeat;
+  background: url("../../../shared/assets/icons/500.svg") no-repeat;
   background-position: top -4px right calc(-2px + (-18 - (-2)) * ((100vw - 800px) / (1920 - 800)));
   background-size: calc(143px + (232 - 143) * ((100vw - 800px) / (1920 - 800)));
 }

@@ -4,8 +4,9 @@ import { ChevronUpIcon } from '@radix-ui/react-icons';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 
-import { initLogging } from '@shared/telemetry';
 import { Button } from '@shared/ui';
+
+import { initLogging } from '../../../shared/lib/telemetry';
 
 import styles from './MainLayout.module.scss';
 

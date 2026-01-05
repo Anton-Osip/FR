@@ -3,11 +3,10 @@ import { type FC, type ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import animation from '@shared/assets/images/hero-bonus.png';
 import { Button } from '@shared/ui';
 
 import styles from './HeroBonus.module.scss';
-
-import animation from '@assets/images/hero-bonus.png';
 
 export const HeroBonus: FC = () => {
   const { t } = useTranslation('home');

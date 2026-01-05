@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { selectDeviceType } from '@app/store';
+
 import { useAppSelector } from '@shared/api';
-import { GameKind, GetShowcaseGamesParams, ShowcaseGamesResponse } from '@shared/schemas';
-import { selectDeviceType } from '@shared/store/slices/appSlice.ts';
 import { Button } from '@shared/ui/button';
 
 import 'swiper/css';
@@ -17,7 +17,9 @@ import { CarouselItem } from './CarouselItem/CarouselItem';
 import { CarouselItemSkeleton } from './CarouselItem/CarouselItemSkeleton';
 import { useCarousel } from './useCarousel';
 
-import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase/showcaseApi';
+import type { GameKind } from '@/entities/game';
+import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
+import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
 
 const REINIT_DELAY_MS = 100;
 const CHECK_REINIT_DELAY_MS = 100;

@@ -7,8 +7,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 
+import slotImage from '@shared/assets/images/hero-slot.png';
+
 import styles from './HeroSlot.module.scss';
-import slotImage from '/src/assets/images/hero-slot.png';
 
 const MIN_SLIDES_FOR_LOOP = 3;
 

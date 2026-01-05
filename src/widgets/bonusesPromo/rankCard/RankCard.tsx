@@ -4,11 +4,10 @@ import * as Progress from '@radix-ui/react-progress';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import silverBg from '@shared/assets/images/silver.png';
 import { GoldIcon, SilverIcon } from '@shared/ui/icons';
 
 import styles from './RankCard.module.scss';
-
-import silverBg from '@assets/images/silver.png';
 
 const MAX_AMOUNT_IN_K = 100;
 const PERCENTAGE_MULTIPLIER = 100;

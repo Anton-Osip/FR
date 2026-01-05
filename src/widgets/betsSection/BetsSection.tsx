@@ -2,8 +2,9 @@ import { type FC, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import { selectIsLoggedIn } from '@app/store';
+
 import { useAppSelector } from '@shared/api';
-import { selectIsLoggedIn } from '@shared/store/slices/appSlice';
 import { Tabs } from '@shared/ui';
 import { Dropdown } from '@shared/ui/dropdown/Dropdown.tsx';
 
@@ -12,12 +13,12 @@ import { LoginModal } from '@widgets/loginModal';
 
 import styles from './BetsSection.module.scss';
 
-import { useBettingTableWebSocket } from '@/features/showcase';
 import {
+  useBettingTableWebSocket,
   useGetBettingTableBetsBigWinsQuery,
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
-} from '@/features/showcase/showcaseApi.ts';
+} from '@/features/showcase';
 
 const DEFAULT_PAGE_SIZE = 10;
 

@@ -3,9 +3,10 @@ import { type FC, type ReactNode, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import { selectIsLoggedIn } from '@app/store';
+
 import { useAppSelector } from '@shared/api';
-import { APP_PATH } from '@shared/constants/constants';
-import { selectIsLoggedIn } from '@shared/store/slices/appSlice';
+import { APP_PATH } from '@shared/config/routes.ts';
 import { Button } from '@shared/ui';
 import {
   BaccareIcon,

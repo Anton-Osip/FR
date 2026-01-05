@@ -12,12 +12,11 @@ import { HomePage } from '@pages/home';
 import { Invite } from '@pages/invite';
 import { Profile } from '@pages/profile';
 
-import { LOGIN_HOSTNAME, TELEGRAM_BOT_NAME } from '@shared/config/constants.ts';
-import { APP_PATH } from '@shared/constants/constants.ts';
+import { LOGIN_HOSTNAME, TELEGRAM_BOT_NAME } from '@shared/config/env.ts';
+import { APP_PATH } from '@shared/config/routes.ts';
 
-import { TelegramLoginWidget } from '@widgets/telegramLoginWidget/TelegramLoginWidget.tsx';
-
-import { useAuthFlow } from '@/features/auth/useAuthFlow.ts';
+import { useAuthFlow } from '@/features/auth';
+import { TelegramLoginWidget } from '@/widgets';
 import { Preloader } from '@/widgets';
 
 const WIDGET_CHECK_INTERVAL_MS = 100;

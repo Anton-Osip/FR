@@ -1,9 +1,9 @@
-import SbpIcon from '@assets/icons/bank1.svg?url';
-import SberIcon from '@assets/icons/bank3.svg?url';
-import TetherIcon from '@assets/icons/crypto2.svg?url';
-import BitcoinIcon from '@assets/icons/crypto3.svg?url';
-import VechainIcon from '@assets/images/crypto1.png';
-import TbankIcon from '@assets/images/tbank.png';
+import SbpIcon from '@shared/assets/icons/bank1.svg?url';
+import SberIcon from '@shared/assets/icons/bank3.svg?url';
+import TetherIcon from '@shared/assets/icons/crypto2.svg?url';
+import BitcoinIcon from '@shared/assets/icons/crypto3.svg?url';
+import VechainIcon from '@shared/assets/images/crypto1.png';
+import TbankIcon from '@shared/assets/images/tbank.png';
 
 export interface BankItem {
   id: string;

@@ -2,16 +2,18 @@ import { ChangeEvent, FC, ReactNode, useCallback, useEffect, useMemo, useRef, us
 
 import { useTranslation } from 'react-i18next';
 
+import { selectDeviceType } from '@app/store';
+
 import { useAppSelector } from '@shared/api';
-import { GameKind, GetShowcaseGamesParams, ShowcaseGamesResponse } from '@shared/schemas';
-import { selectDeviceType } from '@shared/store/slices/appSlice.ts';
 import { Button, Input, Modal, Tabs } from '@shared/ui';
 import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
 import type { Tab } from '@shared/ui/tabs/Tabs';
 
 import styles from './SearchModal.module.scss';
 
-import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase/showcaseApi';
+import type { GameKind } from '@/entities/game';
+import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
+import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
 
 // Константы для размеров окна и пагинации
 const DEFAULT_WINDOW_WIDTH = 1024;

@@ -1,7 +1,7 @@
 import { type FC, useEffect } from 'react';
 
-import type { TelegramLoginWidgetProps } from '@shared/schemas';
-import { feLog } from '@shared/telemetry/feLogger.ts';
+import { feLog } from '@shared/lib/telemetry/feLogger.ts';
+import type { TelegramLoginWidgetProps } from '@shared/model/types';
 import { FrostyIcon } from '@shared/ui/icons';
 
 import styles from './TelegramLoginWidget.module.scss';

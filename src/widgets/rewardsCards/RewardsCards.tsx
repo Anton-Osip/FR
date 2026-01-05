@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { formatBalance } from '@shared/utils/formatBalance.ts';
+import { formatBalance } from '@shared/lib/formatting/formatBalance.ts';
 
 import { AmountCard } from '@widgets/rewardsCards/amountCard';
 import { RewardsCard } from '@widgets/rewardsCards/rewardsCard';

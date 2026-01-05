@@ -3,11 +3,10 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import cashbackCardImage from '@shared/assets/images/CashbackImage.png';
 import { Button } from '@shared/ui';
 
 import styles from './CashbackCard.module.scss';
-
-import cashbackCardImage from '@assets/images/CashbackImage.png';
 
 interface CashbackCardProps {
   className?: string;

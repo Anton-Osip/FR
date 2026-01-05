@@ -2,12 +2,12 @@ import { FC, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { BettingTableBetItem } from '@shared/schemas';
+import { formatAmount } from '@shared/lib/formatting/formatAmount.ts';
+import { formatBalance } from '@shared/lib/formatting/formatBalance.ts';
+import { formatMultiplier } from '@shared/lib/formatting/formatMultiplier.ts';
+import { BettingTableBetItem } from '@shared/model/types';
 import { Table } from '@shared/ui';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui/table';
-import { formatAmount } from '@shared/utils/formatAmount.ts';
-import { formatBalance } from '@shared/utils/formatBalance.ts';
-import { formatMultiplier } from '@shared/utils/formatMultiplier.ts';
 
 import styles from './BettingTable.module.scss';
 

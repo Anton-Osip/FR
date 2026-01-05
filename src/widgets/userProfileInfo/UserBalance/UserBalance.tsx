@@ -2,10 +2,10 @@ import type { FC } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import { formatRubles } from '@shared/lib/formatting/formatRubles';
 import { Button } from '@shared/ui';
 import { BonusIcon } from '@shared/ui/icons/BonusIcon';
 import { WalletIcon } from '@shared/ui/icons/WalletIcon';
-import { formatRubles } from '@shared/utils/formatRubles';
 
 import styles from './UserBalance.module.scss';
 

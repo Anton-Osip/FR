@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
-import { baseApi } from '@shared/api/baseApi.ts';
-import { appReducer } from '@shared/store/slices/appSlice.ts';
+import { baseApi } from '@shared/api';
 
-import '@/features/auth/api.ts';
-import '@/features/invite/inviteApi.ts';
-import '@/features/showcase/showcaseApi.ts';
-import '@/features/user/userApi.ts';
+import { appReducer } from './slices/appSlice';
+
+import '@/features/auth/api/api';
+import '@/features/invite/api/inviteApi';
+import '@/features/showcase/api/showcaseApi';
+import '@/entities/user/api/userApi';
 
 export const store = configureStore({
   reducer: {

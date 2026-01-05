@@ -1,1 +1,2 @@
-export { inviteApi, useGetInviteOverviewQuery } from './inviteApi';
+export { inviteApi, useGetInviteOverviewQuery } from './api/inviteApi';
+export type { InviteOverview } from './model';

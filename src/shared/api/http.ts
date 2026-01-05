@@ -1,7 +1,7 @@
-import type { ApiErrorBody, FetchJsonResult } from '@/shared/schemas';
-import { feLog } from '@/shared/telemetry/feLogger';
+import { feLog } from '@shared/lib/telemetry/feLogger';
+import type { ApiErrorBody, FetchJsonResult } from '@shared/model/types';
 
-export type { ApiErrorBody, FetchJsonResult } from '@/shared/schemas';
+export type { ApiErrorBody, FetchJsonResult } from '@shared/model/types';
 
 const RANDOM_RADIX = 36;
 const RANDOM_SLICE_START = 2;
@@ -55,8 +55,8 @@ async function maybeAttachClientProfile(url: string, init?: RequestInit): Promis
   if (Math.random() >= CLIENT_PROFILE_SAMPLE_RATE) return headers;
   try {
     const [{ collectClientProfilePayload }, { CLIENT_VERSION }] = await Promise.all([
-      import('@/shared/fingerprint'),
-      import('@/shared/config/constants'),
+      import('../lib/fingerprint'),
+      import('@shared/config/env.ts'),
     ]);
     const payload = await collectClientProfilePayload(CLIENT_VERSION);
     const json = JSON.stringify(payload);

@@ -1,0 +1,69 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.header {
+  width: 100%;
+  color: $color-text-primary;
+  background: $color-bg-block;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: $spacing-md;
+  }
+
+  .authenticatedWrapper {
+    display: flex;
+    gap: $spacing-12;
+    align-items: center;
+  }
+
+  .unauthenticatedWrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+
+  .chevronHeader {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.signIn {
+  height: 47px;
+  color: #f0f5ff;
+  background-color: #212738;
+}
+
+.signUp{
+  height: 47px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .signIn:hover {
+    background-color: #282F42;
+  }
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .header {
+    .container {
+      padding: $spacing-12 $spacing-md $spacing-xs $spacing-md;
+    }
+  }
+}
+
+@media screen and (max-width: $media-mobile-mini) {
+  .header {
+    .wrapper {
+      gap: $spacing-5xs;
+    }
+  }
+}
+

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState, useRef, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { APP_PATH } from '@shared/constants/constants.ts';
+import { APP_PATH } from '@shared/config/routes.ts';
 import { Button, Input } from '@shared/ui';
 import {
   BonusIcon,

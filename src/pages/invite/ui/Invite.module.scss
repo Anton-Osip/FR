@@ -1,0 +1,14 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.invite{
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+}
+
+.rewardsCard {
+  margin-bottom: 48px;
+}
+
+
+

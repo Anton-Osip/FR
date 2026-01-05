@@ -3,11 +3,10 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import promoCode from '@shared/assets/images/promoCodeIcon.png';
 import { Button, Input } from '@shared/ui';
 
 import styles from './PromoCodeCard.module.scss';
-
-import promoCode from '@assets/images/promoCodeIcon.png';
 
 interface PromoCodeCardProps {
   className?: string;

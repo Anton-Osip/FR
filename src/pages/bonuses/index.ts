@@ -1,1 +1,1 @@
-export { Bonuses } from './Bonuses';
+export { Bonuses } from './ui/Bonuses';

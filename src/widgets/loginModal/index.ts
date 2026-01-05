@@ -1,2 +1,2 @@
-export { LoginModal } from './LoginModal';
-export type { LoginModalProps } from './LoginModal';
+export { LoginModal } from './ui/LoginModal';
+export type { LoginModalProps } from './ui/LoginModal';

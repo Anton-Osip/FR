@@ -1,0 +1,36 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.favorites {
+  width: 100%;
+  min-height: 100vh;
+  padding: $spacing-lg;
+}
+
+.breadcrumbs {
+  margin-bottom: $spacing-lg;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 400px;
+
+  text-align: center;
+
+  h2 {
+    margin-bottom: $spacing-md;
+    font-size: 32px;
+    font-weight: $font-weight-base;
+    color: $color-text-primary;
+  }
+
+  p {
+    font-size: 16px;
+    color: $color-text-secondary;
+  }
+}
+
+
