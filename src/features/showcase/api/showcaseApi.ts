@@ -1,4 +1,5 @@
-import { feLog } from '../../../shared/lib/telemetry';
+import { feLog } from '@shared/lib';
+
 import type {
   BettingTableBetsLatestResponse,
   GetBettingTableBetsLatestParams,
@@ -6,8 +7,14 @@ import type {
   ShowcaseGamesResponse,
 } from '../model/types';
 
+import type { BettingTableBigWinsEvent, BettingTableLatestEvent, BettingTableMyEvent } from './showcaseApi.types';
+
+import type { Bet } from '@/entities/bet';
 import { baseApi } from '@/shared/api';
-import { BFF } from '@/shared/config';
+import { BFF, SOCKET_PATHS } from '@/shared/config';
+import { subscribeToEvent } from '@/shared/lib/socket';
+
+const DEFAULT_PAGE_SIZE = 10;
 
 function buildQueryString(params: GetShowcaseGamesParams): string {
   const searchParams = new URLSearchParams();
@@ -197,6 +204,46 @@ export const showcaseApi = baseApi.injectEndpoints({
           };
         }
       },
+      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        // Ждем разрешения начального запроса перед продолжением
+        await cacheDataLoaded;
+
+        const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
+        const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
+
+        const unsubscribes = [
+          subscribeToEvent<BettingTableLatestEvent | Bet>(SOCKET_PATHS.LATEST, msg => {
+            let newBet: Bet | null = null;
+
+            // Обработка разных форматов сообщений
+            if ('payload' in msg && msg.payload?.data) {
+              newBet = msg.payload.data as Bet;
+            } else if (
+              typeof msg === 'object' &&
+              msg !== null &&
+              'user_name' in msg &&
+              'avatar_url' in msg &&
+              'game_title' in msg
+            ) {
+              newBet = msg as Bet;
+            }
+
+            if (newBet) {
+              updateCachedData(state => {
+                state.items.unshift(newBet!);
+                if (state.items.length > pageSize) {
+                  state.items.splice(pageSize);
+                }
+              });
+            }
+          }),
+        ];
+
+        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
+        await cacheEntryRemoved;
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+      },
       providesTags: ['Showcase'],
     }),
 
@@ -257,6 +304,46 @@ export const showcaseApi = baseApi.injectEndpoints({
           };
         }
       },
+      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        // Ждем разрешения начального запроса перед продолжением
+        await cacheDataLoaded;
+
+        const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
+        const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
+
+        const unsubscribes = [
+          subscribeToEvent<BettingTableMyEvent | Bet>(SOCKET_PATHS.MY, msg => {
+            let newBet: Bet | null = null;
+
+            // Обработка разных форматов сообщений
+            if ('payload' in msg && msg.payload?.data) {
+              newBet = msg.payload.data as Bet;
+            } else if (
+              typeof msg === 'object' &&
+              msg !== null &&
+              'user_name' in msg &&
+              'avatar_url' in msg &&
+              'game_title' in msg
+            ) {
+              newBet = msg as Bet;
+            }
+
+            if (newBet) {
+              updateCachedData(state => {
+                state.items.unshift(newBet!);
+                if (state.items.length > pageSize) {
+                  state.items.splice(pageSize);
+                }
+              });
+            }
+          }),
+        ];
+
+        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
+        await cacheEntryRemoved;
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+      },
       providesTags: ['Showcase'],
     }),
 
@@ -316,6 +403,46 @@ export const showcaseApi = baseApi.injectEndpoints({
             },
           };
         }
+      },
+      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        // Ждем разрешения начального запроса перед продолжением
+        await cacheDataLoaded;
+
+        const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
+        const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
+
+        const unsubscribes = [
+          subscribeToEvent<BettingTableBigWinsEvent | Bet>(SOCKET_PATHS.BIG_WINS, msg => {
+            let newBet: Bet | null = null;
+
+            // Обработка разных форматов сообщений
+            if ('payload' in msg && msg.payload?.data) {
+              newBet = msg.payload.data as Bet;
+            } else if (
+              typeof msg === 'object' &&
+              msg !== null &&
+              'user_name' in msg &&
+              'avatar_url' in msg &&
+              'game_title' in msg
+            ) {
+              newBet = msg as Bet;
+            }
+
+            if (newBet) {
+              updateCachedData(state => {
+                state.items.unshift(newBet!);
+                if (state.items.length > pageSize) {
+                  state.items.splice(pageSize);
+                }
+              });
+            }
+          }),
+        ];
+
+        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
+        await cacheEntryRemoved;
+        unsubscribes.forEach(unsubscribe => unsubscribe());
       },
       providesTags: ['Showcase'],
     }),

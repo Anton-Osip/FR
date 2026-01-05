@@ -14,7 +14,6 @@ import { LoginModal } from '@widgets/loginModal';
 import styles from './BetsSection.module.scss';
 
 import {
-  useBettingTableWebSocket,
   useGetBettingTableBetsBigWinsQuery,
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
@@ -146,8 +145,6 @@ export const BetsSection: FC = () => {
   const { data, isLoading, isFetching } = getCurrentData();
 
   const shouldShowSkeleton = isLoading || isFetching;
-
-  useBettingTableWebSocket({ activeTab, pageSize });
 
   return (
     <section className={styles.betsSection}>

@@ -18,6 +18,42 @@ export const userApi = baseApi.injectEndpoints({
         url: `${BFF}/api/v1/users/balance`,
         method: 'GET',
       }),
+      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      // async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+      //   // Ждем разрешения начального запроса перед продолжением
+      //   await cacheDataLoaded;
+      //
+      //   const unsubscribes = [
+      //     subscribeToEvent<BalanceWebSocketEvent>(SOCKET_PATHS.BALANCE, msg => {
+      //       let newBalance: UserBalance | null = null;
+      //
+      //       // Обработка разных форматов сообщений
+      //       if ('type' in msg && msg.type === 'balance' && 'data' in msg) {
+      //         newBalance = msg.data as UserBalance;
+      //       } else if (
+      //         typeof msg === 'object' &&
+      //         msg !== null &&
+      //         'balance' in msg &&
+      //         'cash' in msg &&
+      //         'bonus' in msg &&
+      //         'revshare' in msg
+      //       ) {
+      //         newBalance = msg as UserBalance;
+      //       } else if ('type' in msg && msg.type === 'ready') {
+      //         // При событии ready можно обновить баланс через refetch, но пока просто пропускаем
+      //         return;
+      //       }
+      //
+      //       if (newBalance) {
+      //         updateCachedData(() => newBalance!);
+      //       }
+      //     }),
+      //   ];
+      //
+      //   // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
+      //   await cacheEntryRemoved;
+      //   unsubscribes.forEach(unsubscribe => unsubscribe());
+      // },
       providesTags: ['Balance'],
     }),
   }),

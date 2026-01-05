@@ -6,7 +6,6 @@ export {
   useGetBettingTableBetsMyQuery,
   useGetBettingTableBetsBigWinsQuery,
 } from './api/showcaseApi';
-export { useBettingTableWebSocket } from './model/useBettingTableWebSocket';
 export type {
   ShowcaseGamesResponse,
   GetShowcaseGamesParams,
