@@ -1,10 +1,6 @@
 import type { DeviceType } from '@app/store';
 
-type NavigatorWithUserAgentData = Navigator & {
-  userAgentData?: {
-    mobile?: boolean;
-  };
-};
+import type { NavigatorWithUserAgentData } from '@shared/model/types';
 
 const USER_AGENT_MOBILE_RE = /Mobile|Android|iPhone|iPad|iPod/i;
 
