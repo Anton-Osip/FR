@@ -1,9 +1,4 @@
-import { BrilliantIcon } from '@shared/ui/icons';
-import { GoldIcon } from '@shared/ui/icons';
-import { SilverIcon } from '@shared/ui/icons';
-import { BronzeIcon } from '@shared/ui/icons';
-import { BgGoldIcon } from '@shared/ui/icons';
-import { BgSilverIcon } from '@shared/ui/icons';
+import { BgGoldIcon, BgSilverIcon, BrilliantIcon, BronzeIcon, GoldIcon, SilverIcon } from '@shared/ui/icons';
 
 import type { BenefitCard } from '../types/types';
 

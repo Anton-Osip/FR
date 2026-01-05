@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 // import { selectIsLoggedIn } from '@app/store';
 //
 // import { useAppSelector } from '@shared/api';
-import { formatBalance } from '@shared/lib/formatting/formatBalance';
+import { formatBalance } from '@shared/lib';
 import { Button } from '@shared/ui';
 import { WalletIcon } from '@shared/ui/icons';
 

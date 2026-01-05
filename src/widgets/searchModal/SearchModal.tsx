@@ -6,8 +6,8 @@ import { selectDeviceType } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
 import { Button, Input, Modal, Tabs } from '@shared/ui';
+import type { Tab } from '@shared/ui';
 import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
-import type { Tab } from '@shared/ui/tabs/Tabs';
 
 import styles from './SearchModal.module.scss';
 

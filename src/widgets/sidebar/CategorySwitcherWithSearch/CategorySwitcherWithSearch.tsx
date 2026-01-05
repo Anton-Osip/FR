@@ -1,13 +1,14 @@
 import { type FC, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@shared/ui';
 import { SearchIcon } from '@shared/ui/icons';
 
-import { SearchModal } from '@widgets/searchModal';
-
 import styles from './CategorySwitcherWithSearch.module.scss';
+
+import { SearchModal } from '@/widgets';
 
 interface CategorySwitcherWithSearchProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ export const CategorySwitcherWithSearch: FC<CategorySwitcherWithSearchProps> = (
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   return (
-    <div className={`${styles.root} ${isOpen ? '' : styles.isOpen} ${className ? className : ''}`}>
+    <div className={clsx(styles.root, isOpen ? '' : styles.isOpen, className)}>
       {/*<Button className={styles.casinoButton} variant={'primary'} size={'m'} fullWidth>Казино</Button>*/}
       {/*<Button className={styles.sportButton} variant={'secondary'} size={'m'} fullWidth>Спорт</Button>*/}
       <SearchModal

@@ -1,5 +1,6 @@
 import { type FC, type ReactElement, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
@@ -33,7 +34,7 @@ export const HeroCashback: FC = () => {
         {slides.map((idx, index) => (
           <div
             key={idx}
-            className={`${styles.cashbackDot} ${activeIndex === index ? styles.activeDote : ''}`}
+            className={clsx(styles.cashbackDot, activeIndex === index ? styles.activeDote : '')}
             aria-label={`${t('heroCashback.slide')} ${idx + 1}`}
           />
         ))}

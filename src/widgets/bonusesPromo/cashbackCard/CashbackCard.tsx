@@ -17,7 +17,7 @@ export const CashbackCard: FC<CashbackCardProps> = ({ className }) => {
   const cashbackAmount = '30,74';
 
   return (
-    <div className={clsx(styles.cashbackCard, className ?? className)}>
+    <div className={clsx(styles.cashbackCard, className)}>
       <div className={styles.info}>
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{t('cashbackCard.title')}</h3>

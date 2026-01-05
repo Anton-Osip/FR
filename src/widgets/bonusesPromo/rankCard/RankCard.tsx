@@ -23,7 +23,7 @@ export const RankCard: FC<RankCardProps> = ({ className }) => {
   const progressPercent = (parseFloat(amount) / maxAmounting) * PERCENTAGE_MULTIPLIER;
 
   return (
-    <div className={clsx(styles.rankCard, className ?? className)}>
+    <div className={clsx(styles.rankCard, className)}>
       <div className={styles.info}>
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{t('rankCard.silver')}</h3>

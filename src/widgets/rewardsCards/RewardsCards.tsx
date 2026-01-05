@@ -3,11 +3,10 @@ import type { FC } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { formatBalance } from '@shared/lib/formatting/formatBalance.ts';
+import { formatBalance } from '@shared/lib';
 
-import { AmountCard } from '@widgets/rewardsCards/amountCard';
-import { RewardsCard } from '@widgets/rewardsCards/rewardsCard';
-
+import { AmountCard } from './amountCard';
+import { RewardsCard } from './rewardsCard';
 import styles from './RewardsCards.module.scss';
 
 import { useGetInviteOverviewQuery } from '@/features/invite';

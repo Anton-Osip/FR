@@ -1,11 +1,12 @@
 import { FC, type ReactElement, ReactNode, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import type SwiperType from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { LOGIN_ORIGIN } from '@shared/config/env.ts';
+import { LOGIN_ORIGIN } from '@shared/config';
 import { Button, Input, Modal } from '@shared/ui';
 import { LockIcon, MailIcon, TgIcon } from '@shared/ui/icons';
 
@@ -47,7 +48,7 @@ export const LoginModal: FC<LoginModalProps> = ({ trigger, open, onOpenChange })
     return (
       <div className={styles.cashbackPagination}>
         {slides.map((idx, index) => (
-          <div key={idx} className={`${styles.cashbackDot} ${activeIndex === index ? styles.activeDote : ''}`} />
+          <div key={idx} className={clsx(styles.cashbackDot, activeIndex === index ? styles.activeDote : '')} />
         ))}
       </div>
     );

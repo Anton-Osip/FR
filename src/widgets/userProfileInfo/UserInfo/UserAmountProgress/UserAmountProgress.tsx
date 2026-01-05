@@ -4,8 +4,7 @@ import * as Progress from '@radix-ui/react-progress';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@shared/ui';
-import { SilverIcon } from '@shared/ui/icons';
-import { GoldIcon } from '@shared/ui/icons';
+import { SilverIcon, GoldIcon } from '@shared/ui/icons';
 
 import styles from './UserAmountProgress.module.scss';
 

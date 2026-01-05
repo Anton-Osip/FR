@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState, useRef, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 import { Button, Input } from '@shared/ui';
 import {
   BonusIcon,
@@ -14,8 +15,8 @@ import {
   StarIcon,
   SupportIcon,
   TwoUsersIcon,
+  PopularIcon,
 } from '@shared/ui/icons';
-import { PopularIcon } from '@shared/ui/icons/PopularIcon.tsx';
 
 import { MenuItems } from '@widgets/sidebar/Sidebar.tsx';
 
@@ -215,7 +216,7 @@ export const SlideUpMenu: FC<Props> = ({ className, open = false, onOpenChange }
   return (
     <div
       ref={menuRef}
-      className={`${styles.slideUpMenu} ${isVisible ? styles.open : ''} ${className ?? ''}`}
+      className={clsx(styles.slideUpMenu, isVisible ? styles.open : '', className)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

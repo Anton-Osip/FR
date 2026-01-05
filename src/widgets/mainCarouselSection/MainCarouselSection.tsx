@@ -1,5 +1,6 @@
 import { type FC, useMemo, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { getCarouselData, getCategoryTabs } from './constants';
@@ -24,7 +25,7 @@ export const MainCarouselSection: FC<MainCarouselSectionProps> = ({ className })
   };
 
   return (
-    <div className={className ?? ''}>
+    <div className={clsx(className)}>
       <CategoryFiltersBar className={styles.categoryFiltersBar} tabs={tabs} onTabChange={handleTabChange} />
 
       {activeTab === 'all' && (

@@ -16,7 +16,7 @@ export const PromoCodeCard: FC<PromoCodeCardProps> = ({ className }) => {
   const { t } = useTranslation('bonuses');
 
   return (
-    <div className={clsx(styles.rankCard, className ?? className)}>
+    <div className={clsx(styles.rankCard, className)}>
       <div className={styles.info}>
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{t('promoCodeCard.title')}</h3>

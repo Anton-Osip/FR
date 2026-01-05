@@ -1,12 +1,13 @@
 import type { FC } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { selectIsLoggedIn, selectMe } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 import { Avatar, Brand, Button } from '@shared/ui';
 import { ChevronHeaderIcon } from '@shared/ui/icons';
 
@@ -14,7 +15,7 @@ import { BalanceCard } from '../BalanceCard/BalanceCard';
 
 import styles from './Header.module.scss';
 
-import { LoginModal } from '@/widgets/loginModal';
+import { LoginModal } from '@/widgets';
 
 interface HeaderProps {
   className?: string;
@@ -31,7 +32,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
   const user_firstname = me?.user_firstname;
 
   return (
-    <header className={`${styles.header} ${className || ''}`}>
+    <header className={clsx(styles.header, className)}>
       <div className={styles.container}>
         <Brand />
         {isLoggedIn ? (

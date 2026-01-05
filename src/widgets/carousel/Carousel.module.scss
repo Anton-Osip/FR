@@ -1,23 +1,23 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .carousel {
-  &-header {
+  &Header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 
-    &-buttons {
+    &Buttons {
       display: flex;
       gap: $spacing-md;
     }
 
-    &-controls {
+    &Controls {
       display: flex;
       gap: $spacing-5xs;
     }
   }
 
-  &-title {
+  &Title {
     display: flex;
     gap: $spacing-xs;
     align-items: center;
@@ -41,7 +41,7 @@
   }
 }
 
-.carousel-button {
+.carouselButton {
   color: $color-text-primary;
   background-color: $color-bg-on-block;
 
@@ -65,7 +65,7 @@
   padding: 5px 0;
 }
 
-.swiper-container {
+.swiperContainer {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -76,14 +76,14 @@
   }
 }
 
-.swiper-slide {
+.swiperSlide {
   display: block;
   flex-shrink: 0;
   box-sizing: border-box;
   height: auto;
 }
 
-.empty-item {
+.emptyItem {
   display: block;
 
   aspect-ratio: 155 / 208;
@@ -96,26 +96,26 @@
 }
 
 @media (max-width: $media-tab) {
-  .empty-item {
+  .emptyItem {
     aspect-ratio: 121 / 165;
     border-radius: 10px;
   }
 }
 
 @media (max-width: $media-mobile-plus) {
-  .empty-item {
+  .emptyItem {
     aspect-ratio: 114 / 149;
   }
 }
 
 @media (max-width: $media-tab) {
   .carousel {
-    &-header {
+    &Header {
       margin-bottom: 10px;
     }
   }
 
-  .carousel-title {
+  .carouselTitle {
     h3 {
       font-size: $font-size-lg;
     }
@@ -126,7 +126,7 @@
     }
   }
 
-  .swiper-container {
+  .swiperContainer {
     :global(.swiper-slide) {
       margin-right: $spacing-xxs;
     }
@@ -134,17 +134,15 @@
 }
 
 @media (max-width: $media-mobile-plus) {
-  .carousel-header-buttons {
+  .carouselHeaderButtons {
     gap: 18px;
   }
 }
 
 @media (width <= 350px) {
-  .carousel-title {
+  .carouselTitle {
     svg {
       display: none;
     }
   }
-
-
 }

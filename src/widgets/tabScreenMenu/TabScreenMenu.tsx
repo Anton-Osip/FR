@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 import { useState, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 
 import { getTabMenuData } from './constants/constants';
 import { TabMenuItem } from './tabMenuItem';
@@ -120,7 +121,7 @@ export const TabScreenMenu: FC<Props> = ({ className }) => {
   };
 
   return (
-    <div className={`${styles.tabMenu} ${className || ''}`}>
+    <div className={clsx(styles.tabMenu, className)}>
       <div className={styles.container}>
         <div className={styles.eclipse} style={{ left: eclipseLeft }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="46" height="10" viewBox="0 0 46 10" fill="none">

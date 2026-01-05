@@ -1,6 +1,6 @@
 @use "../../../shared/styles/variables" as *;
 
-.footer-support {
+.footerSupport {
   width: 288px;
   height: fit-content;
   padding: 20px 16px 16px;
@@ -33,7 +33,7 @@
     }
   }
 
-  &-time {
+  &Time {
     height: 28px;
     padding: 1px 13px;
 
@@ -46,7 +46,7 @@
 }
 
 @media (max-width: $media-laptop) {
-  .footer-support {
+  .footerSupport {
     width: 100%;
     padding: 16px;
 

@@ -1,5 +1,6 @@
 import { useState, type FC } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Input } from '@shared/ui';
@@ -15,7 +16,7 @@ export const RewardsCard: FC<RewardsCardProps> = ({ className }) => {
   const [inputValue, setInputValue] = useState<string>('t.me/frosted?start=567558');
 
   return (
-    <div className={`${styles.rewardsCard} ${className ?? ''}`}>
+    <div className={clsx(styles.rewardsCard, className)}>
       <div className={styles.info}>
         <h3 className={styles.title}>
           {t('rewardsCards.title')} <br /> {t('rewardsCards.titleSecondLine')}

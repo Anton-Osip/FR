@@ -1,5 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 
+import clsx from 'clsx';
+
 import styles from './FooterMenu.module.scss';
 
 interface FooterMenuItem {
@@ -38,11 +40,11 @@ export const FooterMenu: FC<Props> = ({ items, className }) => {
   };
 
   return (
-    <div className={`${styles['footer-menu']} ${className ? styles[className] : ''}`}>
+    <div className={clsx(styles.footerMenu, className)}>
       {items.map(item => (
-        <div className={styles['footer-column']} key={item.title}>
-          <h4 className={styles['footer-column-title']}>{item.title}</h4>
-          <ul className={styles['footer-links']}>
+        <div className={styles.footerColumn} key={item.title}>
+          <h4 className={styles.footerColumnTitle}>{item.title}</h4>
+          <ul className={styles.footerLinks}>
             {item.links.map(link => (
               <li key={link.text}>
                 <a href={link.url}>{formatLinkText(link.text, link.shortText)}</a>

@@ -2,8 +2,7 @@ import { FC, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Table } from '@shared/ui';
-import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui/table/Table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui';
 
 import { getTableData } from './mockTable';
 import styles from './TransactionHistory.module.scss';

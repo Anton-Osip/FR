@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { useRef } from 'react';
 
+import clsx from 'clsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import styles from './MenuItem.module.scss';
@@ -33,7 +34,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, path, onIte
     <>
       <button
         ref={itemRef}
-        className={`${styles.item} ${(isActive || isCurrentPath) && styles.isActive} `}
+        className={clsx(styles.item, (isActive || isCurrentPath) && styles.isActive)}
         onClick={handleClick}
       >
         <div className={styles.iconWrapper}>{icon}</div>

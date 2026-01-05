@@ -1,9 +1,10 @@
 import type { FC, ReactNode } from 'react';
 import { useRef, useState, useEffect } from 'react';
 
+import clsx from 'clsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 
 import styles from './MenuItem.module.scss';
 
@@ -61,9 +62,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
     <>
       <button
         ref={itemRef}
-        className={`${styles.item} ${(isActive || isCurrentPath) && styles.isActive} ${
-          !isOpen ? styles.unVisible : ''
-        }`}
+        className={clsx(styles.item, (isActive || isCurrentPath) && styles.isActive, !isOpen ? styles.unVisible : '')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
@@ -73,7 +72,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
       </button>
       {!isOpen && (
         <span
-          className={`${styles.tooltip} ${isHovered ? styles.tooltipVisible : ''}`}
+          className={clsx(styles.tooltip, isHovered ? styles.tooltipVisible : '')}
           style={{
             top: `${tooltipPosition.top}px`,
             left: `${tooltipPosition.left}px`,

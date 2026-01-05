@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 import { Button } from '@shared/ui';
 import {
   BaccareIcon,
@@ -22,15 +22,15 @@ import {
   SevenIcon,
   StarIcon,
   TwoUsersIcon,
+  PopularIcon,
 } from '@shared/ui/icons';
-import { PopularIcon } from '@shared/ui/icons/PopularIcon';
 
 import { CategorySwitcherWithSearch } from './CategorySwitcherWithSearch/CategorySwitcherWithSearch';
 import { MenuSection } from './MenuSection/MenuSection';
 import styles from './Sidebar.module.scss';
 import { SidebarFooter } from './SidebarFooter/SidebarFooter';
 
-import { LoginModal } from '@/widgets/loginModal';
+import { LoginModal } from '@/widgets';
 
 export interface MenuItems {
   id: string;
@@ -91,11 +91,11 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
   );
 
   return (
-    <div className={clsx(styles.sidebar, !isOpen ? styles.isOpen : '', className ?? className)}>
+    <div className={clsx(styles.sidebar, !isOpen ? styles.isOpen : '', className)}>
       <Button
         variant={'ghost'}
         onClick={toggleIsOpen}
-        className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}
+        className={clsx(styles.burgerButton, !isOpen ? styles.isOpenBurger : '')}
         aria-label={t('buttons.toggleMenu')}
         title={t('buttons.toggleMenu')}
       >

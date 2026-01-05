@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
+import clsx from 'clsx';
+
 import { MenuItem } from './MenuItem/MenuItem';
 import styles from './MenuSection.module.scss';
 
@@ -20,8 +22,8 @@ interface MenuItems {
 
 export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onItemClick }) => {
   return (
-    <div className={`${styles.menuSection} ${className ?? ''}`}>
-      <h3 className={`${styles.title}`}>{title}</h3>
+    <div className={clsx(styles.menuSection, className)}>
+      <h3 className={styles.title}>{title}</h3>
       {list.map(item => (
         <MenuItem
           key={item.id}

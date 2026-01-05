@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { formatRubles } from '@shared/lib/formatting/formatRubles';
+import { formatRubles } from '@shared/lib';
 import { Button } from '@shared/ui';
-import { BonusIcon } from '@shared/ui/icons/BonusIcon';
-import { WalletIcon } from '@shared/ui/icons/WalletIcon';
+import { BonusIcon, WalletIcon } from '@shared/ui/icons';
 
 import styles from './UserBalance.module.scss';
 
@@ -24,7 +24,7 @@ export const UserBalance: FC<Props> = ({ isMain, amount }) => {
   const classNameValue = isMain ? 'mainBalance' : 'bonusBalance';
 
   return (
-    <div className={`${styles.balance} ${classNameValue}`}>
+    <div className={clsx(styles.balance, classNameValue)}>
       <p className={styles.amount}>{formattedAmount}</p>
       <p className={styles.text}>{text}</p>
       <Button className={styles.balanceButton} variant={buttonVariant} icon={buttonIcon}>

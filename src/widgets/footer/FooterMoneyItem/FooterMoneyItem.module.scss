@@ -1,6 +1,6 @@
 @use "../../../shared/styles/variables" as *;
 
-.footer-money-item {
+.footerMoneyItem {
   display: flex;
   gap: 11px;
   align-items: center;
@@ -15,11 +15,11 @@
   background-color: $color-bg-on-block;
   border-radius: $radius-xxl;
 
-  &-wrap {
+  &Wrap {
     display: flex;
   }
 
-  &-circle {
+  &Circle {
     position: relative;
 
     overflow: hidden;
@@ -56,7 +56,7 @@
       display: block;
     }
 
-    .circle-gradient {
+    .circleGradient {
       position: absolute;
       z-index: 0;
       top: 0;
@@ -69,7 +69,7 @@
 }
 
 @media (max-width: $media-laptop) {
-  .footer-money-item {
+  .footerMoneyItem {
     justify-content: space-between;
 
     width: 100%;
@@ -83,13 +83,13 @@
 }
 
 @media (max-width: $media-mobile-mini) {
-  .footer-money-item {
+  .footerMoneyItem {
     justify-content: center;
   }
 }
 
 @media (max-width: $media-mobile) {
-  .footer-money-item {
+  .footerMoneyItem {
     gap: 0;
   }
 }

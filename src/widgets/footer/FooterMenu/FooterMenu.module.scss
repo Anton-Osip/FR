@@ -1,19 +1,19 @@
 @use "../../../shared/styles/variables" as *;
 
-.footer-menu {
+.footerMenu {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: $spacing-xxs;
   margin-right: $spacing-xxs;
 }
 
-.footer-column-title {
+.footerColumnTitle {
   margin-bottom: 15px;
   font-weight: 600;
   letter-spacing: -0.16px;
 }
 
-.footer-links {
+.footerLinks {
   li:not(:last-child) {
     margin-bottom: 10px;
   }
@@ -33,21 +33,21 @@
 }
 
 @media (max-width: $media-laptop) {
-  .footer-menu {
+  .footerMenu {
     grid-auto-rows: auto;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 18px;
     margin-right: 0;
   }
 
-  .footer-column-title {
+  .footerColumnTitle {
     margin-bottom: 9px;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -0.14px;
   }
 
-  .footer-links {
+  .footerLinks {
     li:not(:last-child) {
       margin-bottom: 8px;
     }

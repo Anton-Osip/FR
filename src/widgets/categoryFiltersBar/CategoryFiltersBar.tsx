@@ -1,14 +1,15 @@
 import { type FC, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Input, Tabs } from '@shared/ui';
+import type { Tab } from '@shared/ui';
 import { SearchIcon } from '@shared/ui/icons';
-import type { Tab } from '@shared/ui/tabs/Tabs';
-
-import { SearchModal } from '@widgets/searchModal';
 
 import styles from './CategoryFiltersBar.module.scss';
+
+import { SearchModal } from '@/widgets';
 
 interface CategoryFiltersBarProps {
   className?: string;
@@ -21,7 +22,7 @@ export const CategoryFiltersBar: FC<CategoryFiltersBarProps> = ({ className, tab
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   return (
-    <div className={`${styles.root} ${className ?? ''}`}>
+    <div className={clsx(styles.root, className)}>
       <div className={styles.buttonWrapper}>
         <SearchModal
           open={isSearchModalOpen}

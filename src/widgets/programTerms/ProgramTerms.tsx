@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { CalendarIcon, GraphIcon, PercentageCircleIcon, WalletIcon } from '@shared/ui/icons';
@@ -44,7 +45,7 @@ export const ProgramTerms: FC<ProgramTermsProps> = ({ className }) => {
   );
 
   return (
-    <div className={`${styles.programTerms} ${className ?? ''}`}>
+    <div className={clsx(styles.programTerms, className)}>
       <h2 className={styles.title}>{t('programTerms.title')}</h2>
       <div className={styles.grid}>
         {cardsData.map(card => (

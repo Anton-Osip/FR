@@ -1,5 +1,6 @@
 import { type FC, type ReactElement, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -19,7 +20,7 @@ export const HeroBonus: FC = () => {
         {slides.map((idx, index) => (
           <div
             key={idx}
-            className={`${styles.bonusDot} ${selectedIndex === index ? styles.activeDote : ''}`}
+            className={clsx(styles.bonusDot, selectedIndex === index ? styles.activeDote : '')}
             aria-label={`${t('heroBonus.slide')} ${idx + 1}`}
           />
         ))}

@@ -1,10 +1,10 @@
 import { type FC, useMemo } from 'react';
 
 import * as Separator from '@radix-ui/react-separator';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { Brand } from '@shared/ui';
-import { Button } from '@shared/ui/button';
+import { Brand, Button } from '@shared/ui';
 import { TgIcon } from '@shared/ui/icons';
 
 import { getFooterBanking, getFooterCrypto, getFooterMenu } from './constants/constants';
@@ -25,7 +25,7 @@ export const Footer: FC<FooterProps> = ({ className }) => {
   const footerCrypto = useMemo(() => getFooterCrypto(), []);
 
   return (
-    <footer className={`${styles.footer} ${className ? className : ''}`}>
+    <footer className={clsx(styles.footer, className)}>
       <div className={styles.footerGrid}>
         <Brand className={styles.logo} />
         <p className={styles.footerRight}>{t('rights')}</p>

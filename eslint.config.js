@@ -162,6 +162,7 @@ export default tseslint.config(
       'react/display-name': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/require-default-props': 'off',
+      'react/prop-types': 'off', // Отключено, так как используется TypeScript для типизации
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react/jsx-filename-extension': [

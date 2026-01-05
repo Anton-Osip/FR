@@ -2,11 +2,7 @@ import { type FC, type SVGProps } from 'react';
 
 import { TFunction } from 'i18next';
 
-import { SearchSecondaryIcon } from '@shared/ui/icons';
-import { TwoUsersIcon } from '@shared/ui/icons';
-import { HomeIcon } from '@shared/ui/icons';
-import { BonusIcon } from '@shared/ui/icons';
-import { BurgerSecondaryIcon } from '@shared/ui/icons';
+import { SearchSecondaryIcon, TwoUsersIcon, HomeIcon, BonusIcon, BurgerSecondaryIcon } from '@shared/ui/icons';
 
 interface TabMenuDataItem {
   id: string;

@@ -1,5 +1,7 @@
 import { type FC, type KeyboardEvent, type SVGProps } from 'react';
 
+import clsx from 'clsx';
+
 import styles from './TabMenuItem.module.scss';
 
 interface Props {
@@ -19,7 +21,7 @@ export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick, isActive })
 
   return (
     <div
-      className={`${styles.tabMenuItem} ${isActive ? styles.active : ''}`}
+      className={clsx(styles.tabMenuItem, isActive ? styles.active : '')}
       onClick={onClick || (() => {})}
       role="button"
       tabIndex={0}

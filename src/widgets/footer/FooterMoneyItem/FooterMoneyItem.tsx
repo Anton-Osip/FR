@@ -11,13 +11,13 @@ interface Props {
 
 export const FooterMoneyItem: FC<Props> = ({ text, items }) => {
   return (
-    <div className={styles['footer-money-item']}>
+    <div className={styles.footerMoneyItem}>
       <span>{text}</span>
-      <div className={styles['footer-money-item-wrap']}>
+      <div className={styles.footerMoneyItemWrap}>
         {items.map(item => {
           return (
-            <div key={item.id} className={styles['footer-money-item-circle']} title={item.label}>
-              {item.gradient && <div className={styles['circle-gradient']} style={{ background: item.gradient }} />}
+            <div key={item.id} className={styles.footerMoneyItemCircle} title={item.label}>
+              {item.gradient && <div className={styles.circleGradient} style={{ background: item.gradient }} />}
               <img src={item.image} alt={item.label} />
             </div>
           );

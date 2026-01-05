@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { selectDeviceType } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { Button } from '@shared/ui/button';
+import { Button } from '@shared/ui';
 
 import 'swiper/css';
 
@@ -249,23 +249,23 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
 
   return (
     <div className={styles.carousel}>
-      <div className={styles['carousel-header']}>
-        <div className={styles['carousel-title']}>
+      <div className={styles.carouselHeader}>
+        <div className={styles.carouselTitle}>
           <Icon />
           <h3>{title}</h3>
         </div>
-        <div className={styles['carousel-header-buttons']}>
-          <Button variant="secondary" size="s" className={styles['carousel-button']}>
+        <div className={styles.carouselHeaderButtons}>
+          <Button variant="secondary" size="s" className={styles.carouselButton}>
             {t('carousel.all')}
           </Button>
-          <div className={styles['carousel-header-controls']}>
+          <div className={styles.carouselHeaderControls}>
             <Button
               variant="secondary"
               square
               icon={ChevronLeftIcon}
               onClick={scrollPrev}
               disabled={!canScrollPrev || !hasData}
-              className={styles['carousel-button']}
+              className={styles.carouselButton}
             />
             <Button
               variant="secondary"
@@ -273,7 +273,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
               icon={ChevronRightIcon}
               onClick={scrollNext}
               disabled={!canScrollNext || !hasData}
-              className={styles['carousel-button']}
+              className={styles.carouselButton}
             />
           </div>
         </div>
@@ -298,14 +298,14 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
           allowSlideNext={hasData}
           allowSlidePrev={hasData}
           onSwiper={swiperRef}
-          className={styles['swiper-container']}
+          className={styles.swiperContainer}
         >
           {slidesData.map(slideData => (
-            <SwiperSlide key={slideData.id} className={styles['swiper-slide']}>
+            <SwiperSlide key={slideData.id} className={styles.swiperSlide}>
               {slideData.type === 'skeleton' ? (
                 <CarouselItemSkeleton />
               ) : slideData.type === 'empty' ? (
-                <div className={styles['empty-item']} />
+                <div className={styles.emptyItem} />
               ) : (
                 <CarouselItem img={slideData.img} link={slideData.link} />
               )}

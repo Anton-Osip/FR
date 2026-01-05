@@ -36,3 +36,4 @@ export { CrossIcon } from './CrossIcon';
 export { RepeatIcon } from './RepeatIcon';
 export { MailIcon } from './MailIcon';
 export { LockIcon } from './LockeIcon';
+export { PopularIcon } from './PopularIcon';

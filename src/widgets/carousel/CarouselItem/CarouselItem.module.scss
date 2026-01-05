@@ -1,6 +1,6 @@
 @use "../../../shared/styles/variables" as *;
 
-.carousel-item {
+.carouselItem {
   display: block;
   width: 100%;
   height: auto;
@@ -8,7 +8,7 @@
 
 }
 
-.carousel-item__image {
+.carouselItemImage {
   cursor: pointer;
 
   overflow: hidden;
@@ -30,14 +30,14 @@
 }
 
 @media (max-width: $media-tab) {
-  .carousel-item__image {
+  .carouselItemImage {
     aspect-ratio: 121 / 165;
     border-radius: 10px;
   }
 }
 
 @media (max-width: $media-mobile-plus) {
-  .carousel-item__image {
+  .carouselItemImage {
     aspect-ratio: 114 / 149;
   }
 }

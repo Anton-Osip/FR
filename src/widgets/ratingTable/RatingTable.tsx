@@ -2,8 +2,7 @@ import { FC, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Table, Tabs } from '@shared/ui';
-import { TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@shared/ui/table/Table';
+import { Table, Tabs, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@shared/ui';
 
 import { getTableData } from '@widgets/ratingTable/mockTable';
 

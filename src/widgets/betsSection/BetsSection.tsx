@@ -5,11 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { Tabs } from '@shared/ui';
-import { Dropdown } from '@shared/ui/dropdown/Dropdown.tsx';
-
-import { BettingTable } from '@widgets/bettingTable';
-import { LoginModal } from '@widgets/loginModal';
+import { Tabs, Dropdown } from '@shared/ui';
 
 import styles from './BetsSection.module.scss';
 
@@ -18,6 +14,7 @@ import {
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
 } from '@/features/showcase';
+import { BettingTable, LoginModal } from '@/widgets';
 
 const DEFAULT_PAGE_SIZE = 10;
 

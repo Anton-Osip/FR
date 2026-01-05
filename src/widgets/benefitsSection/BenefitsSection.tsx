@@ -16,7 +16,7 @@ export const BenefitsSection: FC<BenefitsSectionProps> = ({ className }) => {
   const benefitsData = useMemo(() => getBenefitsData(t), [t]);
 
   return (
-    <section className={clsx(styles.wrapper, className ?? className)}>
+    <section className={clsx(styles.wrapper, className)}>
       <h2 className={styles.title}>{t('benefitsSection.title')}</h2>
       <div className={styles.grid}>
         {benefitsData.map(card => {
