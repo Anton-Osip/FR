@@ -1,468 +1,181 @@
-import { feLog } from '@shared/lib';
-
 import type {
   BettingTableBetsLatestResponse,
   GetBettingTableBetsLatestParams,
   GetShowcaseGamesParams,
+  InitSlotDemoParams,
+  InitSlotDemoResponse,
+  InitSlotParams,
+  InitSlotResponse,
   ShowcaseGamesResponse,
 } from '../model/types';
 
-import type {
-  BettingTableBigWinsEvent,
-  BettingTableBigWinsPingEvent,
-  BettingTableBigWinsReadyEvent,
-  BettingTableLatestEvent,
-  BettingTableLatestPingEvent,
-  BettingTableLatestReadyEvent,
-  BettingTableMyEvent,
-  BettingTableMyPingEvent,
-  BettingTableMyReadyEvent,
-} from './showcaseApi.types';
+import { buildBettingTableQueryString, buildQueryString } from './showcaseApi.helpers';
+import { setupBettingTableWebSocket } from './showcaseApi.socket';
 
-import type { Bet } from '@/entities/bet';
-import { baseApi } from '@/shared/api';
+import { baseApi, type BaseQueryFn, executeApiRequest } from '@/shared/api';
 import { BFF, SOCKET_PATHS } from '@/shared/config';
-import { subscribeToEvent } from '@/shared/lib/socket';
 
 const DEFAULT_PAGE_SIZE = 10;
-
-function buildQueryString(params: GetShowcaseGamesParams): string {
-  const searchParams = new URLSearchParams();
-
-  if (params.page_size !== undefined) {
-    searchParams.append('page_size', String(params.page_size));
-  }
-  if (params.cursor !== undefined && params.cursor !== null) {
-    searchParams.append('cursor', params.cursor);
-  }
-  if (params.search_query !== undefined && params.search_query !== '') {
-    searchParams.append('search_query', params.search_query);
-  }
-  if (params.provider_ids !== undefined && params.provider_ids.length > 0) {
-    params.provider_ids.forEach(id => {
-      searchParams.append('provider_ids', String(id));
-    });
-  }
-  if (params.game_kinds !== undefined && params.game_kinds !== null && params.game_kinds.length > 0) {
-    params.game_kinds.forEach(kind => {
-      searchParams.append('game_kinds', kind);
-    });
-  }
-  if (params.only_mobile !== undefined && params.only_mobile !== null) {
-    searchParams.append('only_mobile', String(params.only_mobile));
-  }
-  if (params.only_favorites !== undefined && params.only_favorites !== null) {
-    searchParams.append('only_favorites', String(params.only_favorites));
-  }
-  if (params.only_new !== undefined && params.only_new !== null) {
-    searchParams.append('only_new', String(params.only_new));
-  }
-  if (params.only_popular !== undefined && params.only_popular !== null) {
-    searchParams.append('only_popular', String(params.only_popular));
-  }
-  if (params.only_featured !== undefined && params.only_featured !== null) {
-    searchParams.append('only_featured', String(params.only_featured));
-  }
-  if (params.include_blocked_regions !== undefined) {
-    searchParams.append('include_blocked_regions', String(params.include_blocked_regions));
-  }
-  if (params.sort !== undefined) {
-    searchParams.append('sort', params.sort);
-  }
-  if (params.sort_dir !== undefined) {
-    searchParams.append('sort_dir', params.sort_dir);
-  }
-
-  const queryString = searchParams.toString();
-
-  return queryString ? `?${queryString}` : '';
-}
-
-function buildBettingTableQueryString(params: GetBettingTableBetsLatestParams): string {
-  const searchParams = new URLSearchParams();
-
-  if (params.page_size !== undefined) {
-    searchParams.append('page_size', String(params.page_size));
-  }
-  if (params.cursor !== undefined && params.cursor !== null) {
-    searchParams.append('cursor', params.cursor);
-  }
-
-  const queryString = searchParams.toString();
-
-  return queryString ? `?${queryString}` : '';
-}
 
 export const showcaseApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getShowcaseGames: builder.query<ShowcaseGamesResponse, GetShowcaseGamesParams | void>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          const queryString = params ? buildQueryString(params) : '';
+        const queryString = params ? buildQueryString(params) : '';
 
-          feLog.info('showcase.games.start', {
-            hasParams: !!params,
-            pageSize: params?.page_size,
-            searchQuery: params?.search_query,
-          });
-
-          const result = await baseQuery({
+        return executeApiRequest<ShowcaseGamesResponse>(
+          {
+            endpointName: 'showcase.games',
             url: `${BFF}/api/v1/showcase/games${queryString}`,
             method: 'GET',
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('showcase.games.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'showcase_games_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as ShowcaseGamesResponse | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('showcase.games.success', {
-            requestId,
-            itemsCount: responseData?.items.length,
-            hasMore: responseData?.meta.has_more,
-          });
-
-          return { data: responseData as ShowcaseGamesResponse };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('showcase.games.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+            logData: {
+              hasParams: !!params,
+              pageSize: params?.page_size,
+              searchQuery: params?.search_query,
             },
-          };
-        }
+          },
+          baseQuery as BaseQueryFn,
+        );
       },
       providesTags: ['Showcase'],
     }),
 
     getBettingTableBetsLatest: builder.query<BettingTableBetsLatestResponse, GetBettingTableBetsLatestParams | void>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          const queryString = params ? buildBettingTableQueryString(params) : '';
+        const queryString = params ? buildBettingTableQueryString(params) : '';
 
-          feLog.info('showcase.betting_table.bets_latest.start', {
-            hasParams: !!params,
-            pageSize: params?.page_size,
-          });
-
-          const result = await baseQuery({
+        return executeApiRequest<BettingTableBetsLatestResponse>(
+          {
+            endpointName: 'showcase.betting_table.bets_latest',
             url: `${BFF}/api/v1/showcase/betting_table/bets/latest${queryString}`,
             method: 'GET',
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('showcase.betting_table.bets_latest.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'betting_table_bets_latest_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as BettingTableBetsLatestResponse | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('showcase.betting_table.bets_latest.success', {
-            requestId,
-            itemsCount: responseData?.items.length,
-          });
-
-          return { data: responseData as BettingTableBetsLatestResponse };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('showcase.betting_table.bets_latest.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+            logData: {
+              hasParams: !!params,
+              pageSize: params?.page_size,
             },
-          };
-        }
+          },
+          baseQuery as BaseQueryFn,
+        );
       },
-      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      keepUnusedDataFor: 0,
       async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-        // Ждем разрешения начального запроса перед продолжением
         await cacheDataLoaded;
 
         const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
-        const unsubscribes = [
-          subscribeToEvent<BettingTableLatestEvent | BettingTableLatestReadyEvent | BettingTableLatestPingEvent | Bet>(
-            SOCKET_PATHS.LATEST,
-            msg => {
-              let newBet: Bet | null = null;
+        const unsubscribe = setupBettingTableWebSocket({
+          socketPath: SOCKET_PATHS.LATEST,
+          pageSize,
+          updateCachedData,
+        });
 
-              // Обработка разных форматов сообщений
-              if ('payload' in msg && msg.payload?.data) {
-                newBet = msg.payload.data as Bet;
-              } else if (
-                typeof msg === 'object' &&
-                msg !== null &&
-                'user_name' in msg &&
-                'avatar_url' in msg &&
-                'game_title' in msg
-              ) {
-                newBet = msg as Bet;
-              }
-
-              if (newBet) {
-                updateCachedData(state => {
-                  state.items.unshift(newBet!);
-                  if (state.items.length > pageSize) {
-                    state.items.splice(pageSize);
-                  }
-                });
-              }
-            },
-          ),
-        ];
-
-        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
         await cacheEntryRemoved;
-        unsubscribes.forEach(unsubscribe => unsubscribe());
+        unsubscribe();
       },
       providesTags: ['Showcase'],
     }),
 
     getBettingTableBetsMy: builder.query<BettingTableBetsLatestResponse, GetBettingTableBetsLatestParams | void>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          const queryString = params ? buildBettingTableQueryString(params) : '';
+        const queryString = params ? buildBettingTableQueryString(params) : '';
 
-          feLog.info('showcase.betting_table.bets_my.start', {
-            hasParams: !!params,
-            pageSize: params?.page_size,
-          });
-
-          const result = await baseQuery({
+        return executeApiRequest<BettingTableBetsLatestResponse>(
+          {
+            endpointName: 'showcase.betting_table.bets_my',
             url: `${BFF}/api/v1/showcase/betting_table/bets/my${queryString}`,
             method: 'GET',
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('showcase.betting_table.bets_my.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'betting_table_bets_my_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as BettingTableBetsLatestResponse | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('showcase.betting_table.bets_my.success', {
-            requestId,
-            itemsCount: responseData?.items.length,
-          });
-
-          return { data: responseData as BettingTableBetsLatestResponse };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('showcase.betting_table.bets_my.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+            logData: {
+              hasParams: !!params,
+              pageSize: params?.page_size,
             },
-          };
-        }
+          },
+          baseQuery as BaseQueryFn,
+        );
       },
-      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      keepUnusedDataFor: 0,
       async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-        // Ждем разрешения начального запроса перед продолжением
         await cacheDataLoaded;
 
         const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
-        const unsubscribes = [
-          subscribeToEvent<BettingTableMyEvent | BettingTableMyReadyEvent | BettingTableMyPingEvent | Bet>(
-            SOCKET_PATHS.MY,
-            msg => {
-              let newBet: Bet | null = null;
+        const unsubscribe = setupBettingTableWebSocket({
+          socketPath: SOCKET_PATHS.MY,
+          pageSize,
+          updateCachedData,
+        });
 
-              // Обработка разных форматов сообщений
-              if ('payload' in msg && msg.payload?.data) {
-                newBet = msg.payload.data as Bet;
-              } else if (
-                typeof msg === 'object' &&
-                msg !== null &&
-                'user_name' in msg &&
-                'avatar_url' in msg &&
-                'game_title' in msg
-              ) {
-                newBet = msg as Bet;
-              }
-
-              if (newBet) {
-                updateCachedData(state => {
-                  state.items.unshift(newBet!);
-                  if (state.items.length > pageSize) {
-                    state.items.splice(pageSize);
-                  }
-                });
-              }
-            },
-          ),
-        ];
-
-        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
         await cacheEntryRemoved;
-        unsubscribes.forEach(unsubscribe => unsubscribe());
+        unsubscribe();
       },
       providesTags: ['Showcase'],
     }),
 
     getBettingTableBetsBigWins: builder.query<BettingTableBetsLatestResponse, GetBettingTableBetsLatestParams | void>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          const queryString = params ? buildBettingTableQueryString(params) : '';
+        const queryString = params ? buildBettingTableQueryString(params) : '';
 
-          feLog.info('showcase.betting_table.bets_big_wins.start', {
-            hasParams: !!params,
-            pageSize: params?.page_size,
-          });
-
-          const result = await baseQuery({
+        return executeApiRequest<BettingTableBetsLatestResponse>(
+          {
+            endpointName: 'showcase.betting_table.bets_big_wins',
             url: `${BFF}/api/v1/showcase/betting_table/bets/big-wins${queryString}`,
             method: 'GET',
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('showcase.betting_table.bets_big_wins.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'betting_table_bets_big_wins_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as BettingTableBetsLatestResponse | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('showcase.betting_table.bets_big_wins.success', {
-            requestId,
-            itemsCount: responseData?.items.length,
-          });
-
-          return { data: responseData as BettingTableBetsLatestResponse };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('showcase.betting_table.bets_big_wins.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+            logData: {
+              hasParams: !!params,
+              pageSize: params?.page_size,
             },
-          };
-        }
+          },
+          baseQuery as BaseQueryFn,
+        );
       },
-      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      keepUnusedDataFor: 0,
       async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-        // Ждем разрешения начального запроса перед продолжением
         await cacheDataLoaded;
 
         const params = _arg || { page_size: DEFAULT_PAGE_SIZE };
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
-        const unsubscribes = [
-          subscribeToEvent<
-            BettingTableBigWinsEvent | BettingTableBigWinsReadyEvent | BettingTableBigWinsPingEvent | Bet
-          >(SOCKET_PATHS.BIG_WINS, msg => {
-            let newBet: Bet | null = null;
+        const unsubscribe = setupBettingTableWebSocket({
+          socketPath: SOCKET_PATHS.BIG_WINS,
+          pageSize,
+          updateCachedData,
+        });
 
-            // Обработка разных форматов сообщений
-            if ('payload' in msg && msg.payload?.data) {
-              newBet = msg.payload.data as Bet;
-            } else if (
-              typeof msg === 'object' &&
-              msg !== null &&
-              'user_name' in msg &&
-              'avatar_url' in msg &&
-              'game_title' in msg
-            ) {
-              newBet = msg as Bet;
-            }
-
-            if (newBet) {
-              updateCachedData(state => {
-                state.items.unshift(newBet!);
-                if (state.items.length > pageSize) {
-                  state.items.splice(pageSize);
-                }
-              });
-            }
-          }),
-        ];
-
-        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
         await cacheEntryRemoved;
-        unsubscribes.forEach(unsubscribe => unsubscribe());
+        unsubscribe();
       },
       providesTags: ['Showcase'],
+    }),
+
+    initSlot: builder.mutation<InitSlotResponse, InitSlotParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<InitSlotResponse>(
+          {
+            endpointName: 'showcase.slot.init',
+            url: `${BFF}/api/v1/showcase/slot/init`,
+            method: 'POST',
+            body: params,
+            logData: { game_uuid: params.game_uuid },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+    }),
+
+    initSlotDemo: builder.mutation<InitSlotDemoResponse, InitSlotDemoParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<InitSlotDemoResponse>(
+          {
+            endpointName: 'showcase.slot.init.demo',
+            url: `${BFF}/api/v1/showcase/slot/init/demo`,
+            method: 'POST',
+            body: params,
+            logData: { game_uuid: params.game_uuid },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
     }),
   }),
 });
@@ -473,4 +186,6 @@ export const {
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
   useGetBettingTableBetsBigWinsQuery,
+  useInitSlotMutation,
+  useInitSlotDemoMutation,
 } = showcaseApi;

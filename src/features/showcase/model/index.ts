@@ -7,4 +7,8 @@ export type {
   BettingTableBetsMeta,
   GetBettingTableBetsLatestParams,
   BettingTableBetsLatestResponse,
+  InitSlotParams,
+  InitSlotResponse,
+  InitSlotDemoParams,
+  InitSlotDemoResponse,
 } from './types';

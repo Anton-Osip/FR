@@ -48,3 +48,15 @@ export interface BettingTableBetsLatestResponse {
   meta: BettingTableBetsMeta;
   items: import('@/entities/bet').Bet[];
 }
+
+export interface InitSlotParams {
+  game_uuid: string;
+}
+
+export type InitSlotResponse = any;
+
+export interface InitSlotDemoParams {
+  game_uuid: string;
+}
+
+export type InitSlotDemoResponse = any;

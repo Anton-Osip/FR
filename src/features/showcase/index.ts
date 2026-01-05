@@ -5,6 +5,8 @@ export {
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
   useGetBettingTableBetsBigWinsQuery,
+  useInitSlotMutation,
+  useInitSlotDemoMutation,
 } from './api/showcaseApi';
 export type {
   ShowcaseGamesResponse,
@@ -15,4 +17,8 @@ export type {
   ShowcaseGamesMeta,
   SortType,
   SortDirection,
+  InitSlotParams,
+  InitSlotResponse,
+  InitSlotDemoParams,
+  InitSlotDemoResponse,
 } from './model';
