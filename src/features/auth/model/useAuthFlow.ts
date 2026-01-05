@@ -17,21 +17,16 @@ import {
 } from '@app/store';
 
 import { CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
+import { detectDeviceType } from '@shared/lib';
+import { collectClientProfilePayload } from '@shared/lib';
+import { getTelegramLoginWidgetData, isTelegramWebApp, waitForInitData, waitForTelegramWebApp } from '@shared/lib';
+import { feLog } from '@shared/lib';
 import type { AppMode, AuthStatus, TelegramLoginWidgetData } from '@shared/model/types';
 
-import { detectDeviceType } from '../../../shared/lib/device';
-import { collectClientProfilePayload } from '../../../shared/lib/fingerprint';
-import {
-  getTelegramLoginWidgetData,
-  isTelegramWebApp,
-  waitForInitData,
-  waitForTelegramWebApp,
-} from '../../../shared/lib/telegram';
-import { feLog } from '../../../shared/lib/telemetry';
 import { useAuthenticateTelegramLoginWidgetMutation, useAuthenticateTelegramWebAppMutation } from '../api/api';
 
 import type { UserMe } from '@/entities/user';
-import { useGetUserMeQuery, useGetUserBalanceQuery } from '@/entities/user';
+import { useGetUserMeQuery } from '@/entities/user';
 
 export type { AppMode, AuthStatus } from '@shared/model/types';
 
@@ -46,19 +41,6 @@ type UseAuthFlowResult = {
 const TELEGRAM_WEBAPP_WAIT_MS = 4000;
 const TELEGRAM_INITDATA_WEBAPP_TIMEOUT_MS = 4000;
 const TELEGRAM_INITDATA_SITE_TIMEOUT_MS = 1500;
-// const BALANCE_SYNC_THROTTLE_MS = 3000;
-// const BALANCE_STREAM_RECONNECT_BASE_MS = 500;
-// const BALANCE_STREAM_RECONNECT_EXPONENT = 1.8;
-// const BALANCE_STREAM_RECONNECT_MAX_MS = 15000;
-//
-// function parseBalancePayload(data: unknown): BalanceStreamPayload | null {
-//   if (!data || typeof data !== 'object') return null;
-//   const v = (data as Record<string, unknown>).balance;
-//
-//   if (typeof v !== 'number' || !Number.isFinite(v)) return null;
-//
-//   return { balance: v };
-// }
 
 /**
  * Удаляет параметры Telegram Login Widget / WebApp из URL, чтобы не светить PII и не мешать повторной инициализации.
@@ -181,9 +163,6 @@ export const useAuthFlow = (): UseAuthFlowResult => {
   const { data: userMe, refetch: refetchUserMe } = useGetUserMeQuery(undefined, {
     skip: false,
   });
-  const { data: userBalance, refetch: refetchUserBalance } = useGetUserBalanceQuery(undefined, {
-    skip: false,
-  });
 
   const initRef = useRef(false);
 
@@ -191,12 +170,11 @@ export const useAuthFlow = (): UseAuthFlowResult => {
     if (userMe && authStatus === 'authenticated') {
       const meData: UserMe = {
         ...userMe,
-        balance: userBalance?.balance ?? userMe.balance,
       };
 
       dispatch(setMe({ me: meData }));
     }
-  }, [userMe, userBalance, authStatus, dispatch]);
+  }, [userMe, authStatus, dispatch]);
 
   const checkSession = useCallback(async (): Promise<boolean> => {
     feLog.info('app.check_session_start');
@@ -206,10 +184,9 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       const meResult = await refetchUserMe();
 
       if (meResult.data && !meResult.isError) {
-        const balanceResult = await refetchUserBalance();
         const meData: UserMe = {
           ...meResult.data,
-          balance: balanceResult.data?.balance ?? meResult.data.balance,
+          balance: meResult.data.balance,
         };
 
         dispatch(setMe({ me: meData }));
@@ -232,7 +209,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
 
       return false;
     }
-  }, [dispatch, refetchUserMe, refetchUserBalance]);
+  }, [dispatch, refetchUserMe]);
 
   const handleWebAppAuth = useCallback(
     async (initData: string): Promise<void> => {

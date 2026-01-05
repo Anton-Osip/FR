@@ -1,7 +1,10 @@
 import type { UserBalance, UserMe } from '../model/types';
 
+import type { BalanceWebSocketEvent } from './userApi.types';
+
 import { baseApi } from '@/shared/api';
-import { BFF } from '@/shared/config';
+import { BFF, SOCKET_PATHS } from '@/shared/config';
+import { subscribeToEvent } from '@/shared/lib/socket';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -19,41 +22,41 @@ export const userApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
       keepUnusedDataFor: 0, // очистка сразу после размонтирования
-      // async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-      //   // Ждем разрешения начального запроса перед продолжением
-      //   await cacheDataLoaded;
-      //
-      //   const unsubscribes = [
-      //     subscribeToEvent<BalanceWebSocketEvent>(SOCKET_PATHS.BALANCE, msg => {
-      //       let newBalance: UserBalance | null = null;
-      //
-      //       // Обработка разных форматов сообщений
-      //       if ('type' in msg && msg.type === 'balance' && 'data' in msg) {
-      //         newBalance = msg.data as UserBalance;
-      //       } else if (
-      //         typeof msg === 'object' &&
-      //         msg !== null &&
-      //         'balance' in msg &&
-      //         'cash' in msg &&
-      //         'bonus' in msg &&
-      //         'revshare' in msg
-      //       ) {
-      //         newBalance = msg as UserBalance;
-      //       } else if ('type' in msg && msg.type === 'ready') {
-      //         // При событии ready можно обновить баланс через refetch, но пока просто пропускаем
-      //         return;
-      //       }
-      //
-      //       if (newBalance) {
-      //         updateCachedData(() => newBalance!);
-      //       }
-      //     }),
-      //   ];
-      //
-      //   // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
-      //   await cacheEntryRemoved;
-      //   unsubscribes.forEach(unsubscribe => unsubscribe());
-      // },
+      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        // Ждем разрешения начального запроса перед продолжением
+        await cacheDataLoaded;
+
+        const unsubscribes = [
+          subscribeToEvent<BalanceWebSocketEvent>(SOCKET_PATHS.BALANCE, msg => {
+            let newBalance: UserBalance | null = null;
+
+            // Обработка разных форматов сообщений
+            if ('type' in msg && msg.type === 'balance' && 'data' in msg) {
+              newBalance = msg.data as UserBalance;
+            } else if (
+              typeof msg === 'object' &&
+              msg !== null &&
+              'balance' in msg &&
+              'cash' in msg &&
+              'bonus' in msg &&
+              'revshare' in msg
+            ) {
+              newBalance = msg as UserBalance;
+            } else if ('type' in msg && (msg.type === 'ready' || msg.type === 'ping')) {
+              // События ready и ping обрабатываются, но не обновляют баланс
+              return;
+            }
+
+            if (newBalance) {
+              updateCachedData(() => newBalance!);
+            }
+          }),
+        ];
+
+        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
+        await cacheEntryRemoved;
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+      },
       providesTags: ['Balance'],
     }),
   }),

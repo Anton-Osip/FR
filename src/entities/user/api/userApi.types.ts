@@ -10,4 +10,8 @@ export type BalanceReadyEvent = {
   type: 'ready';
 };
 
-export type BalanceWebSocketEvent = BalanceEvent | BalanceReadyEvent | UserBalance;
+export type BalancePingEvent = {
+  type: 'ping';
+};
+
+export type BalanceWebSocketEvent = BalanceEvent | BalanceReadyEvent | BalancePingEvent | UserBalance;

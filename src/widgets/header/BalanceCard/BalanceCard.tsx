@@ -2,19 +2,24 @@ import { type FC } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+// import { selectIsLoggedIn } from '@app/store';
+//
+// import { useAppSelector } from '@shared/api';
 import { formatBalance } from '@shared/lib/formatting/formatBalance';
 import { Button } from '@shared/ui';
 import { WalletIcon } from '@shared/ui/icons';
 
 import styles from './BalanceCard.module.scss';
 
-interface Props {
-  balance: string;
-}
+// import { useGetUserBalanceQuery } from '@entities/user';
 
-export const BalanceCard: FC<Props> = ({ balance }) => {
+export const BalanceCard: FC = () => {
   const { t } = useTranslation('header');
-  const balanceNumber = Number(balance);
+  // const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  // const { data: balance } = useGetUserBalanceQuery(null, {
+  //   skip: !isLoggedIn,
+  // });
+  const balanceNumber = Number(0);
   const formattedValue = Number.isNaN(balanceNumber) ? 0 : balanceNumber;
 
   return (

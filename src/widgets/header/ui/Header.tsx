@@ -26,7 +26,6 @@ export const Header: FC<HeaderProps> = ({ className }) => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const me = useAppSelector(selectMe);
-  const balance = me?.balance ?? '0';
   const avatar_url = me?.avatar_url;
   const user_name = me?.user_name;
   const user_firstname = me?.user_firstname;
@@ -37,7 +36,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         <Brand />
         {isLoggedIn ? (
           <div className={styles.authenticatedWrapper}>
-            <BalanceCard balance={balance} />
+            <BalanceCard />
             <Avatar avatar={avatar_url} name={user_name} userFirstname={user_firstname} />
             <Button
               variant={'ghost'}

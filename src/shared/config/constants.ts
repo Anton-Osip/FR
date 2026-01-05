@@ -8,7 +8,7 @@ export const SOCKET_PATHS = {
   LATEST: '/api/v1/showcase/betting_table/ws/latest',
   BIG_WINS: '/api/v1/showcase/betting_table/ws/big-wins',
   MY: '/api/v1/showcase/betting_table/ws/my',
-  BALANCE: '/api/v1/users/ws/balance',
+  BALANCE: '/api/v1/users/balance/ws',
 } as const;
 
 export type SocketEvents = (typeof SOCKET_EVENTS)[keyof typeof SOCKET_EVENTS];

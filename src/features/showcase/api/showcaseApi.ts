@@ -7,7 +7,17 @@ import type {
   ShowcaseGamesResponse,
 } from '../model/types';
 
-import type { BettingTableBigWinsEvent, BettingTableLatestEvent, BettingTableMyEvent } from './showcaseApi.types';
+import type {
+  BettingTableBigWinsEvent,
+  BettingTableBigWinsPingEvent,
+  BettingTableBigWinsReadyEvent,
+  BettingTableLatestEvent,
+  BettingTableLatestPingEvent,
+  BettingTableLatestReadyEvent,
+  BettingTableMyEvent,
+  BettingTableMyPingEvent,
+  BettingTableMyReadyEvent,
+} from './showcaseApi.types';
 
 import type { Bet } from '@/entities/bet';
 import { baseApi } from '@/shared/api';
@@ -213,31 +223,34 @@ export const showcaseApi = baseApi.injectEndpoints({
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
         const unsubscribes = [
-          subscribeToEvent<BettingTableLatestEvent | Bet>(SOCKET_PATHS.LATEST, msg => {
-            let newBet: Bet | null = null;
+          subscribeToEvent<BettingTableLatestEvent | BettingTableLatestReadyEvent | BettingTableLatestPingEvent | Bet>(
+            SOCKET_PATHS.LATEST,
+            msg => {
+              let newBet: Bet | null = null;
 
-            // Обработка разных форматов сообщений
-            if ('payload' in msg && msg.payload?.data) {
-              newBet = msg.payload.data as Bet;
-            } else if (
-              typeof msg === 'object' &&
-              msg !== null &&
-              'user_name' in msg &&
-              'avatar_url' in msg &&
-              'game_title' in msg
-            ) {
-              newBet = msg as Bet;
-            }
+              // Обработка разных форматов сообщений
+              if ('payload' in msg && msg.payload?.data) {
+                newBet = msg.payload.data as Bet;
+              } else if (
+                typeof msg === 'object' &&
+                msg !== null &&
+                'user_name' in msg &&
+                'avatar_url' in msg &&
+                'game_title' in msg
+              ) {
+                newBet = msg as Bet;
+              }
 
-            if (newBet) {
-              updateCachedData(state => {
-                state.items.unshift(newBet!);
-                if (state.items.length > pageSize) {
-                  state.items.splice(pageSize);
-                }
-              });
-            }
-          }),
+              if (newBet) {
+                updateCachedData(state => {
+                  state.items.unshift(newBet!);
+                  if (state.items.length > pageSize) {
+                    state.items.splice(pageSize);
+                  }
+                });
+              }
+            },
+          ),
         ];
 
         // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
@@ -313,31 +326,34 @@ export const showcaseApi = baseApi.injectEndpoints({
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
         const unsubscribes = [
-          subscribeToEvent<BettingTableMyEvent | Bet>(SOCKET_PATHS.MY, msg => {
-            let newBet: Bet | null = null;
+          subscribeToEvent<BettingTableMyEvent | BettingTableMyReadyEvent | BettingTableMyPingEvent | Bet>(
+            SOCKET_PATHS.MY,
+            msg => {
+              let newBet: Bet | null = null;
 
-            // Обработка разных форматов сообщений
-            if ('payload' in msg && msg.payload?.data) {
-              newBet = msg.payload.data as Bet;
-            } else if (
-              typeof msg === 'object' &&
-              msg !== null &&
-              'user_name' in msg &&
-              'avatar_url' in msg &&
-              'game_title' in msg
-            ) {
-              newBet = msg as Bet;
-            }
+              // Обработка разных форматов сообщений
+              if ('payload' in msg && msg.payload?.data) {
+                newBet = msg.payload.data as Bet;
+              } else if (
+                typeof msg === 'object' &&
+                msg !== null &&
+                'user_name' in msg &&
+                'avatar_url' in msg &&
+                'game_title' in msg
+              ) {
+                newBet = msg as Bet;
+              }
 
-            if (newBet) {
-              updateCachedData(state => {
-                state.items.unshift(newBet!);
-                if (state.items.length > pageSize) {
-                  state.items.splice(pageSize);
-                }
-              });
-            }
-          }),
+              if (newBet) {
+                updateCachedData(state => {
+                  state.items.unshift(newBet!);
+                  if (state.items.length > pageSize) {
+                    state.items.splice(pageSize);
+                  }
+                });
+              }
+            },
+          ),
         ];
 
         // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
@@ -413,7 +429,9 @@ export const showcaseApi = baseApi.injectEndpoints({
         const pageSize = params.page_size || DEFAULT_PAGE_SIZE;
 
         const unsubscribes = [
-          subscribeToEvent<BettingTableBigWinsEvent | Bet>(SOCKET_PATHS.BIG_WINS, msg => {
+          subscribeToEvent<
+            BettingTableBigWinsEvent | BettingTableBigWinsReadyEvent | BettingTableBigWinsPingEvent | Bet
+          >(SOCKET_PATHS.BIG_WINS, msg => {
             let newBet: Bet | null = null;
 
             // Обработка разных форматов сообщений
