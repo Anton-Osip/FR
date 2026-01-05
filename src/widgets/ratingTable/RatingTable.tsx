@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +8,8 @@ import { TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } f
 import { getTableData } from '@widgets/ratingTable/mockTable';
 
 import styles from './RatingTable.module.scss';
+
+import { useGetInviteLeaderboardQuery } from '@features/invite';
 
 interface RatingTableProps {
   className?: string;
@@ -19,6 +21,12 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
   const { t } = useTranslation('invite');
   const tableData = useMemo(() => getTableData(t), [t]);
   const me = tableData.find(item => item.id === USER_ID);
+  const [activeTab, setActiveTab] = useState<'thisWeek' | 'lastWeek'>('thisWeek');
+
+  const week = activeTab === 'thisWeek' ? 'this' : 'prev';
+  const { data: leaderboardData } = useGetInviteLeaderboardQuery({ week });
+
+  console.log(leaderboardData);
 
   const items = useMemo(
     () => [
@@ -26,16 +34,16 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
         id: '1',
         value: 'thisWeek',
         label: t('ratingTable.tabs.thisWeek'),
-        active: true,
+        active: activeTab === 'thisWeek',
       },
       {
         id: '2',
         value: 'lastWeek',
         label: t('ratingTable.tabs.lastWeek'),
-        active: false,
+        active: activeTab === 'lastWeek',
       },
     ],
-    [t],
+    [t, activeTab],
   );
 
   const headerData = useMemo(
@@ -52,7 +60,7 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
       <header className={styles.header}>
         <h2 className={styles.title}>{t('ratingTable.title')}</h2>
         <div className={styles.tabs}>
-          <Tabs items={items} />
+          <Tabs items={items} onChange={value => setActiveTab(value as 'thisWeek' | 'lastWeek')} />
         </div>
       </header>
 

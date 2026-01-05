@@ -1,5 +1,6 @@
-import { feLog } from '../../../shared/lib/telemetry';
-import type { InviteOverview } from '../model/types';
+import { feLog } from '@shared/lib';
+
+import type { GetInviteLeaderboardParams, InviteLeaderboard, InviteOverview } from '../model/types';
 
 import { baseApi } from '@/shared/api';
 import { BFF } from '@/shared/config';
@@ -60,7 +61,64 @@ export const inviteApi = baseApi.injectEndpoints({
         }
       },
     }),
+
+    getInviteLeaderboard: builder.query<InviteLeaderboard, GetInviteLeaderboardParams | void>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        try {
+          const week = params?.week || 'this';
+
+          feLog.info('invite.leaderboard.start', { week });
+
+          const result = await baseQuery({
+            url: `${BFF}/api/v1/invite/leaderboard?week=${week}`,
+            method: 'GET',
+          });
+
+          if (result.error) {
+            const errorData = result.error.data as { error?: string } | undefined;
+            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
+
+            feLog.warn('invite.leaderboard.failed', {
+              requestId,
+              status: result.error.status,
+              error: errorData?.error,
+            });
+
+            return {
+              error: {
+                status: result.error.status,
+                data: result.error.data,
+                error: errorData?.error || 'invite_leaderboard_failed',
+              },
+            };
+          }
+
+          const responseData = result.data as InviteLeaderboard | undefined;
+          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
+
+          feLog.info('invite.leaderboard.success', {
+            requestId,
+            itemsCount: responseData?.items.length,
+            myAmount: responseData?.me.amount,
+          });
+
+          return { data: responseData as InviteLeaderboard };
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+
+          feLog.error('invite.leaderboard.exception', { error: msg });
+
+          return {
+            error: {
+              status: 0,
+              data: { error: 'network_error' },
+              error: 'network_error',
+            },
+          };
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetInviteOverviewQuery } = inviteApi;
+export const { useGetInviteOverviewQuery, useGetInviteLeaderboardQuery } = inviteApi;
