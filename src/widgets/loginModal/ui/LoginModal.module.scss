@@ -222,6 +222,10 @@
 }
 
 @media (max-width: $media-laptop) {
+  .modal {
+    max-width: 100%;
+  }
+
   .body {
     max-width: 100%;
     padding: 0;

@@ -15,7 +15,6 @@ import type { GameKind } from '@/entities/game';
 import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
 import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
 
-// Константы для размеров окна и пагинации
 const DEFAULT_WINDOW_WIDTH = 1024;
 const MOBILE_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 1024;
@@ -263,7 +262,14 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
   }, [accumulatedData, isLoadingMore, isLoadingMoreLocal, loadMoreQuery, queryParams]);
 
   return (
-    <Modal trigger={trigger} open={open} onOpenChange={onOpenChange} title={t('title')} contentClassName={styles.modal}>
+    <Modal
+      trigger={trigger}
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      contentClassName={styles.modal}
+      bodyClassName={styles.modalBody}
+    >
       <div className={styles.body}>
         <div className={styles.searchWrapper}>
           <Input icon={<SearchIcon />} placeholder={t('placeholder')} value={inputValue} onChange={handleInputChange} />
@@ -294,27 +300,27 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
                       {g.image ? <img src={g.image} alt={g.name || 'Game'} /> : <div className={styles.placeholder} />}
                     </div>
                   ))}
-            </div>
-            <div className={styles.more}>
-              <p className={styles.text}>
-                {t('shown')}: {accumulatedData?.items.length || 0} {t('of')} {accumulatedData?.meta.total || 0}
-              </p>
-              <Button
-                variant={'tertiary'}
-                size={'s'}
-                icon={isLoadingMore || isLoadingMoreLocal ? <div className={styles.spinner} /> : <RepeatIcon />}
-                onClick={loadMore}
-                disabled={
-                  isLoading ||
-                  isInitialLoading ||
-                  isLoadingMore ||
-                  isLoadingMoreLocal ||
-                  !accumulatedData?.meta.has_more
-                }
-                className={isLoadingMore || isLoadingMoreLocal ? styles.loadingButton : ''}
-              >
-                {t('showMore')}
-              </Button>
+              <div className={styles.more}>
+                <p className={styles.text}>
+                  {t('shown')}: {accumulatedData?.items.length || 0} {t('of')} {accumulatedData?.meta.total || 0}
+                </p>
+                <Button
+                  variant={'tertiary'}
+                  size={'s'}
+                  icon={isLoadingMore || isLoadingMoreLocal ? <div className={styles.spinner} /> : <RepeatIcon />}
+                  onClick={loadMore}
+                  disabled={
+                    isLoading ||
+                    isInitialLoading ||
+                    isLoadingMore ||
+                    isLoadingMoreLocal ||
+                    !accumulatedData?.meta.has_more
+                  }
+                  className={isLoadingMore || isLoadingMoreLocal ? styles.loadingButton : ''}
+                >
+                  {t('showMore')}
+                </Button>
+              </div>
             </div>
           </div>
         </div>

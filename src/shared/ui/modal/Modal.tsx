@@ -1,6 +1,7 @@
 import React, { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
+import clsx from 'clsx';
 
 import { CrossIcon } from '@shared/ui/icons';
 import { VisuallyHidden } from '@shared/ui/visuallyHidden';
@@ -20,6 +21,7 @@ export interface ModalProps {
   contentClassName?: string;
   overlayClassName?: string;
   closeButtonClassName?: string;
+  bodyClassName?: string;
 }
 
 const CLOSE_TIMEOUT = 350;
@@ -37,6 +39,7 @@ export const Modal: FC<ModalProps> = ({
   trigger,
   showCloseButton = true,
   contentClassName,
+  bodyClassName,
   overlayClassName,
   closeButtonClassName,
 }: ModalProps) => {
@@ -310,7 +313,7 @@ export const Modal: FC<ModalProps> = ({
           <Dialog.Description className={styles.description} hidden={!description}>
             {description || ''}
           </Dialog.Description>
-          <div className={styles.body}>{children}</div>
+          <div className={clsx(styles.body, bodyClassName)}>{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
