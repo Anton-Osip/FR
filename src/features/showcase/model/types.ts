@@ -60,3 +60,21 @@ export interface InitSlotDemoParams {
 }
 
 export type InitSlotDemoResponse = any;
+
+export interface AddFavoriteParams {
+  game_uuid: string;
+}
+
+export interface AddFavoriteResponse {
+  detail: string;
+  is_favorite: boolean;
+}
+
+export interface RemoveFavoriteParams {
+  game_uuid: string;
+}
+
+export interface RemoveFavoriteResponse {
+  detail: string;
+  is_favorite: boolean;
+}

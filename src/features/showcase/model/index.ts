@@ -11,4 +11,8 @@ export type {
   InitSlotResponse,
   InitSlotDemoParams,
   InitSlotDemoResponse,
+  AddFavoriteParams,
+  AddFavoriteResponse,
+  RemoveFavoriteParams,
+  RemoveFavoriteResponse,
 } from './types';

@@ -1,4 +1,6 @@
 import type {
+  AddFavoriteParams,
+  AddFavoriteResponse,
   BettingTableBetsLatestResponse,
   GetBettingTableBetsLatestParams,
   GetShowcaseGamesParams,
@@ -6,6 +8,8 @@ import type {
   InitSlotDemoResponse,
   InitSlotParams,
   InitSlotResponse,
+  RemoveFavoriteParams,
+  RemoveFavoriteResponse,
   ShowcaseGamesResponse,
 } from '../model/types';
 
@@ -177,6 +181,36 @@ export const showcaseApi = baseApi.injectEndpoints({
         );
       },
     }),
+
+    addFavorite: builder.mutation<AddFavoriteResponse, AddFavoriteParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<AddFavoriteResponse>(
+          {
+            endpointName: 'showcase.slot.favorites.add',
+            url: `${BFF}/api/v1/showcase/slot/favorites`,
+            method: 'POST',
+            body: params,
+            logData: { game_uuid: params.game_uuid },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+    }),
+
+    removeFavorite: builder.mutation<RemoveFavoriteResponse, RemoveFavoriteParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<RemoveFavoriteResponse>(
+          {
+            endpointName: 'showcase.slot.favorites.remove',
+            url: `${BFF}/api/v1/showcase/slot/favorites`,
+            method: 'DELETE',
+            body: params,
+            logData: { game_uuid: params.game_uuid },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+    }),
   }),
 });
 
@@ -188,4 +222,6 @@ export const {
   useGetBettingTableBetsBigWinsQuery,
   useInitSlotMutation,
   useInitSlotDemoMutation,
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
 } = showcaseApi;

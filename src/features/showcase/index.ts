@@ -7,6 +7,8 @@ export {
   useGetBettingTableBetsBigWinsQuery,
   useInitSlotMutation,
   useInitSlotDemoMutation,
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
 } from './api/showcaseApi';
 export type {
   ShowcaseGamesResponse,
@@ -21,4 +23,8 @@ export type {
   InitSlotResponse,
   InitSlotDemoParams,
   InitSlotDemoResponse,
+  AddFavoriteParams,
+  AddFavoriteResponse,
+  RemoveFavoriteParams,
+  RemoveFavoriteResponse,
 } from './model';
