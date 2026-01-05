@@ -1,6 +1,6 @@
-import { getCookie } from '@shared/api/http.ts';
-import { BFF, CLIENT_VERSION } from '@shared/config/env.ts';
-import type { Ctx, Entry, Level } from '@shared/model/types';
+import { getCookie } from '@shared/api';
+import { BFF, CLIENT_VERSION } from '@shared/config';
+import type { Ctx, Entry, Level } from '@shared/model';
 
 const ENDPOINT = `${BFF}/ops/fe-log`;
 const DEFAULT_MAX_BATCH = 50;

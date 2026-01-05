@@ -1,5 +1,7 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 
+import clsx from 'clsx';
+
 import { ChevronHorizontal } from '@shared/ui/icons';
 
 import s from './Dropdown.module.scss';
@@ -51,7 +53,7 @@ export const Dropdown: FC<DropdownProps> = ({
     return selectedOption?.label || '';
   };
 
-  const wrapperClassName = `${s.wrapper} ${s[variant]} ${className || ''}`.trim();
+  const wrapperClassName = clsx(s.wrapper, s[variant], className);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {

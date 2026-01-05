@@ -1,9 +1,9 @@
-import { store } from '@app/store/store.ts';
+import { store } from '@app/store';
 
 import { getCookie, fetchJSON, baseApi } from '@shared/api';
 import { BFF } from '@shared/config';
 import { feLog } from '@shared/lib';
-import { AuthResult, ClientProfilePayload, TelegramLoginWidgetData } from '@shared/model/types';
+import { AuthResult, ClientProfilePayload, TelegramLoginWidgetData } from '@shared/model';
 
 async function ensureCsrf(): Promise<string> {
   if (!getCookie('csrf')) {

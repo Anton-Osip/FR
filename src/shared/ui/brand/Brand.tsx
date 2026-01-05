@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 import { APP_PATH } from '@shared/config/routes.ts';
@@ -16,7 +17,7 @@ export const Brand: FC<BrandProps> = ({ className }) => {
 
   return (
     <div
-      className={`${styles.brand} ${className ? className : ''}`}
+      className={clsx(styles.brand, className ?? '')}
       onClick={() => {
         navigate(APP_PATH.main);
       }}

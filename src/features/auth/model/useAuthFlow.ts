@@ -17,18 +17,21 @@ import {
 } from '@app/store';
 
 import { CLIENT_VERSION, LOGIN_HOSTNAME, LOGIN_RETURN_TO_HOSTS } from '@shared/config';
-import { detectDeviceType } from '@shared/lib';
-import { collectClientProfilePayload } from '@shared/lib';
-import { getTelegramLoginWidgetData, isTelegramWebApp, waitForInitData, waitForTelegramWebApp } from '@shared/lib';
-import { feLog } from '@shared/lib';
-import type { AppMode, AuthStatus, TelegramLoginWidgetData } from '@shared/model/types';
+import {
+  detectDeviceType,
+  collectClientProfilePayload,
+  getTelegramLoginWidgetData,
+  isTelegramWebApp,
+  waitForInitData,
+  waitForTelegramWebApp,
+  feLog,
+} from '@shared/lib';
+import type { AppMode, AuthStatus, TelegramLoginWidgetData } from '@shared/model';
 
 import { useAuthenticateTelegramLoginWidgetMutation, useAuthenticateTelegramWebAppMutation } from '../api/api';
 
 import type { UserMe } from '@/entities/user';
 import { useGetUserMeQuery } from '@/entities/user';
-
-export type { AppMode, AuthStatus } from '@shared/model/types';
 
 type UseAuthFlowResult = {
   authStatus: AuthStatus;

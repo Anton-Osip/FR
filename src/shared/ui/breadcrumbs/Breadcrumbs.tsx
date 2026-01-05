@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/config/routes.ts';
+import { APP_PATH } from '@shared/config';
 
 import styles from './Breadcrumbs.module.scss';
 
@@ -21,7 +21,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, className }) => {
   const { t } = useTranslation('breadcrumbs');
 
   return (
-    <nav aria-label={t('ariaLabel')} className={className ?? className}>
+    <nav aria-label={t('ariaLabel')} className={className ?? ''}>
       <ol className={styles.list}>
         <li className={styles.item}>
           <Link to={APP_PATH.main} className={styles.link}>

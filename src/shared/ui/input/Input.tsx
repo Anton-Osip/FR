@@ -1,5 +1,7 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 
+import clsx from 'clsx';
+
 import styles from './Input.module.scss';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -8,7 +10,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ icon, className, size = 'm', ...props }, ref) => {
-  const mergedClassName = [styles.root, styles[`input-size-${size}`], className].filter(Boolean).join(' ');
+  const mergedClassName = clsx(styles.root, styles[`input-size-${size}`], className);
 
   return (
     <div className={mergedClassName}>

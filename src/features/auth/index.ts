@@ -7,4 +7,3 @@ export {
   logout,
 } from './api/api';
 export { useAuthFlow } from './model/useAuthFlow';
-export type { AppMode, AuthStatus } from './model/useAuthFlow';

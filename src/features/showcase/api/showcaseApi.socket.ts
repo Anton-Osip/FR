@@ -1,5 +1,5 @@
 import type { Bet } from '@/entities/bet';
-import { subscribeToEvent } from '@/shared/lib/socket';
+import { subscribeToEvent } from '@/shared/lib';
 
 type BettingTableMessage =
   | {

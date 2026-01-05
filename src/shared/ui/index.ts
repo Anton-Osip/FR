@@ -6,4 +6,7 @@ export { Tabs } from './tabs';
 export { Table } from './table';
 export { Modal } from './modal';
 export { Breadcrumbs } from './breadcrumbs';
+export { Dropdown } from './dropdown/Dropdown';
+export { Label } from './label/Label';
+export { VisuallyHidden } from './visuallyHidden';
 export type { ModalProps } from './modal';

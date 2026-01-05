@@ -3,10 +3,8 @@ import React, { type FC, type ReactNode, useEffect, useRef, useState } from 'rea
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 
+import { VisuallyHidden, Button } from '@shared/ui';
 import { CrossIcon } from '@shared/ui/icons';
-import { VisuallyHidden } from '@shared/ui/visuallyHidden';
-
-import { Button } from '../button';
 
 import styles from './Modal.module.scss';
 
@@ -78,7 +76,6 @@ export const Modal: FC<ModalProps> = ({
     }
   }, [modalOpen]);
 
-  // Сбрасываем состояние свайпа когда модальное окно закрывается
   useEffect(() => {
     if (!modalOpen && closedBySwipe) {
       const timeoutId = setTimeout(() => {
@@ -94,7 +91,6 @@ export const Modal: FC<ModalProps> = ({
   const handleOpenChange = (newOpen: boolean): void => {
     const wasOpen = prevOpenRef.current;
 
-    // Если окно уже закрыто свайпом и мы пытаемся его закрыть, пропускаем обработку
     if (!newOpen && closedBySwipe && !wasOpen) {
       return;
     }
@@ -262,10 +258,10 @@ export const Modal: FC<ModalProps> = ({
     <Dialog.Root open={modalOpen} onOpenChange={handleOpenChange}>
       {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
-        <Dialog.Overlay className={`${styles.overlay} ${overlayClassName || ''}`} />
+        <Dialog.Overlay className={clsx(styles.overlay, overlayClassName)} />
         <Dialog.Content
           ref={contentRef}
-          className={`${styles.content} ${contentClassName || ''} ${isClosing || closedBySwipe ? styles.swipeClosing : ''}`}
+          className={clsx(styles.content, contentClassName, isClosing || closedBySwipe ? styles.swipeClosing : '')}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -302,7 +298,7 @@ export const Modal: FC<ModalProps> = ({
             <Dialog.Close asChild>
               <Button
                 variant="secondary"
-                className={`${styles.closeButton} ${closeButtonClassName ?? ''}`}
+                className={clsx(styles.closeButton, closeButtonClassName)}
                 size={'s'}
                 aria-label="Закрыть"
               >

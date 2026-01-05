@@ -1,7 +1,5 @@
-import { feLog } from '@shared/lib/telemetry/feLogger';
-import type { ApiErrorBody, FetchJsonResult } from '@shared/model/types';
-
-export type { ApiErrorBody, FetchJsonResult } from '@shared/model/types';
+import { feLog } from '@shared/lib';
+import type { ApiErrorBody, FetchJsonResult } from '@shared/model';
 
 const RANDOM_RADIX = 36;
 const RANDOM_SLICE_START = 2;

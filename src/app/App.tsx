@@ -4,7 +4,7 @@ import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 
 import './App.scss';
 
-import { MainLayout } from '@app/layouts/MainLayout';
+import { MainLayout } from '@app/layouts';
 
 import { Bonuses } from '@pages/bonuses';
 import { Favorites } from '@pages/favorites';
@@ -12,12 +12,10 @@ import { HomePage } from '@pages/home';
 import { Invite } from '@pages/invite';
 import { Profile } from '@pages/profile';
 
-import { LOGIN_HOSTNAME, TELEGRAM_BOT_NAME } from '@shared/config/env.ts';
-import { APP_PATH } from '@shared/config/routes.ts';
+import { LOGIN_HOSTNAME, TELEGRAM_BOT_NAME, APP_PATH } from '@shared/config';
 
 import { useAuthFlow } from '@/features/auth';
-import { TelegramLoginWidget } from '@/widgets';
-import { Preloader } from '@/widgets';
+import { TelegramLoginWidget, Preloader } from '@/widgets';
 
 const WIDGET_CHECK_INTERVAL_MS = 100;
 const WIDGET_CHECK_TIMEOUT_MS = 5000;

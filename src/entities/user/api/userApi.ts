@@ -1,10 +1,11 @@
+import { subscribeToEvent } from '@shared/lib';
+
 import type { UserBalance, UserMe } from '../model/types';
 
 import type { BalanceWebSocketEvent } from './userApi.types';
 
 import { baseApi } from '@/shared/api';
 import { BFF, SOCKET_PATHS } from '@/shared/config';
-import { subscribeToEvent } from '@/shared/lib/socket';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({

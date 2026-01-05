@@ -1,6 +1,6 @@
 import { type CLSMetric, type INPMetric, type LCPMetric, onCLS, onINP, onLCP } from 'web-vitals';
 
-import { feLog } from '@shared/lib/telemetry/feLogger.ts';
+import { feLog } from '@shared/lib';
 
 declare global {
   interface Window {

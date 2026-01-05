@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import clsx from 'clsx';
+
 import { Button } from '@shared/ui';
 
 import styles from './Tabs.module.scss';
@@ -73,9 +75,7 @@ export const Tabs: FC<TabsProps> = ({ className, items, onChange, size = 's' }) 
     return () => window.removeEventListener('resize', updateScrollable);
   }, []);
 
-  const rootClassName = [styles.root, !isScrollable ? styles['root--no-fade'] : '', className ?? '']
-    .filter(Boolean)
-    .join(' ');
+  const rootClassName = clsx(styles.root, !isScrollable && styles['root--no-fade'], className);
 
   return (
     <div className={rootClassName}>
@@ -86,7 +86,7 @@ export const Tabs: FC<TabsProps> = ({ className, items, onChange, size = 's' }) 
               size={size}
               key={item.id}
               variant={'secondary'}
-              className={`${styles.tab} ${item.active ? styles.activeTabs : ''}`}
+              className={clsx(styles.tab, item.active && styles.activeTabs)}
               icon={item.icon}
               active={item.active}
               onClick={() => onChange?.(item.value)}

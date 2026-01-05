@@ -10,6 +10,7 @@ import {
 } from 'react';
 
 import type { IconProps } from '@radix-ui/react-icons/dist/types';
+import clsx from 'clsx';
 
 import styles from './Button.module.scss';
 
@@ -41,17 +42,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const mergedClassName = [
+    const mergedClassName = clsx(
       styles.button,
       styles[`button-${variant}`],
       styles[`button-size-${size}`],
-      fullWidth ? styles['button-full'] : '',
-      active ? styles['is-active'] : '',
-      square ? styles['button-square'] : '',
+      fullWidth && styles['button-full'],
+      active && styles['is-active'],
+      square && styles['button-square'],
       className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+    );
 
     const renderIcon = (): ReactNode => {
       if (!Icon) return null;

@@ -6,9 +6,7 @@ import type {
   NavigatorWithUserAgentData,
   UaBrand,
   WebGLDebugRendererInfoExt,
-} from '@shared/model/types';
-
-export type { ClientProfileBase, ClientProfilePayload, UaBrand } from '@shared/model/types';
+} from '@shared/model';
 
 const CANVAS_WIDTH = 280;
 const CANVAS_HEIGHT = 60;
