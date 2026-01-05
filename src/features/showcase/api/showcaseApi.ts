@@ -4,6 +4,14 @@ import type {
   BettingTableBetsLatestResponse,
   GetBettingTableBetsLatestParams,
   GetShowcaseGamesParams,
+  GetSlotInfoParams,
+  GetSlotInfoResponse,
+  GetSlotLeaderboardBigWinsParams,
+  GetSlotLeaderboardBigWinsResponse,
+  GetSlotLeaderboardLuckyParams,
+  GetSlotLeaderboardLuckyResponse,
+  GetSlotLeaderboardTodayBestParams,
+  GetSlotLeaderboardTodayBestResponse,
   InitSlotDemoParams,
   InitSlotDemoResponse,
   InitSlotParams,
@@ -20,6 +28,7 @@ import { baseApi, type BaseQueryFn, executeApiRequest } from '@/shared/api';
 import { BFF, SOCKET_PATHS } from '@/shared/config';
 
 const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_TOP_N = 3;
 
 export const showcaseApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -152,6 +161,72 @@ export const showcaseApi = baseApi.injectEndpoints({
       providesTags: ['Showcase'],
     }),
 
+    getSlotInfo: builder.query<GetSlotInfoResponse, GetSlotInfoParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<GetSlotInfoResponse>(
+          {
+            endpointName: 'showcase.slot.info',
+            url: `${BFF}/api/v1/showcase/slot/info?game_uuid=${params.game_uuid}`,
+            method: 'GET',
+            logData: { game_uuid: params.game_uuid },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: (_result, _error, arg) => [{ type: 'Showcase', id: `slot-${arg.game_uuid}` }],
+    }),
+
+    getSlotLeaderboardBigWins: builder.query<GetSlotLeaderboardBigWinsResponse, GetSlotLeaderboardBigWinsParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        const topN = params.top_n ?? DEFAULT_TOP_N;
+
+        return executeApiRequest<GetSlotLeaderboardBigWinsResponse>(
+          {
+            endpointName: 'showcase.slot.leaderboards.big_wins',
+            url: `${BFF}/api/v1/showcase/slot/leaderboards/big-wins?game_uuid=${params.game_uuid}&top_n=${topN}`,
+            method: 'GET',
+            logData: { game_uuid: params.game_uuid, top_n: topN },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: ['Showcase'],
+    }),
+
+    getSlotLeaderboardLucky: builder.query<GetSlotLeaderboardLuckyResponse, GetSlotLeaderboardLuckyParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        const topN = params.top_n ?? DEFAULT_TOP_N;
+
+        return executeApiRequest<GetSlotLeaderboardLuckyResponse>(
+          {
+            endpointName: 'showcase.slot.leaderboards.lucky',
+            url: `${BFF}/api/v1/showcase/slot/leaderboards/lucky?game_uuid=${params.game_uuid}&top_n=${topN}`,
+            method: 'GET',
+            logData: { game_uuid: params.game_uuid, top_n: topN },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: ['Showcase'],
+    }),
+
+    getSlotLeaderboardTodayBest: builder.query<GetSlotLeaderboardTodayBestResponse, GetSlotLeaderboardTodayBestParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        const topN = params.top_n ?? DEFAULT_TOP_N;
+
+        return executeApiRequest<GetSlotLeaderboardTodayBestResponse>(
+          {
+            endpointName: 'showcase.slot.leaderboards.today_best',
+            url: `${BFF}/api/v1/showcase/slot/leaderboards/today-best?game_uuid=${params.game_uuid}&top_n=${topN}`,
+            method: 'GET',
+            logData: { game_uuid: params.game_uuid, top_n: topN },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: ['Showcase'],
+    }),
+
     initSlot: builder.mutation<InitSlotResponse, InitSlotParams>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
         return executeApiRequest<InitSlotResponse>(
@@ -195,6 +270,20 @@ export const showcaseApi = baseApi.injectEndpoints({
           baseQuery as BaseQueryFn,
         );
       },
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          showcaseApi.util.updateQueryData('getSlotInfo', { game_uuid: arg.game_uuid }, draft => {
+            return { ...draft, is_favorite: true };
+          }),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: (_result, _error, arg) => ['Showcase', { type: 'Showcase', id: `slot-${arg.game_uuid}` }],
     }),
 
     removeFavorite: builder.mutation<RemoveFavoriteResponse, RemoveFavoriteParams>({
@@ -210,6 +299,20 @@ export const showcaseApi = baseApi.injectEndpoints({
           baseQuery as BaseQueryFn,
         );
       },
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          showcaseApi.util.updateQueryData('getSlotInfo', { game_uuid: arg.game_uuid }, draft => {
+            return { ...draft, is_favorite: false };
+          }),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: (_result, _error, arg) => ['Showcase', { type: 'Showcase', id: `slot-${arg.game_uuid}` }],
     }),
   }),
 });
@@ -220,6 +323,10 @@ export const {
   useGetBettingTableBetsLatestQuery,
   useGetBettingTableBetsMyQuery,
   useGetBettingTableBetsBigWinsQuery,
+  useGetSlotInfoQuery,
+  useGetSlotLeaderboardBigWinsQuery,
+  useGetSlotLeaderboardLuckyQuery,
+  useGetSlotLeaderboardTodayBestQuery,
   useInitSlotMutation,
   useInitSlotDemoMutation,
   useAddFavoriteMutation,
