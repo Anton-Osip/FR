@@ -3,12 +3,9 @@
 .footerSupport {
   width: 288px;
   height: fit-content;
-  padding: 20px 16px 16px;
+  padding: 16px;
 
-  background: linear-gradient(rgba(22, 28, 41, 80%), rgba(22, 28, 41, 80%)),
-    url("../../../shared/assets/images/footer-support-bg.png") no-repeat right
-      bottom;
-  background-size: auto;
+  background: #161C29 url("../../../shared/assets/images/support/supportSidebarBg.png") no-repeat right center;
   border-radius: $radius-xl;
 
   h3 {
@@ -50,7 +47,7 @@
     width: 100%;
     padding: 16px;
 
-    & h3{
+    & h3 {
       margin-bottom: 16px;
     }
   }

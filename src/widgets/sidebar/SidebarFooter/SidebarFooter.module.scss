@@ -3,26 +3,19 @@
 .footer {
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   width: 100%;
-  min-height: 115px;
-  padding: $spacing-12;
+  min-height: 120px;
+  padding: $spacing-md $spacing-md 14px;
 
   background: $color-bg-banner;
+  background: url("../../../shared/assets/images/support/supportSidebarBg.png") no-repeat right center;
+  background-size: cover;
   border-radius: $spacing-md;
 
-  &::after {
-    pointer-events: none;
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    opacity: 0.3;
-    background: url("../../../shared/assets/icons/sideBarBg.svg") no-repeat right -24px center;
-    background-size: 115px;
-
-    transition: background-position 0.3s ease;
-  }
 
   h3 {
     overflow: hidden;
@@ -30,9 +23,8 @@
     gap: $spacing-xxs;
 
     width: 100%;
-    margin-bottom: 23px;
 
-    font-size: $font-size-md;
+    font-size: $font-size-lg;
     font-weight: 600;
     font-style: normal;
     line-height: 140%;
@@ -56,19 +48,20 @@
   .supportTime {
     overflow: hidden;
 
-    padding: 2px 10px;
+    padding: 6px 12px;
 
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.14px;
 
     background-color: $color-primary;
     border-radius: 160px;
   }
 
   &.closed {
-    &::after {
-      background-position: right -16px center;
-    }
+    background: url("../../../shared/assets/images/support/supportSidebarBgClosed.png") no-repeat right center;
 
     h3 {
       width: 0;

@@ -4,6 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { SwiperOptions } from 'swiper/types';
 
 import { selectDeviceType } from '@app/store';
 
@@ -24,13 +25,29 @@ import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/featur
 const REINIT_DELAY_MS = 100;
 const CHECK_REINIT_DELAY_MS = 100;
 
+const BASE_BREAKPOINTS = {
+  641: { slidesPerView: 6, spaceBetween: 8 },
+} satisfies SwiperOptions['breakpoints'];
+
+const POPULAR_BREAKPOINTS = {
+  ...BASE_BREAKPOINTS,
+  786: { slidesPerView: 7, spaceBetween: 16 },
+  864: { slidesPerView: 7, spaceBetween: 16 },
+} satisfies SwiperOptions['breakpoints'];
+
+const DEFAULT_BREAKPOINTS = {
+  ...BASE_BREAKPOINTS,
+  864: { slidesPerView: 7, spaceBetween: 16 },
+} satisfies SwiperOptions['breakpoints'];
+
 interface Props {
   title: string;
   icon: FC<SVGProps<SVGSVGElement>>;
   items: 'popular' | GameKind;
+  isPopular: boolean;
 }
 
-const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
+const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) => {
   const { t } = useTranslation('home');
   const { swiperRef, swiper, canScrollPrev, canScrollNext, scrollPrev, scrollNext, isNearEnd } = useCarousel();
   const deviceType = useAppSelector(selectDeviceType);
@@ -121,9 +138,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
     return items.map(item => ({ id: item.id, type: 'item' as const, img: item.image, link: item.slug }));
   }, [isLoading, accumulatedData]);
 
-  const hasData = useMemo(() => {
-    return (accumulatedData?.items.length || 0) > 0;
-  }, [accumulatedData]);
+  const hasSlides = useMemo(() => slidesData.length > 0, [slidesData]);
 
   useEffect(() => {
     if (!swiper) return;
@@ -247,6 +262,8 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
     };
   }, [swiper]);
 
+  const breakpointsOption = useMemo(() => (isPopular ? POPULAR_BREAKPOINTS : DEFAULT_BREAKPOINTS), [isPopular]);
+
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselHeader}>
@@ -264,7 +281,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
               square
               icon={ChevronLeftIcon}
               onClick={scrollPrev}
-              disabled={!canScrollPrev || !hasData}
+              disabled={!canScrollPrev || !hasSlides}
               className={styles.carouselButton}
             />
             <Button
@@ -272,7 +289,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
               square
               icon={ChevronRightIcon}
               onClick={scrollNext}
-              disabled={!canScrollNext || !hasData}
+              disabled={!canScrollNext || !hasSlides}
               className={styles.carouselButton}
             />
           </div>
@@ -284,19 +301,11 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
           modules={[Navigation]}
           spaceBetween={8}
           slidesPerView={3}
-          breakpoints={{
-            641: {
-              slidesPerView: 6,
-            },
-            864: {
-              slidesPerView: 7,
-              spaceBetween: 16,
-            },
-          }}
+          breakpoints={breakpointsOption}
           watchOverflow
-          allowTouchMove={hasData}
-          allowSlideNext={hasData}
-          allowSlidePrev={hasData}
+          allowTouchMove={hasSlides}
+          allowSlideNext={hasSlides}
+          allowSlidePrev={hasSlides}
           onSwiper={swiperRef}
           className={styles.swiperContainer}
         >
@@ -307,7 +316,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
               ) : slideData.type === 'empty' ? (
                 <div className={styles.emptyItem} />
               ) : (
-                <CarouselItem img={slideData.img} link={slideData.link} />
+                <CarouselItem img={slideData.img} link={slideData.link} isPopular={isPopular} />
               )}
             </SwiperSlide>
           ))}

@@ -48,7 +48,7 @@ function getVariablesPath(componentDir) {
  */
 function createComponentTemplate(componentName) {
   const className = toCamelCase(componentName);
-  return `import { type FC } from 'react';
+  return `import { FC } from 'react';
 
 import styles from './${componentName}.module.scss';
 

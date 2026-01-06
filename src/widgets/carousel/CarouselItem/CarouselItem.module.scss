@@ -30,14 +30,25 @@
 }
 
 @media (max-width: $media-tab) {
+  .carouselItemImage.isPopular {
+    aspect-ratio: 102 / 164;
+  }
+
   .carouselItemImage {
     aspect-ratio: 121 / 165;
     border-radius: 10px;
   }
 }
 
+@media (width <= 786px) {
+  .carouselItemImage.isPopular {
+    aspect-ratio: 121 / 165;
+  }
+}
+
+
 @media (max-width: $media-mobile-plus) {
-  .carouselItemImage {
+  .carouselItemImage.isPopular, .carouselItemImage {
     aspect-ratio: 114 / 149;
   }
 }

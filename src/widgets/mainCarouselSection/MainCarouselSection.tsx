@@ -31,7 +31,13 @@ export const MainCarouselSection: FC<MainCarouselSectionProps> = ({ className })
       {activeTab === 'all' && (
         <div className={styles.caruseles}>
           {carouselData.map(item => (
-            <Carousel key={item.id} icon={item.icon} title={item.title} items={item.id} />
+            <Carousel
+              key={item.id}
+              icon={item.icon}
+              title={item.title}
+              items={item.id}
+              isPopular={item.id === 'popular'}
+            />
           ))}
         </div>
       )}
