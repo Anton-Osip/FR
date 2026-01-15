@@ -6,11 +6,34 @@
   gap: 48px;
 }
 
-.promoGrid{
+.promoGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 16px;
 
-  aspect-ratio: 1184 / 500;
+  aspect-ratio: 1184 / 512;
+  margin-top: 2px;
+}
+
+
+
+@media screen and (max-width: $media-tab) {
+  .bonuses {
+    gap: 24px;
+  }
+
+  .promoGrid {
+    grid-template-rows: 215px 197px;
+    gap: 8px;
+    aspect-ratio: auto;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .promoGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 213px 205px 199px;
+  }
 }

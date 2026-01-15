@@ -3,6 +3,8 @@ import type {
   AddFavoriteResponse,
   BettingTableBetsLatestResponse,
   GetBettingTableBetsLatestParams,
+  GetFeaturedSlotParams,
+  GetFeaturedSlotResponse,
   GetShowcaseGamesParams,
   GetSlotInfoParams,
   GetSlotInfoResponse,
@@ -24,8 +26,19 @@ import type {
 import { buildBettingTableQueryString, buildQueryString } from './showcaseApi.helpers';
 import { setupBettingTableWebSocket } from './showcaseApi.socket';
 
-import { baseApi, type BaseQueryFn, executeApiRequest } from '@/shared/api';
+import { baseApi, type BaseQueryFn, executeApiRequest, getCookie, fetchJSON } from '@/shared/api';
 import { BFF, SOCKET_PATHS } from '@/shared/config';
+
+async function ensureCsrf(): Promise<string> {
+  if (!getCookie('csrf')) {
+    await fetchJSON(`${BFF}/ops/healthz`, {
+      method: 'GET',
+      credentials: 'include',
+    }).catch(() => {});
+  }
+
+  return getCookie('csrf') || '';
+}
 
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_TOP_N = 3;
@@ -227,6 +240,21 @@ export const showcaseApi = baseApi.injectEndpoints({
       providesTags: ['Showcase'],
     }),
 
+    getFeaturedSlot: builder.query<GetFeaturedSlotResponse, GetFeaturedSlotParams>({
+      queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<GetFeaturedSlotResponse>(
+          {
+            endpointName: 'showcase.featured_slot',
+            url: `${BFF}/api/v1/showcase/featured-slot/${params.kind}`,
+            method: 'GET',
+            logData: { kind: params.kind },
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: ['Showcase'],
+    }),
+
     initSlot: builder.mutation<InitSlotResponse, InitSlotParams>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
         return executeApiRequest<InitSlotResponse>(
@@ -259,12 +287,18 @@ export const showcaseApi = baseApi.injectEndpoints({
 
     addFavorite: builder.mutation<AddFavoriteResponse, AddFavoriteParams>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        const csrf = await ensureCsrf();
+
         return executeApiRequest<AddFavoriteResponse>(
           {
             endpointName: 'showcase.slot.favorites.add',
             url: `${BFF}/api/v1/showcase/slot/favorites`,
             method: 'POST',
             body: params,
+            headers: {
+              'content-type': 'application/json',
+              'x-csrf-token': csrf,
+            },
             logData: { game_uuid: params.game_uuid },
           },
           baseQuery as BaseQueryFn,
@@ -288,12 +322,18 @@ export const showcaseApi = baseApi.injectEndpoints({
 
     removeFavorite: builder.mutation<RemoveFavoriteResponse, RemoveFavoriteParams>({
       queryFn: async (params, _queryApi, _extraOptions, baseQuery) => {
+        const csrf = await ensureCsrf();
+
         return executeApiRequest<RemoveFavoriteResponse>(
           {
             endpointName: 'showcase.slot.favorites.remove',
             url: `${BFF}/api/v1/showcase/slot/favorites`,
             method: 'DELETE',
             body: params,
+            headers: {
+              'content-type': 'application/json',
+              'x-csrf-token': csrf,
+            },
             logData: { game_uuid: params.game_uuid },
           },
           baseQuery as BaseQueryFn,
@@ -327,6 +367,8 @@ export const {
   useGetSlotLeaderboardBigWinsQuery,
   useGetSlotLeaderboardLuckyQuery,
   useGetSlotLeaderboardTodayBestQuery,
+  useGetFeaturedSlotQuery,
+  useLazyGetFeaturedSlotQuery,
   useInitSlotMutation,
   useInitSlotDemoMutation,
   useAddFavoriteMutation,

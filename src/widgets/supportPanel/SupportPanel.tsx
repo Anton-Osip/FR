@@ -1,5 +1,6 @@
 import { type FC, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@shared/ui';
@@ -7,7 +8,11 @@ import { ChevronHeaderIcon } from '@shared/ui/icons';
 
 import styles from './SupportPanel.module.scss';
 
-export const SupportPanel: FC = () => {
+interface SupportPanelProps {
+  className?: string;
+}
+
+export const SupportPanel: FC<SupportPanelProps> = ({ className }) => {
   const { t } = useTranslation('profile');
 
   const buttons = useMemo(
@@ -21,7 +26,7 @@ export const SupportPanel: FC = () => {
   );
 
   return (
-    <div className={styles.supportPanel}>
+    <div className={clsx(styles.supportPanel, className)}>
       {buttons.map(button => (
         <Button key={button.id} size={'s'} variant={'tertiary'} className={styles.button}>
           <span className={styles.buttonContainer}>

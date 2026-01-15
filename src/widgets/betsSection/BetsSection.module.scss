@@ -29,17 +29,23 @@
   justify-content: flex-end;
 
   width: 100%;
-  max-width: 574px;
+  max-width: 581px;
 }
 
 .dropdownWrapper {
   width: 89px;
+  height: 55px;
   padding: 8px;
+
   background: var(--bg-block, #131824);
   border-radius: var(--radius-16, 16px);
 }
 
-@media screen and (max-width: $media-laptop) {
+.dropdown{
+  height: 39px;
+}
+
+@media screen and (max-width: $media-tab) {
   .title {
     font-size: $font-size-lg;
     font-weight: 600;
@@ -51,9 +57,7 @@
   .tabs {
     max-width: 372px;
   }
-}
 
-@media screen and (max-width: $media-tab) {
   .tableFilter {
     margin-bottom: 0;
   }
@@ -68,6 +72,12 @@
     gap: $spacing-md;
     justify-content: space-between;
     max-width: 100%;
+  }
+}
+
+@media screen and (width <= 340px) {
+  .tabs button {
+    font-size: 12px;
   }
 }
 

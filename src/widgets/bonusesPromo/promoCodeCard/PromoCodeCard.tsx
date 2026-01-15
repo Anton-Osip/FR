@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import promoCode from '@shared/assets/images/promoCodeIcon.png';
+import promoCode from '@shared/assets/icons/promoCodeCardIcon.svg?url';
 import { Button, Input } from '@shared/ui';
 
 import styles from './PromoCodeCard.module.scss';
@@ -16,7 +16,7 @@ export const PromoCodeCard: FC<PromoCodeCardProps> = ({ className }) => {
   const { t } = useTranslation('bonuses');
 
   return (
-    <div className={clsx(styles.rankCard, className)}>
+    <div className={clsx(styles.promoCodeCard, className)}>
       <div className={styles.info}>
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{t('promoCodeCard.title')}</h3>

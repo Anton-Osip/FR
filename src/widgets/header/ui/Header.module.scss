@@ -1,8 +1,14 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .header {
-  width: 100%;
+  display: flex;
+  align-items: center;
+
+  width: calc(100vw - 281px);
+  height: 79px;
+
   color: $color-text-primary;
+
   background: $color-bg-block;
 
   .container {
@@ -10,10 +16,10 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 100%;
-    max-width: $container-max-width;
+    width: calc(100vw - 281px);
+    max-width: 1228px;
     margin: 0 auto;
-    padding: $spacing-md;
+    padding: 0 22px;
   }
 
   .authenticatedWrapper {
@@ -41,9 +47,6 @@
   background-color: #212738;
 }
 
-.signUp{
-  height: 47px;
-}
 
 @media (hover: hover) and (pointer: fine) {
   .signIn:hover {
@@ -53,8 +56,12 @@
 
 @media screen and (max-width: $media-laptop-plus) {
   .header {
+    width: 100vw;
+    height: 64px;
+
     .container {
-      padding: $spacing-12 $spacing-md $spacing-xs $spacing-md;
+      width: 100vw;
+      padding: 0 16px;
     }
   }
 }

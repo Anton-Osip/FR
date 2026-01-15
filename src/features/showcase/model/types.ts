@@ -1,4 +1,4 @@
-import type { Game, GameKind } from '@/entities/game';
+import type { Game, GameKind, GameProvider } from '@/entities/game';
 
 export type SortType = 'default' | 'new' | 'popular' | 'name';
 export type SortDirection = 'asc' | 'desc';
@@ -27,6 +27,7 @@ export interface GetShowcaseGamesParams {
   only_new?: boolean | null;
   only_popular?: boolean | null;
   only_featured?: boolean | null;
+  only_history?: boolean | null;
   include_blocked_regions?: boolean;
   sort?: SortType;
   sort_dir?: SortDirection;
@@ -53,13 +54,13 @@ export interface InitSlotParams {
   game_uuid: string;
 }
 
-export type InitSlotResponse = any;
+export type InitSlotResponse = string;
 
 export interface InitSlotDemoParams {
   game_uuid: string;
 }
 
-export type InitSlotDemoResponse = any;
+export type InitSlotDemoResponse = string;
 
 export interface AddFavoriteParams {
   game_uuid: string;
@@ -158,4 +159,32 @@ export interface GetSlotLeaderboardTodayBestResponse {
   items: SlotLeaderboardTodayBestItem[];
   top_n: number;
   game_uuid: string;
+}
+
+export type FeaturedSlotKind = 'weekly' | 'monthly' | 'featured';
+
+export interface GetFeaturedSlotParams {
+  kind: FeaturedSlotKind;
+}
+
+export interface FeaturedSlotGame {
+  uuid: string;
+  name: string;
+  slug: string;
+  game_kind: GameKind;
+  is_mobile: boolean;
+  has_freespins: boolean;
+  is_new: boolean;
+  is_popular: boolean;
+  is_featured: boolean;
+  provider: GameProvider;
+}
+
+export interface GetFeaturedSlotResponse {
+  kind: FeaturedSlotKind;
+  period_start_ts: number;
+  period_end_ts: number;
+  image: string;
+  desktop: FeaturedSlotGame;
+  mobile: FeaturedSlotGame;
 }

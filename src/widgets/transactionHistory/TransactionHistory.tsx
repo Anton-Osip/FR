@@ -1,63 +1,123 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
-import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui';
+import { ArrowIcon } from '@shared/ui/icons';
 
-import { getTableData } from './mockTable';
 import styles from './TransactionHistory.module.scss';
 
-export const TransactionHistory: FC = () => {
-  const { t } = useTranslation('profile');
+type TransactionType = 'in' | 'out';
+type TransactionStatus = 'rejected' | 'pending' | 'resolved';
 
-  const headerData = useMemo(
-    () => [
-      { id: 'transactionType', label: t('transactionHistory.headers.transactionType') },
-      { id: 'amount', label: t('transactionHistory.headers.amount') },
-      { id: 'date', label: t('transactionHistory.headers.date') },
-      { id: 'status', label: t('transactionHistory.headers.status') },
+interface TransactionItem {
+  id: number;
+  type: TransactionType;
+  time: string;
+  amount: number;
+  status: TransactionStatus;
+}
+
+interface TransactionGroup {
+  date: string;
+  items: TransactionItem[];
+}
+
+const data: TransactionGroup[] = [
+  {
+    date: '30 Декабря',
+    items: [
+      { id: 1, type: 'out', time: '13:10', amount: 5070, status: 'rejected' },
+      { id: 2, type: 'in', time: '13:10', amount: 5070, status: 'pending' },
     ],
-    [t],
-  );
+  },
+  {
+    date: '29 Декабря',
+    items: [
+      { id: 3, type: 'in', time: '13:10', amount: 5070, status: 'resolved' },
+      { id: 4, type: 'in', time: '13:10', amount: 5070, status: 'resolved' },
+      { id: 5, type: 'in', time: '13:10', amount: 5070, status: 'resolved' },
+      { id: 6, type: 'in', time: '13:10', amount: 5070, status: 'resolved' },
+    ],
+  },
+];
 
-  const tableData = useMemo(() => getTableData(t), [t]);
+const getStatus = (status: TransactionStatus): string => {
+  switch (status) {
+    case 'pending':
+      return 'Ожидание оплаты';
+    case 'resolved':
+      return 'Успешно';
+    case 'rejected':
+      return 'Отклонено';
+  }
+};
+
+const getStatusClass = (status: TransactionStatus): string => {
+  switch (status) {
+    case 'pending':
+      return styles.pending;
+    case 'resolved':
+      return styles.resolved;
+    case 'rejected':
+      return styles.rejected;
+  }
+};
+
+export const TransactionHistory: FC = () => {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+
+  useEffect(() => {
+    const gridElement = gridRef.current;
+
+    if (!gridElement) return;
+
+    const checkScrollPosition = (): void => {
+      const { scrollTop, scrollHeight, clientHeight } = gridElement;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+      setIsScrolledToBottom(isAtBottom);
+    };
+
+    checkScrollPosition();
+    gridElement.addEventListener('scroll', checkScrollPosition);
+
+    return () => {
+      gridElement.removeEventListener('scroll', checkScrollPosition);
+    };
+  }, []);
 
   return (
     <div className={styles.transactionHistory}>
-      <h3 className={styles.title}>{t('transactionHistory.title')}</h3>
+      {!isScrolledToBottom && <div className={styles.shadow} />}
 
-      <Table>
-        <TableHeader>
-          {headerData.map(item => {
-            return (
-              <TableHead key={item.id} className={`${styles.th} ${styles[item.id]}`}>
-                {item.label}
-              </TableHead>
-            );
-          })}
-        </TableHeader>
-        <TableBody>
-          {tableData.map(item => {
-            const statusClassName =
-              item.status === t('transactionHistory.statuses.success')
-                ? `${styles.statusCell} ${styles.win}`
-                : styles.statusCell;
-
-            return (
-              <TableRow key={item.id}>
-                <TableCell className={`${styles.transactionTypeBody} ${styles.td}`}>
-                  <span className={styles.transactionType}>{item.transactionType}</span>
-                </TableCell>
-                <TableCell className={`${styles.amountCellBody} ${styles.td}`}>
-                  <span className={styles.amount}>{item.amount} ₽</span>
-                </TableCell>
-                <TableCell className={`${styles.dateCellBody} ${styles.td}`}>{item.date}</TableCell>
-                <TableCell className={`${statusClassName} ${styles.td}`}>{item.status}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <h3 className={styles.title}>История транзакций</h3>
+      <div className={styles.scroll}>
+        <div ref={gridRef} className={styles.grid}>
+          {data.map(day => (
+            <div key={day.date} className={styles.dayData}>
+              <h4 className={styles.dayTitle}>{day.date}</h4>
+              {day.items.map(item => (
+                <div key={item.id} className={styles.item}>
+                  <div className={clsx(styles.image, item.type === 'in' && styles.down)}>
+                    <ArrowIcon />
+                  </div>
+                  <div className={styles.wrapper}>
+                    <div className={styles.row}>
+                      <span className={styles.type}>{item.type === 'out' ? 'Вывод' : 'Пополнение'}</span>
+                      <span className={styles.amount}>{item.amount}₽</span>
+                    </div>
+                    <div className={styles.row}>
+                      <span className={styles.time}>{item.time}</span>
+                      <span className={clsx(styles.status, getStatusClass(item.status))}>{getStatus(item.status)}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

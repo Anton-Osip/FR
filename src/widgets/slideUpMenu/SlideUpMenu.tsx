@@ -72,7 +72,7 @@ export const SlideUpMenu: FC<Props> = ({ className, open = false, onOpenChange }
 
   const game1Items: MenuItems[] = useMemo(
     () => [
-      { id: '1', icon: <SevenIcon />, label: t('slideUpMenu.menuItems.slots'), isActive: false },
+      { id: '1', icon: <SevenIcon />, label: t('slideUpMenu.menuItems.slots'), path: APP_PATH.slots, isActive: false },
       { id: '2', icon: <PopularIcon />, label: t('slideUpMenu.menuItems.popular'), isActive: false },
       { id: '3', icon: <FlashIcon />, label: t('slideUpMenu.menuItems.quickGames'), isActive: false },
       { id: '4', icon: <StarIcon />, label: t('slideUpMenu.menuItems.new'), isActive: false },

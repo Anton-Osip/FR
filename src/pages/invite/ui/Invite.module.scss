@@ -6,8 +6,15 @@
   gap: 49px;
 }
 
-.rewardsCard {
-  margin-bottom: 48px;
+@media screen and (max-width: $media-laptop) {
+  .invite {
+    gap: 24px;
+  }
+
+  .rewardsCards {
+    margin-top: 2px;
+  }
+
 }
 
 

@@ -15,14 +15,6 @@
   border-radius: 20px;
 }
 
-.mainBalance {
-  grid-area: main-balance;
-}
-
-.bonusBalance {
-  grid-area: bonus-balance;
-}
-
 .amount {
   margin-bottom: 10px;
 
@@ -45,4 +37,10 @@
 
 .balanceButton {
   width: fit-content;
+}
+
+@media screen and (max-width: $media-laptop)  {
+  .text {
+    margin-bottom: 42px;
+  }
 }

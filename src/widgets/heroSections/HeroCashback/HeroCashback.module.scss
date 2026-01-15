@@ -1,0 +1,93 @@
+@use "../../../shared/styles/variables" as *;
+
+.hero-cashback {
+ cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+  grid-area: cashback;
+
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+
+  color: $color-text-primary;
+
+  background-color: #090d14;
+}
+
+.slotViewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.cashbackSlide {
+  overflow: hidden;
+
+  box-sizing: border-box;
+  height: 100%;
+
+  background: $color-bg-block;
+  border-radius: $radius-xl-plus;
+}
+
+.cashbackPagination {
+  position: absolute;
+  z-index: 5;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+
+  width: 88px;
+  margin-top: $spacing-md;
+  padding: 4px;
+
+  background: rgba(white, 0.1);
+  border-radius: 160px;
+}
+
+
+.cashbackDot {
+  cursor: pointer;
+
+  width: 4px;
+  height: 4px;
+  padding: 0;
+
+  background: $color-text-secondary;
+  border: none;
+  border-radius: 50%;
+
+  transition: width $transition-hover,
+  height $transition-hover,
+  background-color $transition-hover,
+  border-radius $transition-hover;
+
+  &.activeDote {
+    width: 56px;
+    height: 4px;
+    background: $color-text-primary;
+    border-radius: 160px;
+  }
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .hero-cashback {
+    border-radius: 20px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .hero-cashback {
+    border-radius: 16px;
+  }
+}
+

@@ -18,7 +18,7 @@ export const Profile: FC = () => {
       <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />
       <UserProfileInfo />
       <TransactionHistory />
-      <SupportPanel />
+      <SupportPanel className={styles.supportPanel} />
     </div>
   );
 };

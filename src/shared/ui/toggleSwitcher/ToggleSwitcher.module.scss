@@ -1,0 +1,84 @@
+@use "../../styles/variables" as *;
+
+.toggle {
+  cursor: pointer;
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  box-sizing: border-box;
+  padding: 3px;
+
+  background-color: #212738;
+  border: none;
+  border-radius: 160px;
+
+  transition: background-color 0.25s ease-out,
+  box-shadow 0.25s ease-out;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid rgba(24, 115, 242, 70%);
+  outline-offset: 2px;
+}
+
+.thumb {
+  position: relative;
+  transform: translateX(0);
+
+  display: block;
+
+  background-color: #313b52;
+  border-radius: 999px;
+
+  transition: transform 0.25s ease-out,
+  background-color 0.25s ease-out;
+}
+
+.md {
+  width: 50px;
+  height: 28px;
+}
+
+.md .thumb {
+  width: 22px;
+  height: 22px;
+}
+
+.sm {
+  width: 40px;
+  height: 22px;
+}
+
+.sm .thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.on {
+  background-color: #1873f2;
+}
+
+.on .thumb {
+  background-color: #f0f5ff;
+}
+
+.md.on .thumb {
+  transform: translateX(22px);
+}
+
+.sm.on .thumb {
+  transform: translateX(16px);
+}
+
+.off {
+  background-color: #212738;
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.5;
+}

@@ -25,10 +25,15 @@
       "gold": "Золото",
       "diamond": "Бриллиант"
     },
-    "turnover": "Оборот",
+    "turnover": {
+      "bronze": "От 200 000 ₽ оборота",
+      "silver": "От 1 000 000 ₽ оборота",
+      "gold": "От 5 000 000 ₽ оборота",
+      "diamond": "От 10 000 000 ₽ оборота"
+    },
     "benefits": {
-      "weeklyCashback": "Недельный кэшбек 10%",
-      "monthlyCashback": "Месячный кэшбек 10%",
+      "weeklyCashback": "Недельный кэшбек 15%",
+      "monthlyCashback": "Месячный кэшбек 15%",
       "vipManager": "Личный VIP-менеджер"
     }
   }

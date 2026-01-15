@@ -145,7 +145,7 @@ node scripts/create-component.js <ComponentName> <targetPath>
 node scripts/create-component.js Button src/shared/ui
 
 # Создать компонент UserCard в widgets
-node scripts/create-component.js UserCard src/widgets
+node scripts/create-component.js slotWindow src/widgets
 ```
 
 ### Создаваемая структура

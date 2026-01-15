@@ -2,7 +2,6 @@
 
 .rewardsCards {
   display: grid;
-  grid-template-areas: "bonus slot cashback";
   grid-template-columns: 49.3% 24% 24%;
   gap: $spacing-md;
   justify-content: center;
@@ -12,18 +11,32 @@
   height: auto;
 }
 
+.bonusCard{
+  background-image: url("../../shared/assets/images/bonuseCardIcon.png");
+}
+
+.inviteCard{
+  background-image: url("../../shared/assets/images/inviteCardIcon.png");
+}
+
 @media screen and (max-width: $media-laptop-plus) {
   .rewardsCards {
-    grid-template-columns: 48.6% 23.2% 23.2%;
-    aspect-ratio: 768 / 224;
-    margin-bottom: 23px;
+    grid-template-columns: 49.48% 24.22% 24.22%;
+    gap: 8px;
+    aspect-ratio: 768 / 258;
+    max-height: 258px;
   }
 }
 
+
+
 @media screen and (max-width: $media-tab-mini) {
   .rewardsCards {
-    grid-template: "bonus bonus" 43% "slot cashback" 54% / 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 258px 175px ;
     gap: 10px;
-    aspect-ratio: 358 / 411;
+
+    aspect-ratio: auto;
+    max-height: min-content;
   }
 }

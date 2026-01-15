@@ -12,9 +12,10 @@ import styles from './UserBalance.module.scss';
 interface Props {
   isMain: boolean;
   amount: number;
+  className?: string;
 }
 
-export const UserBalance: FC<Props> = ({ isMain, amount }) => {
+export const UserBalance: FC<Props> = ({ isMain, amount, className }) => {
   const { t } = useTranslation('profile');
   const formattedAmount = formatRubles(amount);
   const text = isMain ? t('userBalance.mainBalance') : t('userBalance.bonusBalance');
@@ -24,7 +25,7 @@ export const UserBalance: FC<Props> = ({ isMain, amount }) => {
   const classNameValue = isMain ? 'mainBalance' : 'bonusBalance';
 
   return (
-    <div className={clsx(styles.balance, classNameValue)}>
+    <div className={clsx(styles.balance, classNameValue, className)}>
       <p className={styles.amount}>{formattedAmount}</p>
       <p className={styles.text}>{text}</p>
       <Button className={styles.balanceButton} variant={buttonVariant} icon={buttonIcon}>

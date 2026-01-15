@@ -25,11 +25,16 @@
       "gold": "Gold",
       "diamond": "Diamond"
     },
-    "turnover": "Turnover",
+    "turnover": {
+      "bronze": "From ₽200,000 turnover",
+      "silver": "From ₽1,000,000 turnover",
+      "gold": "From ₽5,000,000 turnover",
+      "diamond": "From ₽10,000,000 turnover"
+    },
     "benefits": {
-      "weeklyCashback": "Weekly cashback 10%",
-      "monthlyCashback": "Monthly cashback 10%",
-      "vipManager": "Personal VIP manager"
+      "weeklyCashback": "Weekly cashback 15%",
+      "monthlyCashback": "Monthly cashback 15%",
+      "vipManager": "Personal VIP Manager"
     }
   }
 }

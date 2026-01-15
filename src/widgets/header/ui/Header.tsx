@@ -53,7 +53,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
           <div className={styles.unauthenticatedWrapper}>
             <LoginModal
               trigger={
-                <Button variant={'primary'} className={styles.signUp} aria-label={t('login')}>
+                <Button variant={'primary'} className={styles.signUp} size={'s'} aria-label={t('login')}>
                   {t('login')}
                 </Button>
               }

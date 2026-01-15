@@ -1,0 +1,160 @@
+@use "../../../shared/styles/variables" as *;
+
+.slotsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+
+  .dropdownContainer {
+    display: flex;
+    gap: 8px;
+    min-width: 408px;
+
+    .dropdown {
+      height: 47px;
+    }
+
+  }
+}
+
+.dropdownItems {
+  padding: 8px;
+  background: #282F42;
+  border-radius: 10px;
+}
+
+.dropdownItem,
+.popularItem {
+  cursor: pointer;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  width: 100%;
+  padding: 8px 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+  letter-spacing: -0.14px;
+
+  background: #282F42;
+  outline: none;
+
+  transition: color 0.2s;
+
+
+  & > svg {
+    min-width: 19px;
+    min-height: 19px;
+  }
+
+  span {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    text-overflow: ellipsis;
+    word-break: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+  }
+
+  &:hover {
+    color: $color-text-secondary;
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(24, 115, 242, 70%);
+    outline-offset: 2px;
+  }
+
+}
+
+
+.loadMore {
+  max-width: 173px;
+  min-height: 47px;
+  margin: 5px auto 0;
+
+  &:disabled {
+    opacity: 0.85;
+  }
+
+}
+
+.spinner {
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid currentcolor;
+  border-top-color: transparent;
+  border-radius: 50%;
+
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingButton {
+  .buttonText {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $media-tab) {
+  .loadMore {
+    margin: 7px auto 0;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .controls {
+    flex-direction: column;
+
+    .dropdownContainer {
+      display: grid;
+      grid-template-columns: 43% 54%;
+      gap: 0;
+      justify-content: space-between;
+
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+
+    .dropdown {
+      height: 44px !important;
+    }
+
+    .triggerDropdown {
+      font-size: 14px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.14px;
+    }
+  }
+
+  .loadMore {
+    margin: 4px auto 0;
+  }
+}

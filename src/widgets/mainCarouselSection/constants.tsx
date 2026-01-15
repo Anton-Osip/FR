@@ -1,15 +1,20 @@
 import { type FC, type SVGProps } from 'react';
 
-import { FireIcon, FlashIcon, MicrophoneIcon, SevenIcon, WindowIcon } from '@shared/ui/icons/';
+import { ClockIcon, FireIcon, FlashIcon, MicrophoneIcon, SevenIcon, WindowIcon } from '@shared/ui/icons/';
 import type { Tab } from '@shared/ui/tabs/Tabs';
 
 interface CarouselDataItem {
   icon: FC<SVGProps<SVGSVGElement>>;
   title: string;
-  id: 'popular' | 'slot' | 'live' | 'fast';
+  id: 'popular' | 'slot' | 'live' | 'fast' | 'history';
 }
 
 export const getCarouselData = (t: (key: string) => string): CarouselDataItem[] => [
+  {
+    icon: ClockIcon,
+    title: t('carousel.history'),
+    id: 'history',
+  },
   {
     icon: FireIcon,
     title: t('carousel.popular'),

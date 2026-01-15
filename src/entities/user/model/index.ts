@@ -1,1 +1,1 @@
-export type { UserMe, UserBalance, BalanceStreamPayload } from './types';
+export type { UserMe, UserBalance, BalanceStreamPayload, UserGeoCountry } from './types';

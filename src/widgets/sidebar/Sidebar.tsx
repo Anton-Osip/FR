@@ -71,21 +71,75 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
 
   const Game1Items: MenuItems[] = useMemo(
     () => [
-      { id: '1', icon: <SevenIcon />, label: t('menuItems.slots'), isActive: false },
-      { id: '2', icon: <PopularIcon />, label: t('menuItems.popular'), isActive: false },
-      { id: '3', icon: <FlashIcon />, label: t('menuItems.quickGames'), isActive: false },
-      { id: '4', icon: <StarIcon />, label: t('menuItems.new'), isActive: false },
-      { id: '5', icon: <LikeIcon />, label: t('menuItems.recommended'), isActive: false },
+      {
+        id: '1',
+        icon: <SevenIcon />,
+        label: t('menuItems.slots'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'allGames'),
+      },
+      {
+        id: '2',
+        icon: <PopularIcon />,
+        label: t('menuItems.popular'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'popularGames'),
+      },
+      {
+        id: '3',
+        icon: <FlashIcon />,
+        label: t('menuItems.quickGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'quickGames'),
+      },
+      {
+        id: '4',
+        icon: <StarIcon />,
+        label: t('menuItems.new'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'newGames'),
+      },
+      {
+        id: '5',
+        icon: <LikeIcon />,
+        label: t('menuItems.recommended'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'recommendedGames'),
+      },
     ],
     [t],
   );
 
   const Game2Items: MenuItems[] = useMemo(
     () => [
-      { id: '1', icon: <CardsIcon />, label: t('menuItems.blackjack'), isActive: false },
-      { id: '2', icon: <RouletteIcon />, label: t('menuItems.roulette'), isActive: false },
-      { id: '3', icon: <MicrophoneIcon />, label: t('menuItems.liveGames'), isActive: false },
-      { id: '4', icon: <BaccareIcon />, label: t('menuItems.baccarat'), isActive: false },
+      {
+        id: '1',
+        icon: <CardsIcon />,
+        label: t('menuItems.blackjack'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'blackjackGames'),
+      },
+      {
+        id: '2',
+        icon: <RouletteIcon />,
+        label: t('menuItems.roulette'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'rouletteGames'),
+      },
+      {
+        id: '3',
+        icon: <MicrophoneIcon />,
+        label: t('menuItems.liveGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'liveGames'),
+      },
+      {
+        id: '4',
+        icon: <BaccareIcon />,
+        label: t('menuItems.baccarat'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'baccaratGames'),
+      },
     ],
     [t],
   );

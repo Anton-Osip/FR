@@ -45,9 +45,9 @@ export const MainLayout: FC = () => {
 
   return (
     <div className={styles.layout}>
-      <Header className={styles.headerLayout} />
       <Sidebar className={styles.sidebarLayout} />
       <main ref={mainRef} className={styles.layoutMain}>
+        <Header className={styles.headerLayout} />
         <div className={styles.layoutMainContainer}>
           <Outlet />
         </div>

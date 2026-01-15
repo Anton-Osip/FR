@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import silverBg from '@shared/assets/icons/silver-bg.svg?url';
@@ -17,16 +18,17 @@ interface User {
 
 interface Props {
   user: User;
+  className?: string;
 }
 
-export const UserInfo: FC<Props> = ({ user }) => {
+export const UserInfo: FC<Props> = ({ user, className }) => {
   const { t } = useTranslation('profile');
 
   return (
-    <div className={styles.info}>
+    <div className={clsx(styles.info, className)}>
       <div className={styles.infoWrap}>
         <div className={styles.user}>
-          <Avatar />
+          <Avatar className={styles.avatar} />
           <div className={styles.userData}>
             <p className={styles.userName}>{user.username}</p>
             <p className={styles.userIdWrapper}>
@@ -35,7 +37,7 @@ export const UserInfo: FC<Props> = ({ user }) => {
             </p>
           </div>
         </div>
-        <UserAmountProgress amount={user.balance} />
+        <UserAmountProgress amount={user.balance} isProfile={true} className={styles.userAmountProgress} />
       </div>
       <img className={styles.userInfoImage} src={silverBg} alt={t('userInfo.silverAlt')} />
     </div>

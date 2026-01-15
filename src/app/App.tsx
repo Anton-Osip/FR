@@ -11,11 +11,15 @@ import { Favorites } from '@pages/favorites';
 import { HomePage } from '@pages/home';
 import { Invite } from '@pages/invite';
 import { Profile } from '@pages/profile';
+import { Slot } from '@pages/slot';
+import { Slots } from '@pages/slots';
 
 import { LOGIN_HOSTNAME, TELEGRAM_BOT_NAME, APP_PATH } from '@shared/config';
 
 import { useAuthFlow } from '@/features/auth';
+import { useAppDispatch } from '@/shared/api';
 import { TelegramLoginWidget, Preloader } from '@/widgets';
+import { userApi } from '@entities/user';
 
 const WIDGET_CHECK_INTERVAL_MS = 100;
 const WIDGET_CHECK_TIMEOUT_MS = 5000;
@@ -32,6 +36,11 @@ const App: FC = () => {
 
   const [isWidgetLoaded, setIsWidgetLoaded] = useState(() => !isLoginHost);
   const prevIsLoginHostRef = useRef<boolean>(isLoginHost);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(userApi.util.prefetch('getUserGeoCountry', undefined, { ifOlderThan: 3600 }));
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isLoginHost) {
@@ -89,6 +98,8 @@ const App: FC = () => {
           <Route path={APP_PATH.profile} element={<Profile />} />
           <Route path={APP_PATH.invite} element={<Invite />} />
           <Route path={APP_PATH.favorites} element={<Favorites />} />
+          <Route path={APP_PATH.slots} element={<Slots />} />
+          <Route path={APP_PATH.slot} element={<Slot />} />
           <Route path="*" element={<Navigate to={APP_PATH.main} replace />} />
         </Route>
       </Routes>

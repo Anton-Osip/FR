@@ -1,6 +1,6 @@
 @use "../../../shared/styles/variables" as *;
 
-.amountCard  {
+.amountCard {
   position: relative;
 
   overflow: hidden;
@@ -13,11 +13,14 @@
   min-height: 242px;
   padding: 32px;
 
-  background: #131824;
+  background-color: #131824;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: contain;
   border-radius: 24px;
 }
 
-.amount{
+.amount {
   font-size: 32px;
   font-weight: 600;
   font-style: normal;
@@ -25,10 +28,35 @@
   letter-spacing: -0.32px;
 }
 
-.description{
+.description {
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
   line-height: normal;
-  color:$color-text-secondary;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+@media screen and (max-width: $media-laptop) {
+  .amount {
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 140%;
+    letter-spacing: -0.2px;
+  }
+
+  .description {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .amountCard {
+    min-height: 175px;
+  }
 }

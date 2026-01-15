@@ -1,0 +1,16 @@
+@use "../../../shared/styles/variables" as *;
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+
+}
+
+.betsSectionDropdown{
+  display: none;
+
+  @media (max-width : $media-tab-mini) {
+    display: flex;
+  }
+}

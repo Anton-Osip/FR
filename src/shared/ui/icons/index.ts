@@ -37,3 +37,7 @@ export { RepeatIcon } from './RepeatIcon';
 export { MailIcon } from './MailIcon';
 export { LockIcon } from './LockeIcon';
 export { PopularIcon } from './PopularIcon';
+export { ArrowIcon } from './ArrowIcon';
+export { RectangleIcon } from './RectangleIcon';
+export { MaximizeIcon } from './MaximizeIcon';
+export { ClockIcon } from './ClockIcon';

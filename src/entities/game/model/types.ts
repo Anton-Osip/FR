@@ -16,6 +16,7 @@ export interface Game {
   game_kind: GameKind;
   is_new: boolean;
   is_popular: boolean;
+  is_favorite: boolean;
   is_featured: boolean;
   provider: GameProvider;
   blocked_countries: string[];

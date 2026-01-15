@@ -1,0 +1,65 @@
+@use "../../shared/styles/variables" as *;
+
+.slotsHeader {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+
+  .backBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    min-width: auto;
+    max-width: 28px;
+    max-height: 28px;
+    padding: 8px;
+
+    color: #F0F5FF;
+
+    background: #212738;
+    border: 1px solid #282F42;
+    border-radius: 10px;
+
+    & span {
+      width: 11px !important;
+      height: 10px !important;
+    }
+
+    & .arrow {
+      transform: rotate(-90deg);
+      width: 11px;
+      height: 10px;
+
+      & > svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+    letter-spacing: -0.24px;
+  }
+}
+
+@media screen and (max-width: $media-tab) {
+  .slotsHeader {
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.2px;
+    }
+  }
+}
+
+
+

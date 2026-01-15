@@ -1,12 +1,6 @@
 @use "../../shared/styles/variables.scss" as *;
 
-.wrapper {
-  width: 100%;
-}
-
 .title {
-  margin-bottom: $spacing-lg-plus;
-
   font-size: 26px;
   font-weight: 600;
   font-style: normal;
@@ -16,7 +10,63 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: $spacing-md;
+  align-items: center;
+  margin-top: $spacing-lg-plus;
+}
+
+.carouselHeaderButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-bottom: $spacing-lg-plus;
+}
+
+.carouselHeaderControls {
+  display: flex;
+  gap: 4px;
+}
+
+.carouselButton {
+  color: $color-text-primary;
+  background-color: $color-bg-on-block;
+
+  &:hover {
+    background-color: $color-bg-on-block-hover;
+  }
+
+  &:disabled {
+    color: $color-text-secondary;
+    background-color: $color-bg-block;
+  }
+}
+
+.swiper {
+  width: 100%;
+}
+
+.swiperSlide {
+  flex-shrink: 0;
+  width: 284px;
+}
+
+@media screen and (max-width: $media-tab) {
+  .swiperSlide {
+    width: 268px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.2px;
+  }
+
+  .carouselHeaderButtons {
+    margin-bottom: 16px;
+  }
 }

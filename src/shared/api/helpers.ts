@@ -1,6 +1,11 @@
 import { feLog } from '@shared/lib';
 
-export type BaseQueryFn = (args: { url: string; method: string; body?: unknown }) => Promise<{
+export type BaseQueryFn = (args: {
+  url: string;
+  method: string;
+  body?: unknown;
+  headers?: Record<string, string>;
+}) => Promise<{
   data?: unknown;
   error?: { status: number; data: unknown };
   meta?: { requestId?: string };
@@ -11,6 +16,7 @@ export interface ApiRequestConfig {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: unknown;
+  headers?: Record<string, string>;
   logData?: Record<string, unknown>;
 }
 
@@ -25,6 +31,7 @@ export async function executeApiRequest<T>(
       url: config.url,
       method: config.method,
       body: config.body,
+      headers: config.headers,
     });
 
     if (result.error) {

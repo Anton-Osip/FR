@@ -20,6 +20,8 @@
   border-color: transparent;
   border-radius: $radius-md;
 
+  transition: all 0.3s ease;
+
   .label {
     font-size: 18px;
     font-weight: 600;
@@ -40,7 +42,7 @@
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 18%);
   }
 

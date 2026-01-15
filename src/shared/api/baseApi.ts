@@ -49,6 +49,6 @@ const customBaseQuery: BaseQueryFn<CustomBaseQueryArgs, unknown, CustomBaseQuery
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: customBaseQuery,
-  tagTypes: ['User', 'Balance', 'Showcase'],
+  tagTypes: ['User', 'Balance', 'Showcase', 'GeoCountry'],
   endpoints: () => ({}),
 });

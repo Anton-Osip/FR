@@ -90,14 +90,14 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
         </TableBody>
         <TableFooter className={styles.tFooter}>
           <TableRow>
-            <TableHead className={`${styles.th} ${styles[styles.placeFooter]}`}>{me?.place}</TableHead>
+            <TableHead className={`${styles.th} ${styles.placeFooter}`}>{me?.place}</TableHead>
             <TableCell className={`${styles.userBody} ${styles.td}`}>
               <div className={styles.userCell}>
                 <span className={styles.userAvatar} />
                 <span className={styles.userName}>{t('ratingTable.you')}</span>
               </div>
             </TableCell>
-            <TableHead className={`${styles.th} ${styles[styles.amountFooter]}`}>{me?.amount} ₽</TableHead>
+            <TableHead className={`${styles.th} ${styles.amountFooter}`}>{me?.amount} ₽</TableHead>
           </TableRow>
         </TableFooter>
       </Table>

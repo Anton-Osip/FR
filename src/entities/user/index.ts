@@ -1,2 +1,8 @@
-export { userApi, useGetUserMeQuery, useGetUserBalanceQuery } from './api/userApi';
-export type { UserMe, UserBalance, BalanceStreamPayload } from './model';
+export {
+  userApi,
+  useGetUserMeQuery,
+  useGetUserBalanceQuery,
+  useGetUserGeoCountryQuery,
+  useUserGeoCountry,
+} from './api/userApi';
+export type { UserMe, UserBalance, BalanceStreamPayload, UserGeoCountry } from './model';

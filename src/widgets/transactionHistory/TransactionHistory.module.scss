@@ -1,33 +1,281 @@
+@use "../../shared/styles/variables.scss" as *;
+
 .transactionHistory {
+  position: relative;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
   width: 100%;
+  min-height: 0;
+
+  .shadow {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: -2px;
+    left: 0;
+
+    width: 100%;
+    height: 132px;
+    min-height: 132px;
+
+    background: linear-gradient(0deg, var(--bg-bg, #090D14) 17.32%, rgba(9, 13, 20, 0%) 114.12%);
+  }
 }
 
+
 .title {
+  flex-shrink: 0;
+
   margin-bottom: 24px;
 
   font-size: 26px;
   font-weight: 600;
   font-style: normal;
   line-height: normal;
+  color: #FFF;
   letter-spacing: -0.26px;
 }
 
-.th {
-  padding: 7px 10px;
+.grid {
+  position: relative;
+
+  overflow-y: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 24px;
+
+  min-height: 0;
+  max-height: 429px;
 }
 
-.amountCellBody {
-  padding: 7px 14px;
+.grid::-webkit-scrollbar-thumb {
+  width: 4px;
+  background: #212738;
+  background-clip: unset;
 }
 
-.dateCellBody {
-  padding: 7px;
+.grid::-webkit-scrollbar {
+  width: 4px;
 }
 
-.statusCell {
-  padding: 7px 0;
+.grid::-webkit-scrollbar-button:vertical:start:decrement,
+.grid::-webkit-scrollbar-button:vertical:end:increment {
+  display: none !important;
 }
 
-.win {
-  color: #00E544
+
+.dayData {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+
+.dayTitle {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
+
+.item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 10px 12px;
+
+  background: #131824;
+  border-radius: 12px;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1/1;
+  width: 46px;
+  height: 46px;
+
+  color: #727E9B;
+
+  background: #212738;
+  border-radius: 8px;
+
+  &.down {
+    transform: rotate(-180deg);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.type {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+}
+
+.time {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #727E9B;
+}
+
+.status {
+  font-size: 16px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.16px;
+
+  &.pending {
+    color: #727E9B;
+  }
+
+  &.resolved {
+    color: #00E544;
+  }
+
+  &.rejected {
+    color: #F2494B;
+  }
+}
+
+
+@media screen and (max-width: $media-tab) {
+  .transactionHistory {
+    overflow: hidden;
+
+    .shadow {
+      transform: translateY(50%);
+    }
+  }
+
+  .grid {
+    max-height: 361px;
+  }
+}
+
+@media screen and (max-width: $media-tab) {
+  .item {
+    padding: 10px 7px 10px 10px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .transactionHistory {
+    .shadow {
+      bottom: -24px;
+      transform: translateY(0);
+    }
+  }
+
+  .title {
+    margin-bottom: 12px;
+
+    font-size: 22px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.22px;
+  }
+
+  .grid {
+    gap: 10px;
+    max-height: 289px;
+
+    .dayData{
+      gap: 9px;
+    }
+
+    .dayTitle {
+      font-size: 18px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.18px;
+    }
+
+    .item {
+      padding:8px;
+    }
+
+    .image {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
+
+    .wrapper {
+      gap: 6px;
+    }
+
+    .type,
+    .amount,
+    .time {
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+    }
+
+    .status {
+      font-size: 14px;
+      font-weight: 450;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.14px;
+    }
+  }
+
+
+}
+
+@media screen and (max-width: $media-mobile-plus) {
+  .item {
+    border-radius: 12px 0 12px 12px;
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    border-radius: 0 12px 12px;
+  }
+
+  .grid::-webkit-scrollbar {
+    width: 4px;
+  }
+
+}
+
+
+

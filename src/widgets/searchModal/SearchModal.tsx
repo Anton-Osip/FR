@@ -1,10 +1,12 @@
 import { ChangeEvent, FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { selectDeviceType } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
+import { APP_PATH } from '@shared/config';
 import { Button, Input, Modal, Tabs } from '@shared/ui';
 import type { Tab } from '@shared/ui';
 import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
@@ -296,9 +298,15 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
                     </div>
                   ))
                 : accumulatedData?.items.map(g => (
-                    <div className={styles.imageWrapper} key={g.id}>
+                    <Link
+                      to={APP_PATH.slot.replace(':id', String(g.uuid))}
+                      className={styles.imageWrapper}
+                      key={g.id}
+                      draggable={false}
+                      onClick={() => onOpenChange?.(false)}
+                    >
                       {g.image ? <img src={g.image} alt={g.name || 'Game'} /> : <div className={styles.placeholder} />}
-                    </div>
+                    </Link>
                   ))}
               <div className={styles.more}>
                 <p className={styles.text}>

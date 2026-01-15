@@ -1,0 +1,14 @@
+@use "../../shared/styles/variables" as *;
+
+.pedestalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  .tabs {
+    width: 100%;
+    max-width: 590px;
+    margin-left: auto;
+  }
+}
+

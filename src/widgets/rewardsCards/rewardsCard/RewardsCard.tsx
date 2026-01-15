@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Input } from '@shared/ui';
 
+import rewardsCardIcon from '../../../shared/assets/icons/rewardsCardIcon.svg?url';
+
 import styles from './RewardsCard.module.scss';
 
 interface RewardsCardProps {
@@ -26,6 +28,9 @@ export const RewardsCard: FC<RewardsCardProps> = ({ className }) => {
       <div className={styles.inputWrapper}>
         <Input className={styles.input} value={inputValue} onChange={e => setInputValue(e.target.value)} />
         <Button className={styles.button}>{t('rewardsCards.inviteButton')}</Button>
+      </div>
+      <div className={styles.image}>
+        <img src={rewardsCardIcon} alt="animation" />
       </div>
     </div>
   );

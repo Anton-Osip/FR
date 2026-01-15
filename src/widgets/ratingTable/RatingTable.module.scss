@@ -26,12 +26,12 @@
 }
 
 .userBody,
-.user{
+.user {
   padding: 7px 10px;
 }
 
 
-.amountBody{
+.amountBody {
   padding-left: 0;
 }
 
@@ -57,20 +57,63 @@
   }
 }
 
-.isMe{
+.isMe {
   background: #0F141F;
 
 }
 
-.tFooter{
-  .th{
+.tFooter {
+  .th {
     color: $color-text-secondary;
   }
 
-  .userBody{
+  .userBody {
     padding: 7px 10px;
     background: #0F141F;
     border-top: 1px solid #212738;
   }
 
+}
+
+@media screen and (max-width: $media-tab) {
+  .header {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.2px;
+    }
+  }
+
+  .user {
+    display: none;
+  }
+
+  .userBody {
+    display: none;
+  }
+
+  .amount{
+    text-align: right;
+  }
+
+  .amountBody{
+    text-align: right;
+  }
+
+  .amountFooter{
+    text-align: right;
+  }
 }

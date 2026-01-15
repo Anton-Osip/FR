@@ -1,28 +1,10 @@
 export interface UserMe {
-  id: number;
   user_id: number;
-  user_firstname: string | null;
-  user_name: string | null;
-  reg_date: number;
-  balance: string | null;
-  ref_id: number | null;
-  type_pay: number | null;
-  personal_ref_link: string | null;
-  active: number;
+  user_firstname: string;
+  user_name: string;
   block: number;
   is_hidden: number;
-  language_tag: string | null;
-  country_code: string | null;
-  region_key: string | null;
-  region_title: string | null;
-  region_emoji: string | null;
-  webapp_url: string | null;
-  images_url: string | null;
-  language_locked: boolean;
-  region_locked: boolean;
-  avatar_url: string | null;
-  locale_source: string | null;
-  is_partner: boolean;
+  avatar_url: string;
 }
 
 export interface UserBalance {
@@ -35,3 +17,9 @@ export interface UserBalance {
 export type BalanceStreamPayload = {
   balance: number;
 };
+
+export interface UserGeoCountry {
+  country_code: string;
+  client_ip: string;
+  ip_source: string;
+}

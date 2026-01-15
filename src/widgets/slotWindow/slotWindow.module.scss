@@ -1,0 +1,19 @@
+@use "../../shared/styles/variables" as *;
+
+.slotWindow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .load {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    aspect-ratio: 1182/665;
+    width: 100%;
+
+    background: #0F141F;
+    border-radius: 24px;
+  }
+}

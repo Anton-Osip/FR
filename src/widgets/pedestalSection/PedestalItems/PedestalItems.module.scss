@@ -1,0 +1,296 @@
+@use "../../../shared/styles/variables" as *;
+
+.pedestalItemsWrapper {
+  container-type: inline-size;
+  width: 100%;
+}
+
+.pedestalItems {
+  position: relative;
+
+  height: 100%;
+  padding: 52px 16px 0;
+
+  background: #131824;
+  border-radius: 16px;
+
+  .overflowContainer {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 16px;
+  }
+
+  .bg {
+    position: absolute;
+
+    width: 252px;
+    height: 232px;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+    mix-blend-mode: overlay;
+
+    &.right {
+      right: -92px;
+      bottom: 0;
+      background-image: url("../../../shared/assets/icons/pedestalBgRight.svg");
+    }
+
+    &.left {
+      bottom: 0;
+      left: 0;
+      background-image: url("../../../shared/assets/icons/pedestalBgLeft.svg");
+    }
+  }
+
+  .titleWrapper {
+    position: absolute;
+    z-index: 1;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 8px;
+
+    background: #131824;
+    border-radius: 16px;
+
+    .title {
+      padding: 10px 16px;
+
+      font-size: 16px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      color: #F0F5FF;
+      letter-spacing: -0.16px;
+      white-space: nowrap;
+
+      background: #212738;
+      border-radius: 10px;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    justify-content: center;
+
+    height: 100%;
+
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .image {
+    overflow: hidden;
+
+    width: 44px;
+    height: 44px;
+
+    background: #2B3247;
+    border-radius: 1600px;
+  }
+
+  .name {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+    text-align: center;
+    text-overflow: ellipsis;
+    letter-spacing: -0.14px;
+  }
+
+  .amount {
+    font-size: 16px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+    text-align: center;
+    letter-spacing: -0.16px;
+  }
+
+  .coefficient {
+    padding: 2px 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1;
+    color: #727E9B;
+
+    background: #282F42;
+    border-radius: 12px;
+  }
+
+  .place img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .place3 {
+    aspect-ratio: 91/84;
+    width: 100%;
+    max-width: 91px;
+  }
+
+  .place2 {
+    aspect-ratio: 91/94;
+    width: 100%;
+    max-width: 91px;
+
+  }
+
+  .place1 {
+    aspect-ratio: 128/104;
+    width: 100%;
+    max-width: 128px;
+  }
+
+  .skeletonImage {
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    border-radius: 1600px;
+
+    animation: loading 1.5s ease-in-out infinite;
+  }
+
+  .skeletonText {
+    display: inline-block;
+
+    margin: 0;
+
+    background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+
+    animation: loading 1.5s ease-in-out infinite;
+  }
+
+  .name.skeletonText {
+    width: 80px;
+    height: 14px;
+    line-height: normal;
+  }
+
+  .amount.skeletonText {
+    width: 100px;
+    height: 16px;
+    line-height: normal;
+  }
+
+  .coefficient.skeletonText {
+    box-sizing: border-box;
+    width: 50px;
+    height: 18px;
+    padding: 2px 8px;
+
+    line-height: 1;
+
+    border-radius: 12px;
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}
+
+@container (max-width: 590px) {
+  .pedestalItems {
+    background-image: url("../../../shared/assets/images/pedestalBg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 949px 573px;
+  }
+}
+
+@container (min-width: 590px) {
+  .pedestalItems {
+    padding: 44px 126px 0;
+
+    .info {
+      gap: 9px;
+    }
+
+    .container {
+      justify-content: space-between !important;
+      max-width: 457px;
+      margin: 0 auto;
+    }
+
+    .overflowContainer {
+      display: block;
+    }
+
+    .place3 {
+      aspect-ratio: 102/95;
+      width: 100%;
+      min-width: 102px;
+    }
+
+    .place2 {
+      aspect-ratio: 97/100;
+      width: 100%;
+      min-width: 97px;
+
+    }
+
+    .place1 {
+      aspect-ratio: 140/113;
+      width: 100%;
+      min-width: 140px;
+    }
+  }
+}
+
+@container  (max-width: 640px) {
+  .pedestalItems {
+    .container {
+      gap: 8px;
+      justify-content: space-between !important;
+      max-width: 457px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media screen and (width <= 465px) {
+  .pedestalItems {
+    padding: 17px 8px 0;
+  }
+}

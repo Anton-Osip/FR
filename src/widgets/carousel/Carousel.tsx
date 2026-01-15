@@ -6,21 +6,22 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { SwiperOptions } from 'swiper/types';
 
-import { selectDeviceType } from '@app/store';
+import { selectDeviceType, selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
+import { APP_PATH } from '@shared/config';
 import { Button } from '@shared/ui';
 
 import 'swiper/css';
 
 import styles from './Carousel.module.scss';
-import { CarouselItem } from './CarouselItem/CarouselItem';
-import { CarouselItemSkeleton } from './CarouselItem/CarouselItemSkeleton';
 import { useCarousel } from './useCarousel';
 
 import type { GameKind } from '@/entities/game';
 import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
 import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
+import { CarouselItem, CarouselItemSkeleton } from '@/widgets';
+import { useUserGeoCountry } from '@entities/user';
 
 const REINIT_DELAY_MS = 100;
 const CHECK_REINIT_DELAY_MS = 100;
@@ -43,7 +44,7 @@ const DEFAULT_BREAKPOINTS = {
 interface Props {
   title: string;
   icon: FC<SVGProps<SVGSVGElement>>;
-  items: 'popular' | GameKind;
+  items: 'popular' | 'history' | GameKind;
   isPopular: boolean;
 }
 
@@ -51,22 +52,26 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) =
   const { t } = useTranslation('home');
   const { swiperRef, swiper, canScrollPrev, canScrollNext, scrollPrev, scrollNext, isNearEnd } = useCarousel();
   const deviceType = useAppSelector(selectDeviceType);
-
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const options: GetShowcaseGamesParams = useMemo(
     () => ({
       page_size: 30,
       only_popular: items === 'popular' || undefined,
-      game_kinds: items !== 'popular' ? [items] : undefined,
+      game_kinds: items !== 'popular' && items !== 'history' ? [items] : undefined,
       sort: 'popular',
       sort_dir: 'asc',
       only_mobile: deviceType === 'mobile',
+      only_history: items === 'history',
+      include_blocked_regions: true,
     }),
     [deviceType, items],
   );
 
-  const { data: initialData, isLoading } = useGetShowcaseGamesQuery(options);
+  const { data: initialData, isLoading } = useGetShowcaseGamesQuery(options, {
+    skip: items === 'history' && !isLoggedIn,
+  });
   const [loadMoreQuery, { isLoading: isLoadingMore }] = useLazyGetShowcaseGamesQuery();
-
+  const { data: geo } = useUserGeoCountry();
   const [accumulatedData, setAccumulatedData] = useState<ShowcaseGamesResponse | null>(null);
   const isLoadingMoreRef = useRef(false);
   const hasInitializedRef = useRef(false);
@@ -123,6 +128,19 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) =
     }
   }, [accumulatedData, isLoadingMore, loadMoreQuery, options, swiper]);
 
+  const countryIsBlocked = useCallback(
+    (blockedCountries: string[] = []): boolean => {
+      if (!geo?.country_code || !Array.isArray(blockedCountries) || blockedCountries.length === 0) {
+        return false;
+      }
+
+      const userCountry = geo.country_code.toUpperCase();
+
+      return blockedCountries.some(country => country?.toUpperCase() === userCountry);
+    },
+    [geo?.country_code],
+  );
+
   const slidesData = useMemo(() => {
     if (isLoading && !accumulatedData) {
       return Array.from({ length: 7 }).map((_, index) => ({ id: `skeleton-${index}`, type: 'skeleton' as const }));
@@ -130,13 +148,19 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) =
 
     const items = accumulatedData?.items || [];
 
-    // Если данных нет, показываем пустые блоки
     if (items.length === 0 && !isLoading) {
       return Array.from({ length: 7 }).map((_, index) => ({ id: `empty-${index}`, type: 'empty' as const }));
     }
 
-    return items.map(item => ({ id: item.id, type: 'item' as const, img: item.image, link: item.slug }));
-  }, [isLoading, accumulatedData]);
+    return items.map(item => ({
+      id: item.id,
+      type: 'item' as const,
+      img: item.image,
+      link: APP_PATH.slot.replace(':id', String(item.uuid)),
+      is_favorite: item.is_favorite,
+      blocked_countries: countryIsBlocked(item.blocked_countries),
+    }));
+  }, [isLoading, accumulatedData, countryIsBlocked]);
 
   const hasSlides = useMemo(() => slidesData.length > 0, [slidesData]);
 
@@ -264,6 +288,10 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) =
 
   const breakpointsOption = useMemo(() => (isPopular ? POPULAR_BREAKPOINTS : DEFAULT_BREAKPOINTS), [isPopular]);
 
+  if (items === 'history' && (!isLoggedIn || (initialData?.items && initialData.items.length <= 0 && !isLoading))) {
+    return null;
+  }
+
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselHeader}>
@@ -316,7 +344,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items, isPopular }) =
               ) : slideData.type === 'empty' ? (
                 <div className={styles.emptyItem} />
               ) : (
-                <CarouselItem img={slideData.img} link={slideData.link} isPopular={isPopular} />
+                <CarouselItem data={slideData} />
               )}
             </SwiperSlide>
           ))}

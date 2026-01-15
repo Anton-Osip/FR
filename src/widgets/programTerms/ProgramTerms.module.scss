@@ -1,5 +1,9 @@
 @use "../../shared/styles/variables.scss" as *;
 
+.programTerms{
+  
+}
+
 .title {
   margin-bottom: 24px;
 
@@ -18,8 +22,13 @@
 }
 
 .card {
-  max-height: 214px;
+  flex: 1 1 0;
+
+  min-width: 284px;
+  max-width: 284px;
+  height: 214px;
   padding: 32px;
+
   background: #131824;
   border-radius: 20px;
 }
@@ -57,4 +66,17 @@
   line-height: 155%;
   color: $color-text-secondary;
   white-space: pre-line;
+}
+
+@media screen and (max-width: $media-tab) {
+  .card {
+    min-width: 290px;
+    max-width: 290px;
+    height: 198px;
+    padding: $spacing-lg-plus;
+
+    .separator {
+      margin: 13px 0;
+    }
+  }
 }

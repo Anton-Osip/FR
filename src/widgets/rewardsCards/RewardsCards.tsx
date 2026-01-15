@@ -27,10 +27,11 @@ export const RewardsCards: FC<RewardsCardsProps> = ({ className }) => {
   return (
     <div className={clsx(styles.rewardsCards, className ?? '')}>
       <RewardsCard />
-      <AmountCard description={t('rewardsCards.bonusAmount')} amount={`${bonus_sum} ₽`} />
+      <AmountCard description={t('rewardsCards.bonusAmount')} amount={`${bonus_sum} ₽`} className={styles.bonusCard} />
       <AmountCard
         description={t('rewardsCards.invitesCount', { count: invited_count })}
         amount={invited_count_formatted}
+        className={styles.inviteCard}
       />
     </div>
   );

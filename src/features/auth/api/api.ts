@@ -1,8 +1,7 @@
 import { store } from '@app/store';
 
-import { getCookie, fetchJSON, baseApi } from '@shared/api';
+import { getCookie, fetchJSON, baseApi, executeApiRequest, type BaseQueryFn } from '@shared/api';
 import { BFF } from '@shared/config';
-import { feLog } from '@shared/lib';
 import { AuthResult, ClientProfilePayload, TelegramLoginWidgetData } from '@shared/model';
 
 async function ensureCsrf(): Promise<string> {
@@ -30,13 +29,9 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     authenticateTelegramWebApp: builder.mutation<AuthResult, AuthenticateTelegramWebAppRequest>({
       queryFn: async ({ initData, clientProfile }, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          feLog.info('auth.telegram_webapp.start', {
-            hasInitData: !!initData,
-            initDataLength: initData.length,
-          });
-
-          const result = await baseQuery({
+        const result = await executeApiRequest<{ ok?: boolean }>(
+          {
+            endpointName: 'auth.telegram_webapp',
             url: `${BFF}/api/v1/auth/telegram`,
             method: 'POST',
             body: {
@@ -46,58 +41,30 @@ export const authApi = baseApi.injectEndpoints({
             headers: {
               'content-type': 'application/json',
             },
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('auth.telegram_webapp.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'auth_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as { ok?: boolean } | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('auth.telegram_webapp.success', { requestId, ok: responseData?.ok });
-
-          return { data: { ok: true } };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('auth.telegram_webapp.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+            logData: {
+              hasInitData: !!initData,
+              initDataLength: initData.length,
             },
-          };
+          },
+          baseQuery as BaseQueryFn,
+        );
+
+        if ('error' in result) {
+          return result;
         }
+
+        return { data: { ok: true } };
       },
       invalidatesTags: ['User'],
     }),
 
     authenticateTelegramLoginWidget: builder.mutation<AuthResult, AuthenticateTelegramLoginWidgetRequest>({
       queryFn: async ({ data, clientProfile }, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          const csrf = await ensureCsrf();
+        const csrf = await ensureCsrf();
 
-          feLog.info('auth.telegram_login_widget.start', { user_id: data.id, username: data.username });
-
-          const result = await baseQuery({
+        const result = await executeApiRequest<{ ok?: boolean }>(
+          {
+            endpointName: 'auth.telegram_login_widget',
             url: `${BFF}/api/v1/auth/telegram/login-widget`,
             method: 'POST',
             body: {
@@ -108,65 +75,30 @@ export const authApi = baseApi.injectEndpoints({
               'content-type': 'application/json',
               'x-csrf-token': csrf,
             },
-          });
-
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('auth.telegram_login_widget.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
+            logData: {
               user_id: data.id,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'auth_failed',
-              },
-            };
-          }
-
-          const responseData = result.data as { ok?: boolean } | undefined;
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('auth.telegram_login_widget.success', {
-            requestId,
-            user_id: data.id,
-            ok: responseData?.ok,
-          });
-
-          return { data: { ok: true } };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('auth.telegram_login_widget.exception', {
-            error: msg,
-            user_id: data.id,
-          });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
+              username: data.username,
             },
-          };
+          },
+          baseQuery as BaseQueryFn,
+        );
+
+        if ('error' in result) {
+          return result;
         }
+
+        return { data: { ok: true } };
       },
       invalidatesTags: ['User'],
     }),
 
     logout: builder.mutation<boolean, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
-        try {
-          feLog.info('auth.logout.start');
-          const csrf = await ensureCsrf();
+        const csrf = await ensureCsrf();
 
-          const result = await baseQuery({
+        const result = await executeApiRequest<unknown>(
+          {
+            endpointName: 'auth.logout',
             url: `${BFF}/api/v1/auth/logout`,
             method: 'POST',
             body: {},
@@ -174,45 +106,15 @@ export const authApi = baseApi.injectEndpoints({
               'content-type': 'application/json',
               'x-csrf-token': csrf,
             },
-          });
+          },
+          baseQuery as BaseQueryFn,
+        );
 
-          if (result.error) {
-            const errorData = result.error.data as { error?: string } | undefined;
-            const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-            feLog.warn('auth.logout.failed', {
-              requestId,
-              status: result.error.status,
-              error: errorData?.error,
-            });
-
-            return {
-              error: {
-                status: result.error.status,
-                data: result.error.data,
-                error: errorData?.error || 'logout_failed',
-              },
-            };
-          }
-
-          const requestId = (result.meta as { requestId?: string } | undefined)?.requestId;
-
-          feLog.info('auth.logout.success', { requestId });
-
-          return { data: true };
-        } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err);
-
-          feLog.error('auth.logout.exception', { error: msg });
-
-          return {
-            error: {
-              status: 0,
-              data: { error: 'network_error' },
-              error: 'network_error',
-            },
-          };
+        if ('error' in result) {
+          return result;
         }
+
+        return { data: true };
       },
       invalidatesTags: ['User', 'Balance'],
     }),

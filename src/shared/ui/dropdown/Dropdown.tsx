@@ -1,158 +1,128 @@
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type ElementType, KeyboardEvent, type ReactNode, useMemo, useState } from 'react';
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
+import { DropdownItem } from '@shared/ui/dropdown/DropdownItem.tsx';
 import { ChevronHorizontal } from '@shared/ui/icons';
 
 import s from './Dropdown.module.scss';
 
-type Option = {
-  label: string;
-  value: string;
-  number?: number;
+export type DropdownMenuItems = {
+  href?: string;
+  icon?: ElementType;
+  id: string;
+  onClick?: () => void;
+  title: string;
 };
 
-type DropdownProps = {
-  options: Option[];
-  value: string | string[];
-  onChange: (option: Option | Option[]) => void;
-  variant?: 'default' | 'hover';
-  width?: number | string;
-  height?: number | string;
-  className?: string;
-  scrollable?: boolean;
-  multiple?: boolean;
+type Props<T extends DropdownMenuItems> = {
+  list: T[];
+  renderItem?: (item: T, onSelect: () => void, index?: number) => ReactNode;
+  trigger?: ReactNode;
+  value?: string;
+  onChange?: (item: T) => void;
+  itemsClassName?: string;
+  triggerClassName?: string;
 };
 
-const DEFAULT_DROPDOWN_HEIGHT = 39;
+export const Dropdown = <T extends DropdownMenuItems>(props: Props<T>): ReactNode => {
+  const { list, renderItem, trigger, value, onChange, itemsClassName, triggerClassName } = props;
+  const [open, setOpen] = useState(false);
 
-export const Dropdown: FC<DropdownProps> = ({
-  options,
-  value,
-  onChange,
-  variant = 'default',
-  height = DEFAULT_DROPDOWN_HEIGHT,
-  className,
-  scrollable = false,
-  multiple = false,
-}: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const isMultiple = multiple;
-  const selectedValues = isMultiple ? (Array.isArray(value) ? value : []) : [];
-  const selectedValue = isMultiple ? '' : typeof value === 'string' ? value : '';
-
-  const selectedOption = isMultiple ? null : options.find(option => option.value === selectedValue) || options[0];
-
-  const getDisplayLabel = (): string => {
-    if (isMultiple) {
-      return 'Провайдеры';
+  const selectedItem = useMemo(() => {
+    if (value) {
+      return list.find(item => item.id === value || item.title === value);
     }
 
-    return selectedOption?.label || '';
+    return list[0];
+  }, [value, list]);
+
+  const [selectedTitle, setSelectedTitle] = useState<string>(
+    value ? (selectedItem?.title ?? list[0]?.title ?? 'Выбрано') : (list[0]?.title ?? 'Выбрано'),
+  );
+
+  const displayTitle = value ? (selectedItem?.title ?? 'Выбрано') : selectedTitle;
+
+  const handleOpenChange = (): void => {
+    setOpen(!open);
   };
 
-  const wrapperClassName = clsx(s.wrapper, s[variant], className);
+  const triggerRootClassName = clsx(s.trigger, triggerClassName, { [s.iconActive]: open });
+  const contentClassName = clsx(s.content, itemsClassName);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent): void => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+  const dropDownMenuItems = list.map((item: T) => {
+    const handleSelect = (): void => {
+      if (!value) {
+        setSelectedTitle(item.title);
+      }
+
+      if (onChange) {
+        onChange(item);
+      }
+
+      if ('onClick' in item && typeof item.onClick === 'function') {
+        item.onClick();
+      } else if ('href' in item && typeof item.href === 'string') {
+        window.location.href = item.href;
+      }
+
+      setOpen(false);
+    };
+
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLDivElement>): void => {
+      if (e.code === 'Enter') {
+        handleSelect();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleOptionClick = (option: Option): void => {
-    if (isMultiple) {
-      let newValues: string[];
-
-      // Если кликнули на "all" (первая опция обычно "all")
-      if (option.value === options[0]?.value && options[0]?.value === 'all') {
-        if (selectedValues.includes('all')) {
-          // Снимаем выбор с "all"
-          newValues = [];
-        } else {
-          // Выбираем только "all"
-          newValues = ['all'];
-        }
-      } else {
-        // Если выбрана опция не "all"
-        if (selectedValues.includes('all')) {
-          // Если был выбран "all", заменяем его на выбранную опцию
-          newValues = [option.value];
-        } else {
-          // Обычная логика множественного выбора
-          newValues = selectedValues.includes(option.value)
-            ? selectedValues.filter(v => v !== option.value)
-            : [...selectedValues, option.value];
-        }
-      }
-
-      const selectedOptions = options.filter(opt => newValues.includes(opt.value));
-
-      onChange(selectedOptions);
-    } else {
-      onChange(option);
-      setIsOpen(false);
-    }
-  };
-
-  const containerHeight = typeof height === 'number' ? `${height}px` : height;
+    return (
+      <DropdownMenu.Item
+        className={s.dropdownItem}
+        key={item.id ?? item.title}
+        onKeyDown={onKeyDownHandler}
+        onSelect={handleSelect}
+      >
+        {renderItem ? (
+          renderItem(item, handleSelect)
+        ) : (
+          <DropdownItem
+            title={item.title}
+            onSelect={handleSelect}
+            active={value ? item.id === value || item.title === value : displayTitle === item.title}
+          />
+        )}
+      </DropdownMenu.Item>
+    );
+  });
 
   return (
-    <div
-      className={wrapperClassName}
-      style={{
-        height: containerHeight,
-      }}
-      ref={dropdownRef}
-    >
-      <button
-        className={s.trigger}
-        onClick={() => setIsOpen(!isOpen)}
-        type="button"
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        style={{ height: containerHeight }}
-      >
-        <span className={s.label}>{getDisplayLabel()}</span>
-        <span className={`${s.chevron} ${isOpen ? s.chevronOpen : ''}`} aria-hidden="true">
-          <ChevronHorizontal />
-        </span>
-      </button>
-
-      <div
-        className={`${s.listWrapper} ${isOpen ? s.open : ''} ${scrollable ? s.listScrollable : ''}`.trim()}
-        role="listbox"
-      >
-        <ul className={`${s.list} ${scrollable ? s.listScrollable : ''}`.trim()}>
-          {options.map(option => {
-            const isActive = isMultiple ? selectedValues.includes(option.value) : option.value === selectedValue;
-
-            return (
-              <li key={option.value} role="option">
-                <button
-                  className={`${s.option} ${isActive ? s.optionActive : ''}`}
-                  onClick={() => handleOptionClick(option)}
-                  type="button"
-                  aria-selected={isActive}
-                >
-                  <span className={s.optionContent}>
-                    <span className={s.optionRadio} aria-hidden="true" />
-                    <span className={s.optionLabel}>{option.label}</span>
-                    {option.number && <div className={s.optionNumber}>{option.number}</div>}
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
+    <DropdownMenu.Root onOpenChange={handleOpenChange} modal={false}>
+      <DropdownMenu.Trigger asChild className={triggerRootClassName}>
+        {trigger ?? (
+          <button type="button" aria-haspopup="listbox" aria-expanded={open}>
+            <span className={s.label}>{displayTitle}</span>
+            <span className={`${s.chevron} ${open ? s.chevronOpen : ''}`} aria-hidden="true">
+              <ChevronHorizontal />
+            </span>
+          </button>
+        )}
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          align={'center'}
+          className={contentClassName}
+          side="bottom"
+          sideOffset={5}
+          avoidCollisions={false}
+          style={{
+            minWidth: 'var(--radix-dropdown-menu-trigger-width)',
+            width: 'var(--radix-dropdown-menu-trigger-width)',
+          }}
+        >
+          {dropDownMenuItems}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 };

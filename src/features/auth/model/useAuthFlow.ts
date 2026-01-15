@@ -187,12 +187,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       const meResult = await refetchUserMe();
 
       if (meResult.data && !meResult.isError) {
-        const meData: UserMe = {
-          ...meResult.data,
-          balance: meResult.data.balance,
-        };
-
-        dispatch(setMe({ me: meData }));
+        dispatch(setMe({ me: meResult.data }));
         dispatch(setAppStatus({ status: 'authenticated' }));
         feLog.info('app.session_valid', { user_id: meResult.data.user_id });
 

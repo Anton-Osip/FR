@@ -2,10 +2,8 @@
 
 .info {
   display: flex;
-  grid-area: info;
   justify-content: space-between;
 
-  aspect-ratio: 584/225;
   width: 100%;
   padding: $spacing-xl;
 
@@ -64,3 +62,88 @@
 
   -webkit-user-drag: none;
 }
+
+@media screen and (max-width: $media-tab) {
+  .infoWrap {
+    max-width: 517px;
+  }
+
+  .user {
+    display: flex;
+    gap: $spacing-md;
+
+    span {
+      width: 51px;
+      height: 51px;
+    }
+  }
+
+  .userInfo {
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 140%;
+    letter-spacing: -0.18px;
+  }
+
+  .userIdWrapper {
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.14px;
+  }
+
+  .userInfoImage {
+    width: 155px;
+    height: 155px;
+  }
+
+  .userAmountProgress p{
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.14px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .info {
+    position: relative;
+    padding: 12px;
+  }
+
+  .infoWrap {
+    max-width: 100%;
+  }
+
+  .user {
+    display: flex;
+    gap: $spacing-md;
+
+    span {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  .userData {
+    gap: 4px;
+  }
+
+
+  .userInfoImage {
+    position: absolute;
+    top: -6px;
+    right: 36px;
+
+    width: 110px;
+    height: 110px;
+  }
+
+
+}
+
+
+

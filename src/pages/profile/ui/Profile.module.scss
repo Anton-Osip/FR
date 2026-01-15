@@ -1,11 +1,26 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .profile {
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  min-height: 0;
 }
 
-.breadcrumbs{
+@media screen and (max-width: $media-tab-mini) {
+  .profile {
+    gap: 24px;
+  }
+
+  .supportPanel{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+  }
 }
 
+.supportPanel{
+
+}

@@ -1,4 +1,4 @@
-export const BFF = (import.meta.env.VITE_API_BASE_URL || 'https://dev-bff.fr0.me').replace(/\/+$/, '');
+export const BFF = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/+$/, '');
 
 export const CLIENT_VERSION = import.meta.env.VITE_APP_VERSION || 'webapp/1';
 export const TELEGRAM_BOT_NAME = import.meta.env.VITE_TG_BOT_NAME || 'skylon';

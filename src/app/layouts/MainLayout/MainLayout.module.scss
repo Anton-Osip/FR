@@ -21,18 +21,19 @@
 }
 
 .layoutMain {
-  overflow-y: auto;
+  position: relative;
+  overflow: hidden auto;
   grid-area: content;
-  width: 100%;
   max-height: 100%;
 }
 
 .layoutMainContainer {
-  width: 100%;
-  max-width: $container-max-width;
+  width:calc(100vw - 281px);
+  max-width: 1228px;
   margin: 0 auto;
-  padding: 48px 11px 48px 22px;
+  padding: 48px 22px;
 }
+
 
 .tabScreenMenu {
   display: none !important;
@@ -54,6 +55,10 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
+  .layoutMainContainer {
+    width:100vw;
+  }
+
   .scrollTopButton {
     right: 16px;
     bottom: 80px;
@@ -67,12 +72,13 @@
     grid-template-areas:
       "header"
       "content"
-      "footer";
+      "footer"
+      "tabMenu";
     grid-template-columns: minmax(0, 1fr);
   }
 
   .layoutMainContainer {
-    padding: 24px 5px 24px 16px;
+    padding: 24px 16px;
   }
 
   .sidebarLayout {
@@ -80,6 +86,13 @@
   }
 
   .tabScreenMenu {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+
     display: flex !important;
+    grid-area: tabMenu;
   }
 }

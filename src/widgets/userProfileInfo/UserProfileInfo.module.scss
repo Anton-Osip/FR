@@ -2,19 +2,35 @@
 
 .userInfo {
   display: grid;
-  grid-template-areas: "info main-balance bonus-balance";
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns:  49.324% 23.986% 23.986%;
   gap: $spacing-md;
   justify-content: center;
 
   width: 100%;
-  height: auto;
+  height: 225px;
+}
+
+@media screen and (max-width: $media-laptop) {
+  .userInfo {
+    grid-template-columns:  repeat(2, 1fr);
+    grid-template-rows: repeat(2, 219px);
+    height: auto;
+  }
+
+  .userInfoComponent {
+    grid-column: 1/-1;
+  }
 }
 
 @media screen and (max-width: $media-tab-mini) {
+  .userBalance {
+    display: none;
+  }
+
   .userInfo {
-    grid-template: "info info" 43% "main-balance bonus-balance" 54% / 1fr 1fr;
-    gap: $spacing-xs;
-    aspect-ratio: 358 / 411;
+    grid-template-rows: repeat(1, 173px);
+    height: auto;
+    margin-bottom: 4px;
   }
 }
+

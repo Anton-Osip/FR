@@ -1,11 +1,12 @@
 import { type FC, useMemo, useState } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { Tabs, Dropdown } from '@shared/ui';
+import { Dropdown, Tabs } from '@shared/ui';
 
 import styles from './BetsSection.module.scss';
 
@@ -28,7 +29,12 @@ const selectItems = [
 
 type TabValue = 'lastBets' | 'myBets' | 'bigPlayers';
 
-export const BetsSection: FC = () => {
+interface BetsSectionProps {
+  dropdownClassName?: string;
+  headerClassName?: string;
+}
+
+export const BetsSection: FC<BetsSectionProps> = ({ dropdownClassName, headerClassName }) => {
   const { t } = useTranslation('home');
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const [activeTab, setActiveTab] = useState<TabValue>('lastBets');
@@ -145,12 +151,18 @@ export const BetsSection: FC = () => {
 
   return (
     <section className={styles.betsSection}>
-      <div className={styles.tableFilter}>
+      <div className={clsx(styles.tableFilter, headerClassName)}>
         <h4 className={styles.title}>{t('betsSection.title')}</h4>
         <div className={styles.wrapper}>
           <Tabs items={tabsItems} size="s" className={styles.tabs} onChange={handleTabChange} />
-          <div className={styles.dropdownWrapper}>
-            <Dropdown value={String(pageSize)} options={selectItems} onChange={handlePageSizeChange} />
+          <div className={clsx(styles.dropdownWrapper, dropdownClassName)}>
+            <Dropdown
+              list={selectItems.map(item => ({
+                id: item.value,
+                title: item.label,
+                onClick: () => handlePageSizeChange(item),
+              }))}
+            />
           </div>
         </div>
       </div>
