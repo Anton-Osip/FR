@@ -1,12 +1,21 @@
-import { type ElementType, KeyboardEvent, type ReactNode, useMemo, useState } from 'react';
+import {
+  type ElementType,
+  KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
-import { DropdownItem } from '@shared/ui/dropdown/DropdownItem.tsx';
 import { ChevronHorizontal } from '@shared/ui/icons';
 
-import s from './Dropdown.module.scss';
+import s from './DropdownApp.module.scss';
+import { DropdownItem } from './DropdownItem';
 
 export type DropdownMenuItems = {
   href?: string;
@@ -26,9 +35,11 @@ type Props<T extends DropdownMenuItems> = {
   triggerClassName?: string;
 };
 
-export const Dropdown = <T extends DropdownMenuItems>(props: Props<T>): ReactNode => {
+export const DropdownApp = <T extends DropdownMenuItems>(props: Props<T>): ReactNode => {
   const { list, renderItem, trigger, value, onChange, itemsClassName, triggerClassName } = props;
   const [open, setOpen] = useState(false);
+  const [triggerWidth, setTriggerWidth] = useState<number | undefined>(undefined);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const selectedItem = useMemo(() => {
     if (value) {
@@ -47,6 +58,30 @@ export const Dropdown = <T extends DropdownMenuItems>(props: Props<T>): ReactNod
   const handleOpenChange = (): void => {
     setOpen(!open);
   };
+
+  useLayoutEffect(() => {
+    const updateTriggerWidth = (): void => {
+      if (triggerRef.current) {
+        setTriggerWidth(triggerRef.current.offsetWidth);
+      }
+    };
+
+    updateTriggerWidth();
+  }, [open, displayTitle]);
+
+  useEffect(() => {
+    const updateTriggerWidth = (): void => {
+      if (triggerRef.current) {
+        setTriggerWidth(triggerRef.current.offsetWidth);
+      }
+    };
+
+    window.addEventListener('resize', updateTriggerWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateTriggerWidth);
+    };
+  }, []);
 
   const triggerRootClassName = clsx(s.trigger, triggerClassName, { [s.iconActive]: open });
   const contentClassName = clsx(s.content, itemsClassName);
@@ -100,7 +135,7 @@ export const Dropdown = <T extends DropdownMenuItems>(props: Props<T>): ReactNod
     <DropdownMenu.Root onOpenChange={handleOpenChange} modal={false}>
       <DropdownMenu.Trigger asChild className={triggerRootClassName}>
         {trigger ?? (
-          <button type="button" aria-haspopup="listbox" aria-expanded={open}>
+          <button ref={triggerRef} type="button" aria-haspopup="listbox" aria-expanded={open}>
             <span className={s.label}>{displayTitle}</span>
             <span className={`${s.chevron} ${open ? s.chevronOpen : ''}`} aria-hidden="true">
               <ChevronHorizontal />
@@ -116,8 +151,15 @@ export const Dropdown = <T extends DropdownMenuItems>(props: Props<T>): ReactNod
           sideOffset={5}
           avoidCollisions={false}
           style={{
-            minWidth: 'var(--radix-dropdown-menu-trigger-width)',
-            width: 'var(--radix-dropdown-menu-trigger-width)',
+            ...(triggerWidth
+              ? {
+                  minWidth: `${triggerWidth}px`,
+                  width: `${triggerWidth}px`,
+                }
+              : {
+                  minWidth: 'var(--radix-dropdown-menu-trigger-width)',
+                  width: 'var(--radix-dropdown-menu-trigger-width)',
+                }),
           }}
         >
           {dropDownMenuItems}

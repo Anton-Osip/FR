@@ -7,8 +7,8 @@ import { selectDeviceType } from '@app/store';
 import { useAppSelector } from '@shared/api';
 import { APP_PATH } from '@shared/config';
 import { useDebounce } from '@shared/lib';
-import { Button, Dropdown, Input } from '@shared/ui';
-import type { DropdownMenuItems } from '@shared/ui/dropdown/Dropdown.tsx';
+import { Button, DropdownApp, Input } from '@shared/ui';
+import type { DropdownMenuItems } from '@shared/ui/dropdownApp/DropdownApp.tsx';
 import { SearchIcon } from '@shared/ui/icons';
 
 import type { SlotsHeaderType } from '@widgets/slotsHeader/constants.ts';
@@ -251,7 +251,7 @@ export const SlotsSection: FC<SlotsSectionProps> = ({ className, type }) => {
       <div className={styles.controls}>
         <Input icon={<SearchIcon />} placeholder={'Поиск'} value={searchValue} onChange={handleSearchChange} />
         <div className={styles.dropdownContainer}>
-          <Dropdown
+          <DropdownApp
             list={PROVIDER_OPTIONS}
             value={typeof providerFilter === 'string' ? providerFilter : 'all'}
             onChange={item => {
@@ -261,7 +261,7 @@ export const SlotsSection: FC<SlotsSectionProps> = ({ className, type }) => {
             renderItem={renderProviderItem}
             triggerClassName={styles.triggerDropdown}
           />
-          <Dropdown
+          <DropdownApp
             list={POPULAR_OPTIONS}
             value={popularFilter}
             onChange={item => {

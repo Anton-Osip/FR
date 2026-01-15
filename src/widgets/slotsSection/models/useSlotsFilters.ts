@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 
-import type { DropdownMenuItems } from '@shared/ui/dropdown/Dropdown.tsx';
+import type { DropdownMenuItems } from '@shared/ui/dropdownApp/DropdownApp.tsx';
 import { FireIcon, LikeIcon, StarIcon } from '@shared/ui/icons';
 
 export const POPULAR_OPTIONS: DropdownMenuItems[] = [

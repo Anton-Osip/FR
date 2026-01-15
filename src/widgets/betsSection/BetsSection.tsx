@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { Dropdown, Tabs } from '@shared/ui';
+import { DropdownApp, Tabs } from '@shared/ui';
 
 import styles from './BetsSection.module.scss';
 
@@ -156,7 +156,7 @@ export const BetsSection: FC<BetsSectionProps> = ({ dropdownClassName, headerCla
         <div className={styles.wrapper}>
           <Tabs items={tabsItems} size="s" className={styles.tabs} onChange={handleTabChange} />
           <div className={clsx(styles.dropdownWrapper, dropdownClassName)}>
-            <Dropdown
+            <DropdownApp
               list={selectItems.map(item => ({
                 id: item.value,
                 title: item.label,

@@ -6,7 +6,7 @@ export { Tabs } from './tabs';
 export * from './table';
 export { Modal } from './modal';
 export { Breadcrumbs } from './breadcrumbs';
-export { Dropdown } from './dropdown/Dropdown';
+export { DropdownApp } from '@shared/ui/dropdownApp/DropdownApp.tsx';
 export { Label } from './label/Label';
 export { VisuallyHidden } from './visuallyHidden';
 export { AdaptiveSection } from './adaptiveSection';

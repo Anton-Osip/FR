@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import s from './Dropdown.module.scss';
+import s from './DropdownApp.module.scss';
 
 type Props = {
   title: ReactNode | string;
