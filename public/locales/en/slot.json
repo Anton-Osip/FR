@@ -1,0 +1,15 @@
+{
+  "buttons": {
+    "play": "Play",
+    "demo": "Demo"
+  },
+  "labels": {
+    "fullscreen": "Fullscreen"
+  },
+  "leaderboard": {
+    "bigWins": "Big wins",
+    "luckyBets": "Lucky bets",
+    "todayBest": "Best today"
+  }
+}
+

@@ -3,14 +3,13 @@
 .betsSection {
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
 }
 
 .tableFilter {
   display: flex;
+  gap: 8px;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 7px;
 }
 
 .title {
@@ -20,6 +19,7 @@
   line-height: normal;
   color: #fff;
   letter-spacing: -0.26px;
+  white-space: nowrap;
 }
 
 .wrapper {
@@ -29,45 +29,177 @@
   justify-content: flex-end;
 
   width: 100%;
-  max-width: 574px;
+  max-width: 581px;
 }
 
 .dropdownWrapper {
-  width: 89px;
+  min-width: 89px;
+  height: 55px;
   padding: 8px;
+
   background: var(--bg-block, #131824);
   border-radius: var(--radius-16, 16px);
 }
 
-@media screen and (max-width: $media-laptop) {
-  .title {
-    font-size: $font-size-lg;
-    font-weight: 600;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.2px;
-  }
+.dropdown {
+  height: 39px;
+}
 
-  .tabs {
-    max-width: 372px;
+.home {
+  gap: 24px;
+}
+
+.games {
+  gap: 24px;
+
+  .dropdownWrapper {
+    display: none;
   }
 }
 
+.game {
+  gap: 24px;
+
+  .dropdownWrapper {
+    display: none;
+  }
+}
+
+
 @media screen and (max-width: $media-tab) {
-  .tableFilter {
-    margin-bottom: 0;
+  .home {
+    gap: 16px;
+
+    .title {
+      font-size: $font-size-lg;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.2px;
+    }
+
+    .tabs {
+      max-width: 372px;
+    }
+
+    .tableFilter {
+      margin-bottom: 0;
+    }
+  }
+
+  .games {
+    gap: 16px;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.24px;
+    }
+
+    .tabs {
+      max-width: 372px;
+      padding: 8px;
+    }
+
+    .dropdownWrapper {
+      display: block;
+    }
+  }
+
+  .game {
+    gap: 24px;
+
+
+    .tabs {
+      max-width: 477px;
+      padding: 6px;
+    }
   }
 }
 
 @media screen and (max-width: $media-tab-mini) {
-  .title {
-    display: none;
+  .home {
+    .title {
+      display: none;
+    }
+
+    .wrapper {
+      gap: $spacing-md;
+      justify-content: space-between;
+      max-width: 100%;
+    }
   }
 
-  .wrapper {
-    gap: $spacing-md;
-    justify-content: space-between;
-    max-width: 100%;
+  .games {
+    gap: 8px;
+
+    .tableFilter {
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .tabs {
+      max-width: 100%;
+    }
+
+    .dropdownWrapper {
+      min-width: 75px;
+      height: 55px;
+      padding: 0;
+
+      > button {
+        width: 75px;
+        height: 55px;
+        border-radius: 16px;
+      }
+    }
+  }
+
+  .game {
+    gap: 8px;
+
+    .tableFilter {
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .wrapper {
+      justify-content: space-between;
+      max-width: 100%;
+    }
+
+    .tabs {
+      max-width: 100%;
+      padding: 8px;
+    }
+
+    .dropdownWrapper {
+      display: block;
+      min-width: 75px;
+      height: 55px;
+      padding: 0;
+
+
+      > button {
+        width: 75px;
+        height: 55px;
+        border-radius: 16px;
+
+      }
+    }
+  }
+
+}
+
+@media screen and (width <= 340px) {
+  .home {
+    .tabs button {
+      font-size: 12px;
+    }
   }
 }
 

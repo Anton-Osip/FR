@@ -20,7 +20,10 @@
     "liveGames": "Live-игры",
     "quickGames": "Быстрые игры",
     "quickGamesShort": "Быстрые",
-    "all": "Все"
+    "history": "История игр",
+    "all": "Все",
+    "previous": "Предыдущий слайд",
+    "next": "Следующий слайд"
   },
   "categoryFiltersBar": {
     "allGames": "Все игры",
@@ -45,6 +48,10 @@
       "payout": "Выплата",
       "nothingFound": "Ничего не найдено"
     }
+  },
+  "buttons": {
+    "loadMore": "Смотреть больше",
+    "shown": "Показано",
+    "of": "из"
   }
 }
-

@@ -1,0 +1,231 @@
+@use "../../styles/variables" as *;
+
+// Контейнер для всех тостов (должен быть поверх всего)
+:global {
+  [data-sonner-toaster] {
+    z-index: 10001 !important;
+  }
+
+  [data-sonner-toaster][data-theme='dark'] {
+    --normal-bg: #{$color-bg-block};
+    --normal-border: #282F42;
+    --normal-text: #{$color-text-primary};
+  }
+}
+
+// Основной стиль toast
+.toast {
+  position: relative;
+
+  overflow: hidden;
+  align-items: flex-start !important;
+
+  padding: $spacing-md 16px 24px 16px !important;
+
+  font-family: $font-family-base !important;
+
+  background: $color-bg-block !important;
+  border: 1px solid #282F42 !important;
+  border-radius: $radius-lg !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 30%) !important;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    transform-origin: left center;
+
+    height: 2px;
+
+    background: $color-bg-on-block-hover;
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    transform-origin: left center;
+    transform: scaleX(0);
+
+    height: 2px;
+
+    background: red;
+
+    animation: toast-duration-progress var(--toast-duration, 4000ms) linear forwards;
+  }
+
+  &:hover::after {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes toast-duration-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+// Заголовок
+.title {
+  font-size: $font-size-md !important;
+  font-weight: $font-weight-base !important;
+  line-height: $leading-normal !important;
+  color: $color-text-primary !important;
+  letter-spacing: $tracking-tight !important;
+}
+
+// Описание
+.description {
+  margin-top: $spacing-5xs !important;
+
+  font-size: $font-size-xs-plus !important;
+  font-weight: $font-weight-light !important;
+  line-height: $leading-normal !important;
+  color: $color-text-secondary !important;
+}
+
+// Кнопка действия
+.actionButton {
+  cursor: pointer;
+
+  padding: $spacing-xxs $spacing-12 !important;
+
+  font-size: $font-size-xs-plus !important;
+  font-weight: $font-weight-base !important;
+  color: $color-text-primary !important;
+
+  background: $color-primary !important;
+  border: none !important;
+  border-radius: $radius-md !important;
+
+  transition: background-color $transition-hover !important;
+
+  &:hover {
+    background: $color-button-hover !important;
+  }
+}
+
+// Кнопка отмены
+.cancelButton {
+  cursor: pointer;
+
+  padding: $spacing-xxs $spacing-12 !important;
+
+  font-size: $font-size-xs-plus !important;
+  font-weight: $font-weight-base !important;
+  color: $color-text-secondary !important;
+
+  background: $color-bg-on-block !important;
+  border: 1px solid rgba(255, 255, 255, 8%) !important;
+  border-radius: $radius-md !important;
+
+  transition: all $transition-hover !important;
+
+  &:hover {
+    color: $color-text-primary !important;
+    background: $color-bg-on-block-hover !important;
+  }
+}
+
+// Кнопка закрытия
+.closeButton {
+  color: $color-text-secondary !important;
+  border: 1px solid rgba(255, 255, 255, 8%) !important;
+  transition: all $transition-hover !important;
+
+  &:hover {
+    color: $color-text-primary !important;
+    background: $color-bg-on-block !important;
+  }
+}
+
+// Варианты тостов
+.success {
+  border-color: rgba(0, 229, 68, 30%) !important;
+
+  &::after {
+    background-color: $color-win-primary;
+  }
+
+  .title {
+    color: $color-win-primary !important;
+  }
+
+  :global([data-icon]) {
+    color: $color-win-primary !important;
+  }
+}
+
+.error {
+  border-color: rgba(239, 68, 68, 30%) !important;
+
+  &::after {
+    background-color: #ef4444;
+  }
+
+  .title {
+    color: #ef4444 !important;
+  }
+
+  :global([data-icon]) {
+    color: #ef4444 !important;
+  }
+}
+
+.warning {
+  border-color: rgba(255, 226, 60, 30%) !important;
+
+  &::after {
+    background-color: $color-like-primary;
+  }
+
+  .title {
+    color: $color-like-primary !important;
+  }
+
+  :global([data-icon]) {
+    color: $color-like-primary !important;
+  }
+}
+
+.info {
+  border-color: rgba(24, 115, 242, 30%) !important;
+
+  &::after {
+    background-color: $color-primary;
+  }
+
+  .title {
+    color: $color-primary !important;
+  }
+
+  :global([data-icon]) {
+    color: $color-primary !important;
+  }
+}
+
+.loading {
+  border-color: rgba(168, 85, 247, 30%) !important;
+
+  &::after {
+    background-color: #a855f7;
+  }
+
+  .title {
+    color: #a855f7 !important;
+  }
+
+  :global([data-icon]) {
+    color: #a855f7 !important;
+  }
+}

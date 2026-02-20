@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@shared/ui';
 import { SearchIcon } from '@shared/ui/icons';
 
-import styles from './CategorySwitcherWithSearch.module.scss';
+import { SearchModal } from '@widgets/searchModal';
 
-import { SearchModal } from '@/widgets';
+import styles from './CategorySwitcherWithSearch.module.scss';
 
 interface CategorySwitcherWithSearchProps {
   isOpen: boolean;

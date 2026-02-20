@@ -37,6 +37,9 @@ export function buildQueryString(params: GetShowcaseGamesParams): string {
   if (params.only_featured !== undefined && params.only_featured !== null) {
     searchParams.append('only_featured', String(params.only_featured));
   }
+  if (params.only_history !== undefined && params.only_history !== null) {
+    searchParams.append('only_history', String(params.only_history));
+  }
   if (params.include_blocked_regions !== undefined) {
     searchParams.append('include_blocked_regions', String(params.include_blocked_regions));
   }
@@ -60,6 +63,9 @@ export function buildBettingTableQueryString(params: GetBettingTableBetsLatestPa
   }
   if (params.cursor !== undefined && params.cursor !== null) {
     searchParams.append('cursor', params.cursor);
+  }
+  if (params.game_uuid !== undefined && params.game_uuid !== null) {
+    searchParams.append('game_uuid', params.game_uuid);
   }
 
   const queryString = searchParams.toString();

@@ -1,0 +1,62 @@
+@use "../../shared/styles/variables" as *;
+
+.modal {
+  max-width: 524px;
+  padding: 32px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  > svg {
+    width: 39px;
+    height: 32px;
+  }
+}
+
+.closeButton {
+  max-width: 28px !important;
+  max-height: 28px !important;
+
+  > span {
+    width: 10px;
+    height: 10px;
+  }
+
+  > span svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: flex-start;
+
+  max-width: 524px;
+}
+
+@media (max-width: $media-laptop) {
+  .modal {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+
+  .body {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .closeButton {
+    top: 16px !important;
+    right: 16px !important;
+  }
+}
+
+

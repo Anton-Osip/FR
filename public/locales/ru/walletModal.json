@@ -1,0 +1,21 @@
+{
+  "title": "Кошелек",
+  "bannerTitle": "+5% на первый крипто-депозит",
+  "tabs": {
+    "deposit": "Депозит",
+    "withdraw": "Вывод"
+  },
+  "methods": {
+    "banking": "Банкинг",
+    "crypto": "Крипто",
+    "minPrefix": "от"
+  },
+  "withdrawal": {
+    "walletAddress": "Адрес кошелька",
+    "memo": "MEMO (необязательно)",
+    "minAmount": "Минимальная сумма {{amount}} {{currency}}",
+    "confirm": "Подтвердить",
+    "loading": "Загрузка...",
+    "noMethods": "Методы вывода недоступны"
+  }
+}

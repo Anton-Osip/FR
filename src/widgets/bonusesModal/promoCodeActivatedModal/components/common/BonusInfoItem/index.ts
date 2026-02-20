@@ -1,0 +1,1 @@
+export { BonusInfoItem } from './BonusInfoItem';

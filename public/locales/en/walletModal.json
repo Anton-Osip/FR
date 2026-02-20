@@ -1,0 +1,21 @@
+{
+  "title": "Wallet",
+  "bannerTitle": "+5% on first crypto deposit",
+  "tabs": {
+    "deposit": "Deposit",
+    "withdraw": "Withdrawal"
+  },
+  "methods": {
+    "banking": "Banking",
+    "crypto": "Crypto",
+    "minPrefix": "from"
+  },
+  "withdrawal": {
+    "walletAddress": "Wallet address",
+    "memo": "MEMO (optional)",
+    "minAmount": "Minimum amount {{amount}} {{currency}}",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "noMethods": "Withdrawal methods unavailable"
+  }
+}

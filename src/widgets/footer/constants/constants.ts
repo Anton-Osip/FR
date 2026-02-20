@@ -2,8 +2,8 @@ import SbpIcon from '@shared/assets/icons/bank1.svg?url';
 import SberIcon from '@shared/assets/icons/bank3.svg?url';
 import TetherIcon from '@shared/assets/icons/crypto2.svg?url';
 import BitcoinIcon from '@shared/assets/icons/crypto3.svg?url';
-import VechainIcon from '@shared/assets/images/crypto1.png';
-import TbankIcon from '@shared/assets/images/tbank.png';
+import VechainIcon from '@shared/assets/images/crypto1.webp';
+import TbankIcon from '@shared/assets/images/tbank.webp';
 
 export interface BankItem {
   id: string;

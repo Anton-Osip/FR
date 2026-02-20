@@ -1,0 +1,15 @@
+{
+  "buttons": {
+    "play": "Играть",
+    "demo": "Демо"
+  },
+  "labels": {
+    "fullscreen": "Полный экран"
+  },
+  "leaderboard": {
+    "bigWins": "Крупные выигрыши",
+    "luckyBets": "Удачные ставки",
+    "todayBest": "Лучшие за сегодня"
+  }
+}
+

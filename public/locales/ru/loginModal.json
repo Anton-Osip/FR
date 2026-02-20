@@ -5,6 +5,18 @@
   "passwordPlaceholder": "Пароль",
   "recoverPassword": "Восстановить пароль",
   "loginButton": "Войти",
-  "orLoginVia": "Или войдите через"
+  "orLoginVia": "Или войдите через",
+  "emailRequired": "Введите email",
+  "emailInvalid": "Некорректный формат email",
+  "passwordTooShort": "Пароль должен содержать минимум {{min}} символов",
+  "passwordTooLong": "Пароль слишком длинный",
+  "recoveryTitle": "Восстановление пароля",
+  "recoverySubtitle": "Укажи e-mail, на который будет выслана ссылка для восстановления пароля",
+  "recoveryPlaceholder": "Введи email...",
+  "recoverySubmit": "Отправить ссылку",
+  "checkEmailTitle": "Проверь почту",
+  "checkEmailSubtitle": "Письмо с восстановлением пароля успешно отправлено на почту",
+  "checkEmailClose": "Закрыть"
 }
+
 

@@ -1,4 +1,4 @@
-import { feLog } from '@shared/lib';
+import { feLog } from '@shared/lib/telemetry/feLogger';
 import type { TelegramWebApp } from '@shared/model';
 
 const WAIT_WEBAPP_TIMEOUT_MS = 2000;

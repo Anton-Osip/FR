@@ -1,10 +1,12 @@
 import {
   forwardRef,
-  isValidElement,
-  type ButtonHTMLAttributes,
+  type ComponentPropsWithoutRef,
+  type ElementType,
   type FC,
   type ForwardRefExoticComponent,
+  type ReactElement,
   type ReactNode,
+  type Ref,
   type RefAttributes,
   type SVGProps,
 } from 'react';
@@ -16,19 +18,30 @@ import styles from './Button.module.scss';
 
 type IconType = FC<SVGProps<SVGSVGElement>> | ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonOwnProps = {
   children?: ReactNode;
   icon?: ReactNode | IconType;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'accent';
   size?: 's' | 'm';
   fullWidth?: boolean;
   active?: boolean;
   square?: boolean;
-}
+};
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+type PolymorphicComponentPropsWithRef<T extends ElementType, Props = object> = {
+  as?: T;
+  ref?: Ref<unknown>;
+} & Props &
+  Omit<ComponentPropsWithoutRef<T>, keyof Props | 'as' | 'ref'>;
+
+export type ButtonProps<T extends ElementType = 'button'> = PolymorphicComponentPropsWithRef<T, ButtonOwnProps>;
+
+type ButtonComponent = <T extends ElementType = 'button'>(props: ButtonProps<T>) => ReactElement;
+
+export const Button = forwardRef(
   (
     {
+      as,
       children,
       icon: Icon,
       variant = 'primary',
@@ -37,11 +50,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       active = false,
       square = false,
       className,
-      type = 'button',
       ...props
-    },
-    ref,
-  ) => {
+    }: ButtonProps<ElementType>,
+    ref: Ref<unknown>,
+  ): ReactElement => {
+    const Component = (as || 'button') as ElementType;
+
     const mergedClassName = clsx(
       styles.button,
       styles[`button-${variant}`],
@@ -61,20 +75,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         return <IconComponent className={styles.buttonIcon} />;
       }
 
-      if (isValidElement(Icon)) {
-        return <span className={styles.buttonIcon}>{Icon}</span>;
-      }
-
       return <span className={styles.buttonIcon}>{Icon}</span>;
     };
 
     return (
-      <button ref={ref} className={mergedClassName} type={type} {...props}>
+      <Component ref={ref} className={mergedClassName} {...(Component === 'button' && { type: 'button' })} {...props}>
         {renderIcon()}
         {children && <span className={styles.buttonText}>{children}</span>}
-      </button>
+      </Component>
     );
   },
-);
+) as ButtonComponent & { displayName?: string };
 
 Button.displayName = 'Button';

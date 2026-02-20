@@ -12,13 +12,14 @@ import { BettingTableBody } from './BettingTableBody';
 interface BettingTableProps {
   items?: BettingTableBetItem[];
   isLoading?: boolean;
+  page?: 'home' | 'games' | 'game';
 }
 
 function generateId(): string {
   return crypto.randomUUID();
 }
 
-export const BettingTable: FC<BettingTableProps> = ({ items, isLoading }) => {
+export const BettingTable: FC<BettingTableProps> = ({ items, isLoading, page = 'home' }) => {
   const { t } = useTranslation('home');
 
   const headerData = useMemo(
@@ -46,7 +47,7 @@ export const BettingTable: FC<BettingTableProps> = ({ items, isLoading }) => {
   );
 
   return (
-    <Table>
+    <Table className={styles[page]}>
       <TableHeader>
         {headerData.map(item => {
           return (
@@ -62,7 +63,7 @@ export const BettingTable: FC<BettingTableProps> = ({ items, isLoading }) => {
           isLoading={isLoading ?? false}
           items={items}
           headerCount={headerData.length}
-          emptyMessage={t('betsSection.table.nothingFound')}
+          page={page}
         />
       </TableBody>
     </Table>

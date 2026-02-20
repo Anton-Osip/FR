@@ -1,0 +1,141 @@
+@use "../../shared/styles/variables" as *;
+
+// Constants
+$mobile-nav-height: 63px;
+$aspect-ratio-width: 16;
+$aspect-ratio-height: 9;
+$fullscreen-z-index: 9999;
+
+.slotInfoContainer {
+  display: flex;
+  flex-direction: column;
+
+  width: calc(100vw - 281px);
+  max-width: 1228px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 48px 22px;
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .slotInfoContainer {
+    width: 100vw;
+    padding: 24px 16px 48px;
+  }
+}
+
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: calc(100vw - 281px);
+  max-width: 1228px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.parent.theatre {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+}
+
+.parent.theatre .container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.layoutSpacing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 49px;
+}
+
+.parent.theatre .layoutSpacing {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  width: 100%;
+  padding-bottom: 49px;
+}
+
+.gameWrapper:not(.theatreMode) {
+  margin-top: 32px;
+}
+
+.slotWindowHeader {
+  padding: 16px 0;
+}
+
+.theatreMode .slotWindowHeader {
+  padding: 16px;
+}
+
+.gameWrapper.theatreMode {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: calc(100dvh * #{$aspect-ratio-width} / #{$aspect-ratio-height});
+  height: 100dvh;
+  margin: 32px auto 0;
+}
+
+.gameWrapper.theatreMode .slotWindowHeader {
+  flex-shrink: 0; // Header does not shrink
+}
+
+.gameWrapper.theatreMode .gameContent {
+  flex: 1; // Takes all remaining height after header
+  min-height: 0; // Important for correct flex behavior with overflow
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .parent {
+    width: 100dvw;
+    padding: 0 16px;
+  }
+
+  .gameWrapper:not(.theatreMode) {
+    margin-top: 8px;
+  }
+}
+
+@media screen and (width <= 1200px) {
+  .gameWrapper.theatreMode {
+    max-width: calc((100dvh - $mobile-nav-height) * #{$aspect-ratio-width} / #{$aspect-ratio-height});
+    height: calc(100dvh - $mobile-nav-height);
+    margin-top: 8px;
+  }
+}
+
+.gameWrapper:fullscreen {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: none;
+  height: 100%;
+
+  background: #0F141F;
+
+  .slotWindowHeader {
+    flex-shrink: 0;
+  }
+
+  > *:last-child {
+    flex: 1;
+    min-height: 0;
+    border-radius: 0;
+  }
+}
+

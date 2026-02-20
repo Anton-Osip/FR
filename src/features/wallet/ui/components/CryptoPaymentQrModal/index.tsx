@@ -1,0 +1,1 @@
+export { CryptoPaymentQrModal } from './CryptoPaymentQrModal';

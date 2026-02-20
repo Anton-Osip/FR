@@ -1,6 +1,6 @@
 import { createApi, type BaseQueryFn } from '@reduxjs/toolkit/query/react';
 
-import { fetchJSON } from '@/shared/api';
+import { fetchJSON } from '@/shared/api/http';
 import { CLIENT_VERSION } from '@/shared/config';
 
 type CustomBaseQueryArgs = string | { url: string; method?: string; body?: unknown; headers?: Record<string, string> };
@@ -49,6 +49,18 @@ const customBaseQuery: BaseQueryFn<CustomBaseQueryArgs, unknown, CustomBaseQuery
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: customBaseQuery,
-  tagTypes: ['User', 'Balance', 'Showcase'],
+  tagTypes: [
+    'User',
+    'Balance',
+    'Showcase',
+    'GeoCountry',
+    'UserRank',
+    'WalletTransactions',
+    'Cashback',
+    'BonusNotifications',
+    'Wallet',
+    'WalletWithdrawMethods',
+    'WalletDepositMethods',
+  ],
   endpoints: () => ({}),
 });

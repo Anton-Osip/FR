@@ -1,0 +1,23 @@
+{
+  "bonusActivated": "Бонус начислен",
+  "freespinsActivated": "Фриспины выданы",
+  "depositPromoActivated": "Депозитный промокод активирован",
+  "promoActivated": "Промокод активирован",
+  "promoCode": "Код промокода",
+  "bonusAmount": "Сумма бонуса",
+  "bonusPercent": "Бонус к депозиту",
+  "wager": "Вейджер",
+  "wagerPeriod": "Срок отыгрыша",
+  "freespinsCount": "Количество фриспинов",
+  "denomination": "Номинал ставки",
+  "validUntil": "Действует до",
+  "minDeposit": "Минимальный депозит",
+  "availableUntil": "Доступно до",
+  "days_one": "{{count}} день",
+  "days_few": "{{count}} дня",
+  "days_many": "{{count}} дней",
+  "goToGame": "Перейти к игре",
+  "goToSlot": "Перейти к игре",
+  "goToDeposit": "Перейти к пополнению"
+}
+

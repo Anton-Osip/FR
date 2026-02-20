@@ -5,4 +5,5 @@ export type {
   InviteOverview,
   LeaderboardItem,
   LeaderboardMe,
+  InviteWeek,
 } from './model';

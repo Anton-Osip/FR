@@ -44,6 +44,33 @@ type UseAuthFlowResult = {
 const TELEGRAM_WEBAPP_WAIT_MS = 4000;
 const TELEGRAM_INITDATA_WEBAPP_TIMEOUT_MS = 4000;
 const TELEGRAM_INITDATA_SITE_TIMEOUT_MS = 1500;
+// Короткие таймауты для обычных веб-пользователей (без Telegram контекста)
+const TELEGRAM_WEBAPP_WAIT_SHORT_MS = 100;
+const TELEGRAM_INITDATA_SHORT_TIMEOUT_MS = 100;
+
+/**
+ * Быстрая синхронная проверка наличия признаков Telegram контекста.
+ * Используется для выбора адаптивных таймаутов: короткие для обычных веб-пользователей,
+ * полные для потенциальных Telegram пользователей.
+ */
+function hasTelegramContextHints(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  // Проверяем наличие Telegram WebApp объекта
+  if (window.Telegram?.WebApp) return true;
+
+  // Проверяем URL параметры
+  const search = window.location.search;
+  const hash = window.location.hash;
+
+  // Признаки Telegram WebApp
+  if (search.includes('tgWebAppData') || hash.includes('tgWebAppData')) return true;
+
+  // Признаки Telegram Login Widget
+  const params = new URLSearchParams(search);
+
+  return params.has('id') && params.has('hash') && params.has('auth_date');
+}
 
 /**
  * Удаляет параметры Telegram Login Widget / WebApp из URL, чтобы не светить PII и не мешать повторной инициализации.
@@ -187,12 +214,7 @@ export const useAuthFlow = (): UseAuthFlowResult => {
       const meResult = await refetchUserMe();
 
       if (meResult.data && !meResult.isError) {
-        const meData: UserMe = {
-          ...meResult.data,
-          balance: meResult.data.balance,
-        };
-
-        dispatch(setMe({ me: meData }));
+        dispatch(setMe({ me: meResult.data }));
         dispatch(setAppStatus({ status: 'authenticated' }));
         feLog.info('app.session_valid', { user_id: meResult.data.user_id });
 
@@ -289,11 +311,20 @@ export const useAuthFlow = (): UseAuthFlowResult => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (initRef.current) return;
+    if (initRef.current) {
+      feLog.debug('app.init_skipped', { reason: 'already_initialized' });
+
+      return;
+    }
 
     const init = async (): Promise<void> => {
-      if (initRef.current) return;
+      if (initRef.current) {
+        feLog.debug('app.init_skipped_async', { reason: 'already_initialized' });
+
+        return;
+      }
       initRef.current = true;
+      feLog.debug('app.init_start');
 
       try {
         // Определяем тип устройства при запуске приложения
@@ -303,7 +334,13 @@ export const useAuthFlow = (): UseAuthFlowResult => {
 
         const widgetData = getTelegramLoginWidgetData();
 
+        feLog.debug('app.widget_data_check', {
+          hasWidgetData: !!widgetData,
+          widgetDataKeys: widgetData ? Object.keys(widgetData) : [],
+        });
+
         if (widgetData) {
+          feLog.info('app.login_widget_auth_start', { user_id: widgetData.id });
           dispatch(setMode({ mode: 'site' }));
           dispatch(setAppStatus({ status: 'checking' }));
           dispatch(resetError());
@@ -317,7 +354,15 @@ export const useAuthFlow = (): UseAuthFlowResult => {
         dispatch(setMode({ mode: 'unknown' }));
         dispatch(resetError());
 
-        await waitForTelegramWebApp(TELEGRAM_WEBAPP_WAIT_MS);
+        // Быстрая проверка наличия признаков Telegram контекста
+        const hasTgHints = hasTelegramContextHints();
+
+        feLog.debug('app.telegram_hints', { hasTelegramContextHints: hasTgHints });
+
+        // Адаптивные таймауты: короткие для обычных веб-пользователей, полные для Telegram
+        const webAppTimeout = hasTgHints ? TELEGRAM_WEBAPP_WAIT_MS : TELEGRAM_WEBAPP_WAIT_SHORT_MS;
+
+        await waitForTelegramWebApp(webAppTimeout);
         const isWebApp = isTelegramWebApp();
 
         if (isWebApp && typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -333,9 +378,13 @@ export const useAuthFlow = (): UseAuthFlowResult => {
           }
         }
 
-        const initData = await waitForInitData(
-          isWebApp ? TELEGRAM_INITDATA_WEBAPP_TIMEOUT_MS : TELEGRAM_INITDATA_SITE_TIMEOUT_MS,
-        );
+        const initDataTimeout = hasTgHints
+          ? isWebApp
+            ? TELEGRAM_INITDATA_WEBAPP_TIMEOUT_MS
+            : TELEGRAM_INITDATA_SITE_TIMEOUT_MS
+          : TELEGRAM_INITDATA_SHORT_TIMEOUT_MS;
+
+        const initData = await waitForInitData(initDataTimeout);
         const hasTgWebAppDataParam =
           typeof window !== 'undefined'
             ? window.location.search.includes('tgWebAppData=') || window.location.hash.includes('tgWebAppData=')

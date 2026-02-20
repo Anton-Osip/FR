@@ -3,6 +3,7 @@ import { FC, useMemo } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import { AdaptiveSection } from '@shared/ui';
 import { CalendarIcon, GraphIcon, PercentageCircleIcon, WalletIcon } from '@shared/ui/icons';
 
 import styles from './ProgramTerms.module.scss';
@@ -10,6 +11,7 @@ import styles from './ProgramTerms.module.scss';
 interface ProgramTermsProps {
   className?: string;
 }
+const SLIDER_BREAKPOINT = 1500;
 
 export const ProgramTerms: FC<ProgramTermsProps> = ({ className }) => {
   const { t } = useTranslation('invite');
@@ -46,16 +48,22 @@ export const ProgramTerms: FC<ProgramTermsProps> = ({ className }) => {
 
   return (
     <div className={clsx(styles.programTerms, className)}>
-      <h2 className={styles.title}>{t('programTerms.title')}</h2>
-      <div className={styles.grid}>
-        {cardsData.map(card => (
+      <AdaptiveSection
+        className={className}
+        title={t('programTerms.title')}
+        data={cardsData}
+        renderItem={card => (
           <div key={card.id} className={styles.card}>
             <div className={styles.image}>{card.icon}</div>
             <h4 className={styles.cardTitle}>{card.title}</h4>
             <p className={styles.description}>{card.description}</p>
           </div>
-        ))}
-      </div>
+        )}
+        breakpoint={SLIDER_BREAKPOINT}
+        swiperBreakpoints={{
+          864: { spaceBetween: 16 },
+        }}
+      />
     </div>
   );
 };

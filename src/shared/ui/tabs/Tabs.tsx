@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 
-import { Button } from '@shared/ui';
+import { Button } from '@shared/ui/button';
 
 import styles from './Tabs.module.scss';
 
@@ -13,6 +13,7 @@ export interface Tab {
   label: string;
   icon?: ReactNode;
   active: boolean;
+  disabled?: boolean;
 }
 
 interface TabsProps {
@@ -86,11 +87,12 @@ export const Tabs: FC<TabsProps> = ({ className, items, onChange, size = 's' }) 
               size={size}
               key={item.id}
               variant={'secondary'}
-              className={clsx(styles.tab, item.active && styles.activeTabs)}
+              className={clsx(styles.tab, item.active && styles.activeTabs, item.disabled && styles.tabDisabled)}
               icon={item.icon}
               active={item.active}
-              onClick={() => onChange?.(item.value)}
-              ref={el => {
+              disabled={item.disabled}
+              onClick={() => !item.disabled && onChange?.(item.value)}
+              ref={(el: HTMLButtonElement | null) => {
                 tabRefs.current[index] = el;
               }}
             >

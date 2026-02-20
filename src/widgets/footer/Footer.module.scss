@@ -17,10 +17,10 @@
     "ltd ltd";
   grid-template-columns: minmax(0, 1fr) auto;
 
-  width: 100%;
-  max-width: $container-max-width;
+  width: calc(100vw - 281px);
+  max-width: 1228px;
   margin: 0 auto;
-  padding: 43px 11px 48px 22px;
+  padding: 43px 22px 48px;
 }
 
 .separator {
@@ -77,11 +77,12 @@
 
 .separatorMenu {
   grid-area: sep-menu;
+  margin: 28px 0 33px;
 }
 
 .separatorMoney {
   grid-area: sep-money;
-  margin-bottom: 32px;
+  margin-bottom: 33px;
 }
 
 .separatorSupport {
@@ -90,8 +91,8 @@
 }
 
 @media screen and (max-width: $media-laptop-plus) {
-  .footer {
-    margin-bottom: 10px;
+  .footerGrid {
+    width: 100vw;
   }
 }
 
@@ -108,20 +109,19 @@
       "sep-support sep-support"
       "support support"
       "ltd ltd";
-    padding: 14px 5px 16px 16px;
+    padding: 14px 16px 16px;
   }
 
 
-
-  .separatorSupport{
+  .separatorSupport {
     margin: 21px 0 23px;
   }
 
-  .footerLtdText{
+  .footerLtdText {
     display: none;
   }
 
-  .separatorMoney{
+  .separatorMoney {
     margin: 20px 0 24px;
   }
 
@@ -141,6 +141,7 @@
   }
 
 }
+
 
 @media screen and (max-width: $media-tab-mini) {
   .footerGrid {

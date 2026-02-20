@@ -1,36 +1,53 @@
 @use "../../../shared/styles/variables.scss" as *;
 
 .favorites {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
   width: 100%;
-  min-height: 100vh;
-  padding: $spacing-lg;
+  min-height: calc(100dvh - $header-height - 48px - 48px);
 }
 
-.breadcrumbs {
-  margin-bottom: $spacing-lg;
+
+.spinner {
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid currentcolor;
+  border-top-color: transparent;
+  border-radius: 50%;
+
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  height: 100%;
+}
 
-  min-height: 400px;
-
-  text-align: center;
-
-  h2 {
-    margin-bottom: $spacing-md;
-    font-size: 32px;
-    font-weight: $font-weight-base;
-    color: $color-text-primary;
-  }
-
-  p {
-    font-size: 16px;
-    color: $color-text-secondary;
+@media screen and (max-width: $media-laptop-plus) {
+  .favorites {
+    min-height: calc(100dvh - $mobile-header-height - $mobile-nav-height - 24px - 24px);
   }
 }
 
+@media screen and (max-width: $media-laptop) {
+  .favorites {
+    gap: 24px;
+  }
+}
+
+
+@media screen and (max-width: $media-mobile-mini) {
+  .favorites {
+    min-height: calc(100dvh - $mobile-header-height - $mobile-nav-height-mini);
+  }
+}
 

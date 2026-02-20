@@ -7,13 +7,18 @@
     "menu": "Menu"
   },
   "scrollTop": {
-    "ariaLabel": "Scroll to top"
+    "ariaLabel": "Scroll to top",
+    "label": "To top"
+  },
+  "support": {
+    "ariaLabel": "Technical support"
   },
   "slideUpMenu": {
     "searchPlaceholder": "Search",
     "sections": {
       "navigation": "Navigation",
-      "games": "Games"
+      "games": "Games",
+      "liveCasino": "Live Casino"
     },
     "menuItems": {
       "home": "Home",
@@ -23,7 +28,12 @@
       "slots": "Slots",
       "popular": "Popular",
       "quickGames": "Quick games",
-      "new": "New"
+      "new": "New",
+      "blackjack": "Blackjack",
+      "roulette": "Roulette",
+      "liveGames": "Live Games",
+      "baccarat": "Baccarat",
+      "recommended": "Recommended"
     },
     "support": {
       "title": "Support"

@@ -20,6 +20,7 @@ interface MenuItems {
   label: string;
   isActive: boolean;
   path?: string;
+  notifications?: number;
 }
 
 export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, className, onRequireAuth, isLoggedIn }) => {
@@ -36,6 +37,7 @@ export const MenuSection: FC<MenuSectionProps> = ({ list, title, isOpen, classNa
           path={item.path}
           onRequireAuth={onRequireAuth}
           isLoggedIn={isLoggedIn}
+          notifications={item.notifications}
         />
       ))}
     </div>

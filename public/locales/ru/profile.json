@@ -12,24 +12,50 @@
   },
   "userAmountProgress": {
     "moreDetails": "Подробнее",
+    "bronze": "Бронза",
     "silver": "Серебро",
-    "gold": "Золото"
+    "gold": "Золото",
+    "diamond": "Бриллиант",
+    "noRank": "Без ранга",
+    "progress": "Прогресс до следующего ранга"
   },
   "transactionHistory": {
     "title": "История транзакций",
+    "empty": "Нет транзакций",
     "headers": {
       "transactionType": "Тип транзакции",
       "amount": "Сумма",
       "date": "Дата",
       "status": "Статус"
     },
-    "transactionTypes": {
-      "deposit": "Депозит",
-      "withdrawal": "Вывод"
+    "types": {
+      "in": "Пополнение",
+      "out": "Вывод"
     },
     "statuses": {
-      "success": "Успешно",
-      "rejected": "Отказ"
+      "pending": "Ожидание оплаты",
+      "resolved": "Успешно",
+      "rejected": "Отклонено"
+    }
+  },
+  "operationDetails": {
+    "title": "Детализация операции",
+    "operationId": "ID операции",
+    "openDispute": "Открыть спор",
+    "close": "Закрыть",
+    "address": "Адрес",
+    "network": "Сеть",
+    "memo": "Memo",
+    "recipientName": "ФИО",
+    "phone": "Номер телефона",
+    "cardNumber": "Номер карты",
+    "cardHolder": "Держатель карты",
+    "bankName": "Банк",
+    "botPayUrl": "Ссылка на оплату",
+    "statuses": {
+      "resolved": "Успешно зачислены",
+      "pending": "Транзакция обрабатывается",
+      "rejected": "Транзакция отклонена"
     }
   },
   "supportPanel": {

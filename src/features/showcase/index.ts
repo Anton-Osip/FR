@@ -1,3 +1,4 @@
+export { MIN_TOTAL_TO_SHOW_LOAD_MORE, SLOTS_PAGE_SIZE } from './constants';
 export {
   showcaseApi,
   useGetShowcaseGamesQuery,
@@ -9,6 +10,8 @@ export {
   useGetSlotLeaderboardBigWinsQuery,
   useGetSlotLeaderboardLuckyQuery,
   useGetSlotLeaderboardTodayBestQuery,
+  useGetFeaturedSlotQuery,
+  useLazyGetFeaturedSlotQuery,
   useInitSlotMutation,
   useInitSlotDemoMutation,
   useAddFavoriteMutation,
@@ -34,6 +37,10 @@ export type {
   GetSlotLeaderboardTodayBestParams,
   GetSlotLeaderboardTodayBestResponse,
   SlotLeaderboardTodayBestItem,
+  FeaturedSlotKind,
+  GetFeaturedSlotParams,
+  GetFeaturedSlotResponse,
+  FeaturedSlotGame,
   InitSlotParams,
   InitSlotResponse,
   InitSlotDemoParams,

@@ -1,0 +1,33 @@
+{
+  "header": {
+    "allGames": "Слоты",
+    "popularGames": "Популярное",
+    "quickGames": "Быстрые игры",
+    "newGames": "Новинки",
+    "recommendedGames": "Рекомендованное",
+    "blackjackGames": "Блэкджек",
+    "rouletteGames": "Рулетка",
+    "liveGames": "Live-игры",
+    "baccaratGames": "Баккара"
+  },
+  "filters": {
+    "popular": {
+      "featured": "Рекомендуемые",
+      "new": "Новые",
+      "popular": "Популярные"
+    },
+    "provider": {
+      "all": "Все провайдеры"
+    },
+    "searchPlaceholder": "Поиск"
+  },
+  "buttons": {
+    "loadMore": "Смотреть больше",
+    "shown": "Показано",
+    "of": "из"
+  },
+  "messages": {
+    "nothingFound": "Ничего не найдено",
+    "blockedInRegion": "Недоступно в вашем регионе"
+  }
+}

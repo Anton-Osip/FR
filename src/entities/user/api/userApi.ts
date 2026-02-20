@@ -1,66 +1,126 @@
 import { subscribeToEvent } from '@shared/lib';
 
-import type { UserBalance, UserMe } from '../model/types';
+import type { UpdateUserHiddenRequest, UserBalance, UserGeoCountry, UserMe, UserRank } from '../model/types';
 
 import type { BalanceWebSocketEvent } from './userApi.types';
 
-import { baseApi } from '@/shared/api';
+import { baseApi, executeApiRequest, type BaseQueryFn } from '@/shared/api';
 import { BFF, SOCKET_PATHS } from '@/shared/config';
+
+const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
+const GEO_COUNTRY_CACHE_TTL_SECONDS = SECONDS_IN_MINUTE * MINUTES_IN_HOUR;
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getUserMe: builder.query<UserMe, void>({
-      query: () => ({
-        url: `${BFF}/api/v1/users/me`,
-        method: 'GET',
-      }),
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<UserMe>(
+          {
+            endpointName: 'users.me',
+            url: `${BFF}/api/v1/users/me`,
+            method: 'GET',
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
       providesTags: ['User'],
     }),
 
+    getUserRank: builder.query<UserRank, void>({
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<UserRank>(
+          {
+            endpointName: 'users.rank',
+            url: `${BFF}/api/v1/users/me/rank`,
+            method: 'GET',
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      providesTags: ['UserRank'],
+    }),
+
     getUserBalance: builder.query<UserBalance, void>({
-      query: () => ({
-        url: `${BFF}/api/v1/users/balance`,
-        method: 'GET',
-      }),
-      keepUnusedDataFor: 0, // очистка сразу после размонтирования
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<UserBalance>(
+          {
+            endpointName: 'users.balance',
+            url: `${BFF}/api/v1/users/balance`,
+            method: 'GET',
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      keepUnusedDataFor: 0,
       async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-        // Ждем разрешения начального запроса перед продолжением
         await cacheDataLoaded;
 
         const unsubscribes = [
           subscribeToEvent<BalanceWebSocketEvent>(SOCKET_PATHS.BALANCE, msg => {
-            let newBalance: UserBalance | null = null;
+            const eventType = 'event' in msg ? msg.event : 'type' in msg ? msg.type : undefined;
 
-            // Обработка разных форматов сообщений
-            if ('type' in msg && msg.type === 'balance' && 'data' in msg) {
-              newBalance = msg.data as UserBalance;
-            } else if (
-              typeof msg === 'object' &&
-              msg !== null &&
-              'balance' in msg &&
-              'cash' in msg &&
-              'bonus' in msg &&
-              'revshare' in msg
-            ) {
-              newBalance = msg as UserBalance;
-            } else if ('type' in msg && (msg.type === 'ready' || msg.type === 'ping')) {
-              // События ready и ping обрабатываются, но не обновляют баланс
+            if (eventType === 'ready' || eventType === 'ping') {
               return;
             }
 
-            if (newBalance) {
-              updateCachedData(() => newBalance!);
+            if (eventType === 'balance' && 'data' in msg && msg.data) {
+              updateCachedData(() => msg.data as UserBalance);
             }
           }),
         ];
 
-        // CacheEntryRemoved разрешится, когда подписка на кеш больше не активна
         await cacheEntryRemoved;
         unsubscribes.forEach(unsubscribe => unsubscribe());
       },
       providesTags: ['Balance'],
     }),
+
+    getUserGeoCountry: builder.query<UserGeoCountry, void>({
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<UserGeoCountry>(
+          {
+            endpointName: 'users.geo.country',
+            url: `${BFF}/api/v1/users/geo/country`,
+            method: 'GET',
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      keepUnusedDataFor: GEO_COUNTRY_CACHE_TTL_SECONDS,
+      providesTags: ['GeoCountry'],
+    }),
+
+    updateUserHidden: builder.mutation<UserMe, UpdateUserHiddenRequest>({
+      queryFn: async (arg, _queryApi, _extraOptions, baseQuery) => {
+        return executeApiRequest<UserMe>(
+          {
+            endpointName: 'users.is_hidden',
+            url: `${BFF}/api/v1/users/is-hidden`,
+            method: 'PATCH',
+            body: arg,
+          },
+          baseQuery as BaseQueryFn,
+        );
+      },
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
-export const { useGetUserMeQuery, useGetUserBalanceQuery } = userApi;
+export const {
+  useGetUserMeQuery,
+  useGetUserRankQuery,
+  useGetUserBalanceQuery,
+  useGetUserGeoCountryQuery,
+  useUpdateUserHiddenMutation,
+} = userApi;
+
+type UseUserGeoCountryResult = ReturnType<typeof useGetUserGeoCountryQuery>;
+
+export const useUserGeoCountry = (): UseUserGeoCountryResult => {
+  return useGetUserGeoCountryQuery(undefined, {
+    refetchOnMountOrArgChange: false,
+    refetchOnReconnect: false,
+  });
+};

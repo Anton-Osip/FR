@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import { Breadcrumbs } from '@shared/ui';
 
-import styles from './Profile.module.scss';
+import { SupportPanel } from '@widgets/supportPanel';
+import { TransactionHistory } from '@widgets/transactionHistory';
+import { UserProfileInfo } from '@widgets/userProfileInfo';
 
-import { SupportPanel, TransactionHistory, UserProfileInfo } from '@/widgets';
+import styles from './Profile.module.scss';
 
 export const Profile: FC = () => {
   const { t: tBreadcrumbs } = useTranslation('breadcrumbs');
@@ -18,7 +20,7 @@ export const Profile: FC = () => {
       <Breadcrumbs items={breadCrumbsItems} className={styles.breadcrumbs} />
       <UserProfileInfo />
       <TransactionHistory />
-      <SupportPanel />
+      <SupportPanel className={styles.supportPanel} />
     </div>
   );
 };

@@ -21,7 +21,22 @@ export default defineConfig({
       svgrOptions: {
         exportType: 'named',
         ref: true,
-        svgo: false,
+        svgo: true,
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  // Отключаем удаление viewBox, чтобы SVG масштабировались правильно
+                  removeViewBox: false,
+                },
+              },
+            },
+            // Удаляем ненужные атрибуты
+            'removeXMLNS',
+          ],
+        },
         titleProp: true,
       },
       include: '**/*.svg',
@@ -81,6 +96,42 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'zustand', '@reduxjs/toolkit', 'react-redux'],
+    include: ['react', 'react-dom', '@reduxjs/toolkit', 'react-redux'],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React ecosystem
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          // State management
+          'vendor-redux': ['@reduxjs/toolkit', 'react-redux'],
+          // UI libraries (Radix UI)
+          'vendor-ui': [
+            '@radix-ui/react-avatar',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-icons',
+            '@radix-ui/react-progress',
+            '@radix-ui/react-radio-group',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-toggle-group',
+            '@radix-ui/react-tooltip',
+          ],
+          // Forms and validation
+          'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          // i18n
+          'vendor-i18n': [
+            'i18next',
+            'react-i18next',
+            'i18next-http-backend',
+            'i18next-browser-languagedetector',
+            'i18next-intervalplural-postprocessor',
+          ],
+          // Other utilities
+          'vendor-utils': ['clsx', 'lottie-react', 'swiper'],
+        },
+      },
+    },
   },
 });

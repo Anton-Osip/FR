@@ -7,13 +7,18 @@
     "menu": "Меню"
   },
   "scrollTop": {
-    "ariaLabel": "Прокрутить вверх"
+    "ariaLabel": "Прокрутить вверх",
+    "label": "Наверх"
+  },
+  "support": {
+    "ariaLabel": "Техническая поддержка"
   },
   "slideUpMenu": {
     "searchPlaceholder": "Поиск",
     "sections": {
       "navigation": "Навигация",
-      "games": "Игры"
+      "games": "Игры",
+      "liveCasino": "Live Казино"
     },
     "menuItems": {
       "home": "Главная",
@@ -23,7 +28,12 @@
       "slots": "Слоты",
       "popular": "Популярное",
       "quickGames": "Быстрые игры",
-      "new": "Новинки"
+      "new": "Новинки",
+      "blackjack": "Блэкджек",
+      "roulette": "Рулетка",
+      "liveGames": "Live-игры",
+      "baccarat": "Баккара",
+      "recommended": "Рекомендованное"
     },
     "support": {
       "title": "Тех. поддержка"

@@ -3,15 +3,15 @@ import { subscribeToEvent } from '@/shared/lib';
 
 type BettingTableMessage =
   | {
-      payload?: {
-        data: Bet;
-      };
       type?: string;
+      event?: string;
+      data?: Bet;
     }
   | Bet;
 
 interface SetupBettingTableWebSocketParams {
   socketPath: string;
+  expectedEventType: string;
   pageSize: number;
   updateCachedData: (updateFn: (state: { items: Bet[] }) => void) => void;
 }
@@ -20,12 +20,10 @@ interface SetupBettingTableWebSocketParams {
  * Парсит WebSocket сообщение и извлекает Bet объект
  */
 function parseBettingTableMessage(msg: BettingTableMessage): Bet | null {
-  // Формат 1: { payload: { data: Bet } }
-  if ('payload' in msg && msg.payload?.data) {
-    return msg.payload.data as Bet;
+  if ('data' in msg && msg.data) {
+    return msg.data as Bet;
   }
 
-  // Формат 2: прямой Bet объект
   if (typeof msg === 'object' && msg !== null && 'user_name' in msg && 'avatar_url' in msg && 'game_title' in msg) {
     return msg as Bet;
   }
@@ -39,10 +37,22 @@ function parseBettingTableMessage(msg: BettingTableMessage): Bet | null {
  */
 export function setupBettingTableWebSocket({
   socketPath,
+  expectedEventType,
   pageSize,
   updateCachedData,
 }: SetupBettingTableWebSocketParams): () => void {
   return subscribeToEvent<BettingTableMessage>(socketPath, msg => {
+    const isEventObject = typeof msg === 'object' && msg !== null && ('type' in msg || 'event' in msg || 'data' in msg);
+
+    if (isEventObject) {
+      const eventType =
+        (msg as { type?: string; event?: string }).type || (msg as { type?: string; event?: string }).event;
+
+      if (eventType && eventType !== expectedEventType) {
+        return;
+      }
+    }
+
     const newBet = parseBettingTableMessage(msg);
 
     if (newBet) {

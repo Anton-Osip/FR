@@ -12,24 +12,50 @@
   },
   "userAmountProgress": {
     "moreDetails": "More details",
+    "bronze": "Bronze",
     "silver": "Silver",
-    "gold": "Gold"
+    "gold": "Gold",
+    "diamond": "Diamond",
+    "noRank": "No rank",
+    "progress": "Progress to next rank"
   },
   "transactionHistory": {
     "title": "Transaction history",
+    "empty": "No transactions",
     "headers": {
       "transactionType": "Transaction type",
       "amount": "Amount",
       "date": "Date",
       "status": "Status"
     },
-    "transactionTypes": {
-      "deposit": "Deposit",
-      "withdrawal": "Withdrawal"
+    "types": {
+      "in": "Deposit",
+      "out": "Withdrawal"
     },
     "statuses": {
-      "success": "Success",
+      "pending": "Pending payment",
+      "resolved": "Success",
       "rejected": "Rejected"
+    }
+  },
+  "operationDetails": {
+    "title": "Operation details",
+    "operationId": "Operation ID",
+    "openDispute": "Open dispute",
+    "close": "Close",
+    "address": "Address",
+    "network": "Network",
+    "memo": "Memo",
+    "recipientName": "Full name",
+    "phone": "Phone number",
+    "cardNumber": "Card number",
+    "cardHolder": "Card holder",
+    "bankName": "Bank",
+    "botPayUrl": "Payment link",
+    "statuses": {
+      "resolved": "Successfully credited",
+      "pending": "Transaction processing",
+      "rejected": "Transaction rejected"
     }
   },
   "supportPanel": {

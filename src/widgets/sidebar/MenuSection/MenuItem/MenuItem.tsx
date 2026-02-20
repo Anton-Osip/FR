@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { APP_PATH } from '@shared/config';
+import { AUTH_REQUIRED_PATHS } from '@shared/config';
 
 import styles from './MenuItem.module.scss';
 
@@ -14,14 +14,23 @@ interface MenuItemProps {
   isActive: boolean;
   isOpen: boolean;
   path?: string;
+  notifications?: number;
   onRequireAuth?: () => void;
   isLoggedIn?: boolean;
 }
 
-// Пути, которые требуют авторизации
-const AUTH_REQUIRED_PATHS: string[] = [APP_PATH.favorites, APP_PATH.invite, APP_PATH.bonuses];
+const MAX_NOTIFICATION_COUNT = 9;
 
-export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, path, onRequireAuth, isLoggedIn }) => {
+export const MenuItem: FC<MenuItemProps> = ({
+  label,
+  icon,
+  isActive,
+  isOpen,
+  path,
+  onRequireAuth,
+  isLoggedIn,
+  notifications,
+}) => {
   const itemRef = useRef<HTMLButtonElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -29,7 +38,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
   const location = useLocation();
 
   const isCurrentPath = path && location.pathname === path;
-  const requiresAuth = path ? AUTH_REQUIRED_PATHS.includes(path) : false;
+  const requiresAuth = path ? (AUTH_REQUIRED_PATHS as readonly string[]).includes(path) : false;
 
   useEffect(() => {
     if (isHovered && itemRef.current && !isOpen) {
@@ -69,6 +78,11 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
       >
         <div className={styles.iconWrapper}>{icon}</div>
         <span className={styles.label}>{label}</span>
+        {notifications && (
+          <div aria-label={'new notification'} className={styles.notification}>
+            {notifications > MAX_NOTIFICATION_COUNT ? `${MAX_NOTIFICATION_COUNT}+` : notifications}
+          </div>
+        )}
       </button>
       {!isOpen && (
         <span

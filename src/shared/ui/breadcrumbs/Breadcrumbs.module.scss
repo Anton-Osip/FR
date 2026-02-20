@@ -33,8 +33,10 @@
 
   transition: color $transition-hover;
 
-  &:hover {
-    color: $color-text-primary;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $color-text-primary;
+    }
   }
 }
 
@@ -47,4 +49,21 @@
   line-height: normal;
   color: $color-text-primary;
   letter-spacing: -0.16px;
+}
+
+@media screen and (max-width: $media-mobile) {
+  .item {
+    &:not(:last-child)::after {
+      font-size: 14px;
+    }
+  }
+
+  .link {
+    font-size: 14px;
+  }
+
+  .current {
+    font-size: 14px;
+    letter-spacing: -0.14px;
+  }
 }

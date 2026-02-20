@@ -1,6 +1,9 @@
 {
   "pageTitle": "Favorites",
   "title": "Favorites",
-  "description": "Your favorite games and content will be displayed here"
+  "description": "Your favorite games and content will be displayed here",
+  "empty": {
+    "title": "No favorite games yet",
+    "description": "Add your favorite games for quick access"
+  }
 }
-

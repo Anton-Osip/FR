@@ -1,0 +1,215 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.phoneCountryInput {
+  width: 100%;
+  background-color: #131824;
+  border-radius: 12px;
+
+  &.error {
+    border: 2px solid #B74345 !important;
+    animation: input-error-shake 0.2s ease-in-out 2;
+  }
+
+  &:hover :global(.react-tel-input) input[type="tel"],
+  &:hover :global(.react-tel-input) input[type="text"] {
+    border-color: #282F42 !important;
+  }
+
+  &:hover :global(.react-tel-input) input[type="tel"]:focus,
+  &:hover :global(.react-tel-input) input[type="text"]:focus {
+    border-color: $color-primary !important;
+  }
+}
+
+.container {
+  width: 100%;
+
+  .input {
+    width: 100%;
+    height: 47px;
+    padding: 14px 16px 14px 50px;
+
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    font-style: normal;
+    line-height: $leading-normal;
+    color: $color-text-secondary;
+    letter-spacing: $tracking-normal;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    outline: none;
+
+    transition: border-color $transition-hover;
+
+    &::placeholder {
+      color: $color-text-secondary;
+      opacity: 1;
+    }
+
+    &:hover {
+      border-color: #282F42;
+    }
+
+    &:focus-within {
+      color: $color-text-primary;
+      border-color: $color-primary;
+
+      &:hover {
+        border-color: $color-primary;
+      }
+    }
+  }
+
+  .button {
+    padding: 0;
+    background: transparent !important;
+    border: none;
+
+    & > div {
+      width: 41px;
+      padding: 0 10px 0 16px;
+      background-color: transparent !important;
+
+      & > div > div {
+        display: none;
+      }
+    }
+
+    & div:hover {
+      background-color: transparent !important;
+    }
+
+    & div:focus {
+      background-color: transparent !important;
+    }
+  }
+
+  // Стили для поля поиска в dropdown
+  .search {
+    padding: 8px !important;
+
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    color: $color-text-primary;
+
+    background: #0F141F !important;
+    border: none;
+
+    & > span {
+      display: none;
+    }
+
+    & > input {
+      position: relative;
+
+      width: 100%;
+      margin: 0 !important;
+      padding: 8px !important;
+
+      font-family: $font-family-base;
+      font-size: $font-size-md !important;
+      font-weight: $font-weight-light;
+      line-height: $leading-normal !important;
+      color: $color-text-secondary !important;
+      letter-spacing: $tracking-normal !important;
+
+      background: #131824;
+      border: 2px solid transparent !important;
+      border-radius: 12px !important;
+      outline: none;
+
+      &::placeholder {
+        color: $color-text-secondary;
+        opacity: 1;
+      }
+
+      &[type="search"]::-webkit-search-cancel-button {
+        display: none;
+      }
+
+      &[type="search"]::-ms-clear {
+        display: none;
+      }
+
+      &:hover {
+        border-color: #282F42;
+      }
+
+      &:focus-within {
+        color: $color-text-primary !important;
+        border-color: $color-primary;
+
+        &:hover {
+          border-color: $color-primary;
+        }
+      }
+
+    }
+  }
+
+  // Стили для dropdown списка стран
+  .dropdown {
+    width: 288px !important;
+    background: #0F141F;
+    border: 1px solid rgba(169 175 181 / 12%);
+    border-radius: $radius-lg;
+
+
+    & > li[role='option'] {
+      display: flex;
+      align-items: center;
+
+      margin: 0 8px;
+      padding: 8px;
+
+      background: transparent;
+      border-radius: 10px;
+
+
+      & > span {
+        font-family: $font-family-base;
+        font-size: 14px;
+        font-weight: 600;
+        font-style: normal;
+        line-height: normal;
+        color: #F0F5FF !important;
+        letter-spacing: -0.14px;
+      }
+
+      &:hover {
+        background: #131824;
+      }
+
+    }
+
+    & > li[role='option'][aria-selected='true'] {
+      background: #212738 !important;
+    }
+  }
+}
+
+
+@keyframes input-error-shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+

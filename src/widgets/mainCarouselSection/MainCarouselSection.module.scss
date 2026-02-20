@@ -1,19 +1,89 @@
-.categoryFiltersBar{
+@use "../../shared/styles/variables" as *;
+
+.categoryFiltersBar {
   margin-bottom: 33px;
 }
 
-.caruseles{
+.caruseles {
   display: flex;
   flex-direction: column;
   gap: 31px;
 }
 
-@media screen and (width <=1024px ) {
-  .categoryFiltersBar{
+.more {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 25px;
+}
+
+.text {
+  margin-top: 16px;
+  margin-bottom: 12px;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+}
+
+.loadMore {
+  max-width: 173px;
+  min-height: 47px;
+
+  &:disabled {
+    opacity: 0.85;
+  }
+
+}
+
+.spinner {
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid currentcolor;
+  border-top-color: transparent;
+  border-radius: 50%;
+
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingButton {
+  .buttonText {
+    display: none;
+  }
+}
+
+@media screen and (width <=1024px) {
+  .categoryFiltersBar {
     margin-bottom: 26px;
   }
 
-  .caruseles{
+  .caruseles {
     gap: 23px;
   }
 }
+
+@media screen and (max-width: $media-tab) {
+  .loadMore {
+    margin: 15px auto 0;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .loadMore {
+    margin: 10px auto 0;
+  }
+}
+
+
+

@@ -32,17 +32,17 @@ export const Footer: FC<FooterProps> = ({ className }) => {
         <Button className={styles.footerTelegram} icon={<TgIcon />} size="s" variant="secondary">
           {t('telegramChannel')}
         </Button>
-        <Separator.Root className={`${styles.separator} ${styles.separatorMenu}`} />
+        <Separator.Root className={clsx(styles.separator, styles.separatorMenu)} />
         <FooterMenu className={styles.footerMenu} items={footerMenu} />
         <div className={styles.footerSupport}>
           <FooterSupport />
         </div>
-        <Separator.Root className={`${styles.separator} ${styles.separatorMoney}`} />
+        <Separator.Root className={clsx(styles.separator, styles.separatorMoney)} />
         <div className={styles.footerMoney}>
           <FooterMoneyItem text={t('banking')} items={footerBanking} />
           <FooterMoneyItem text={t('crypto')} items={footerCrypto} />
         </div>
-        <Separator.Root className={`${styles.separator} ${styles.separatorSupport}`} />
+        <Separator.Root className={clsx(styles.separator, styles.separatorSupport)} />
         <p className={styles.footerLtdText}>{t('ltdText')}</p>
       </div>
     </footer>

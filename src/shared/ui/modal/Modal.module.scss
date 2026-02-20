@@ -17,7 +17,7 @@
 
 .content {
   position: fixed;
-  z-index: 1001;
+  z-index: 1060;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -104,13 +104,15 @@ button.closeButton {
 
   background-color: $color-bg-on-block;
 
-  &:hover {
-    background-color: $color-bg-on-block-hover;
-  }
-
   &:disabled {
     color: $color-text-secondary;
     background-color: $color-bg-block;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
   }
 }
 

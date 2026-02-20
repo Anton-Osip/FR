@@ -1,7 +1,8 @@
 {
   "sections": {
     "navigation": "Навигация",
-    "games": "Игры"
+    "games": "Игры",
+    "liveCasino": "Live Казино"
   },
   "menuItems": {
     "home": "Главная",

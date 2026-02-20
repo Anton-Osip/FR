@@ -1,7 +1,8 @@
 {
   "sections": {
     "navigation": "Navigation",
-    "games": "Games"
+    "games": "Games",
+    "liveCasino": "Live Casino"
   },
   "menuItems": {
     "home": "Home",

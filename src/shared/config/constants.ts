@@ -11,5 +11,9 @@ export const SOCKET_PATHS = {
   BALANCE: '/api/v1/users/balance/ws',
 } as const;
 
+export const PERCENTAGE_MULTIPLIER = 100;
+
+export const DEFAULT_CURRENCY_SYMBOL = '₽';
+
 export type SocketEvents = (typeof SOCKET_EVENTS)[keyof typeof SOCKET_EVENTS];
 export type SocketPaths = (typeof SOCKET_PATHS)[keyof typeof SOCKET_PATHS];

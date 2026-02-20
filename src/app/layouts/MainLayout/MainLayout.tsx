@@ -1,20 +1,30 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 
-import { ChevronUpIcon } from '@radix-ui/react-icons';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { initLogging } from '@shared/lib';
 import { Button } from '@shared/ui';
+import { ArrowIcon, SupportIcon } from '@shared/ui/icons';
+
+import { Footer } from '@widgets/footer';
+import { Header } from '@widgets/header';
+import { Sidebar } from '@widgets/sidebar';
+import { TabScreenMenu } from '@widgets/tabScreenMenu';
 
 import styles from './MainLayout.module.scss';
 
-import { Header, Sidebar, TabScreenMenu, Footer } from '@/widgets';
-
 const SCROLL_THRESHOLD = 300;
 
-export const MainLayout: FC = () => {
+interface Props {
+  fullWidthContent?: boolean;
+  withoutFooter?: boolean;
+}
+
+export const MainLayout: FC<Props> = ({ fullWidthContent, withoutFooter }) => {
   const { t } = useTranslation('tabScreenMenu');
+  const location = useLocation();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
 
@@ -25,6 +35,13 @@ export const MainLayout: FC = () => {
   useEffect(() => {
     initLogging();
   }, []);
+
+  useEffect(() => {
+    // Скролл вверх при изменении маршрута
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const mainElement = mainRef.current;
@@ -45,25 +62,43 @@ export const MainLayout: FC = () => {
 
   return (
     <div className={styles.layout}>
-      <Header className={styles.headerLayout} />
       <Sidebar className={styles.sidebarLayout} />
       <main ref={mainRef} className={styles.layoutMain}>
-        <div className={styles.layoutMainContainer}>
+        <Header className={styles.headerLayout} />
+        <div className={clsx(!fullWidthContent && styles.layoutMainContainer)}>
           <Outlet />
         </div>
-        <Footer />
+        {!withoutFooter && <Footer />}
+        <div className={styles.fixedButton}>
+          <Button
+            variant="tertiary"
+            onClick={scrollToTop}
+            className={clsx(styles.scrollTopButton, showScrollTop && styles.scrollTopButtonVisible)}
+            size={'s'}
+            aria-label={t('scrollTop.ariaLabel')}
+            tabIndex={showScrollTop ? 0 : -1}
+          >
+            <span className={styles.scrollUpBtnContent}>
+              <ArrowIcon />
+              <span>{t('scrollTop.label')}</span>
+            </span>
+          </Button>
+          {!withoutFooter && (
+            <Button
+              icon={<SupportIcon />}
+              variant="primary"
+              onClick={() => {
+                // TODO: implement support chat
+                console.warn('Support functionality not implemented yet');
+              }}
+              className={styles.supportBtn}
+              size={'s'}
+              aria-label={t('support.ariaLabel')}
+            />
+          )}
+        </div>
       </main>
       <TabScreenMenu className={styles.tabScreenMenu} />
-      {showScrollTop && (
-        <Button
-          variant="secondary"
-          square
-          icon={ChevronUpIcon}
-          onClick={scrollToTop}
-          className={styles.scrollTopButton}
-          aria-label={t('scrollTop.ariaLabel')}
-        />
-      )}
     </div>
   );
 };

@@ -45,13 +45,15 @@
   color: $color-text-primary;
   background-color: $color-bg-on-block;
 
-  &:hover {
-    background-color: $color-bg-on-block-hover;
-  }
-
   &:disabled {
     color: $color-text-secondary;
     background-color: $color-bg-block;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
   }
 }
 

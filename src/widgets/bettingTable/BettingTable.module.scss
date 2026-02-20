@@ -5,30 +5,94 @@
 }
 
 @media screen and (max-width: $media-laptop) {
-  .th {
-    width: 33%;
+  .home {
+    .th {
+      width: calc(100% / 3);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier {
+      display: none;
+    }
   }
 
-  .payout {
-    text-align: right;
+  .games {
+    .th {
+      width: calc(100% / 3);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier {
+      display: none;
+    }
   }
 
-  .amount,
-  .multiplier {
-    display: none;
+  .game {
+    .th {
+      width: calc(100% / 5);
+    }
+  }
+}
+
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .game {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier,
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
   }
 }
 
 @media screen and (max-width: $media-tab-mini) {
-  .th {
-    width: 50%;
+  .home {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
   }
 
-  .user {
-    display: none;
+  .games {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
   }
 
-  .game {
-    padding-left: $spacing-md;
-  }
+
 }

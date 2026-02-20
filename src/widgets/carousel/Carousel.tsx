@@ -2,54 +2,84 @@ import { type FC, memo, type SVGProps, useCallback, useEffect, useMemo, useRef, 
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { SwiperOptions } from 'swiper/types';
 
-import { selectDeviceType } from '@app/store';
+import { selectDeviceType, selectIsLoggedIn } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
+import { APP_PATH } from '@shared/config';
 import { Button } from '@shared/ui';
 
 import 'swiper/css';
 
+import { CarouselItem, CarouselItemSkeleton } from '@widgets/carouselItem';
+
 import styles from './Carousel.module.scss';
-import { CarouselItem } from './CarouselItem/CarouselItem';
-import { CarouselItemSkeleton } from './CarouselItem/CarouselItemSkeleton';
 import { useCarousel } from './useCarousel';
 
 import type { GameKind } from '@/entities/game';
 import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
-import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
+import { SLOTS_PAGE_SIZE, useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
+import { useCountryIsBlocked } from '@entities/user';
 
 const REINIT_DELAY_MS = 100;
 const CHECK_REINIT_DELAY_MS = 100;
 
+const BASE_BREAKPOINTS = {
+  641: { slidesPerView: 6, spaceBetween: 8 },
+} satisfies SwiperOptions['breakpoints'];
+
+const DEFAULT_BREAKPOINTS = {
+  ...BASE_BREAKPOINTS,
+  864: { slidesPerView: 7, spaceBetween: 16 },
+} satisfies SwiperOptions['breakpoints'];
+
 interface Props {
   title: string;
   icon: FC<SVGProps<SVGSVGElement>>;
-  items: 'popular' | GameKind;
+  items: 'popular' | 'history' | GameKind;
 }
+
+const ITEMS_TO_ROUTE_TYPE: Record<Props['items'], string> = {
+  popular: 'popularGames',
+  live: 'liveGames',
+  fast: 'quickGames',
+  slot: 'slots',
+  history: 'historyGames',
+  blackjack: 'blackjackGames',
+  roulette: 'rouletteGames',
+  baccarat: 'baccaratGames',
+  other: 'allGames',
+} as const;
 
 const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
   const { t } = useTranslation('home');
+  const navigate = useNavigate();
   const { swiperRef, swiper, canScrollPrev, canScrollNext, scrollPrev, scrollNext, isNearEnd } = useCarousel();
   const deviceType = useAppSelector(selectDeviceType);
-
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const options: GetShowcaseGamesParams = useMemo(
     () => ({
-      page_size: 30,
+      page_size: SLOTS_PAGE_SIZE,
       only_popular: items === 'popular' || undefined,
-      game_kinds: items !== 'popular' ? [items] : undefined,
+      game_kinds: items !== 'popular' && items !== 'history' ? [items] : undefined,
       sort: 'popular',
       sort_dir: 'asc',
       only_mobile: deviceType === 'mobile',
+      only_history: items === 'history',
+      include_blocked_regions: true,
     }),
     [deviceType, items],
   );
 
-  const { data: initialData, isLoading } = useGetShowcaseGamesQuery(options);
+  const { data: initialData, isLoading } = useGetShowcaseGamesQuery(options, {
+    skip: items === 'history' && !isLoggedIn,
+  });
   const [loadMoreQuery, { isLoading: isLoadingMore }] = useLazyGetShowcaseGamesQuery();
-
+  const countryIsBlocked = useCountryIsBlocked();
   const [accumulatedData, setAccumulatedData] = useState<ShowcaseGamesResponse | null>(null);
   const isLoadingMoreRef = useRef(false);
   const hasInitializedRef = useRef(false);
@@ -113,17 +143,22 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
 
     const items = accumulatedData?.items || [];
 
-    // Если данных нет, показываем пустые блоки
     if (items.length === 0 && !isLoading) {
       return Array.from({ length: 7 }).map((_, index) => ({ id: `empty-${index}`, type: 'empty' as const }));
     }
 
-    return items.map(item => ({ id: item.id, type: 'item' as const, img: item.image, link: item.slug }));
-  }, [isLoading, accumulatedData]);
+    return items.map(item => ({
+      id: item.id,
+      type: 'item' as const,
+      img: item.image,
+      link: APP_PATH.slot.replace(':id', String(item.uuid)),
+      is_favorite: item.is_favorite,
+      blocked_countries: countryIsBlocked(item.blocked_countries),
+      name: item.name,
+    }));
+  }, [isLoading, accumulatedData, countryIsBlocked]);
 
-  const hasData = useMemo(() => {
-    return (accumulatedData?.items.length || 0) > 0;
-  }, [accumulatedData]);
+  const hasSlides = useMemo(() => slidesData.length > 0, [slidesData]);
 
   useEffect(() => {
     if (!swiper) return;
@@ -247,6 +282,16 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
     };
   }, [swiper]);
 
+  const handleAllButtonClick = useCallback((): void => {
+    const type = ITEMS_TO_ROUTE_TYPE[items] || 'allGames';
+
+    navigate(APP_PATH.slots.replace(':type', type));
+  }, [items, navigate]);
+
+  if (items === 'history' && (!isLoggedIn || (initialData?.items && initialData.items.length <= 0 && !isLoading))) {
+    return null;
+  }
+
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselHeader}>
@@ -255,25 +300,30 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
           <h3>{title}</h3>
         </div>
         <div className={styles.carouselHeaderButtons}>
-          <Button variant="secondary" size="s" className={styles.carouselButton}>
-            {t('carousel.all')}
-          </Button>
+          {items !== 'history' && (
+            <Button variant="secondary" size="s" className={styles.carouselButton} onClick={handleAllButtonClick}>
+              {t('carousel.all')}
+            </Button>
+          )}
+
           <div className={styles.carouselHeaderControls}>
             <Button
               variant="secondary"
               square
               icon={ChevronLeftIcon}
               onClick={scrollPrev}
-              disabled={!canScrollPrev || !hasData}
+              disabled={!canScrollPrev || !hasSlides}
               className={styles.carouselButton}
+              aria-label={t('carousel.previous')}
             />
             <Button
               variant="secondary"
               square
               icon={ChevronRightIcon}
               onClick={scrollNext}
-              disabled={!canScrollNext || !hasData}
+              disabled={!canScrollNext || !hasSlides}
               className={styles.carouselButton}
+              aria-label={t('carousel.next')}
             />
           </div>
         </div>
@@ -284,19 +334,11 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
           modules={[Navigation]}
           spaceBetween={8}
           slidesPerView={3}
-          breakpoints={{
-            641: {
-              slidesPerView: 6,
-            },
-            864: {
-              slidesPerView: 7,
-              spaceBetween: 16,
-            },
-          }}
+          breakpoints={DEFAULT_BREAKPOINTS}
           watchOverflow
-          allowTouchMove={hasData}
-          allowSlideNext={hasData}
-          allowSlidePrev={hasData}
+          allowTouchMove={hasSlides}
+          allowSlideNext={hasSlides}
+          allowSlidePrev={hasSlides}
           onSwiper={swiperRef}
           className={styles.swiperContainer}
         >
@@ -307,7 +349,7 @@ const CarouselComponent: FC<Props> = ({ title, icon: Icon, items }) => {
               ) : slideData.type === 'empty' ? (
                 <div className={styles.emptyItem} />
               ) : (
-                <CarouselItem img={slideData.img} link={slideData.link} />
+                <CarouselItem data={slideData} />
               )}
             </SwiperSlide>
           ))}

@@ -1,0 +1,101 @@
+@use "../../styles/variables" as *;
+
+.trigger {
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+}
+
+.content {
+  z-index: 1200;
+
+  max-width: 234px;
+  padding: 12px;
+
+  font-family: "Suisse Intl", sans-serif;
+  font-size: 12px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+
+  background:  #131824;
+  border: 2px solid #212738;
+  border-radius:  12px;
+
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-state="delayed-open"][data-side="top"] {
+    animation-name: slide-down-and-fade;
+  }
+
+  &[data-state="delayed-open"][data-side="right"] {
+    animation-name: slide-left-and-fade;
+  }
+
+  &[data-state="delayed-open"][data-side="bottom"] {
+    animation-name: slide-up-and-fade;
+  }
+
+  &[data-state="delayed-open"][data-side="left"] {
+    animation-name: slide-right-and-fade;
+  }
+}
+
+.arrow {
+  fill: $color-bg-on-block;
+}
+
+@keyframes slide-up-and-fade {
+  from {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right-and-fade {
+  from {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-left-and-fade {
+  from {
+    transform: translateX(4px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

@@ -1,37 +1,50 @@
-export interface UserMe {
-  id: number;
-  user_id: number;
-  user_firstname: string | null;
-  user_name: string | null;
-  reg_date: number;
-  balance: string | null;
-  ref_id: number | null;
-  type_pay: number | null;
-  personal_ref_link: string | null;
-  active: number;
-  block: number;
-  is_hidden: number;
-  language_tag: string | null;
-  country_code: string | null;
-  region_key: string | null;
-  region_title: string | null;
-  region_emoji: string | null;
-  webapp_url: string | null;
-  images_url: string | null;
-  language_locked: boolean;
-  region_locked: boolean;
-  avatar_url: string | null;
-  locale_source: string | null;
-  is_partner: boolean;
+export enum UserVisibility {
+  Visible = 1,
+  Hidden = -1,
 }
+
+export enum UserBlock {
+  NotBlocked = -1,
+  Blocked = 1,
+}
+export interface UserMe {
+  user_id: number;
+  user_firstname: string;
+  user_name: string;
+  block: UserBlock;
+  is_hidden: UserVisibility;
+  avatar_url: string;
+}
+
+import type { Currency } from '@/shared/model/types/currency';
+
+export type UserBalanceCurrency = Currency;
 
 export interface UserBalance {
   balance: string;
   cash: string;
   bonus: string;
   revshare: string;
+  currency: UserBalanceCurrency;
 }
 
 export type BalanceStreamPayload = {
   balance: number;
 };
+
+export interface UserGeoCountry {
+  country_code: string;
+  client_ip: string;
+  ip_source: string;
+}
+export type RankType = 'bronze' | 'silver' | 'gold' | 'diamond';
+export interface UserRank {
+  rank: RankType | null;
+  total_wager: number;
+  next_goal: number;
+  currency: UserBalanceCurrency;
+}
+
+export interface UpdateUserHiddenRequest {
+  is_hidden: UserVisibility;
+}

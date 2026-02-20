@@ -1,4 +1,4 @@
-import { type FC, type ReactNode, useMemo, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
@@ -25,20 +25,17 @@ import {
   PopularIcon,
 } from '@shared/ui/icons';
 
+import { AuthModal } from '@widgets/authModal';
+
 import { CategorySwitcherWithSearch } from './CategorySwitcherWithSearch/CategorySwitcherWithSearch';
 import { MenuSection } from './MenuSection/MenuSection';
 import styles from './Sidebar.module.scss';
 import { SidebarFooter } from './SidebarFooter/SidebarFooter';
+import type { MenuItems } from './types';
 
-import { LoginModal } from '@/widgets';
+import { useGetBonusNotificationsQuery } from '@features/bonus';
 
-export interface MenuItems {
-  id: string;
-  icon: ReactNode;
-  label: string;
-  isActive: boolean;
-  path?: string;
-}
+export type { MenuItems };
 
 interface SidebarProps {
   className?: string;
@@ -49,6 +46,9 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const { data } = useGetBonusNotificationsQuery(undefined, {
+    skip: !isLoggedIn,
+  });
 
   const toggleIsOpen = (): void => setIsOpen(!isOpen);
   const openLoginModal = (): void => setIsLoginModalOpen(true);
@@ -64,28 +64,89 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
         path: APP_PATH.favorites,
       },
       { id: '3', icon: <TwoUsersIcon />, label: t('menuItems.invite'), isActive: false, path: APP_PATH.invite },
-      { id: '4', icon: <BonusIcon />, label: t('menuItems.bonuses'), isActive: false, path: APP_PATH.bonuses },
+      {
+        id: '4',
+        icon: <BonusIcon />,
+        label: t('menuItems.bonuses'),
+        isActive: false,
+        path: APP_PATH.bonuses,
+        notifications: data?.has_cashback ? 1 : undefined,
+      },
     ],
-    [t],
+    [data?.has_cashback, t],
   );
 
   const Game1Items: MenuItems[] = useMemo(
     () => [
-      { id: '1', icon: <SevenIcon />, label: t('menuItems.slots'), isActive: false },
-      { id: '2', icon: <PopularIcon />, label: t('menuItems.popular'), isActive: false },
-      { id: '3', icon: <FlashIcon />, label: t('menuItems.quickGames'), isActive: false },
-      { id: '4', icon: <StarIcon />, label: t('menuItems.new'), isActive: false },
-      { id: '5', icon: <LikeIcon />, label: t('menuItems.recommended'), isActive: false },
+      {
+        id: '1',
+        icon: <SevenIcon />,
+        label: t('menuItems.slots'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'allGames'),
+      },
+      {
+        id: '2',
+        icon: <PopularIcon />,
+        label: t('menuItems.popular'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'popularGames'),
+      },
+      {
+        id: '3',
+        icon: <FlashIcon />,
+        label: t('menuItems.quickGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'quickGames'),
+      },
+      {
+        id: '4',
+        icon: <StarIcon />,
+        label: t('menuItems.new'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'newGames'),
+      },
+      {
+        id: '5',
+        icon: <LikeIcon />,
+        label: t('menuItems.recommended'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'recommendedGames'),
+      },
     ],
     [t],
   );
 
   const Game2Items: MenuItems[] = useMemo(
     () => [
-      { id: '1', icon: <CardsIcon />, label: t('menuItems.blackjack'), isActive: false },
-      { id: '2', icon: <RouletteIcon />, label: t('menuItems.roulette'), isActive: false },
-      { id: '3', icon: <MicrophoneIcon />, label: t('menuItems.liveGames'), isActive: false },
-      { id: '4', icon: <BaccareIcon />, label: t('menuItems.baccarat'), isActive: false },
+      {
+        id: '1',
+        icon: <CardsIcon />,
+        label: t('menuItems.blackjack'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'blackjackGames'),
+      },
+      {
+        id: '2',
+        icon: <RouletteIcon />,
+        label: t('menuItems.roulette'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'rouletteGames'),
+      },
+      {
+        id: '3',
+        icon: <MicrophoneIcon />,
+        label: t('menuItems.liveGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'liveGames'),
+      },
+      {
+        id: '4',
+        icon: <BaccareIcon />,
+        label: t('menuItems.baccarat'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'baccaratGames'),
+      },
     ],
     [t],
   );
@@ -111,14 +172,14 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
           isLoggedIn={isLoggedIn}
         />
         <MenuSection list={Game1Items} title={t('sections.games')} isOpen={isOpen} />
-        <MenuSection list={Game2Items} title={t('sections.games')} isOpen={isOpen} />
+        <MenuSection list={Game2Items} title={t('sections.liveCasino')} isOpen={isOpen} />
       </nav>
 
       <div className={styles.sidebarFooter}>
         <SidebarFooter isOpen={isOpen} />
       </div>
 
-      <LoginModal open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
+      <AuthModal open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </div>
   );
 };

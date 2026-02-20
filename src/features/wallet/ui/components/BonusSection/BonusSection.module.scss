@@ -1,0 +1,106 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.bonusWrapper {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid $color-bg-on-block-hover;
+  border-radius: 12px;
+}
+
+.bg {
+  position: absolute;
+  right: 131px;
+  bottom: -103px;
+
+  width: 147px;
+  height: 147px;
+
+  filter: blur(60px);
+
+  fill: var(--button-primary, #1873F2);
+}
+
+.bonusContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bonusContent {
+  width: 100%;
+  padding: 8px 8px 8px 16px;
+  background: $color-primary;
+  border-bottom: 1px solid $color-bg-on-block-hover;
+}
+
+.bonusTrigger {
+  padding: 14px 16px;
+  background: $color-bg-block;
+  border-top: 1px solid $color-bg-on-block-hover;
+}
+
+.left {
+  .title {
+    margin-bottom: 4px;
+
+    font-size: $font-size-md;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: $color-text-primary;
+  }
+
+  .description {
+    cursor: pointer;
+
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+
+    font-size: $font-size-xs;
+    font-weight: 450;
+    font-style: normal;
+    line-height: normal;
+    color: rgba($color-text-primary, 0.7);
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.right {
+  padding: 14px;
+
+  font-size: $font-size-md;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: $color-text-primary;
+
+  background: $color-bg-banner;
+  border-radius: 12px;
+}
+
+@media (max-width: $media-mobile-plus) {
+  .bonusContent {
+    padding: 6px 8px 6px 12px;
+  }
+
+  .bonusTrigger {
+    padding: 10px 12px;
+  }
+
+  .right {
+    padding: 10px;
+    font-size: $font-size-xs-plus;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .bg {
+    right: -107px;
+    bottom: -103px;
+  }
+}

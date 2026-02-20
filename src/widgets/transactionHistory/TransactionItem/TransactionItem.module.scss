@@ -1,0 +1,164 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.item {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 10px 12px;
+
+  background-color: #131824;
+  border-radius: 12px;
+
+  transition: background-color 0.3s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
+  }
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1/1;
+  width: 46px;
+  height: 46px;
+
+  color: #727E9B;
+
+  background: #212738;
+  border-radius: 8px;
+
+  &.down {
+    transform: rotate(-180deg);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.type {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+}
+
+.time {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: #727E9B;
+}
+
+.status {
+  font-size: 16px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.16px;
+
+  &.pending {
+    color: #727E9B;
+  }
+
+  &.resolved {
+    color: #00E544;
+  }
+
+  &.rejected {
+    color: #F2494B;
+  }
+}
+
+@media screen and (max-width: $media-tab) {
+  .item {
+    padding: 10px 7px 10px 10px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .item {
+    padding: 8px;
+  }
+
+  .image {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .wrapper {
+    gap: 6px;
+  }
+
+  .type,
+  .amount,
+  .time {
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+  }
+
+  .status {
+    font-size: 14px;
+    font-weight: 450;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.14px;
+  }
+}
+
+@media screen and (max-width: $media-mobile-plus) {
+  .item {
+    border-radius: 12px 0 12px 12px;
+  }
+}
+
+@media screen and (max-width: $media-mobile) {
+  .type,
+  .amount,
+  .time {
+    font-size: 12px;
+  }
+
+  .status {
+    font-size: 12px;
+    letter-spacing: -0.1px;
+  }
+
+  .wrapper {
+    gap: 8px;
+  }
+}
+

@@ -1,7 +1,7 @@
 import { baseApi, type BaseQueryFn, executeApiRequest } from '@/shared/api';
 import { BFF } from '@/shared/config';
 import type { InviteOverview } from '@/shared/model';
-import { GetInviteLeaderboardParams, InviteLeaderboard } from '@features/invite';
+import type { GetInviteLeaderboardParams, InviteLeaderboard } from '@features/invite/model';
 
 export const inviteApi = baseApi.injectEndpoints({
   endpoints: builder => ({

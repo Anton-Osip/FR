@@ -42,7 +42,8 @@
       "amount": "Earnings"
     },
     "you": "You",
-    "player": "Player"
+    "player": "Player",
+    "emptyMessage": "No data yet"
   }
 }
 

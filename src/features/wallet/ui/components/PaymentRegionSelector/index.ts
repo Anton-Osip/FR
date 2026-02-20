@@ -1,0 +1,1 @@
+export { PaymentRegionSelector } from './PaymentRegionSelector';

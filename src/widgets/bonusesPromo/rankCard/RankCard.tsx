@@ -1,16 +1,15 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
 
 import * as Progress from '@radix-ui/react-progress';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import silverBg from '@shared/assets/images/silver.png';
-import { GoldIcon, SilverIcon } from '@shared/ui/icons';
+import { PERCENTAGE_MULTIPLIER } from '@shared/config/constants';
+import { formatWithSuffix } from '@shared/lib';
+
+import { useUserAmountProgress } from '@widgets/userProfileInfo/UserInfo/UserAmountProgress/useUserAmountProgress';
 
 import styles from './RankCard.module.scss';
-
-const MAX_AMOUNT_IN_K = 100;
-const PERCENTAGE_MULTIPLIER = 100;
 
 interface RankCardProps {
   className?: string;
@@ -18,45 +17,88 @@ interface RankCardProps {
 
 export const RankCard: FC<RankCardProps> = ({ className }) => {
   const { t } = useTranslation('bonuses');
-  const amount = '25.1';
-  const maxAmounting = MAX_AMOUNT_IN_K;
-  const progressPercent = (parseFloat(amount) / maxAmounting) * PERCENTAGE_MULTIPLIER;
+  const { t: tProfile } = useTranslation('profile');
+
+  const {
+    current,
+    maxAmount,
+    progressPercent,
+    currentRank,
+    currentRankConfig,
+    nextRankConfig,
+    isRankLoading,
+    currencySymbol,
+  } = useUserAmountProgress();
+
+  // Мемоизация вычислений
+  const rankTitle = useMemo(
+    () => (currentRank ? t(currentRankConfig.bonusesLabelKey) : tProfile(currentRankConfig.labelKey)),
+    [currentRank, currentRankConfig.bonusesLabelKey, currentRankConfig.labelKey, t, tProfile],
+  );
+
+  const backgroundImage = useMemo(() => currentRankConfig.backgroundImage, [currentRankConfig.backgroundImage]);
+
+  const CurrentRankIcon = currentRankConfig.Icon;
+  const NextRankIcon = nextRankConfig?.Icon;
+
+  const isLoading = isRankLoading;
 
   return (
     <div className={clsx(styles.rankCard, className)}>
-      <div className={styles.info}>
+      <div className={clsx(styles.info, !currentRank && styles.fullWidth)}>
         <div className={styles.titleWrapper}>
-          <h3 className={styles.title}>{t('rankCard.silver')}</h3>
-          <p className={styles.description}>{t('rankCard.currentRank')}</p>
+          {isLoading ? (
+            <div className={styles.skeletonTitle} aria-busy="true" aria-label={t('rankCard.loading')} />
+          ) : (
+            <>
+              <h3 className={styles.title}>{rankTitle}</h3>
+              <p className={styles.description}>{t('rankCard.currentRank')}</p>
+            </>
+          )}
         </div>
         <div className={styles.userAmountBlock}>
           <div className={styles.amountWrap}>
-            <p>
-              {amount}K&nbsp;₽&nbsp;&nbsp;/&nbsp;&nbsp;{maxAmounting}K&nbsp;₽
-            </p>
+            {isLoading ? (
+              <div className={styles.skeletonAmount} aria-busy="true" aria-label={t('rankCard.loading')} />
+            ) : (
+              <p>
+                {formatWithSuffix(current)}&nbsp;{currencySymbol}&nbsp;&nbsp;/&nbsp;&nbsp;{formatWithSuffix(maxAmount)}
+                &nbsp;{currencySymbol}
+              </p>
+            )}
             <p className={styles.description}>{t('rankCard.turnover')}</p>
           </div>
-          <Progress.Root className={styles.progress} value={progressPercent}>
+          <Progress.Root className={styles.progress} value={progressPercent} aria-label={t('rankCard.progress')}>
             <Progress.Indicator
               className={styles.progressIndicator}
               style={{ transform: `translateX(-${PERCENTAGE_MULTIPLIER - progressPercent}%)` }}
             />
           </Progress.Root>
           <div className={styles.moneyWrap}>
-            <div className={styles.moneyItemWrap}>
-              <SilverIcon />
-              <p>{t('rankCard.silver')}</p>
-            </div>
-            <div className={styles.moneyItemWrap}>
-              <GoldIcon />
-              <p>{t('rankCard.gold')}</p>
-            </div>
+            {isLoading ? (
+              <div className={styles.skeletonRanks} aria-busy="true" aria-label={t('rankCard.loading')} />
+            ) : (
+              <>
+                <div className={styles.moneyItemWrap}>
+                  <CurrentRankIcon aria-hidden="true" />
+                  <p>{tProfile(currentRankConfig.labelKey)}</p>
+                </div>
+                {nextRankConfig && NextRankIcon && (
+                  <div className={styles.moneyItemWrap}>
+                    <NextRankIcon aria-hidden="true" />
+                    <p>{tProfile(nextRankConfig.labelKey)}</p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
-      <div className={styles.image}>
-        <img className={styles.userInfoImage} src={silverBg} alt="silver" />
-      </div>
+      {backgroundImage && (
+        <div className={styles.image}>
+          <img className={styles.userInfoImage} src={backgroundImage} alt="" aria-hidden="true" role="presentation" />
+        </div>
+      )}
     </div>
   );
 };

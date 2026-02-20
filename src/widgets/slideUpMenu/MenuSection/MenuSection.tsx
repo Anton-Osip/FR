@@ -10,6 +10,8 @@ interface MenuSectionProps {
   title: string;
   className?: string;
   onItemClick?: () => void;
+  onRequireAuth?: () => void;
+  isLoggedIn?: boolean;
 }
 
 interface MenuItems {
@@ -20,7 +22,14 @@ interface MenuItems {
   path?: string;
 }
 
-export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onItemClick }) => {
+export const MenuSection: FC<MenuSectionProps> = ({
+  list,
+  title,
+  className,
+  onItemClick,
+  onRequireAuth,
+  isLoggedIn,
+}) => {
   return (
     <div className={clsx(styles.menuSection, className)}>
       <h3 className={styles.title}>{title}</h3>
@@ -32,6 +41,8 @@ export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onIt
           isActive={item.isActive}
           path={item.path}
           onItemClick={onItemClick}
+          onRequireAuth={onRequireAuth}
+          isLoggedIn={isLoggedIn}
         />
       ))}
     </div>

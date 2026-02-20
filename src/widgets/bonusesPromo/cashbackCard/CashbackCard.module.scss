@@ -5,10 +5,12 @@
 
   overflow: hidden;
   display: flex;
+  gap: 16px;
+  align-items: center;
   justify-content: space-between;
 
-  min-height: 242px;
-  padding: 32px 32px 33px 33px;
+  height: 284px;
+  padding: 32px 32px 33px;
 
   background: #131824;
   border-radius: 24px;
@@ -23,12 +25,40 @@
   justify-content: space-between;
 
   width: 100%;
-  max-width: 249px;
   height: 100%;
+
+  .tabs {
+    width: 232px;
+    padding: 4px;
+    background: #212738;
+    border-radius: 8px;
+
+
+    & button {
+      min-height: 36px;
+      padding: 6px 12px;
+
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.16px;
+
+      background: #212738;
+      border-radius: 6px;
+    }
+
+    :global {
+      button[class*="activeTabs"] {
+        background-color: #313B52 !important;
+      }
+    }
+
+  }
 }
 
 .title {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
   font-size: 32px;
   font-weight: 600;
@@ -38,31 +68,104 @@
 }
 
 .description {
-  max-width: 260px;
+  max-width: 240px;
 
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
-  line-height: 1.5;
+  line-height: 155%;
   color: $color-text-secondary;
+}
+
+.blockedButton {
+  color: $color-text-secondary;
+}
+
+.claimButton {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.clockButton {
+  min-width: fit-content;
+  white-space: nowrap;
+}
+
+.pendingButton {
+  color: $color-text-secondary;
+}
+
+.button {
+  display: flex;
+  gap: 8px;
+  width: 100%;
 }
 
 .imageWrapper {
   position: absolute;
-  z-index: 0;
-  top: 50%;
-  right: -55px;
-  transform: translateY(-50%);
+  right: 32px;
 
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
 
+  width: 37%;
+  height: 100%;
 
-  .image {
-    user-select: none;
-    width: 100%;
-    height: auto;
+  .topNotification {
+    position: absolute;
+    top: 32px;
+    right: 0;
 
-    -webkit-user-drag: none;
+    width: 24px;
+    height: 24px;
+
+    color: #727E9B;
+  }
+}
+
+.imageWrapperOpen {
+  position: absolute;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 55%;
+  height: 100%;
+
+  .topNotification {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+
+    width: 24px;
+    height: 24px;
+
+    color: #727E9B;
+  }
+
+  .bottomNotification {
+    position: relative;
+    top: -24px;
+    right: -15px;
+
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    width: fit-content;
+    padding: 4px;
+
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 155%;
+    color: #727E9B;
+
+    background: #1C232F;
+    border-radius: 0 0 8px 8px;
   }
 }

@@ -17,12 +17,15 @@ export const SidebarFooter: FC<SidebarFooterProps> = ({ isOpen, className }) => 
   const { t } = useTranslation('sidebar');
 
   return (
-    <footer className={clsx(styles.footer, !isOpen ? styles.closed : '', className)}>
+    <footer className={clsx(styles.footer, styles.headerClip, !isOpen ? styles.closed : '', className)}>
       <h3>
         {t('footer.support')} <span className={styles.supportTime}>24/7</span>
       </h3>
-      <Button size="s" icon={<SupportIcon />} variant="secondary">
-        {t('footer.write')}
+      <Button size="s" variant="tertiary">
+        <span className={styles.buttonContent}>
+          <SupportIcon />
+          <span>{t('footer.write')}</span>
+        </span>
       </Button>
     </footer>
   );

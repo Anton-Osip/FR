@@ -24,6 +24,9 @@ export const i18nConfig = {
     'tabScreenMenu',
     'profile',
     'loginModal',
+    'slots',
+    'slot',
+    'emptyState',
   ],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',

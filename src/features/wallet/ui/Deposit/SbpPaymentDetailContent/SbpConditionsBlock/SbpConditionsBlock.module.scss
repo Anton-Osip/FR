@@ -1,0 +1,39 @@
+@use "../../../../../../shared/styles/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-base;
+  font-style: normal;
+  line-height: $leading-normal;
+  color: $color-text-primary;
+  letter-spacing: $tracking-light;
+}
+
+.noticeWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xxs;
+  align-items: center;
+
+  width: 100%;
+
+  & > div {
+    flex: 1 1 0;
+    min-width: 140px;
+  }
+}
+
+.description {
+  font-size: $font-size-xs-plus;
+  font-weight: $font-weight-light;
+  font-style: normal;
+  line-height: $leading-normal;
+  color: $color-text-primary;
+}
+

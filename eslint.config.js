@@ -121,6 +121,13 @@ export default tseslint.config(
       'import/extensions': 'off',
       'import/prefer-default-export': 'off',
       'import/no-extraneous-dependencies': 'off',
+      'import/no-cycle': [
+        'error',
+        {
+          maxDepth: 10,
+          ignoreExternal: true,
+        },
+      ],
       // General rules
       'consistent-return': 'off',
       'padding-line-between-statements': [

@@ -1,4 +1,4 @@
-import { getCookie } from '@shared/api';
+import { getCookie } from '@shared/api/cookies';
 import { BFF, CLIENT_VERSION } from '@shared/config';
 import type { Ctx, Entry, Level } from '@shared/model';
 
@@ -89,14 +89,26 @@ function flush(): void {
 
 function push(level: Level, msg: string, ctx?: Ctx): void {
   if (/bearer\s+[a-z0-9._-]+/i.test(msg)) return;
-  const reqId = (() => {
-    if (!ctx || typeof ctx !== 'object') return undefined;
-    const v = (ctx as Record<string, unknown>).reqId;
+  let reqId: string | undefined;
+  let cleanedCtx: Ctx | undefined = ctx;
 
-    return typeof v === 'string' ? v : undefined;
-  })();
+  if (ctx && typeof ctx === 'object') {
+    const ctxRecord = ctx as Record<string, unknown>;
+    const v = ctxRecord.reqId;
 
-  queue.push({ level, msg, ts: new Date().toISOString(), reqId, ctx });
+    if (typeof v === 'string') {
+      reqId = v;
+      // Удаляем reqId из ctx, чтобы избежать дублирования
+      cleanedCtx = { ...ctxRecord };
+      delete cleanedCtx.reqId;
+      // Если ctx стал пустым, устанавливаем undefined
+      if (Object.keys(cleanedCtx).length === 0) {
+        cleanedCtx = undefined;
+      }
+    }
+  }
+
+  queue.push({ level, msg, ts: new Date().toISOString(), reqId, ctx: cleanedCtx });
   if (queue.length >= MAX_BATCH) flush();
   if (timer) clearTimeout(timer);
   timer = setTimeout(flush, FLUSH_MS);

@@ -1,5 +1,7 @@
-import { feLog } from '@shared/lib';
-import type { ApiErrorBody, FetchJsonResult } from '@shared/model';
+import { CLIENT_VERSION } from '@shared/config/env.ts';
+import { collectClientProfilePayload } from '@shared/lib/fingerprint';
+import { feLog } from '@shared/lib/telemetry/feLogger';
+import type { ApiErrorBody, FetchJsonResult, NavigatorWithUserAgentData } from '@shared/model';
 
 const RANDOM_RADIX = 36;
 const RANDOM_SLICE_START = 2;
@@ -8,6 +10,11 @@ const RANDOM_SLICE_END = 10;
 const CLIENT_PROFILE_MIN_INTERVAL_MS = 30 * 60 * 1000;
 const CLIENT_PROFILE_SAMPLE_RATE = 0.08;
 const FETCH_TIMEOUT_MS = 10000;
+
+const RES_STATUS_ERROR_300 = 300;
+const RES_STATUS_ERROR_400 = 400;
+
+export const FETCH_TIMEOUT_EXTENDED_MS = 90000; // 90 секунд для долгих операций (фиат)
 
 function b64url(buf: Uint8Array): string {
   const s = String.fromCharCode(...buf);
@@ -27,6 +34,49 @@ function genReqId(): string {
 
 let lastProfileSentAt = 0;
 const LS_KEY = 'skylon_cp_last_sent_at';
+
+function attachDeviceHeaders(headers: Headers): void {
+  if (typeof window === 'undefined') return;
+  if (headers.has('x-client-profile')) return;
+
+  try {
+    const userAgent = navigator.userAgent || '';
+
+    if (userAgent) {
+      headers.set('x-user-ua', userAgent);
+    }
+
+    const nav = navigator as NavigatorWithUserAgentData;
+    const uaData = nav.userAgentData;
+    const platform = String(
+      (uaData && typeof uaData.platform === 'string' ? uaData.platform : '') || navigator.platform || '',
+    );
+
+    if (platform) {
+      headers.set('sec-ch-ua-platform', `"${platform}"`);
+    }
+
+    const USER_AGENT_MOBILE_RE = /Mobile|Android|iPhone|iPad|iPod/i;
+    const uaMobile = !!uaData && uaData.mobile === true;
+    const deviceType = USER_AGENT_MOBILE_RE.test(userAgent) || uaMobile ? 'mobile' : 'desktop';
+
+    headers.set('x-device-type', deviceType);
+
+    if (typeof screen !== 'undefined') {
+      const screenRes = `${screen.width}x${screen.height}@${window.devicePixelRatio || 1}`;
+
+      headers.set('x-device-screen', screenRes);
+    }
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+
+    if (timezone) {
+      headers.set('x-device-timezone', timezone);
+    }
+  } catch {
+    /* empty */
+  }
+}
 
 async function maybeAttachClientProfile(url: string, init?: RequestInit): Promise<Headers> {
   const headers = new Headers(init?.headers || {});
@@ -52,10 +102,6 @@ async function maybeAttachClientProfile(url: string, init?: RequestInit): Promis
   if (now - last < CLIENT_PROFILE_MIN_INTERVAL_MS) return headers;
   if (Math.random() >= CLIENT_PROFILE_SAMPLE_RATE) return headers;
   try {
-    const [{ collectClientProfilePayload }, { CLIENT_VERSION }] = await Promise.all([
-      import('../lib/fingerprint'),
-      import('@shared/config/env.ts'),
-    ]);
     const payload = await collectClientProfilePayload(CLIENT_VERSION);
     const json = JSON.stringify(payload);
     const enc = new TextEncoder();
@@ -74,20 +120,21 @@ async function maybeAttachClientProfile(url: string, init?: RequestInit): Promis
   return headers;
 }
 
-export function getCookie(name: string): string | null {
-  if (typeof document === 'undefined') return null;
-  const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
-
-  return m ? decodeURIComponent(m[1]) : null;
-}
-
 /**
  * Типизированный JSON fetch c request-id, таймаутом и единым контрактом ошибки.
  * Не выбрасывает исключения наружу: ошибки возвращаются через `ok: false`.
  */
 export async function fetchJSON<T>(url: string, init?: RequestInit): Promise<FetchJsonResult<T>> {
   const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), FETCH_TIMEOUT_MS);
+
+  // Проверяем, есть ли кастомный таймаут в заголовках
+  const customTimeout =
+    init?.headers && 'x-request-timeout' in init.headers
+      ? Number((init.headers as Record<string, string>)['x-request-timeout'])
+      : undefined;
+  const timeout = customTimeout || FETCH_TIMEOUT_MS;
+
+  const t = setTimeout(() => ac.abort(), timeout);
   const reqId = genReqId();
 
   try {
@@ -96,20 +143,80 @@ export async function fetchJSON<T>(url: string, init?: RequestInit): Promise<Fet
       url,
       method: init?.method || 'GET',
       hasBody: !!init?.body,
+      timeout,
     });
     const headersWithReqId = new Headers(init?.headers || {});
 
     headersWithReqId.set('x-request-id', reqId);
+    // Удаляем служебный заголовок, чтобы не отправлять его на сервер
+    headersWithReqId.delete('x-request-timeout');
     const initWithReqId: RequestInit = {
       ...init,
       headers: headersWithReqId,
     };
     const headers = await maybeAttachClientProfile(url, initWithReqId);
+
+    if (init?.credentials === 'include' && String(url).includes('/api/v1/')) {
+      attachDeviceHeaders(headers);
+    }
+
     const res = await fetch(url, { ...initWithReqId, headers, signal: ac.signal });
+
+    // Проверяем статус редиректа (fetch автоматически следует редиректам, но проверяем на всякий случай)
+
+    if (res.status >= RES_STATUS_ERROR_300 && res.status < RES_STATUS_ERROR_400) {
+      feLog.warn('http.redirect_detected', {
+        reqId,
+        url,
+        status: res.status,
+        location: res.headers.get('location'),
+      });
+    }
+
     const contentType = res.headers.get('content-type') || '';
-    const data: unknown = contentType.includes('application/json')
-      ? await res.json().catch(() => ({}))
-      : await res.text().catch(() => '');
+
+    // Безопасный парсинг ответа с улучшенной обработкой ошибок
+    let data: unknown;
+
+    try {
+      if (contentType.includes('application/json')) {
+        const text = await res.text();
+
+        // Проверяем, что ответ не пустой перед парсингом
+        if (text.trim()) {
+          try {
+            data = JSON.parse(text);
+          } catch {
+            // Если парсинг JSON не удался, логируем и возвращаем пустой объект
+            // Это предотвращает unhandled rejection, который может вызвать перезагрузку страницы
+            feLog.warn('http.json_parse_error', {
+              reqId,
+              url,
+              status: res.status,
+              contentType,
+              // eslint-disable-next-line no-magic-numbers
+              textPreview: text.substring(0, 100),
+            });
+            data = {};
+          }
+        } else {
+          data = {};
+        }
+      } else {
+        data = await res.text().catch(() => '');
+      }
+    } catch (parseError) {
+      // Дополнительная защита от любых ошибок парсинга
+      // Это критически важно для предотвращения unhandled rejection
+      feLog.warn('http.parse_error', {
+        reqId,
+        url,
+        status: res.status,
+        contentType,
+        error: parseError instanceof Error ? parseError.message : String(parseError),
+      });
+      data = {};
+    }
 
     feLog.debug('http.response', { reqId, url, status: res.status, ok: res.ok });
     if (res.ok) return { ok: true, status: res.status, requestId: reqId, data: data as T };

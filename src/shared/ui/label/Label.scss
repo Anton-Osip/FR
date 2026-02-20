@@ -16,12 +16,13 @@
   background-color: $color-bg-block;
   border-radius: $radius-md;
 
-  transition: background-color $transition-hover;
-  transition: color $transition-hover;
+  transition: background-color $transition-hover, color $transition-hover;
 
-  &:hover {
-    color: $color-text-primary;
-    background-color: $color-bg-on-block;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $color-text-primary;
+      background-color: $color-bg-on-block;
+    }
   }
 }
 

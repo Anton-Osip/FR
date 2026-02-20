@@ -35,3 +35,38 @@
   }
 }
 
+@media screen and (max-width: $media-tab-mini) {
+  .button {
+    &Container {
+      height: 16px;
+    }
+
+    &Label {
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.14px;
+    }
+
+    &Chevron {
+      width: 14px;
+
+    }
+  }
+
+}
+
+@media screen and (max-width: $media-mobile) {
+  .button {
+    &Label {
+      font-size: 12px;
+      letter-spacing: -0.12px;
+    }
+
+    &Chevron {
+      width: 12px;
+    }
+  }
+}
+

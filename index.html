@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
 <!--    <link rel="icon" type="image/svg+xml" href="./vite.svg" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Frosty - игровая платформа с широким выбором игр, live-игр и быстрых игр. Получайте бонусы, кэшбек и наслаждайтесь лучшими играми." />
+    <meta name="keywords" content="игры, казино, live-игры, быстрые игры, бонусы, кэшбек" />
+    <meta name="author" content="Frosty" />
     <title>Frosty</title>
+    
+    <!-- Preconnect и DNS prefetch для API (раннее установление соединения) -->
+    <!-- В production замените на актуальный домен вашего BFF API -->
+    <link rel="preconnect" href="https://dev-bff.fr0.me" crossorigin>
+    <link rel="dns-prefetch" href="https://dev-bff.fr0.me">
     <style>
       html, body {
         background-color: #090d14;
@@ -12,10 +20,21 @@
         margin: 0;
         padding: 0;
       }
+      
+      #toaster-root {
+        position: fixed;
+        z-index: 10001;
+        pointer-events: none;
+      }
+      
+      #toaster-root > * {
+        pointer-events: auto;
+      }
     </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="toaster-root"></div>
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>

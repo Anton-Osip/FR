@@ -1,0 +1,22 @@
+{
+  "bonusActivated": "Bonus Credited",
+  "freespinsActivated": "Freespins Granted",
+  "depositPromoActivated": "Deposit Promo Activated",
+  "promoActivated": "Promo Code Activated",
+  "promoCode": "Promo Code",
+  "bonusAmount": "Bonus Amount",
+  "bonusPercent": "Deposit Bonus",
+  "wager": "Wager",
+  "wagerPeriod": "Wagering Period",
+  "freespinsCount": "Number of Freespins",
+  "denomination": "Bet Size",
+  "validUntil": "Valid Until",
+  "minDeposit": "Minimum Deposit",
+  "availableUntil": "Available Until",
+  "days_one": "{{count}} day",
+  "days_other": "{{count}} days",
+  "goToGame": "Go to Game",
+  "goToSlot": "Go to Game",
+  "goToDeposit": "Go to Deposit"
+}
+

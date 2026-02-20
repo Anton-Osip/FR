@@ -1,0 +1,33 @@
+{
+  "header": {
+    "allGames": "Slots",
+    "popularGames": "Popular",
+    "quickGames": "Quick games",
+    "newGames": "New games",
+    "recommendedGames": "Recommended",
+    "blackjackGames": "Blackjack",
+    "rouletteGames": "Roulette",
+    "liveGames": "Live games",
+    "baccaratGames": "Baccarat"
+  },
+  "filters": {
+    "popular": {
+      "featured": "Recommended",
+      "new": "New",
+      "popular": "Popular"
+    },
+    "provider": {
+      "all": "All providers"
+    },
+    "searchPlaceholder": "Search"
+  },
+  "buttons": {
+    "loadMore": "Load more",
+    "shown": "Shown",
+    "of": "of"
+  },
+  "messages": {
+    "nothingFound": "Nothing found",
+    "blockedInRegion": "Not available in your region"
+  }
+}

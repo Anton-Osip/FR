@@ -1,6 +1,11 @@
-import { feLog } from '@shared/lib';
+import { feLog } from '@shared/lib/telemetry/feLogger';
 
-export type BaseQueryFn = (args: { url: string; method: string; body?: unknown }) => Promise<{
+export type BaseQueryFn = (args: {
+  url: string;
+  method: string;
+  body?: unknown;
+  headers?: Record<string, string>;
+}) => Promise<{
   data?: unknown;
   error?: { status: number; data: unknown };
   meta?: { requestId?: string };
@@ -11,7 +16,9 @@ export interface ApiRequestConfig {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: unknown;
+  headers?: Record<string, string>;
   logData?: Record<string, unknown>;
+  timeout?: number; // Кастомный таймаут в миллисекундах (для долгих операций)
 }
 
 export async function executeApiRequest<T>(
@@ -21,10 +28,16 @@ export async function executeApiRequest<T>(
   try {
     feLog.info(`${config.endpointName}.start`, config.logData);
 
+    // Добавляем кастомный таймаут в заголовки, если он указан
+    const headers = config.timeout
+      ? { ...config.headers, 'x-request-timeout': String(config.timeout) }
+      : config.headers;
+
     const result = await baseQuery({
       url: config.url,
       method: config.method,
       body: config.body,
+      headers,
     });
 
     if (result.error) {

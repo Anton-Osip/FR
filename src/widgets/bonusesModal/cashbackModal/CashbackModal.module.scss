@@ -1,0 +1,113 @@
+@use "../../../shared/styles/variables" as *;
+
+.modal {
+  width: 100%;
+  max-width: 494px;
+  padding: 16px 0;
+  border-radius: 24px;
+
+  .closeButton {
+    top: 16px;
+    right: 16px;
+    max-width: 28px;
+    max-height: 28px;
+
+    span svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 0 16px;
+
+  .header {
+    width: 100%;
+    max-height: 82px;
+    padding: 16px;
+
+    background-color: #131824;
+    background-image: var(--image-url, none);
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+    border-radius: 12px;
+
+    .title {
+      max-width: 175px;
+
+      font-size: 18px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 140%;
+      letter-spacing: -0.18px;
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    .title {
+      margin-bottom: 2px;
+
+      font-size: 12px;
+      font-weight: 450;
+      font-style: normal;
+      line-height: normal;
+      color: #727E9B;
+    }
+
+    .description {
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      color: #F0F5FF;
+    }
+  }
+
+  .footer {
+    width: 100%;
+  }
+
+}
+
+@media screen and (width <= 1024px) {
+  .modal {
+    max-width: 100%;
+    padding: 16px 0;
+    border-radius: 24px 24px 0 0;
+
+    .closeButton {
+      top: 16px;
+      right: 16px;
+    }
+  }
+
+  .container {
+    gap: 16px;
+    width: 100%;
+    padding: 0 16px;
+
+  }
+}
+
+@media screen and (width<=524px) {
+  .container {
+    .header {
+      background-position: bottom left 123px;
+    }
+  }
+}

@@ -69,110 +69,86 @@
   color: $color-win-primary;
 }
 
+.loadingCell {
+  width: 100%;
+  height: 380px;
+  text-align: center;
+}
+
 @media screen and (max-width: $media-laptop) {
-  .td {
-    width: 33%;
-  }
+  .home,
+  .games {
+    .td {
+      width: calc(100% / 3);
+    }
 
-  .payoutCell {
-    text-align: right;
-  }
+    .payoutCell {
+      text-align: right;
+    }
 
-  .amountCell,
-  .multiplierCell {
-    display: none;
+    .amountCell,
+    .multiplierCell {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .game {
+    .td {
+      width: calc(100% / 2);
+    }
+
+    .payoutCell {
+      text-align: right;
+    }
+
+    .amountCell,
+    .multiplierCell,
+    .userHead {
+      display: none;
+    }
+
+    .gameCellBody {
+      padding-left: $spacing-md;
+    }
   }
 }
 
 @media screen and (max-width: $media-tab-mini) {
-  .td {
-    width: 50%;
-  }
+  .games,
+  .home {
+    .td {
+      width: calc(100% / 2);
+    }
 
-  .userHead {
-    display: none;
-  }
+    .userHead {
+      display: none;
+    }
 
-  .gameCellBody {
-    padding-left: $spacing-md;
-  }
-}
-
-.skeleton {
-  pointer-events: none;
-  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s ease-in-out infinite;
-}
-
-.userAvatar.skeleton {
-  flex-shrink: 0;
-  border-radius: $radius-xxl;
-}
-
-.gameIcon.skeleton {
-  flex-shrink: 0;
-  border-radius: 2px;
-}
-
-.skeletonText {
-  display: inline-block;
-
-  width: 80px;
-  min-width: 60px;
-  height: 1em;
-
-  vertical-align: middle;
-
-  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
-  background-size: 200% 100%;
-  border-radius: 4px;
-
-  animation: loading 1.5s ease-in-out infinite;
-}
-
-.userName.skeletonText {
-  width: 100px;
-}
-
-.gameName.skeletonText {
-  width: 90px;
-}
-
-.amountCell .skeletonText,
-.multiplierCell .skeletonText,
-.payoutCell .skeletonText {
-  width: 70px;
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
+    .gameCellBody {
+      padding-left: $spacing-md;
+    }
   }
 }
+
 
 .emptyRow {
   cursor: default;
 
-  &:hover {
-    background: transparent !important;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: transparent !important;
+    }
   }
 }
 
 .emptyCell {
   cursor: default;
-  padding: $spacing-xl;
+  width: 100%;
+  height: 380px;
   text-align: center;
 }
 
-.emptyMessage {
-  font-family: $font-family-base;
-  font-size: $font-size-md;
-  font-weight: $font-weight-light;
-  color: $color-text-secondary;
-}
+
 

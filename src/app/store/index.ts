@@ -23,4 +23,5 @@ export {
   selectErrorMessage,
   selectShowSiteLogin,
 } from './slices/appSlice';
+export { setFullscreen, selectIsFullscreen } from './slices/fullscreenSlice';
 export type { DeviceType } from './slices/appSlice';

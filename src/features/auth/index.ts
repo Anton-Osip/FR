@@ -1,9 +1,11 @@
+// Hooks из RTK Query
 export {
-  authenticateTelegramLoginWidget,
-  authenticateTelegramWebApp,
   useAuthenticateTelegramLoginWidgetMutation,
   useAuthenticateTelegramWebAppMutation,
   useLogoutMutation,
-  logout,
 } from './api/api';
+
+// Функции-actions для императивного вызова
+export { authenticateTelegramLoginWidget, authenticateTelegramWebApp, logout } from './api/actions';
+
 export { useAuthFlow } from './model/useAuthFlow';

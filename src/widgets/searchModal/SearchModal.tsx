@@ -5,23 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { selectDeviceType } from '@app/store';
 
 import { useAppSelector } from '@shared/api';
-import { Button, Input, Modal, Tabs } from '@shared/ui';
+import { APP_PATH } from '@shared/config';
+import { EmptyState, Input, LoadMoreFooter, Modal, Tabs } from '@shared/ui';
 import type { Tab } from '@shared/ui';
-import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
+import { FireIcon, FlashIcon, MicrophoneIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
+
+import { CarouselItem } from '@widgets/carouselItem/CarouselItem';
+import { CarouselItemSkeleton } from '@widgets/carouselItem/CarouselItemSkeleton';
 
 import styles from './SearchModal.module.scss';
 
 import type { GameKind } from '@/entities/game';
 import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
-import { useGetShowcaseGamesQuery, useLazyGetShowcaseGamesQuery } from '@/features/showcase';
+import {
+  MIN_TOTAL_TO_SHOW_LOAD_MORE,
+  SLOTS_PAGE_SIZE,
+  useGetShowcaseGamesQuery,
+  useLazyGetShowcaseGamesQuery,
+} from '@/features/showcase';
+import { useCountryIsBlocked } from '@entities/user';
 
-const DEFAULT_WINDOW_WIDTH = 1024;
-const MOBILE_BREAKPOINT = 640;
-const TABLET_BREAKPOINT = 1024;
-const MOBILE_PAGE_SIZE = 9;
-const TABLET_PAGE_SIZE = 18;
-const DESKTOP_PAGE_SIZE = 15;
-const RESIZE_DEBOUNCE_MS = 150;
 const SEARCH_DEBOUNCE_MS = 500;
 
 interface SearchModalProps {
@@ -48,13 +51,8 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isLoadingMoreRef = useRef(false);
   const deviceType = useAppSelector(selectDeviceType);
-  const [windowWidth, setWindowWidth] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth;
-    }
+  const countryIsBlocked = useCountryIsBlocked();
 
-    return DEFAULT_WINDOW_WIDTH;
-  });
   const initialTabs: InitialTabs[] = useMemo(
     () => [
       {
@@ -66,7 +64,7 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
       {
         id: '2',
         value: 'new',
-        label: 'Новинки',
+        label: t('newGames'),
         icon: <FireIcon />,
       },
       {
@@ -96,60 +94,26 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
     [initialTabs, activeTab],
   );
 
-  const pageSize = useMemo(() => {
-    if (windowWidth < MOBILE_BREAKPOINT) {
-      return MOBILE_PAGE_SIZE;
-    } else if (windowWidth >= MOBILE_BREAKPOINT && windowWidth <= TABLET_BREAKPOINT) {
-      return TABLET_PAGE_SIZE;
-    } else {
-      return DESKTOP_PAGE_SIZE;
-    }
-  }, [windowWidth]);
-
   const queryParams: GetShowcaseGamesParams | undefined = useMemo(() => {
     if (!open) return undefined;
 
     return {
-      page_size: pageSize,
+      page_size: SLOTS_PAGE_SIZE,
       sort: 'popular',
       only_new: activeTab === 'new' || undefined,
       game_kinds: activeTab !== 'new' && activeTab !== 'all' ? [activeTab] : undefined,
       sort_dir: 'desc',
       search_query: searchQuery.trim() || undefined,
       only_mobile: deviceType === 'mobile',
+      include_blocked_regions: true,
     };
-  }, [open, pageSize, activeTab, searchQuery, deviceType]);
+  }, [open, activeTab, searchQuery, deviceType]);
 
   const { data: initialData, isLoading } = useGetShowcaseGamesQuery(queryParams, {
     skip: !open || !queryParams,
   });
 
   const [loadMoreQuery, { isLoading: isLoadingMore }] = useLazyGetShowcaseGamesQuery();
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
-
-    const handleResize = (): void => {
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
-      resizeTimeout = setTimeout(() => {
-        setWindowWidth(window.innerWidth);
-      }, RESIZE_DEBOUNCE_MS);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (initialData) {
@@ -167,6 +131,21 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
   const activeTabData = useMemo(() => {
     return initialTabs.find(tab => tab.value === activeTab) || initialTabs[0];
   }, [initialTabs, activeTab]);
+
+  const hasMore = (accumulatedData || initialData)?.meta.has_more ?? false;
+
+  const gamesWithBlockedStatus = useMemo(() => {
+    if (!accumulatedData?.items) return [];
+
+    return accumulatedData.items.map(game => ({
+      ...game,
+      isBlocked: countryIsBlocked(game.blocked_countries),
+    }));
+  }, [accumulatedData?.items, countryIsBlocked]);
+
+  const handleGameClick = useCallback(() => {
+    onOpenChange?.(false);
+  }, [onOpenChange]);
 
   const handleTabChange = (value: string): void => {
     const newTab = value as GameKind | 'all' | 'new';
@@ -282,45 +261,45 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
             <h3 className={styles.tabTitle}>{activeTabData.label}</h3>
           </header>
           <div className={styles.slots}>
-            {!isLoading && !isInitialLoading && accumulatedData?.items.length === 0 && (
-              <div className={styles.emptyMessage}>
-                <span>{t('nothingFound')}</span>
-              </div>
-            )}
+            {!isLoading && !isInitialLoading && accumulatedData && accumulatedData.items.length === 0 && <EmptyState />}
 
             <div className={styles.grid}>
               {(isLoading || isInitialLoading) && !accumulatedData
-                ? Array.from({ length: pageSize }).map((_, index) => (
-                    <div className={`${styles.imageWrapper} ${styles.skeleton}`} key={`skeleton-${index}`}>
-                      <div className={styles.skeletonContent} />
-                    </div>
+                ? Array.from({ length: SLOTS_PAGE_SIZE }).map((_, index) => (
+                    <CarouselItemSkeleton key={`skeleton-${index}`} />
                   ))
-                : accumulatedData?.items.map(g => (
-                    <div className={styles.imageWrapper} key={g.id}>
-                      {g.image ? <img src={g.image} alt={g.name || 'Game'} /> : <div className={styles.placeholder} />}
-                    </div>
+                : gamesWithBlockedStatus.map(g => (
+                    <CarouselItem
+                      key={g.id}
+                      onClick={handleGameClick}
+                      data={{
+                        id: g.id,
+                        type: 'item',
+                        img: g.image,
+                        link: APP_PATH.slot.replace(':id', String(g.uuid)),
+                        is_favorite: g.is_favorite,
+                        blocked_countries: g.isBlocked,
+                        name: g.name,
+                      }}
+                    />
                   ))}
-              <div className={styles.more}>
-                <p className={styles.text}>
-                  {t('shown')}: {accumulatedData?.items.length || 0} {t('of')} {accumulatedData?.meta.total || 0}
-                </p>
-                <Button
-                  variant={'tertiary'}
-                  size={'s'}
-                  icon={isLoadingMore || isLoadingMoreLocal ? <div className={styles.spinner} /> : <RepeatIcon />}
-                  onClick={loadMore}
-                  disabled={
-                    isLoading ||
-                    isInitialLoading ||
-                    isLoadingMore ||
-                    isLoadingMoreLocal ||
-                    !accumulatedData?.meta.has_more
-                  }
-                  className={isLoadingMore || isLoadingMoreLocal ? styles.loadingButton : ''}
-                >
-                  {t('showMore')}
-                </Button>
-              </div>
+              {!isLoading &&
+                !isInitialLoading &&
+                accumulatedData &&
+                accumulatedData.meta.total > MIN_TOTAL_TO_SHOW_LOAD_MORE && (
+                  <LoadMoreFooter
+                    shown={accumulatedData.items.length}
+                    total={accumulatedData.meta.total}
+                    hasMore={hasMore}
+                    isLoading={isLoadingMore || isLoadingMoreLocal}
+                    onLoadMore={loadMore}
+                    shownLabel={t('shown')}
+                    ofLabel={t('of')}
+                    showMoreLabel={t('showMore')}
+                    loadingSpinner={<div className={styles.spinner} />}
+                    className={styles.more}
+                  />
+                )}
             </div>
           </div>
         </div>

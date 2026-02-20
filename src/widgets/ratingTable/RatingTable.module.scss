@@ -26,12 +26,12 @@
 }
 
 .userBody,
-.user{
+.user {
   padding: 7px 10px;
 }
 
 
-.amountBody{
+.amountBody {
   padding-left: 0;
 }
 
@@ -42,6 +42,7 @@
   align-items: center;
 
   .userAvatar {
+    overflow: hidden;
     display: block;
 
     aspect-ratio: 1/1;
@@ -50,27 +51,136 @@
 
     background: #212738;
     border-radius: 1600px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .userName {
-    color: $color-text-primary
+    color: $color-text-primary;
   }
 }
 
-.isMe{
+.isMe {
   background: #0F141F;
 
 }
 
-.tFooter{
-  .th{
+.tFooter {
+  .th {
     color: $color-text-secondary;
   }
 
-  .userBody{
+  .userBody {
     padding: 7px 10px;
     background: #0F141F;
     border-top: 1px solid #212738;
   }
 
+}
+
+@media screen and (max-width: $media-tab) {
+  .header {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.2px;
+    }
+  }
+
+  th {
+    width: calc(100% / 2) !important;
+  }
+
+  .user {
+    display: none;
+  }
+
+  .userBody {
+    display: none;
+  }
+
+  .amount {
+    text-align: right;
+  }
+
+  .amountBody {
+    text-align: right;
+  }
+
+  .amountFooter {
+    text-align: right;
+  }
+}
+
+.emptyRow {
+  cursor: default;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: transparent !important;
+    }
+  }
+}
+
+.emptyCell {
+  cursor: default;
+  width: 100%;
+  height: 380px;
+  text-align: center;
+}
+
+.loadingRow {
+  cursor: default;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: transparent !important;
+    }
+  }
+}
+
+.loadingCell {
+  cursor: default;
+
+  width: 100%;
+  height: 380px;
+  padding: $spacing-xl;
+
+  text-align: center;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media screen and (max-width: $media-mobile) {
+  .title {
+    font-size: 18px;
+    letter-spacing: -0.18px;
+  }
+
+  .th {
+    font-size: 14px;
+    letter-spacing: -0.14px;
+  }
 }

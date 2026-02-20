@@ -20,7 +20,10 @@
     "liveGames": "Live games",
     "quickGames": "Quick games",
     "quickGamesShort": "Quick",
-    "all": "All"
+    "history": "Game history",
+    "all": "All",
+    "previous": "Previous slide",
+    "next": "Next slide"
   },
   "categoryFiltersBar": {
     "allGames": "All games",
@@ -45,6 +48,10 @@
       "payout": "Payout",
       "nothingFound": "Nothing found"
     }
+  },
+  "buttons": {
+    "loadMore": "Load more",
+    "shown": "Shown",
+    "of": "of"
   }
 }
-
