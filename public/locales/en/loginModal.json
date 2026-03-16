@@ -1,0 +1,22 @@
+{
+  "bannerTitle": "+5% on first crypto deposit",
+  "title": "Sign in",
+  "emailPlaceholder": "Email",
+  "passwordPlaceholder": "Password",
+  "recoverPassword": "Recover password",
+  "loginButton": "Sign in",
+  "orLoginVia": "Or sign in via",
+  "emailRequired": "Enter email",
+  "emailInvalid": "Invalid email format",
+  "passwordTooShort": "Password must contain at least {{min}} characters",
+  "passwordTooLong": "Password is too long",
+  "recoveryTitle": "Password recovery",
+  "recoverySubtitle": "Enter the email to which the password recovery link will be sent",
+  "recoveryPlaceholder": "Enter email...",
+  "recoverySubmit": "Send link",
+  "checkEmailTitle": "Check your email",
+  "checkEmailSubtitle": "An email with a password recovery link has been sent to your inbox",
+  "checkEmailClose": "Close"
+}
+
+

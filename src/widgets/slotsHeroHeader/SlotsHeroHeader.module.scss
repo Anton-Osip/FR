@@ -1,0 +1,75 @@
+@use "../../shared/styles/variables" as *;
+
+.header {
+  position: absolute;
+  top: 79px;
+  right: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #0f141f;
+
+}
+
+.container {
+  display: flex;
+  align-items: center;
+
+  width: calc(100vw - 281px);
+  max-width: 1228px;
+  height: 133px;
+  margin: 0 auto;
+  padding: 0 22px;
+
+  background-image: var(--image-url);
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: 551px 133px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+    .header {
+      top: 64px;
+    }
+
+    .container {
+      width: 100vw;
+      padding: 0 16px;
+    }
+}
+
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .container {
+    height: 94px;
+    background-size: 390px 94px;
+
+    .title {
+      font-size: 26px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.26px;
+    }
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .container:not([data-type='allGames']) {
+    background-position: center right -90px;
+  }
+
+  .container[data-type='blackjackGames'] {
+    background-position: center right -45px;
+  }
+}

@@ -1,0 +1,19 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.homePage{
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+@media screen and (max-width:$media-laptop ) {
+  .homePage{
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+  }
+}
+
+
+
+

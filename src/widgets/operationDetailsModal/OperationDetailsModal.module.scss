@@ -1,0 +1,171 @@
+@use "../../shared/styles/variables" as *;
+
+.modal {
+  width: 100%;
+  max-width: 628px;
+}
+
+.closeButton {
+  max-width: 28px !important;
+  max-height: 28px !important;
+
+  > span {
+    width: 10px;
+    height: 10px;
+  }
+
+  > span svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  max-height: calc(95dvh - 64px);
+}
+
+
+.header {
+  padding: 0 32px;
+}
+
+.body {
+  overflow-y: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+
+  min-height: 0;
+  padding: 0 32px;
+
+  & > .title {
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+    text-align: center;
+    letter-spacing: -0.24px;
+  }
+}
+
+.amount {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px;
+
+  .icon {
+    width: 16px;
+    height: 16px;
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.resolved .icon {
+    color: #00E544
+  }
+
+  &.rejected .icon {
+    color: #F2494B
+  }
+
+  &.pending .icon {
+    color: #727E9B
+  }
+
+  .value {
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+  }
+}
+
+.transactionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .status,
+  .time {
+    font-size: 14px;
+    font-weight: 450;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+  }
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .cardInfo {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+    min-width: 0;
+    padding: 14px 16px;
+
+    background: #131824;
+    border-radius: 12px;
+
+    &>div{
+      gap: 10px;
+    }
+
+    &>div>span:nth-child(1) {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      color: #727E9B;
+    }
+
+    &>div>span:nth-child(2) {
+      overflow: hidden;
+
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      color: #F0F5FF;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.btnsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media screen and (width <= 1024px) {
+  .modal {
+    max-width: 100%;
+    padding: 16px 0;
+  }
+
+  .header {
+    padding: 0 16px;
+  }
+
+  .body {
+    padding: 0 16px;
+  }
+}

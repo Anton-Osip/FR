@@ -1,0 +1,98 @@
+{
+  "banner": {
+    "pagination": {
+      "label": "Slider navigation",
+      "slide": "Slide"
+    },
+    "slide1": {
+      "title": "+5% on first",
+      "secondTitle": "crypto deposit"
+    },
+    "slide2": {
+      "title": "Our resources",
+      "secondTitle": "in Telegram"
+    },
+    "slide3": {
+      "title": "Average RTP",
+      "secondTitle": "~98.5%!"
+    },
+    "slide4": {
+      "title": "Get your",
+      "secondTitle": "cashback!"
+    },
+    "slide5": {
+      "title": "Bonus +500%",
+      "secondTitle": "for new users"
+    }
+  },
+  "heroBonus": {
+    "title": "Bonus up",
+    "titleSecondLine": "to on first deposit",
+    "button": "Learn more",
+    "slide": "Slide"
+  },
+  "heroSlot": {
+    "title": "Slot of the week",
+    "slide": "Slide"
+  },
+  "heroCashback": {
+    "title": "Cashback",
+    "titleSecondLine": "on Wednesdays",
+    "slide": "Slide",
+    "slides": {
+      "cashback": {
+        "title": "Cashback",
+        "subtitle": "every Wednesday!"
+      },
+      "monthlyCashback": {
+        "title": "Cashback",
+        "subtitle": "every month!"
+      },
+      "telegram": {
+        "title": "Our",
+        "subtitle": "telegram bot"
+      }
+    }
+  },
+  "carousel": {
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGames": "Live games",
+    "quickGames": "Quick games",
+    "quickGamesShort": "Quick",
+    "history": "Game history",
+    "all": "All",
+    "previous": "Previous slide",
+    "next": "Next slide"
+  },
+  "categoryFiltersBar": {
+    "allGames": "All games",
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGames": "Live games",
+    "quickGames": "Quick games",
+    "new": "New",
+    "searchPlaceholder": "Search"
+  },
+  "betsSection": {
+    "title": "Bets table",
+    "tabs": {
+      "lastBets": "Last bets",
+      "myBets": "My bets",
+      "bigPlayers": "Big players"
+    },
+    "table": {
+      "user": "User",
+      "game": "Game",
+      "amount": "Bet amount",
+      "multiplier": "Multiplier",
+      "payout": "Payout",
+      "nothingFound": "Nothing found"
+    }
+  },
+  "buttons": {
+    "loadMore": "Load more",
+    "shown": "Shown",
+    "of": "of"
+  }
+}

@@ -1,0 +1,399 @@
+{
+  "title": "Wallet",
+  "modalTitles": {
+    "bankPayment": "Bank Payment",
+    "withdrawalByCard": "Card Withdrawal",
+    "withdrawal": "Withdrawal",
+    "cryptoPayment": "Cryptocurrency Payment",
+    "sbp": "SBP",
+    "cryptoWithdrawal": "Cryptocurrency Withdrawal"
+  },
+  "bannerTitle": "+5% on first crypto deposit",
+  "tabs": {
+    "deposit": "Deposit",
+    "withdraw": "Withdrawal"
+  },
+  "methods": {
+    "banking": "Banking",
+    "telegramCrypto": "Telegram Crypto",
+    "crypto": "Cryptocurrency",
+    "minPrefix": "from",
+    "newMethods": "New methods",
+    "soon": "coming soon..."
+  },
+  "withdrawal": {
+    "walletAddress": "Wallet address",
+    "memo": "MEMO (optional)",
+    "minAmount": "Minimum amount {{amount}} {{currency}}",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "noMethods": "Withdrawal methods unavailable"
+  },
+  "bonus": {
+    "percentDeposit": "{{percent}}% Deposit Bonus",
+    "promoCodeReward": "Promo code reward on deposit",
+    "label": "Bonus",
+    "terms": "Bonus Terms"
+  },
+  "cryptoAddress": {
+    "copy": "Copy",
+    "collapse": "Collapse",
+    "copySuccess": {
+      "title": "Address copied",
+      "description": "Address copied to clipboard"
+    }
+  },
+  "cryptoQrModal": {
+    "saveButton": "Save QR",
+    "qrCodeLabel": "QR code for address {{address}}",
+    "saveSuccess": {
+      "title": "QR code saved",
+      "description": "QR code has been saved successfully"
+    },
+    "saveError": {
+      "title": "Failed to save QR code",
+      "description": "Please try again"
+    },
+    "addressError": {
+      "title": "Error",
+      "description": "Address for QR code is not specified"
+    }
+  },
+  "paymentRegionSelector": {
+    "label": "Payment region",
+    "yourBalance": "Your balance"
+  },
+  "phoneInput": {
+    "placeholder": "Enter phone number",
+    "searchPlaceholder": "Search"
+  },
+  "withdrawalErrors": {
+    "missingFields": "Fill in the required fields: {{fields}}",
+    "invalidFields": "Fix errors in the fields: {{fields}}",
+    "insufficientWager": "Insufficient funds for withdrawal",
+    "amountOutOfBounds": "Amount is out of allowed limits",
+    "methodNotFound": "Withdrawal method not found",
+    "methodDisabled": "Withdrawal method is unavailable",
+    "withdrawalUnavailable": "Withdrawal is unavailable"
+  },
+  "bankPayment": {
+    "polling": {
+      "title": "Don't close the window",
+      "subtitle": "Searching for payment details.\nThe process may take up to 60 seconds..."
+    },
+    "errors": {
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "minAmountLabel": "Min. amount {{amount}} {{currency}}",
+    "toDeposit": "To deposit",
+    "continue": "Continue",
+    "loading": "Loading..."
+  },
+  "bonusTermsModal": {
+    "title": "+{{percent}}% Bonus Terms",
+    "wager": "Wagering requirement for deposit bonus",
+    "wagerValue": "x40",
+    "maxWin": "Maximum win amount",
+    "maxWinValue": "15x bonus amount or $500 (whichever comes first)",
+    "maxWinValueMultiplier": "{{multiplier}}x bonus amount",
+    "wageringTime": "Wagering time",
+    "wageringTimeValue": "96 hours",
+    "wageringTimeHours_one": "{{count}} hour",
+    "wageringTimeHours_other": "{{count}} hours",
+    "wageringTimeDays_one": "{{count}} day",
+    "wageringTimeDays_other": "{{count}} days",
+    "usageTime": "Usage time",
+    "withdrawCapMode": "Withdrawal cap mode",
+    "rewardAmount": "Bonus amount",
+    "rewardPercent": "Bonus percent",
+    "rewardType": "Reward type",
+    "minDeposit": "Minimum deposit",
+    "deadline": "Available until",
+    "attention": "Please note",
+    "notices": {
+      "onlySomeGames": "Available only for selected games",
+      "availableGames": "Available games: Cleocatra, Gems Bonanza, Power of Thor Megaways, The Dog House Megaways Mobile, Zeus vs Hades - Gods of War",
+      "bonusExpiry": "When withdrawing funds from real balance, all unwagered bonuses and free spins expire"
+    },
+    "close": "Close"
+  },
+  "cryptoPayment": {
+    "minAmount": "Minimum amount",
+    "provider": "Provider",
+    "permanentAddress": "Permanent {{network}} address ({{cryptoCode}})",
+    "networkCopySuccess": {
+      "title": "Network copied",
+      "description": "Network copied to clipboard"
+    }
+  },
+  "telegramPayment": {
+    "errors": {
+      "title": "An error occurred while generating the invoice",
+      "description": "Please try again",
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "transferAmount": "Transfer amount",
+    "provider": "Provider",
+    "paymentLink": "Payment link",
+    "goToPayment": "Go to payment",
+    "confirm": "Confirm",
+    "confirming": "Confirming...",
+    "networkCopySuccess": {
+      "title": "Network copied",
+      "description": "Network copied to clipboard"
+    },
+    "linkCopySuccess": {
+      "title": "Link copied",
+      "description": "Payment link copied to clipboard"
+    }
+  },
+  "sbpAmount": {
+    "transferAmount": "Transfer amount",
+    "copySuccess": {
+      "title": "Amount copied",
+      "description": "Transfer amount copied to clipboard"
+    },
+    "copyError": {
+      "title": "Failed to copy amount",
+      "description": "Please try again"
+    },
+    "notice": {
+      "title": "Copy the amount",
+      "text": "We have changed your transfer amount to verify it's your payment and process it automatically."
+    }
+  },
+  "sbpConditions": {
+    "title": "Remember the payment terms",
+    "notices": {
+      "singlePayment": "Make the payment in a single transaction",
+      "noComments": "Do not leave comments with the transfer",
+      "requisitesChange": "Payment details always change"
+    },
+    "description": "Please note that if you transfer the wrong amount or to a different bank, the funds may not be credited."
+  },
+  "sbpReceiver": {
+    "labels": {
+      "transferNumber": "Transfer number",
+      "bank": "Bank",
+      "recipient": "Recipient",
+      "phone": "Phone number"
+    },
+    "copySuccess": {
+      "title": "{{label}} copied",
+      "description": "{{label}} copied to clipboard"
+    }
+  },
+  "sbpTimer": {
+    "waitingForTransfer": "Waiting for your transfer",
+    "paymentNotConfirmed": {
+      "title": "Payment not confirmed",
+      "description": "Please start the payment again"
+    }
+  },
+  "sbpPaymentDetail": {
+    "goToPayment": "Go to payment",
+    "guaranteeText": "Frosty guarantees the crediting of your transfer according to the details below.",
+    "paidButton": {
+      "withTimer": "I paid {{time}}",
+      "withoutTimer": "I paid"
+    },
+    "copySuccess": {
+      "title": "Amount copied",
+      "description": "Transfer amount copied to clipboard"
+    },
+    "copyError": {
+      "title": "Failed to copy amount",
+      "description": "Please try again"
+    },
+    "paymentStatus": {
+      "success": {
+        "title": "Payment successfully credited",
+        "description": "The amount will be credited automatically after confirmation."
+      },
+      "pending": {
+        "title": "Payment is being processed",
+        "description": "The amount will be credited automatically after confirmation. You can track the status in the History section."
+      },
+      "rejected": {
+        "title": "Payment rejected",
+        "description": "Please contact support for details."
+      },
+      "default": {
+        "title": "Payment status",
+        "description": "You can track the status in the History section."
+      },
+      "checkError": {
+        "title": "Error checking payment",
+        "description": "Please try again or contact support."
+      }
+    },
+    "modal": {
+      "transferAmount": "Transfer amount",
+      "notice": {
+        "title": "Copy the amount",
+        "text": "We have changed your transfer amount to verify it's your payment and process it automatically."
+      },
+      "gotIt": "Got it"
+    }
+  },
+  "sbpPaymentForm": {
+    "labels": {
+      "transferAmount": "Transfer amount",
+      "transferNumber": "Transfer number",
+      "bank": "Bank",
+      "recipient": "Recipient"
+    },
+    "copySuccess": {
+      "title": "{{label}} copied",
+      "description": "{{label}} copied to clipboard"
+    },
+    "form": {
+      "title": "Enter your details",
+      "fullName": "Full name",
+      "receiptPlaceholder": "Transaction receipt",
+      "receiptLabel": "Transaction receipt with document number (PNG, JPG)",
+      "submitButton": "Submit"
+    }
+  },
+  "conclusion": {
+    "labels": {
+      "fullName": "Full name",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "validation": {
+      "selectBank": "Select a bank",
+      "enterFullName": "Enter full name",
+      "enterPhone": "Enter phone number",
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidField": "Check the field for correctness",
+      "withdrawalNotPossible": "Cannot withdraw funds",
+      "checkData": "Check your data and try again",
+      "withdrawalError": "Error when withdrawing funds",
+      "contactSupport": "Please try again or contact support"
+    },
+    "success": {
+      "title": "Withdrawal request created",
+      "description": "Funds will be transferred shortly"
+    },
+    "currentBalance": "Your current balance:",
+    "willBeCredited": "Will be credited:",
+    "buttons": {
+      "continue": "Continue",
+      "processing": "Processing..."
+    }
+  },
+  "withdrawalByCard": {
+    "labels": {
+      "fullName": "Full name",
+      "cardNumber": "Card number",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "validation": {
+      "selectBank": "Select a bank",
+      "enterFullName": "Enter full name",
+      "enterCardNumber": "Enter card number",
+      "invalidCardNumber": "Invalid card number",
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidField": "Check the field for correctness",
+      "withdrawalNotPossible": "Cannot withdraw funds",
+      "checkData": "Check your data and try again",
+      "withdrawalError": "Error when withdrawing funds",
+      "contactSupport": "Please try again or contact support"
+    },
+    "success": {
+      "title": "Withdrawal request created",
+      "description": "Funds will be transferred shortly"
+    },
+    "currentBalance": "Your current balance:",
+    "willBeCredited": "Will be credited:",
+    "buttons": {
+      "continue": "Continue",
+      "processing": "Processing..."
+    }
+  },
+  "withdrawalByCrypto": {
+    "labels": {
+      "walletAddress": "Wallet address",
+      "memo": "MEMO (optional)",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "validation": {
+      "enterAddress": "Enter wallet address",
+      "addressTooShort": "Crypto wallet address is too short",
+      "addressTooLong": "Crypto wallet address is too long",
+      "addressInvalidChars": "Address can only contain letters and numbers",
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidField": "Check the field for correctness",
+      "withdrawalNotPossible": "Cannot withdraw funds",
+      "checkData": "Check your data and try again",
+      "withdrawalError": "Error when withdrawing funds",
+      "contactSupport": "Please try again or contact support"
+    },
+    "success": {
+      "title": "Withdrawal request created",
+      "description": "Funds will be transferred shortly"
+    },
+    "currentBalance": "Your current balance:",
+    "willBeCredited": "Will be credited:",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "noMethods": "No withdrawal methods available"
+  },
+  "withdrawalByTelegram": {
+    "labels": {
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "validation": {
+      "enterAmount": "Enter amount",
+      "minAmount": "Minimum amount {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidField": "Check the field for correctness",
+      "withdrawalNotPossible": "Cannot withdraw funds",
+      "checkData": "Check your data and try again",
+      "withdrawalError": "Error when withdrawing funds",
+      "contactSupport": "Please try again or contact support"
+    },
+    "success": {
+      "title": "Withdrawal request created",
+      "description": "Funds will be transferred shortly"
+    },
+    "availableForWithdrawal": "Available for withdrawal:",
+    "willBeCredited": "Will be credited:",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "noMethods": "No withdrawal methods available"
+  },
+  "moreMethods": {
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "moreCount_one": "{{count}} more method",
+    "moreCount_other": "{{count}} more methods",
+    "methods": "Methods"
+  },
+  "polling": {
+    "success": {
+      "title": "Payment details received.",
+      "description": "Complete the transfer"
+    },
+    "error": {
+      "title": "An error occurred while generating the invoice.",
+      "description": "Please try again"
+    }
+  }
+}

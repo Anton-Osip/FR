@@ -1,0 +1,110 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.currentBalance {
+  font-size: 14px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  color: #727E9B;
+
+  .valueSkeleton {
+    display: inline-block;
+
+    width: 50px;
+    height: 14px;
+
+    background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    border-radius: 12px;
+
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+.currentAccount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 16px;
+
+  background: #131824;
+  border: 2px solid #282F42;
+  border-radius: 12px;
+
+  .text {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+  }
+
+  .value {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+  }
+
+  .valueSkeleton {
+    display: inline-block;
+
+    width: 100px;
+    height: 16px;
+
+    background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    border-radius: 12px;
+
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+.errorMessage {
+  font-size: 14px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  color: #B74345;
+}
+
+.spinner {
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid currentcolor;
+  border-top-color: transparent;
+  border-radius: 50%;
+
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

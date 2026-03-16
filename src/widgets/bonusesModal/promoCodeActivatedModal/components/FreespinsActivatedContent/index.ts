@@ -1,0 +1,1 @@
+export { FreespinsActivatedContent } from './FreespinsActivatedContent';

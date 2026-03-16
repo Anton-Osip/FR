@@ -1,0 +1,68 @@
+{
+  "pageTitle": "Профиль",
+  "userInfo": {
+    "uid": "UID:",
+    "silverAlt": "Серебро"
+  },
+  "userBalance": {
+    "mainBalance": "Основной баланс",
+    "bonusBalance": "Бонусный баланс",
+    "topUp": "Пополнить",
+    "bonuses": "Бонусы"
+  },
+  "userAmountProgress": {
+    "moreDetails": "Подробнее",
+    "bronze": "Бронза",
+    "silver": "Серебро",
+    "gold": "Золото",
+    "diamond": "Бриллиант",
+    "noRank": "Без ранга",
+    "progress": "Прогресс до следующего ранга"
+  },
+  "transactionHistory": {
+    "title": "История транзакций",
+    "empty": "Нет транзакций",
+    "headers": {
+      "transactionType": "Тип транзакции",
+      "amount": "Сумма",
+      "date": "Дата",
+      "status": "Статус"
+    },
+    "types": {
+      "in": "Пополнение",
+      "out": "Вывод"
+    },
+    "statuses": {
+      "pending": "Ожидание оплаты",
+      "resolved": "Успешно",
+      "rejected": "Отклонено"
+    }
+  },
+  "operationDetails": {
+    "title": "Детализация операции",
+    "operationId": "ID операции",
+    "openDispute": "Открыть спор",
+    "close": "Закрыть",
+    "address": "Адрес",
+    "network": "Сеть",
+    "memo": "Memo",
+    "recipientName": "ФИО",
+    "phone": "Номер телефона",
+    "cardNumber": "Номер карты",
+    "cardHolder": "Держатель карты",
+    "bankName": "Банк",
+    "botPayUrl": "Ссылка на оплату",
+    "statuses": {
+      "resolved": "Успешно зачислены",
+      "pending": "Транзакция обрабатывается",
+      "rejected": "Транзакция отклонена"
+    }
+  },
+  "supportPanel": {
+    "news": "Новости",
+    "chat": "Чат",
+    "agreement": "Соглашение",
+    "support": "Поддержка"
+  }
+}
+

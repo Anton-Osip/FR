@@ -1,0 +1,40 @@
+@use "../../../../../../shared/styles/variables" as *;
+
+.infoItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+
+  .infoLabel {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #727E9B;
+  }
+
+  .infoValue {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: $color-text-primary;
+    text-align: right;
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .infoItem {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+
+    .infoLabel {
+      font-size: 13px;
+    }
+
+    .infoValue {
+      font-size: 15px;
+      text-align: left;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use "../../shared/styles/variables" as *;
+
+.pedestalSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  width: 100%;
+}
+
+@media screen and (width <= 1510px) {
+  .pedestalSection {
+    display: grid;
+    grid-gap: 48px 32px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows:repeat(2, 289px);
+
+    width: 100%;
+
+    &>div:first-child{
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+
+

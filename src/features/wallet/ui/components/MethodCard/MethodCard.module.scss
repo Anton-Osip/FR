@@ -1,0 +1,109 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.item {
+  cursor: pointer;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100px;
+
+  background-color: #131824;
+  background-image: var(--image-url);
+  background-repeat: no-repeat;
+  background-position: left max(100% , 65px) center ;
+  background-size: auto 90px;
+  border-radius: 12px;
+
+  transition: background $transition-hover;
+
+
+  &.isBanking {
+    background-size: auto 100%;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-bg-on-block;
+    }
+  }
+}
+
+.info {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  max-width: calc(100% - 65px);
+  height: 100%;
+  padding: 16px 0 16px 16px;
+}
+
+
+.title {
+  max-width: 100%;
+  margin-bottom: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+  letter-spacing: -0.16px;
+}
+
+.network {
+  overflow: hidden;
+
+  min-width: 0;
+
+  font-size: 12px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  color: rgba(114, 126, 155, 100%);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.min {
+  font-size: 12px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: normal;
+  color: rgba(114, 126, 155, 50%);
+}
+
+.imageWrapper {
+
+}
+
+.animationWrapper {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+
+  width: 100px;
+  height: 100%;
+
+  > div {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+@media screen and (max-width: $media-mobile) {
+  .animationWrapper {
+    right: 12px;
+  }
+}
+

@@ -1,0 +1,126 @@
+@use "../../../../../../shared/styles/variables" as *;
+
+.overlay {
+  z-index: 1100;
+  backdrop-filter: none;
+}
+
+.content {
+  z-index: 1150;
+
+  width: 100%;
+  max-width: 494px;
+  max-height: 100%;
+  padding: 16px 0;
+}
+
+.body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 0 16px;
+}
+
+.closeButton {
+  top: 16px !important;
+  right: 16px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+
+  > span {
+    width: 10px;
+    height: 10px;
+  }
+
+  > span svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.headerClassName {
+  padding: 0 40px;
+}
+
+.header {
+  width: 100%;
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1;
+    color: #F0F5FF;
+    text-align: center;
+    letter-spacing: -0.24px;
+  }
+}
+
+.infoNotes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    color: #F0F5FF;
+    letter-spacing: -0.18px;
+  }
+}
+
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  align-self: stretch;
+  justify-content: center;
+
+  padding: 8px 16px;
+
+  background: #131824;
+  border-radius: 12px;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .title {
+      font-size: 12px;
+      font-weight: 450;
+      font-style: normal;
+      line-height: normal;
+      color: #727E9B;
+    }
+
+    .value {
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      color: #F0F5FF;
+    }
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .content {
+    max-width: 100%;
+    max-height: calc(100% - 75px);
+  }
+}
+
+@media (max-width: $media-mobile-plus) {
+  .header {
+    .title {
+      font-size: $font-size-lg;
+      letter-spacing: -0.2px;
+    }
+  }
+}

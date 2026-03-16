@@ -1,0 +1,1 @@
+export { SlotsHeroHeader } from './SlotsHeroHeader';

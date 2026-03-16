@@ -1,0 +1,1 @@
+export { TelegramLoginWidget } from './TelegramLoginWidget';

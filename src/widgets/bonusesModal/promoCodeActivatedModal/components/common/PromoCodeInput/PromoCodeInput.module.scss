@@ -1,0 +1,34 @@
+.copied {
+  :global {
+    svg {
+      color: #22c55e;
+    }
+  }
+}
+
+.promoCode {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #727E9B;
+  }
+
+  .promoInput {
+    input {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    :global {
+      svg {
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export { DepositPercentContent } from './DepositPercentContent';

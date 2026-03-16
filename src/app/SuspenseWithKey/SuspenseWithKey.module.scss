@@ -1,0 +1,29 @@
+@use "../../shared/styles/variables.scss" as *;
+
+// Высота preloader рассчитывается как: viewport height - header - padding - footer
+// Десктоп: 79px (header) + 48px (padding top) + 48px (padding bottom) = 175px
+// Планшет: 64px (header) + 24px (padding top) + 24px (padding bottom) + 74px (tab menu) = 186px
+// Мобильный: 64px (header) + 24px (padding top) + 24px (padding bottom) + 64px (tab menu) = 176px
+
+$header-height-desktop: 79px;
+$header-height-mobile: 64px;
+$padding-desktop: 48px;
+$padding-mobile: 24px;
+$tab-menu-height-large: 74px;
+$tab-menu-height-small: 64px;
+
+.fallbackPreloader {
+  height: calc(100dvh - #{$header-height-desktop} - #{$padding-desktop} - #{$padding-desktop}) !important;
+}
+
+@media screen and (width <= 1200px) {
+  .fallbackPreloader {
+    height: calc(100dvh - #{$header-height-mobile} - #{$padding-mobile} - #{$padding-mobile} - #{$tab-menu-height-large}) !important;
+  }
+}
+
+@media screen and (width <= 360px) {
+  .fallbackPreloader {
+    height: calc(100dvh - #{$header-height-mobile} - #{$padding-mobile} - #{$padding-mobile} - #{$tab-menu-height-small}) !important;
+  }
+}

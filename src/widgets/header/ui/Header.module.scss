@@ -1,0 +1,82 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.header {
+  height: 79px;
+  color: $color-text-primary;
+  background: $color-bg-block;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: calc(100vw - 281px);
+    max-width: 1228px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+
+  .authenticatedWrapper {
+    display: flex;
+    gap: $spacing-12;
+    align-items: center;
+  }
+
+  .unauthenticatedWrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .link {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    height: 47px;
+
+    color: $color-text-secondary;
+
+    transition: color .3s ease;
+  }
+
+}
+
+.signIn {
+  height: 47px;
+  color: #f0f5ff;
+  background-color: #212738;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: $color-text-primary;
+  }
+
+  .signIn:hover {
+    background-color: #282F42;
+  }
+}
+
+@media screen and (max-width: $media-laptop-plus) {
+  .header {
+    width: 100vw;
+    height: 64px;
+
+    .container {
+      width: 100vw;
+      padding: 0 16px;
+    }
+  }
+}
+
+@media screen and (max-width: $media-mobile-mini) {
+  .header {
+    .wrapper {
+      gap: $spacing-5xs;
+    }
+  }
+}
+

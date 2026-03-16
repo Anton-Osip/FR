@@ -1,0 +1,90 @@
+{
+  "pageTitle": "Bonuses",
+  "rankCard": {
+    "silver": "Silver",
+    "gold": "Gold",
+    "currentRank": "Current rank",
+    "turnover": "Turnover"
+  },
+  "promoCodeCard": {
+    "title": "Promo code",
+    "description": "Enter a promo code in the field to get a bonus",
+    "placeholder": "Promo code",
+    "activate": "Activate",
+    "required": "Enter promo code",
+    "tooLong": "Promo code is too long"
+  },
+  "cashbackCard": {
+    "title": "Cashback",
+    "description": "Accumulate cashback by actively playing games!",
+    "claim": "Claim",
+    "claimWithAmount": "Claim {{amount}}",
+    "calculating": "Calculating",
+    "expiresIn": "Expires in {{time}}",
+    "fromRank": "From {{rank}} rank",
+    "fromRankBronze": "From Bronze rank",
+    "weekly": "Weekly",
+    "monthly": "Monthly"
+  },
+  "benefitsSection": {
+    "title": "Ranks",
+    "ranks": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "diamond": "Diamond"
+    },
+    "turnover": {
+      "bronze": "From ₽200,000 turnover",
+      "silver": "From ₽1,000,000 turnover",
+      "gold": "From ₽5,000,000 turnover",
+      "diamond": "From ₽10,000,000 turnover"
+    },
+    "benefits": {
+      "weeklyCashback": "Weekly cashback {{percent}}%",
+      "monthlyCashback": "Monthly cashback {{percent}}%",
+      "vipManager": "Personal VIP Manager"
+    }
+  },
+  "promoActivationFinalStepModal": {
+    "title": "Promo code activation almost complete",
+    "instructions": "To receive the bonus:",
+    "step1": "Deposit any amount",
+    "step2": "Re-enter the promo code in the",
+    "step2Link": "Bonuses",
+    "depositButton": "Deposit"
+  },
+  "promoCodeActivatedModal": {
+    "title": "Promo code successfully activated!",
+    "instructions": "To receive the bonus:",
+    "step1": "Go to any game from",
+    "step1Link": "this list",
+    "step2": "Use your free spins",
+    "goToGameButton": "Go to game"
+  },
+  "cashbackModal": {
+    "ranks": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "diamond": "Diamond"
+    },
+    "weekly": {
+      "title": "Get back {{count}}% from losing bets",
+      "periodValue": "Every Wednesday"
+    },
+    "monthly": {
+      "title": "Get back {{count}}% from losing bets",
+      "periodValue": "Every 1st day of the month"
+    },
+    "fields": {
+      "minRank": "Minimum rank",
+      "wager": "Wager",
+      "hours": "Number of hours",
+      "balanceType": "Balance type",
+      "balanceTypeValue": "Bonus",
+      "period": "Cashback for the period"
+    },
+    "closeButton": "Close"
+  }
+}

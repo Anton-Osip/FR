@@ -1,0 +1,115 @@
+@use "../../../shared/styles/variables" as *;
+
+.modal {
+  width: 100%;
+  max-width: 628px;
+  border-radius: 24px;
+
+  .closeButton {
+    max-width: 28px;
+    max-height: 28px;
+
+    span svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 0 32px;
+
+  .header {
+    width: 100%;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.24px;
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    .errorMessage {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: $color-text-primary;
+      text-align: center;
+    }
+
+    .description {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #727E9B;
+      text-align: left;
+    }
+
+    .bonusInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      width: 100%;
+      padding: 20px;
+
+      background: rgba(114, 126, 155, 8%);
+      border: 1px solid rgba(114, 126, 155, 12%);
+      border-radius: 16px;
+    }
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .modal {
+    max-width: 100%;
+    padding: 32px 0;
+    border-radius: 24px 24px 0 0;
+
+    .closeButton {
+      top: 32px;
+      right: 32px;
+    }
+  }
+
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding: 0 32px;
+
+    .header {
+      .title {
+        margin-right: 40px;
+      }
+    }
+
+    .body {
+      .bonusInfo {
+        gap: 10px;
+        padding: 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export { SlotWindowHeader } from './SlotWindowHeader';

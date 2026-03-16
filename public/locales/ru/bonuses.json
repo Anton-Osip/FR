@@ -1,0 +1,90 @@
+{
+  "pageTitle": "Бонусы",
+  "rankCard": {
+    "silver": "Серебро",
+    "gold": "Золото",
+    "currentRank": "Актуальный ранг",
+    "turnover": "Оборот"
+  },
+  "promoCodeCard": {
+    "title": "Промокод",
+    "description": "Введите промокод в поле, чтобы получить бонус",
+    "placeholder": "Промокод",
+    "activate": "Активировать",
+    "required": "Введите промокод",
+    "tooLong": "Промокод слишком длинный"
+  },
+  "cashbackCard": {
+    "title": "Кэшбек",
+    "description": "Накапливайте кэшбек, активно играя в игры!",
+    "claim": "Забрать",
+    "claimWithAmount": "Забрать {{amount}}",
+    "calculating": "Рассчитываем",
+    "expiresIn": "Сгорит через {{time}}",
+    "fromRank": "От ранга {{rank}}",
+    "fromRankBronze": "От ранга Бронза",
+    "weekly": "Недельный",
+    "monthly": "Месячный"
+  },
+  "benefitsSection": {
+    "title": "Ранги",
+    "ranks": {
+      "bronze": "Бронза",
+      "silver": "Серебро",
+      "gold": "Золото",
+      "diamond": "Бриллиант"
+    },
+    "turnover": {
+      "bronze": "От 200 000 ₽ оборота",
+      "silver": "От 1 000 000 ₽ оборота",
+      "gold": "От 5 000 000 ₽ оборота",
+      "diamond": "От 10 000 000 ₽ оборота"
+    },
+    "benefits": {
+      "weeklyCashback": "Недельный кэшбек {{percent}}%",
+      "monthlyCashback": "Месячный кэшбек {{percent}}%",
+      "vipManager": "Личный VIP-менеджер"
+    }
+  },
+  "promoActivationFinalStepModal": {
+    "title": "Активация промокода почти завершена",
+    "instructions": "Для получения бонуса:",
+    "step1": "Пополни счет на любую сумму",
+    "step2": "Повторно введи промокод в разделе",
+    "step2Link": "Бонусы",
+    "depositButton": "Пополнить"
+  },
+  "promoCodeActivatedModal": {
+    "title": "Промокод успешно активирован!",
+    "instructions": "Для получения бонуса:",
+    "step1": "Перейди в любую игру из",
+    "step1Link": "этого списка",
+    "step2": "Воспользуйся бесплатными спинами",
+    "goToGameButton": "Перейти к игре"
+  },
+  "cashbackModal": {
+    "ranks": {
+      "bronze": "Бронза",
+      "silver": "Серебро",
+      "gold": "Золото",
+      "diamond": "Бриллиант"
+    },
+    "weekly": {
+      "title": "Возвращай {{count}}% от неудачных ставок",
+      "periodValue": "Каждую среду"
+    },
+    "monthly": {
+      "title": "Возвращай {{count}}% от неудачных ставок",
+      "periodValue": "Каждое 1-е число"
+    },
+    "fields": {
+      "minRank": "Минимальный ранг",
+      "wager": "Вейджер",
+      "hours": "Количество часов",
+      "balanceType": "Баланс начисления",
+      "balanceTypeValue": "Бонусный",
+      "period": "Кэшбэк за период"
+    },
+    "closeButton": "Закрыть"
+  }
+}

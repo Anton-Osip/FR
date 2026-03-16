@@ -1,0 +1,407 @@
+{
+  "title": "Кошелек",
+  "modalTitles": {
+    "bankPayment": "Банковский платеж",
+    "withdrawalByCard": "Вывод по карте",
+    "withdrawal": "Вывод",
+    "cryptoPayment": "Криптовалютный платеж",
+    "sbp": "СБП",
+    "cryptoWithdrawal": "Вывод криптовалютой"
+  },
+  "bannerTitle": "+5% на первый крипто-депозит",
+  "tabs": {
+    "deposit": "Депозит",
+    "withdraw": "Вывод"
+  },
+
+  "methods": {
+    "banking": "Банкинг",
+    "telegramCrypto": "Telegram крипта",
+    "crypto": "Криптовалюта",
+    "minPrefix": "от",
+    "newMethods": "Новые способы",
+    "soon": "скоро..."
+  },
+  "withdrawal": {
+    "walletAddress": "Адрес кошелька",
+    "memo": "MEMO (необязательно)",
+    "minAmount": "Минимальная сумма {{amount}} {{currency}}",
+    "confirm": "Подтвердить",
+    "loading": "Загрузка...",
+    "noMethods": "Методы вывода недоступны"
+  },
+  "bankSelector": {
+    "emptyInput": "Нет доступных банков"
+  },
+  "bonus": {
+    "percentDeposit": "Бонус {{percent}}% на депозит",
+    "promoCodeReward": "Награда за промокод при пополнении",
+    "label": "Бонус",
+    "terms": "Условия бонуса"
+  },
+  "cryptoAddress": {
+    "copy": "Скопировать",
+    "collapse": "Свернуть",
+    "copySuccess": {
+      "title": "Адрес скопирован",
+      "description": "Адрес скопирован в буфер обмена"
+    }
+  },
+  "cryptoQrModal": {
+    "saveButton": "Сохранить QR",
+    "qrCodeLabel": "QR-код адреса {{address}}",
+    "saveSuccess": {
+      "title": "QR-код сохранен",
+      "description": "QR-код успешно сохранен"
+    },
+    "saveError": {
+      "title": "Не удалось сохранить QR-код",
+      "description": "Попробуйте еще раз"
+    },
+    "addressError": {
+      "title": "Ошибка",
+      "description": "Адрес для QR-кода не указан"
+    }
+  },
+  "paymentRegionSelector": {
+    "label": "Регион оплаты",
+    "yourBalance": "Ваш баланс"
+  },
+  "phoneInput": {
+    "placeholder": "Введите номер телефона",
+    "searchPlaceholder": "Поиск"
+  },
+  "withdrawalErrors": {
+    "missingFields": "Заполните обязательные поля: {{fields}}",
+    "invalidFields": "Исправьте ошибки в полях: {{fields}}",
+    "insufficientWager": "Недостаточно средств для вывода",
+    "amountOutOfBounds": "Сумма вне допустимых пределов",
+    "methodNotFound": "Метод вывода не найден",
+    "methodDisabled": "Метод вывода недоступен",
+    "withdrawalUnavailable": "Вывод недоступен"
+  },
+  "bankPayment": {
+    "polling": {
+      "title": "Не закрывай окно",
+      "subtitle": "Идет поиск реквизитов.\nПроцесс может занять до 60 секунд..."
+    },
+    "errors": {
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "minAmountLabel": "Мин. сумма {{amount}} {{currency}}",
+    "toDeposit": "К пополнению",
+    "continue": "Продолжить",
+    "loading": "Загрузка..."
+  },
+  "bonusTermsModal": {
+    "title": "Условия бонуса + {{percent}}%",
+    "wager": "Вейджер для бонуса на депозит",
+    "wagerValue": "x40",
+    "maxWin": "Максимальная сумма выигрыша",
+    "maxWinValue": "15-кратная сумма бонуса или 500$ (в зависимости от того, что наступит раньше)",
+    "maxWinValueMultiplier": "{{multiplier}}-кратная сумма бонуса",
+    "wageringTime": "Время на отыгрыш",
+    "wageringTimeValue": "96 часов",
+    "wageringTimeHours_one": "{{count}} час",
+    "wageringTimeHours_few": "{{count}} часа",
+    "wageringTimeHours_many": "{{count}} часов",
+    "wageringTimeDays_one": "{{count}} день",
+    "wageringTimeDays_few": "{{count}} дня",
+    "wageringTimeDays_many": "{{count}} дней",
+    "usageTime": "Время использования",
+    "withdrawCapMode": "Режим лимита вывода",
+    "rewardAmount": "Сумма бонуса",
+    "rewardPercent": "Процент бонуса",
+    "rewardType": "Тип награды",
+    "minDeposit": "Минимальный депозит",
+    "deadline": "Доступно до",
+    "attention": "Будьте внимательны",
+    "notices": {
+      "onlySomeGames": "Доступно только для некоторых игр",
+      "availableGames": "Доступные игры: Cleocatra, Gems Bonanza, Power of Thor Megaways, The Dog House Megaways Mobile, Zeus vs Hades - Gods of War",
+      "bonusExpiry": "При выводе средств с реального баланса все неотыгранные бонусы и фриспины сгорают"
+    },
+    "close": "Закрыть"
+  },
+  "cryptoPayment": {
+    "minAmount": "Минимальная сумма",
+    "provider": "Провайдер",
+    "permanentAddress": "Постоянный адрес {{network}} ({{cryptoCode}})",
+    "networkCopySuccess": {
+      "title": "Сеть скопирована",
+      "description": "Сеть скопирована в буфер обмена"
+    }
+  },
+  "telegramPayment": {
+    "errors": {
+      "title": "Произошла ошибка при формировании счёта",
+      "description": "Пожалуйста, повторите попытку",
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "transferAmount": "Сумма перевода",
+    "provider": "Провайдер",
+    "paymentLink": "Ссылка для оплаты",
+    "goToPayment": "Перейти для оплаты",
+    "confirm": "Подтвердить",
+    "confirming": "Подтверждение...",
+    "networkCopySuccess": {
+      "title": "Сеть скопирована",
+      "description": "Сеть скопирована в буфер обмена"
+    },
+    "linkCopySuccess": {
+      "title": "Ссылка скопирована",
+      "description": "Ссылка для оплаты скопирована в буфер обмена"
+    }
+  },
+  "sbpAmount": {
+    "transferAmount": "Сумма перевода",
+    "copySuccess": {
+      "title": "Сумма скопирована",
+      "description": "Сумма перевода скопирована в буфер обмена"
+    },
+    "copyError": {
+      "title": "Не удалось скопировать сумму",
+      "description": "Попробуйте еще раз"
+    },
+    "notice": {
+      "title": "Скопируйте сумму",
+      "text": "Мы изменили сумму вашего перевода, чтобы убедиться, что это ваш платеж и зачислить его автоматически."
+    }
+  },
+  "sbpConditions": {
+    "title": "Помните об условиях платежа",
+    "notices": {
+      "singlePayment": "Совершайте платеж одной операцией",
+      "noComments": "Не оставляйте комментарии к переводу",
+      "requisitesChange": "Реквизиты всегда меняются"
+    },
+    "description": "Обратите внимание, что в случае перевода неправильной суммы или в другой банк средства могут быть не зачислены."
+  },
+  "sbpReceiver": {
+    "labels": {
+      "transferNumber": "Номер для перевода",
+      "bank": "Банк",
+      "recipient": "Получатель",
+      "phone": "Номер телефона"
+    },
+    "copySuccess": {
+      "title": "{{label}} скопирован",
+      "description": "{{label}} скопирован в буфер обмена"
+    }
+  },
+  "sbpTimer": {
+    "waitingForTransfer": "Ожидаем ваш перевод",
+    "paymentNotConfirmed": {
+      "title": "Платёж не подтверждён",
+      "description": "Начните оплату заново"
+    }
+  },
+  "sbpPaymentDetail": {
+    "goToPayment": "Перейти к оплате",
+    "guaranteeText": "Frosty гарантирует зачисление вашего перевода по указанным ниже реквизитам.",
+    "paidButton": {
+      "withTimer": "Я оплатил {{time}}",
+      "withoutTimer": "Я оплатил"
+    },
+    "copySuccess": {
+      "title": "Сумма скопирована",
+      "description": "Сумма перевода скопирована в буфер обмена"
+    },
+    "copyError": {
+      "title": "Не удалось скопировать сумму",
+      "description": "Попробуйте еще раз"
+    },
+    "paymentStatus": {
+      "success": {
+        "title": "Платеж успешно зачислен",
+        "description": "Сумма будет зачислена автоматически после подтверждения."
+      },
+      "pending": {
+        "title": "Платеж обрабатывается",
+        "description": "Сумма будет зачислена автоматически после подтверждения. За статусом можно следить в разделе История"
+      },
+      "rejected": {
+        "title": "Платеж отклонен",
+        "description": "Обратитесь в службу поддержки для уточнения причины."
+      },
+      "default": {
+        "title": "Статус платежа",
+        "description": "За статусом можно следить в разделе История"
+      },
+      "checkError": {
+        "title": "Ошибка при проверке платежа",
+        "description": "Попробуйте еще раз или обратитесь в поддержку."
+      }
+    },
+    "modal": {
+      "transferAmount": "Сумма перевода",
+      "notice": {
+        "title": "Скопируйте сумму",
+        "text": "Мы изменили сумму вашего перевода, чтобы убедиться, что это ваш платеж и зачислить его автоматически."
+      },
+      "gotIt": "Понятно"
+    }
+  },
+  "sbpPaymentForm": {
+    "labels": {
+      "transferAmount": "Сумма перевода",
+      "transferNumber": "Номер для перевода",
+      "bank": "Банк",
+      "recipient": "Получатель"
+    },
+    "copySuccess": {
+      "title": "{{label}} скопирован",
+      "description": "{{label}} скопирован в буфер обмена"
+    },
+    "form": {
+      "title": "Укажите данные",
+      "fullName": "ФИО",
+      "receiptPlaceholder": "Чек операции",
+      "receiptLabel": "Чек по операции с номером документа (PNG, JPG)",
+      "submitButton": "Отправить"
+    }
+  },
+  "conclusion": {
+    "labels": {
+      "fullName": "ФИО",
+      "minAmount": "Минимальная сумма {{amount}} ₽"
+    },
+    "validation": {
+      "selectBank": "Выберите банк",
+      "enterFullName": "Введите ФИО",
+      "enterPhone": "Введите номер телефона",
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "Это поле обязательно для заполнения",
+      "invalidField": "Проверьте правильность заполнения поля",
+      "withdrawalNotPossible": "Невозможно вывести средства",
+      "checkData": "Проверьте данные и попробуйте еще раз",
+      "withdrawalError": "Ошибка при выводе средств",
+      "contactSupport": "Попробуйте еще раз или обратитесь в поддержку"
+    },
+    "success": {
+      "title": "Заявка на вывод создана",
+      "description": "Средства будут переведены в ближайшее время"
+    },
+    "currentBalance": "Ваш текущий баланс:",
+    "willBeCredited": "На счет поступит:",
+    "buttons": {
+      "continue": "Продолжить",
+      "processing": "Обработка..."
+    }
+  },
+  "withdrawalByCard": {
+    "labels": {
+      "fullName": "ФИО",
+      "cardNumber": "Номер карты",
+      "minAmount": "Минимальная сумма {{amount}} ₽"
+    },
+    "validation": {
+      "selectBank": "Выберите банк",
+      "enterFullName": "Введите ФИО",
+      "enterCardNumber": "Введите номер карты",
+      "invalidCardNumber": "Некорректный номер карты",
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "Это поле обязательно для заполнения",
+      "invalidField": "Проверьте правильность заполнения поля",
+      "withdrawalNotPossible": "Невозможно вывести средства",
+      "checkData": "Проверьте данные и попробуйте еще раз",
+      "withdrawalError": "Ошибка при выводе средств",
+      "contactSupport": "Попробуйте еще раз или обратитесь в поддержку"
+    },
+    "success": {
+      "title": "Заявка на вывод создана",
+      "description": "Средства будут переведены в ближайшее время"
+    },
+    "currentBalance": "Ваш текущий баланс:",
+    "willBeCredited": "На счет поступит:",
+    "buttons": {
+      "continue": "Продолжить",
+      "processing": "Обработка..."
+    }
+  },
+  "withdrawalByCrypto": {
+    "labels": {
+      "walletAddress": "Адрес кошелька",
+      "memo": "MEMO (необязательно)",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "validation": {
+      "enterAddress": "Введите адрес кошелька",
+      "addressTooShort": "Адрес криптокошелька слишком короткий",
+      "addressTooLong": "Адрес криптокошелька слишком длинный",
+      "addressInvalidChars": "Адрес может содержать только буквы и цифры",
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "Это поле обязательно для заполнения",
+      "invalidField": "Проверьте правильность заполнения поля",
+      "withdrawalNotPossible": "Невозможно вывести средства",
+      "checkData": "Проверьте данные и попробуйте еще раз",
+      "withdrawalError": "Ошибка при выводе средств",
+      "contactSupport": "Попробуйте еще раз или обратитесь в поддержку"
+    },
+    "success": {
+      "title": "Заявка на вывод создана",
+      "description": "Средства будут переведены в ближайшее время"
+    },
+    "currentBalance": "Ваш текущий баланс:",
+    "willBeCredited": "На счет поступит:",
+    "confirm": "Подтвердить",
+    "loading": "Загрузка...",
+    "noMethods": "Методы вывода недоступны"
+  },
+  "withdrawalByTelegram": {
+    "labels": {
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "validation": {
+      "enterAmount": "Введите сумму",
+      "minAmount": "Минимальная сумма {{amount}} {{currency}}"
+    },
+    "errors": {
+      "requiredField": "Это поле обязательно для заполнения",
+      "invalidField": "Проверьте правильность заполнения поля",
+      "withdrawalNotPossible": "Невозможно вывести средства",
+      "checkData": "Проверьте данные и попробуйте еще раз",
+      "withdrawalError": "Ошибка при выводе средств",
+      "contactSupport": "Попробуйте еще раз или обратитесь в поддержку"
+    },
+    "success": {
+      "title": "Заявка на вывод создана",
+      "description": "Средства будут переведены в ближайшее время"
+    },
+    "availableForWithdrawal": "Доступно к выводу:",
+    "willBeCredited": "На счет поступит:",
+    "confirm": "Подтвердить",
+    "loading": "Загрузка...",
+    "noMethods": "Методы вывода недоступны"
+  },
+  "moreMethods": {
+    "showMore": "Показать больше",
+    "showLess": "Показать меньше",
+    "moreCount_zero": "Еще {{count}} методов",
+    "moreCount_one": "Еще {{count}} метод",
+    "moreCount_few": "Еще {{count}} метода",
+    "moreCount_many": "Еще {{count}} методов",
+    "methods": "Методы"
+  },
+  "polling": {
+    "success": {
+      "title": "Реквизиты получены.",
+      "description": "Выполните перевод"
+    },
+    "error": {
+      "title": "Произошла ошибка при формировании счёта.",
+      "description": "Пожалуйста, повторите попытку"
+    }
+  }
+}

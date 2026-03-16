@@ -1,0 +1,154 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.userCell,
+.gameCell {
+  display: flex;
+  gap: $spacing-xxs;
+  align-items: center;
+  min-width: 0;
+}
+
+.userAvatar {
+  width: $spacing-lg;
+  height: $spacing-lg;
+  background: $color-bg-on-block;
+  border-radius: $radius-xxl;
+}
+
+.userName {
+  overflow: hidden;
+
+  min-width: 0;
+
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-light;
+  color: $color-text-secondary;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gameIcon {
+  width: 15px;
+  height: 19px;
+  background: $color-bg-on-block;
+  border-radius: 2px;
+}
+
+.gameName {
+  overflow: hidden;
+
+  min-width: 0;
+
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-light;
+  color: $color-text-primary;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.amountCell,
+.multiplierCell,
+.payoutCell {
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-light;
+  color: $color-text-secondary;
+}
+
+.payoutCell {
+  padding-left: 0;
+}
+
+.gameCellBody {
+  padding-left: 11px;
+}
+
+.payoutCell--win {
+  color: $color-win-primary;
+}
+
+.loadingCell {
+  width: 100%;
+  height: 380px;
+  text-align: center;
+}
+
+@media screen and (max-width: $media-laptop) {
+  .home,
+  .games {
+    .td {
+      width: calc(100% / 3);
+    }
+
+    .payoutCell {
+      text-align: right;
+    }
+
+    .amountCell,
+    .multiplierCell {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .game {
+    .td {
+      width: calc(100% / 2);
+    }
+
+    .payoutCell {
+      text-align: right;
+    }
+
+    .amountCell,
+    .multiplierCell,
+    .userHead {
+      display: none;
+    }
+
+    .gameCellBody {
+      padding-left: $spacing-md;
+    }
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .games,
+  .home {
+    .td {
+      width: calc(100% / 2);
+    }
+
+    .userHead {
+      display: none;
+    }
+
+    .gameCellBody {
+      padding-left: $spacing-md;
+    }
+  }
+}
+
+
+.emptyRow {
+  cursor: default;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: transparent !important;
+    }
+  }
+}
+
+.emptyCell {
+  cursor: default;
+  width: 100%;
+  height: 380px;
+  text-align: center;
+}
+
+
+

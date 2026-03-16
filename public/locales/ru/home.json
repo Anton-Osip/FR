@@ -1,0 +1,99 @@
+{
+  "banner": {
+    "pagination": {
+      "label": "Навигация по слайдам",
+      "slide": "Слайд"
+    },
+    "slide1": {
+      "title": "+5% на первый",
+      "secondTitle": "крипто-депозит"
+    },
+    "slide2": {
+      "title": "Наши ресурсы",
+      "secondTitle": "в телеграм"
+    },
+    "slide3": {
+      "title": "Средний RTP",
+      "secondTitle": "целых ~98.5%!"
+    },
+    "slide4": {
+      "title": "Получите свой",
+      "secondTitle": "кешбек!"
+    },
+    "slide5": {
+      "title": "Бонус +500%",
+      "secondTitle": "новым пользователям"
+    }
+  },
+  "heroBonus": {
+    "title": "Бонус до",
+    "titleSecondLine": "на первый депозит",
+    "button": "Подробнее",
+    "slide": "Слайд"
+  },
+  "heroSlot": {
+    "title": "Слот недели",
+    "slide": "Слайд"
+  },
+  "heroCashback": {
+    "title": "Кэшбек",
+    "titleSecondLine": "по средам",
+    "slide": "Слайд",
+    "slides": {
+      "cashback": {
+        "title": "Кешбек",
+        "subtitle": "каждую среду!"
+      },
+      "monthlyCashback": {
+        "title": "Кешбек",
+        "subtitle": "каждый месяц!"
+      },
+      "telegram": {
+        "title": "Наш",
+        "subtitle": "телеграм-бот"
+      }
+    }
+  },
+  "carousel": {
+    "popular": "Популярное",
+    "slots": "Слоты",
+    "liveGames": "Live-игры",
+    "quickGames": "Быстрые игры",
+    "quickGamesShort": "Быстрые",
+    "history": "История игр",
+    "all": "Все",
+    "new": "Новинки",
+    "previous": "Предыдущий слайд",
+    "next": "Следующий слайд"
+  },
+  "categoryFiltersBar": {
+    "allGames": "Все игры",
+    "popular": "Популярное",
+    "slots": "Слоты",
+    "liveGames": "Live-игры",
+    "quickGames": "Быстрые игры",
+    "new": "Новинки",
+    "searchPlaceholder": "Поиск"
+  },
+  "betsSection": {
+    "title": "Таблица ставок",
+    "tabs": {
+      "lastBets": "Последние ставки",
+      "myBets": "Мои ставки",
+      "bigPlayers": "Крупные игроки"
+    },
+    "table": {
+      "user": "Пользователь",
+      "game": "Игра",
+      "amount": "Сумма ставки",
+      "multiplier": "Множитель",
+      "payout": "Выплата",
+      "nothingFound": "Ничего не найдено"
+    }
+  },
+  "buttons": {
+    "loadMore": "Смотреть больше",
+    "shown": "Показано",
+    "of": "из"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "buttons": {
+    "play": "Play",
+    "demo": "Demo"
+  },
+  "labels": {
+    "fullscreen": "Fullscreen"
+  },
+  "leaderboard": {
+    "bigWins": "Big wins",
+    "luckyBets": "Lucky bets",
+    "todayBest": "Best today"
+  },
+  "error": {
+    "title": "Failed to load the slot.",
+    "subtitle": "Provider server is unavailable. Check your internet connection. If the internet is working but the game won't load — there are likely issues on the provider's side. We are already working on it."
+  }
+}

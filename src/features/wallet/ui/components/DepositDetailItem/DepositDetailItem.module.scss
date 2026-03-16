@@ -1,0 +1,83 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.depositDetailItem {
+  display: flex;
+  gap: $spacing-xxs;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: $spacing-4xs $spacing-md;
+
+  background: $color-bg-block;
+  border-radius: $radius-lg;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: $color-text-secondary;
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+
+  width: 100%;
+  min-width: 0;
+
+  .label {
+    overflow: hidden;
+
+    font-size: $font-size-xs;
+    font-weight: 450;
+    font-style: normal;
+    line-height: $leading-normal;
+    color: $color-text-secondary;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .value {
+    overflow: hidden;
+
+    font-size: $font-size-md;
+    font-weight: $font-weight-light;
+    font-style: normal;
+    line-height: $leading-normal;
+    color: $color-text-primary;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.btn {
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  max-height: 28px;
+  padding: 0 !important;
+
+  color: $color-text-secondary;
+
+  border-radius: $spacing-4xs !important;
+
+  & span {
+    width: 12px;
+    height: 12px;
+
+    svg {
+      width: 12px;
+      height: 12px;
+
+    }
+  }
+}
+

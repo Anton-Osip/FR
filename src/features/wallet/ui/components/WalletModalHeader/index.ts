@@ -1,0 +1,1 @@
+export { WalletModalHeader } from './WalletModalHeader';

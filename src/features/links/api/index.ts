@@ -1,0 +1,1 @@
+export { useGetLinksResolveQuery } from './linksApi';

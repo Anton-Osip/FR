@@ -1,0 +1,1 @@
+export { SlotInfo } from './SlotInfo';

@@ -1,0 +1,21 @@
+@use "../../../shared/styles/variables.scss" as *;
+
+.invite{
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+}
+
+@media screen and (max-width: $media-laptop) {
+  .invite {
+    gap: 24px;
+  }
+
+  .rewardsCards {
+    margin-top: 2px;
+  }
+
+}
+
+
+

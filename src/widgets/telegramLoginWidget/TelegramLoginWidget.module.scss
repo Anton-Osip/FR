@@ -1,0 +1,48 @@
+@use "../../shared/styles/variables" as *;
+
+.tgWidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100dvh;
+
+  color: $color-text-primary;
+
+  background: #090D14;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+
+  color: $color-text-primary;
+
+  .container {
+    display: flex;
+    gap: $spacing-xs;
+    align-items: center;
+
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: $spacing-md;
+  }
+
+  .frostyIcon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .text {
+    font-family: $font-family-base;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    letter-spacing: $tracking-light;
+  }
+}

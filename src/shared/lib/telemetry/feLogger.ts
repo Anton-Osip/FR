@@ -1,0 +1,133 @@
+import { getCookie } from '@shared/api/cookies';
+import { getBFF, CLIENT_VERSION } from '@shared/config';
+import type { Ctx, Entry, Level } from '@shared/model';
+
+const getEndpoint = (): string => `${getBFF()}/ops/fe-log`;
+const DEFAULT_MAX_BATCH = 50;
+const DEFAULT_FLUSH_MS = 250;
+const MAX_BATCH = Number(import.meta.env.VITE_FE_LOG_MAX_BATCH ?? DEFAULT_MAX_BATCH);
+const FLUSH_MS = Number(import.meta.env.VITE_FE_LOG_FLUSH_MS ?? DEFAULT_FLUSH_MS);
+
+const SID_KEY = 'skylon_sid';
+
+function sid(): string {
+  if (typeof window === 'undefined') return 'server';
+  try {
+    let v = localStorage.getItem(SID_KEY);
+
+    if (!v) {
+      v = typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : String(Date.now());
+      localStorage.setItem(SID_KEY, v);
+    }
+
+    return v;
+  } catch {
+    return 'anon';
+  }
+}
+
+const queue: Entry[] = [];
+let timer: ReturnType<typeof setTimeout> | null = null;
+
+let csrfWarm = false;
+
+async function ensureCsrfCookie(): Promise<void> {
+  if (csrfWarm) return;
+  const bff = getBFF();
+
+  if (!bff) return;
+  if (getCookie('csrf')) {
+    csrfWarm = true;
+
+    return;
+  }
+  try {
+    await fetch(`${bff}/ops/healthz`, { method: 'GET', credentials: 'include' });
+  } catch {
+    /* noop */
+  } finally {
+    csrfWarm = true;
+  }
+}
+
+function flush(): void {
+  if (typeof window === 'undefined') return;
+  if (!queue.length) return;
+  const endpoint = getEndpoint();
+
+  if (!endpoint) return;
+  const batch = queue.splice(0, MAX_BATCH);
+
+  void (async () => {
+    await ensureCsrfCookie();
+    const body = JSON.stringify({
+      sid: sid(),
+      page: location.pathname,
+      platform: 'web',
+      v: CLIENT_VERSION,
+      csrf: getCookie('csrf') || '',
+      batch,
+    });
+    const sameOrigin = (() => {
+      try {
+        return new URL(endpoint).origin === location.origin;
+      } catch {
+        return false;
+      }
+    })();
+
+    if (sameOrigin && navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+    } else {
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body,
+        keepalive: true,
+        credentials: 'include',
+      }).catch(() => {
+        /* noop */
+      });
+    }
+  })();
+}
+
+function push(level: Level, msg: string, ctx?: Ctx): void {
+  if (/bearer\s+[a-z0-9._-]+/i.test(msg)) return;
+  let reqId: string | undefined;
+  let cleanedCtx: Ctx | undefined = ctx;
+
+  if (ctx && typeof ctx === 'object') {
+    const ctxRecord = ctx as Record<string, unknown>;
+    const v = ctxRecord.reqId;
+
+    if (typeof v === 'string') {
+      reqId = v;
+      // Удаляем reqId из ctx, чтобы избежать дублирования
+      cleanedCtx = { ...ctxRecord };
+      delete cleanedCtx.reqId;
+      // Если ctx стал пустым, устанавливаем undefined
+      if (Object.keys(cleanedCtx).length === 0) {
+        cleanedCtx = undefined;
+      }
+    }
+  }
+
+  queue.push({ level, msg, ts: new Date().toISOString(), reqId, ctx: cleanedCtx });
+  if (queue.length >= MAX_BATCH) flush();
+  if (timer) clearTimeout(timer);
+  timer = setTimeout(flush, FLUSH_MS);
+}
+
+/**
+ * Клиентский логгер с батчингом и best-effort доставкой.
+ * - Автоматически отбрасывает сообщения с очевидным `bearer <token>` в тексте.
+ * - Отправляет батчи в BFF (`/ops/fe-log`) через `sendBeacon`/`fetch`.
+ */
+export const feLog = {
+  info: (msg: string, ctx?: Ctx) => push('info', msg, ctx),
+  warn: (msg: string, ctx?: Ctx) => push('warn', msg, ctx),
+  error: (msg: string, ctx?: Ctx) => push('error', msg, ctx),
+  debug: (msg: string, ctx?: Ctx) => push('debug', msg, ctx),
+  flush,
+};

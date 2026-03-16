@@ -1,0 +1,13 @@
+@use "../../../../shared/styles/variables.scss" as *;
+
+.preloader {
+  width: 100%;
+  height: calc(100dvh - 79px - 48px - 48px);
+}
+
+@media screen and ($media-laptop-plus) {
+  .preloader {
+    width: 100%;
+    height: calc(100dvh - 64px - 24px - 24px);
+  }
+}

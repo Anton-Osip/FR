@@ -1,0 +1,14 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.tabsContainer {
+  width: 100%;
+  margin-bottom: 24px;
+
+  .tabs {
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+}

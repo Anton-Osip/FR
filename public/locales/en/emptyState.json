@@ -1,0 +1,9 @@
+{
+  "title": "Nothing found",
+  "subtitle": "Check your request or try another one",
+  "initError": {
+    "title": "Initialization error",
+    "defaultMessage": "An error occurred while initializing the application. Please try refreshing the page or come back later.",
+    "reloadButton": "Reload page"
+  }
+}

@@ -1,0 +1,1 @@
+export { SlotInfoMobile } from './SlotInfoMobile';

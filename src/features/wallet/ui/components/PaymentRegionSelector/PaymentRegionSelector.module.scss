@@ -1,0 +1,147 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.dropdownWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  width: 100%;
+  padding-left: 16px;
+
+  color: #727E9B;
+
+  background: #131824;
+  border-radius: 12px;
+
+  .balanceWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .balanceText {
+      font-size: 12px;
+      font-weight: 450;
+      font-style: normal;
+      line-height: normal;
+      color: #727E9B;
+    }
+
+    .balance {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: normal;
+      color: #F0F5FF;
+    }
+  }
+
+  .text {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+    white-space: nowrap;
+  }
+}
+
+.dropdownTrigger {
+  margin-left: auto;
+}
+
+.currencyTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 122px;
+  height: 47px;
+  max-height: 47px;
+  padding: 14px 16px;
+
+  color: #727E9B;
+
+  background: #212738;
+  border-radius: 12px;
+
+  .title {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+
+    .icon {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+
+  }
+
+  & svg {
+    flex: 0 0 10px;
+    width: 10px;
+    height: 19px;
+  }
+
+}
+
+.dropdownItems {
+  padding: 8px 2px 8px 8px;
+  background: #212738;
+}
+
+.item {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+  letter-spacing: -0.14px;
+
+  background: #212738;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+
+  transition: color 0.3s, background 0.3s;
+
+  .title {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: #727E9B;
+  }
+
+  .okIcon {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    color: $color-primary;
+  }
+
+  &:hover {
+    background: #282f42;
+  }
+}

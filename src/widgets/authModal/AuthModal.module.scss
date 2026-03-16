@@ -1,0 +1,126 @@
+@use "../../shared/styles/variables" as *;
+
+.modal {
+  max-width: 575px;
+  padding: 32px;
+}
+
+.modalHeader {
+  padding: 0;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.icon > svg {
+  width: 39px;
+  height: 32px;
+}
+
+.closeButton {
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
+.closeButton > span {
+  width: 10px;
+  height: 10px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: flex-start;
+
+  max-width: 524px;
+}
+
+.header .title {
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  color: #F0F5FF;
+  text-align: center;
+  letter-spacing: -0.24px;
+}
+
+.header .backBtn span {
+  width: 11px !important;
+  height: 10px !important;
+}
+
+.closeButton > span svg {
+  width: 10px;
+  height: 10px;
+}
+
+.header .backBtn .arrow > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .backBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    min-width: auto;
+    max-width: 28px;
+    min-height: 28px !important;
+    max-height: 28px !important;
+
+    color: #F0F5FF;
+
+    background: #212738;
+    border: 1px solid #282F42;
+    border-radius: 10px;
+
+    .arrow {
+      transform: rotate(-90deg);
+      width: 11px;
+      height: 10px;
+    }
+  }
+}
+
+@media (max-width: $media-laptop) {
+  .modal {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .body {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .closeButton {
+    top: 16px !important;
+    right: 16px !important;
+  }
+}
+
+@media (max-width: $media-tab-mini-plus) {
+  .header .title {
+    max-width: 230px;
+    font-size: 20px;
+    letter-spacing: -0.20px;
+  }
+}

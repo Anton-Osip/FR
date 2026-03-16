@@ -1,0 +1,20 @@
+@use "../../../../../shared/styles/variables" as *;
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.stepsBtn {
+  background: $color-bg-block;
+  border: 2px solid $color-bg-block;
+}
+
+@media (max-width: $media-mobile-plus) {
+  .steps {
+    gap: 12px;
+  }
+}
