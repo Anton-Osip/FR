@@ -1,21 +1,30 @@
 import { type FC } from 'react';
 
 import * as RadixAvatar from '@radix-ui/react-avatar';
+import clsx from 'clsx';
+
+import anonAvatar from '@shared/assets/images/anon_avatar.webp';
+import { handleImageError } from '@shared/lib';
 
 import styles from './Avatar.module.scss';
 
-export const Avatar: FC = () => {
-  const avatarData = {
-    src: 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80',
-    alt: 'avatar',
-    initials: 'CT',
-  };
+interface Props {
+  avatar?: string | null | undefined;
+  className?: string;
+}
 
+export const Avatar: FC<Props> = ({ avatar, className }) => {
   return (
-    <RadixAvatar.Root className={styles.avatarRoot}>
-      <RadixAvatar.Image className={styles.avatarImage} src={avatarData.src} alt={avatarData.alt} />
-      <RadixAvatar.Fallback className={styles.avatarFallback} delayMs={600}>
-        {avatarData.initials}
+    <RadixAvatar.Root className={clsx(styles.avatarRoot, className)}>
+      <RadixAvatar.Image
+        className={styles.avatarImage}
+        src={avatar || undefined}
+        alt="avatar"
+        loading="lazy"
+        onError={handleImageError}
+      />
+      <RadixAvatar.Fallback className={styles.avatarFallback} delayMs={0}>
+        <img src={anonAvatar} alt="avatar" className={styles.avatarFallbackImage} />
       </RadixAvatar.Fallback>
     </RadixAvatar.Root>
   );

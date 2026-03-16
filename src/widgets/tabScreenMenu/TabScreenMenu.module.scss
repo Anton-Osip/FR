@@ -16,12 +16,25 @@
     width: 100%;
 
     background-color: $color-bg-block;
+    border-top: 2px solid #282F42;
+    border-right: 2px solid #282F42;
+    border-left: 2px solid #282F42;
     border-radius: $radius-xl $radius-xl 0 0;
 
     .eclipse {
       pointer-events: none;
+
       position: absolute;
+      z-index: 1;
       top: -9px;
+
+      width: 46px;
+      height: 23px;
+
+      background-color: #131824;
+      border-top: 2px solid #282F42;
+      border-radius: 46px 46px 0 0;
+
       transition: left $transition-hover;
     }
 

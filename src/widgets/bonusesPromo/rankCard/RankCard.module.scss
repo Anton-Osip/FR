@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
 
-  padding: 32px 31px 32px 35px;
+  padding: 32px 21px 32px 35px;
 
   background: #131824;
   border-radius: 24px;
@@ -20,8 +20,12 @@
   height: 100%;
 }
 
+.fullWidth {
+  max-width: 100%;
+}
+
 .title {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
   font-size: 32px;
   font-weight: 600;
@@ -42,7 +46,7 @@
 .userAmountBlock {
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
+  gap: 17px;
 }
 
 .amountWrap {
@@ -118,7 +122,7 @@
   line-height: normal;
   letter-spacing: -0.16px;
 
-  >svg{
+  > svg {
     width: 19px;
   }
 }
@@ -140,5 +144,87 @@
     object-fit: contain;
 
     -webkit-user-drag: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@mixin skeleton {
+  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonTitle {
+  @include skeleton;
+
+  width: 150px;
+  height: 32px;
+  margin-bottom: 12px;
+}
+
+.skeletonAmount {
+  @include skeleton;
+
+  width: 180px;
+  height: 24px;
+}
+
+.skeletonRanks {
+  @include skeleton;
+
+  width: 100%;
+  height: 24px;
+}
+
+@media screen and (max-width: $media-tab) {
+  .rankCard {
+    position: relative;
+    padding: 24px 24px 26px;
+    border-radius: 20px;
+  }
+
+  .info {
+    max-width: 100%;
+
+  }
+
+  .title {
+    margin-bottom: 8px;
+
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 140%;
+    letter-spacing: -0.2px;
+  }
+
+  .description {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 155%;
+  }
+
+  .userAmountBlock {
+    gap: 15px;
+  }
+
+  .image {
+    position: absolute;
+    top: 6px;
+    right: 2px;
+
+    width: 122px;
+    height: 85px;
   }
 }

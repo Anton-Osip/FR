@@ -65,6 +65,14 @@
   width: 100%;
 }
 
+.moneyItemWrapEmpty {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  color: $color-text-secondary;
+}
+
 .moneyItemWrap {
   display: flex;
   gap: $spacing-xs;
@@ -80,4 +88,31 @@
     width: 19px;
     height: 19px;
   }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonAmount {
+  width: 150px;
+  height: 24px;
+}
+
+.skeletonRank {
+  width: 100px;
+  height: 24px;
 }

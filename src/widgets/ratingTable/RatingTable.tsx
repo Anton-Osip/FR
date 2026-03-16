@@ -1,48 +1,76 @@
-import type { FC } from 'react';
+import { FC, useMemo, useState } from 'react';
 
-import { Table, Tabs } from '@shared/ui';
-import { TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@shared/ui/table/Table';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
-import { TABLE_DATA } from '@widgets/ratingTable/mockTable';
+import { selectMe } from '@app/store';
+
+import { useAppSelector } from '@shared/api';
+import anonAvatar from '@shared/assets/images/anon_avatar.webp';
+import { formatBalance, getCurrencySymbol, handleImageError } from '@shared/lib';
+import {
+  EmptyState,
+  Spinner,
+  Table,
+  Tabs,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@shared/ui';
 
 import styles from './RatingTable.module.scss';
+
+import { InviteWeek, useGetInviteLeaderboardQuery } from '@features/invite';
 
 interface RatingTableProps {
   className?: string;
 }
 
-const items = [
-  {
-    id: '1',
-    value: 'thisWeek',
-    label: 'На этой неделе',
-    active: true,
-  },
-  {
-    id: '2',
-    value: 'lastWeek',
-    label: 'На прошлой неделе',
-    active: false,
-  },
-];
-
-const headerData = [
-  { id: 'place', label: 'Место' },
-  { id: 'user', label: 'Пользователь' },
-  { id: 'amount', label: 'Сумма заработка' },
-];
-
-const USER_ID = 1323992;
-
 export const RatingTable: FC<RatingTableProps> = ({ className }) => {
-  const me = TABLE_DATA.find(item => item.id === USER_ID);
+  const { t } = useTranslation('invite');
+  const [week, setWeek] = useState<InviteWeek>('this');
+
+  const { data: leaderboardData, isFetching, isLoading } = useGetInviteLeaderboardQuery({ week });
+  const me = useAppSelector(selectMe);
+  const isSkeleton = isFetching || isLoading;
+  const hasItems = (leaderboardData?.items?.length ?? 0) > 0;
+
+  const items = useMemo(
+    () => [
+      {
+        id: '1',
+        value: 'this',
+        label: t('ratingTable.tabs.thisWeek'),
+        active: week === 'this',
+      },
+      {
+        id: '2',
+        value: 'prev',
+        label: t('ratingTable.tabs.lastWeek'),
+        active: week === 'prev',
+      },
+    ],
+    [t, week],
+  );
+
+  const headerData = useMemo(
+    () => [
+      { id: 'place', label: t('ratingTable.headers.place') },
+      { id: 'user', label: t('ratingTable.headers.user') },
+      { id: 'amount', label: t('ratingTable.headers.amount') },
+    ],
+    [t],
+  );
 
   return (
-    <div className={`${styles.ratingTable} ${className ?? ''}`}>
+    <div className={clsx(styles.ratingTable, className)}>
       <header className={styles.header}>
-        <h2 className={styles.title}>Таблица рейтинга</h2>
+        <h2 className={styles.title}>{t('ratingTable.title')}</h2>
         <div className={styles.tabs}>
-          <Tabs items={items} />
+          <Tabs items={items} onChange={value => setWeek(value as InviteWeek)} />
         </div>
       </header>
 
@@ -50,40 +78,80 @@ export const RatingTable: FC<RatingTableProps> = ({ className }) => {
         <TableHeader>
           {headerData.map(item => {
             return (
-              <TableHead key={item.id} className={`${styles.th} ${styles[item.id]}`}>
+              <TableHead key={item.id} className={clsx(styles.th, styles[item.id])}>
                 {item.label}
               </TableHead>
             );
           })}
         </TableHeader>
         <TableBody>
-          {TABLE_DATA.map(item => {
-            return (
-              <TableRow key={item.id} className={item.id === USER_ID ? styles.isMe : ''}>
-                <TableCell className={`${styles.placeBody} ${styles.td}`}>{item.place}</TableCell>
-                <TableCell className={`${styles.userBody} ${styles.td}`}>
-                  <div className={styles.userCell}>
-                    <span className={styles.userAvatar} />
-                    <span className={styles.userName}>{item.id !== USER_ID ? item.user : 'Вы'}</span>
-                  </div>
-                </TableCell>
-                <TableCell className={`${styles.amountBody} ${styles.td}`}>{item.amount} ₽</TableCell>
-              </TableRow>
-            );
-          })}
+          {isSkeleton ? (
+            <TableRow className={styles.loadingRow}>
+              <td className={clsx(styles.loadingCell, styles.td)} colSpan={headerData.length}>
+                <div className={styles.loadingContainer}>
+                  <Spinner />
+                </div>
+              </td>
+            </TableRow>
+          ) : !hasItems ? (
+            <TableRow className={styles.emptyRow}>
+              <td className={styles.emptyCell} colSpan={headerData.length}>
+                <EmptyState title={t('ratingTable.emptyMessage')} />
+              </td>
+            </TableRow>
+          ) : (
+            leaderboardData?.items.map(item => {
+              return (
+                <TableRow key={item.place} className={clsx(item.is_me && styles.isMe)}>
+                  <TableCell className={clsx(styles.placeBody, styles.td)}>{item.place}</TableCell>
+                  <TableCell className={clsx(styles.userBody, styles.td)}>
+                    <div className={styles.userCell}>
+                      <div className={styles.userAvatar}>
+                        <img src={item.avatar_url || anonAvatar} alt="" onError={handleImageError} />
+                      </div>
+                      <span className={styles.userName}>{item.is_me ? t('ratingTable.you') : item.user_name}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className={clsx(styles.amountBody, styles.td)}>
+                    {formatBalance(item.amount)} {getCurrencySymbol(item.currency)}
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          )}
         </TableBody>
-        <TableFooter className={styles.tFooter}>
-          <TableRow>
-            <TableHead className={`${styles.th} ${styles[styles.placeFooter]}`}>{me?.place}</TableHead>
-            <TableCell className={`${styles.userBody} ${styles.td}`}>
-              <div className={styles.userCell}>
-                <span className={styles.userAvatar} />
-                <span className={styles.userName}>Вы</span>
-              </div>
-            </TableCell>
-            <TableHead className={`${styles.th} ${styles[styles.amountFooter]}`}>{me?.amount} ₽</TableHead>
-          </TableRow>
-        </TableFooter>
+        {hasItems && (
+          <TableFooter className={styles.tFooter}>
+            {isSkeleton ? (
+              <TableRow className={styles.loadingRow}>
+                <td className={clsx(styles.loadingCell, styles.td)} colSpan={headerData.length}>
+                  <div className={styles.loadingContainer}>
+                    <Spinner />
+                  </div>
+                </td>
+              </TableRow>
+            ) : (
+              leaderboardData?.me && (
+                <TableRow>
+                  <TableHead className={clsx(styles.th, styles.placeFooter)}>
+                    {leaderboardData.me.place ?? '-'}
+                  </TableHead>
+                  <TableCell className={clsx(styles.userBody, styles.td)}>
+                    <div className={styles.userCell}>
+                      <div className={styles.userAvatar}>
+                        <img src={me?.avatar_url || anonAvatar} alt="" onError={handleImageError} />
+                      </div>
+                      <span className={styles.userName}>{t('ratingTable.you')}</span>
+                    </div>
+                  </TableCell>
+                  <TableHead className={clsx(styles.th, styles.amountFooter)}>
+                    {formatBalance(leaderboardData.me.amount)} {getCurrencySymbol(leaderboardData.me.currency)}
+                  </TableHead>
+                </TableRow>
+              )
+            )}
+          </TableFooter>
+        )}
       </Table>
     </div>
   );

@@ -1,59 +1,70 @@
-import type { FC } from 'react';
+import { FC, useMemo } from 'react';
 
-import { Table } from '@shared/ui';
-import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui/table';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+
+import { BettingTableBetItem } from '@shared/model';
+import { Table, TableBody, TableHead, TableHeader } from '@shared/ui';
 
 import styles from './BettingTable.module.scss';
-import type { BettingTableItem } from './mockTable';
+import { BettingTableBody } from './BettingTableBody';
 
 interface BettingTableProps {
-  items: BettingTableItem[];
+  items?: BettingTableBetItem[];
+  isLoading?: boolean;
+  page?: 'home' | 'games' | 'game';
 }
 
-const headerData = [
-  { id: 'user', label: 'Пользователь' },
-  { id: 'game', label: 'Игра' },
-  { id: 'amount', label: 'Сумма ставки' },
-  { id: 'multiplier', label: 'Множитель' },
-  { id: 'payout', label: 'Выплата' },
-];
+function generateId(): string {
+  return crypto.randomUUID();
+}
 
-export const BettingTable: FC<BettingTableProps> = ({ items }) => {
+export const BettingTable: FC<BettingTableProps> = ({ items, isLoading, page = 'home' }) => {
+  const { t } = useTranslation('home');
+
+  const headerData = useMemo(
+    () => [
+      { id: 'user', label: t('betsSection.table.user') },
+      { id: 'game', label: t('betsSection.table.game') },
+      { id: 'amount', label: t('betsSection.table.amount') },
+      { id: 'multiplier', label: t('betsSection.table.multiplier') },
+      { id: 'payout', label: t('betsSection.table.payout') },
+    ],
+    [t],
+  );
+
+  const itemsWithId = useMemo(
+    () =>
+      (items || []).map(item => {
+        const uuid = item.uuid;
+
+        return {
+          ...item,
+          id: uuid || generateId(),
+        };
+      }),
+    [items],
+  );
+
   return (
-    <Table>
+    <Table className={styles[page]}>
       <TableHeader>
         {headerData.map(item => {
           return (
-            <TableHead key={item.id} className={`${styles.th} ${styles[item.id]}`}>
+            <TableHead key={item.id} className={clsx(styles.th, styles[item.id])}>
               {item.label}
             </TableHead>
           );
         })}
       </TableHeader>
       <TableBody>
-        {items.map(item => {
-          const payoutClassName = item.isWin ? `${styles.payoutCell} ${styles['payoutCell--win']}` : styles.payoutCell;
-
-          return (
-            <TableRow key={item.id}>
-              <TableCell className={`${styles.userHead} ${styles.td}`}>
-                <div className={styles.userCell}>
-                  <span className={styles.userAvatar} />
-                  <span className={styles.userName}>{item.user}</span>
-                </div>
-              </TableCell>
-              <TableCell className={`${styles.gameCellBody} ${styles.td}`}>
-                <div className={styles.gameCell}>
-                  <span className={styles.gameIcon} />
-                  <span className={styles.gameName}>{item.game}</span>
-                </div>
-              </TableCell>
-              <TableCell className={`${styles.amountCell} ${styles.td}`}>{item.betAmount}</TableCell>
-              <TableCell className={`${styles.multiplierCell} ${styles.td}`}>{item.multiplier}</TableCell>
-              <TableCell className={`${payoutClassName} ${styles.td}`}>{item.payout}</TableCell>
-            </TableRow>
-          );
-        })}
+        <BettingTableBody
+          itemsWithId={itemsWithId}
+          isLoading={isLoading ?? false}
+          items={items}
+          headerCount={headerData.length}
+          page={page}
+        />
       </TableBody>
     </Table>
   );

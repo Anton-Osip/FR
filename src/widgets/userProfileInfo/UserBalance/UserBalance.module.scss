@@ -3,25 +3,19 @@
 .balance {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   height: 100%;
   padding: $spacing-xl;
 
-  background: $color-bg-block;
-  background-image: url("../../../assets/icons/logo-bg.svg");
+  background-color: $color-bg-block;
+  background-image: url("../../../shared/assets/icons/logo-bg.svg");
   background-repeat: no-repeat;
   background-position: right bottom;
   background-size: contain;
   border-radius: 20px;
 }
 
-.mainBalance {
-  grid-area: main-balance;
-}
-
-.bonusBalance {
-  grid-area: bonus-balance;
-}
 
 .amount {
   margin-bottom: 10px;
@@ -33,9 +27,21 @@
   letter-spacing: -0.32px;
 }
 
-.text {
-  margin-bottom: 48px;
+.amountSkeleton {
+  display: inline-block;
 
+  width: 100%;
+  max-width: 120px;
+  height: 30px;
+
+  background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+  background-size: 200% 100%;
+  border-radius: 8px;
+
+  animation: amount-skeleton-loading 1.5s ease-in-out infinite;
+}
+
+.text {
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
@@ -45,4 +51,55 @@
 
 .balanceButton {
   width: fit-content;
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .balance {
+    padding: 24px 32px;
+  }
+
+  .amount {
+    margin-bottom: 8px;
+
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.2px;
+  }
+
+  .amountSkeleton {
+    display: inline-block;
+
+    width: 100%;
+    max-width: 120px;
+    height: 30px;
+
+    background: linear-gradient(90deg, #1a1f2e 25%, #252b3d 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    border-radius: 8px;
+
+    animation: amount-skeleton-loading 1.5s ease-in-out infinite;
+  }
+
+  .text {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    color: $color-text-secondary;
+  }
+
+  .balanceButton {
+    width: fit-content;
+  }
+}
+
+@keyframes amount-skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }

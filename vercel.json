@@ -1,9 +1,34 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api|assets|.*\\.(?:js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif|json)).*)",
       "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/domains/config.ts": {
+      "runtime": "@vercel/node",
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, immutable, max-age=31536000"
+        }
+      ]
     }
   ]
 }
-

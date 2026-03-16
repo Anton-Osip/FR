@@ -1,15 +1,31 @@
-import type { FC, ReactNode } from 'react';
-import { useMemo, useState } from 'react';
+import { ChangeEvent, FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button, Input, Modal, Tabs } from '@shared/ui';
-import { FireIcon, FlashIcon, MicrophoneIcon, RepeatIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
-import type { Tab } from '@shared/ui/tabs/Tabs';
+import { useTranslation } from 'react-i18next';
 
-import img3 from '../../assets/images/popular/3030066f70f536d8c0c12cb6501a6862d3e7cd59.png';
-import img1 from '../../assets/images/popular/86d5f1c89786c6066397373ee520557bcf2f6342.png';
-import img2 from '../../assets/images/popular/db08f947f8ba82b0fef1c3ae9cf9001d61cdf89f.jpg';
+import { selectDeviceType } from '@app/store';
+
+import { useAppSelector } from '@shared/api';
+import { APP_PATH } from '@shared/config';
+import { EmptyState, Input, LoadMoreFooter, Modal, Tabs } from '@shared/ui';
+import type { Tab } from '@shared/ui';
+import { FireIcon, FlashIcon, MicrophoneIcon, SearchIcon, SevenIcon, WindowIcon } from '@shared/ui/icons';
+
+import { CarouselItem } from '@widgets/carouselItem/CarouselItem';
+import { CarouselItemSkeleton } from '@widgets/carouselItem/CarouselItemSkeleton';
 
 import styles from './SearchModal.module.scss';
+
+import type { GameKind } from '@/entities/game';
+import type { GetShowcaseGamesParams, ShowcaseGamesResponse } from '@/features/showcase';
+import {
+  MIN_TOTAL_TO_SHOW_LOAD_MORE,
+  SLOTS_PAGE_SIZE,
+  useGetShowcaseGamesQuery,
+  useLazyGetShowcaseGamesQuery,
+} from '@/features/showcase';
+import { useCountryIsBlocked } from '@entities/user';
+
+const SEARCH_DEBOUNCE_MS = 500;
 
 interface SearchModalProps {
   trigger?: ReactNode;
@@ -17,97 +33,225 @@ interface SearchModalProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-const INITIAL_TABS: Omit<Tab, 'active'>[] = [
-  {
-    id: '1',
-    value: 'all',
-    label: 'Все игры',
-    icon: <WindowIcon />,
-  },
-  {
-    id: '2',
-    value: 'popular',
-    label: 'Популярное',
-    icon: <FireIcon />,
-  },
-  {
-    id: '3',
-    value: 'slots',
-    label: 'Слоты',
-    icon: <SevenIcon />,
-  },
-  {
-    id: '4',
-    value: 'liveGames',
-    label: 'Live-игры',
-    icon: <MicrophoneIcon />,
-  },
-  {
-    id: '5',
-    value: 'flashGames',
-    label: 'Быстрые игры',
-    icon: <FlashIcon />,
-  },
-];
-
-const GAMES_DATA = [
-  { id: 1, img: img1 },
-  { id: 2, img: img2 },
-  { id: 3, img: img3 },
-  { id: 4, img: img1 },
-  { id: 5, img: img2 },
-  { id: 6, img: img3 },
-  { id: 7, img: img1 },
-  { id: 8, img: img2 },
-  { id: 9, img: img3 },
-  { id: 10, img: img1 },
-  { id: 11, img: img2 },
-  { id: 12, img: img3 },
-  { id: 13, img: img1 },
-  { id: 14, img: img2 },
-  { id: 15, img: img3 },
-  { id: 16, img: img3 },
-  { id: 17, img: img3 },
-  { id: 18, img: img3 },
-  { id: 19, img: img3 },
-  { id: 20, img: img3 },
-  { id: 21, img: img3 },
-  { id: 22, img: img3 },
-  { id: 23, img: img3 },
-  { id: 24, img: img3 },
-  { id: 25, img: img3 },
-  { id: 26, img: img3 },
-  { id: 27, img: img3 },
-  { id: 28, img: img3 },
-  { id: 29, img: img3 },
-  { id: 30, img: img3 },
-  { id: 31, img: img3 },
-  { id: 32, img: img3 },
-  { id: 33, img: img3 },
-  { id: 34, img: img3 },
-];
+interface InitialTabs {
+  id: string;
+  value: GameKind | 'all' | 'new';
+  label: string;
+  icon: ReactNode;
+}
 
 export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange }) => {
-  const [activeTab, setActiveTab] = useState<string>('all');
+  const { t } = useTranslation('searchModal');
+  const [activeTab, setActiveTab] = useState<GameKind | 'all' | 'new'>('all');
+  const [inputValue, setInputValue] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [accumulatedData, setAccumulatedData] = useState<ShowcaseGamesResponse | null>(null);
+  const [isInitialLoading, setIsInitialLoading] = useState(false);
+  const [isLoadingMoreLocal, setIsLoadingMoreLocal] = useState(false);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLoadingMoreRef = useRef(false);
+  const deviceType = useAppSelector(selectDeviceType);
+  const countryIsBlocked = useCountryIsBlocked();
 
-  const tabs: Tab[] = INITIAL_TABS.map(tab => ({
-    ...tab,
-    active: tab.value === activeTab,
-  }));
+  const initialTabs: InitialTabs[] = useMemo(
+    () => [
+      {
+        id: '1',
+        value: 'all',
+        label: t('allGames'),
+        icon: <WindowIcon />,
+      },
+      {
+        id: '2',
+        value: 'new',
+        label: t('newGames'),
+        icon: <FireIcon />,
+      },
+      {
+        id: '3',
+        value: 'slot',
+        label: t('slots'),
+        icon: <SevenIcon />,
+      },
+      {
+        id: '4',
+        value: 'live',
+        label: t('liveGames'),
+        icon: <MicrophoneIcon />,
+      },
+      {
+        id: '5',
+        value: 'fast',
+        label: t('quickGames'),
+        icon: <FlashIcon />,
+      },
+    ],
+    [t],
+  );
+
+  const tabs: Tab[] = useMemo(
+    () => initialTabs.map(tab => ({ ...tab, active: tab.value === activeTab })),
+    [initialTabs, activeTab],
+  );
+
+  const queryParams: GetShowcaseGamesParams | undefined = useMemo(() => {
+    if (!open) return undefined;
+
+    return {
+      page_size: SLOTS_PAGE_SIZE,
+      sort: 'popular',
+      only_new: activeTab === 'new' || undefined,
+      game_kinds: activeTab !== 'new' && activeTab !== 'all' ? [activeTab] : undefined,
+      sort_dir: 'desc',
+      search_query: searchQuery.trim() || undefined,
+      only_mobile: deviceType === 'mobile',
+      include_blocked_regions: true,
+    };
+  }, [open, activeTab, searchQuery, deviceType]);
+
+  const { data: initialData, isLoading } = useGetShowcaseGamesQuery(queryParams, {
+    skip: !open || !queryParams,
+  });
+
+  const [loadMoreQuery, { isLoading: isLoadingMore }] = useLazyGetShowcaseGamesQuery();
+
+  useEffect(() => {
+    if (initialData) {
+      setAccumulatedData(initialData);
+      setIsInitialLoading(false);
+    }
+  }, [initialData]);
+
+  useEffect(() => {
+    if (isLoading && !initialData) {
+      setIsInitialLoading(true);
+    }
+  }, [isLoading, initialData]);
 
   const activeTabData = useMemo(() => {
-    return INITIAL_TABS.find(tab => tab.value === activeTab) || INITIAL_TABS[0];
-  }, [activeTab]);
+    return initialTabs.find(tab => tab.value === activeTab) || initialTabs[0];
+  }, [initialTabs, activeTab]);
+
+  const hasMore = (accumulatedData || initialData)?.meta.has_more ?? false;
+
+  const gamesWithBlockedStatus = useMemo(() => {
+    if (!accumulatedData?.items) return [];
+
+    return accumulatedData.items.map(game => ({
+      ...game,
+      isBlocked: countryIsBlocked(game.blocked_countries),
+    }));
+  }, [accumulatedData?.items, countryIsBlocked]);
+
+  const handleGameClick = useCallback(() => {
+    onOpenChange?.(false);
+  }, [onOpenChange]);
 
   const handleTabChange = (value: string): void => {
-    setActiveTab(value);
+    const newTab = value as GameKind | 'all' | 'new';
+
+    if (newTab === activeTab) {
+      return;
+    }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = null;
+    }
+    isLoadingMoreRef.current = false;
+    setIsLoadingMoreLocal(false);
+    setSearchQuery(inputValue.trim());
+    setAccumulatedData(null);
+    setIsInitialLoading(true);
+    setActiveTab(newTab);
   };
 
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const value = e.target.value;
+
+      setInputValue(value);
+
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+
+      searchTimeoutRef.current = setTimeout(() => {
+        if (open) {
+          setSearchQuery(value);
+          setAccumulatedData(null);
+          setIsInitialLoading(true);
+        }
+        searchTimeoutRef.current = null;
+      }, SEARCH_DEBOUNCE_MS);
+    },
+    [open],
+  );
+
+  useEffect(() => {
+    if (!open) {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+        searchTimeoutRef.current = null;
+      }
+
+      isLoadingMoreRef.current = false;
+      setIsLoadingMoreLocal(false);
+      setInputValue('');
+      setSearchQuery('');
+    }
+  }, [open]);
+
+  const loadMore = useCallback(async (): Promise<void> => {
+    if (
+      !accumulatedData?.meta.has_more ||
+      isLoadingMore ||
+      isLoadingMoreLocal ||
+      isLoadingMoreRef.current ||
+      !queryParams
+    ) {
+      return;
+    }
+
+    isLoadingMoreRef.current = true;
+    setIsLoadingMoreLocal(true);
+
+    try {
+      const nextParams: GetShowcaseGamesParams = {
+        ...queryParams,
+        cursor: accumulatedData.meta.next_cursor,
+      };
+
+      const result = await loadMoreQuery(nextParams).unwrap();
+
+      setAccumulatedData(prevData => {
+        if (!prevData) return result;
+
+        return {
+          ...result,
+          items: [...prevData.items, ...result.items],
+        };
+      });
+    } catch {
+      // Ошибка обрабатывается через error state
+    } finally {
+      isLoadingMoreRef.current = false;
+      setIsLoadingMoreLocal(false);
+    }
+  }, [accumulatedData, isLoadingMore, isLoadingMoreLocal, loadMoreQuery, queryParams]);
+
   return (
-    <Modal trigger={trigger} open={open} onOpenChange={onOpenChange} title="Поиск" contentClassName={styles.modal}>
+    <Modal
+      trigger={trigger}
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      contentClassName={styles.modal}
+      bodyClassName={styles.modalBody}
+    >
       <div className={styles.body}>
         <div className={styles.searchWrapper}>
-          <Input icon={<SearchIcon />} placeholder={'Поиск'} />
+          <Input icon={<SearchIcon />} placeholder={t('placeholder')} value={inputValue} onChange={handleInputChange} />
           <Tabs size={'m'} items={tabs} onChange={handleTabChange} className={styles.tabs} />
         </div>
 
@@ -117,27 +261,48 @@ export const SearchModal: FC<SearchModalProps> = ({ trigger, open, onOpenChange 
             <h3 className={styles.tabTitle}>{activeTabData.label}</h3>
           </header>
           <div className={styles.slots}>
+            {!isLoading && !isInitialLoading && accumulatedData && accumulatedData.items.length === 0 && <EmptyState />}
+
             <div className={styles.grid}>
-              {GAMES_DATA.map(g => (
-                <div className={styles.imageWrapper} key={g.id}>
-                  <img src={g.img} alt="img" />
-                </div>
-              ))}
-            </div>
-            <div className={styles.more}>
-              <p className={styles.text}>Показано: 60 из 90</p>
-              <Button variant={'tertiary'} size={'s'} icon={<RepeatIcon />}>
-                Показать еще
-              </Button>
+              {(isLoading || isInitialLoading) && !accumulatedData
+                ? Array.from({ length: SLOTS_PAGE_SIZE }).map((_, index) => (
+                    <CarouselItemSkeleton key={`skeleton-${index}`} />
+                  ))
+                : gamesWithBlockedStatus.map(g => (
+                    <CarouselItem
+                      key={g.id}
+                      onClick={handleGameClick}
+                      data={{
+                        id: g.id,
+                        type: 'item',
+                        img: g.image,
+                        link: APP_PATH.slot.replace(':id', String(g.uuid)),
+                        is_favorite: g.is_favorite,
+                        blocked_countries: g.isBlocked,
+                        name: g.name,
+                      }}
+                    />
+                  ))}
+              {!isLoading &&
+                !isInitialLoading &&
+                accumulatedData &&
+                accumulatedData.meta.total > MIN_TOTAL_TO_SHOW_LOAD_MORE && (
+                  <LoadMoreFooter
+                    shown={accumulatedData.items.length}
+                    total={accumulatedData.meta.total}
+                    hasMore={hasMore}
+                    isLoading={isLoadingMore || isLoadingMoreLocal}
+                    onLoadMore={loadMore}
+                    shownLabel={t('shown')}
+                    ofLabel={t('of')}
+                    showMoreLabel={t('showMore')}
+                    loadingSpinner={<div className={styles.spinner} />}
+                    className={styles.more}
+                  />
+                )}
             </div>
           </div>
         </div>
-        <footer className={styles.footer}>
-          <p className={styles.text}>Показано: 60 из 90</p>
-          <Button variant={'tertiary'} size={'s'} icon={<RepeatIcon />}>
-            Показать еще
-          </Button>
-        </footer>
       </div>
     </Modal>
   );

@@ -12,6 +12,24 @@
   background-color: $color-bg;
 }
 
+/* Safe area для мобильных устройств */
+
+.layout.mobile {
+  padding-top: calc(var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) - 10px) !important;
+}
+
+/* Android: суммируем хедер Telegram, contentSafeAreaInset и safeAreaInset */
+.layout.mobile.android {
+  padding-top: calc(var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) + var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 8px) !important;
+}
+
+/* iOS: используем только высоту хедера Telegram и системную safe area (без contentSafeAreaInset) */
+.layout.mobile.ios {
+  padding-top: calc(
+          var(--tg-header-height, 56px) + var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 10px
+  ) !important;
+}
+
 .headerLayout {
   grid-area: header;
 }
@@ -21,58 +39,140 @@
 }
 
 .layoutMain {
-  overflow-y: auto;
+  position: relative;
+  overflow: hidden auto;
   grid-area: content;
-  width: 100%;
   max-height: 100%;
 }
 
 .layoutMainContainer {
-  width: 100%;
-  max-width: $container-max-width;
+  width: calc(100vw - 281px);
+  max-width: 1228px;
   margin: 0 auto;
-  padding: 48px 11px 48px 22px;
+  padding: 48px 22px;
 }
+
 
 .tabScreenMenu {
   display: none !important;
 }
 
-.scrollTopButton {
-  position: fixed;
+.fixedButton {
+  pointer-events: none;
+
+  position: sticky;
   z-index: 1000;
-  right: 24px;
-  bottom: 24px;
+  bottom: 60px;
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 30%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 
-  transition: opacity $transition-hover, transform $transition-hover;
+  width: calc(100vw - 281px);
+  max-width: 1228px;
+  height: 0;
+  margin: -44px auto 0;
+  padding: 0 22px;
+}
 
-  &:hover {
-    transform: translateY(-2px);
+.supportBtn {
+  pointer-events: auto;
+
+  justify-self: flex-end;
+
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 !important;
+}
+
+.scrollTopButton {
+  pointer-events: none;
+
+  grid-column: 2/3;
+  justify-self: center;
+
+  width: 120px;
+
+  opacity: 0;
+
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  width 0.3s ease,
+  height 0.3s ease;
+
+  &.scrollTopButtonVisible {
+    pointer-events: auto;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.95);
+  }
+
+  .scrollUpBtnContent {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+
+    span {
+      transition: width 0.3s ease, opacity 0.3s ease;
+    }
+
+    svg {
+      width: 10px;
+      height: 15px;
+    }
   }
 }
 
 @media screen and (max-width: $media-laptop-plus) {
+  .layoutMain {
+    margin-bottom: 62px;
+  }
+
+  .layoutMainContainer {
+    width: 100vw;
+    padding: 24px 16px;
+  }
+
+  .fixedButton {
+    width: 100vw;
+    padding: 0 16px;
+  }
+
   .scrollTopButton {
-    right: 16px;
-    bottom: 80px;
+    width: 39px;
+    max-width: 39px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+
+    .scrollUpBtnContent {
+      gap: 0;
+      width: 100%;
+
+      svg {
+        width: 12px;
+        height: 17px;
+      }
+
+      span {
+        overflow: hidden;
+        width: 0;
+        opacity: 0;
+      }
+    }
   }
-}
 
-
-
-@media screen and (max-width: $media-laptop-plus) {
   .layout {
     grid-template-areas:
       "header"
       "content"
-      "footer";
+      "footer"
+      "tabMenu";
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .layoutMainContainer {
-    padding: 24px 5px 24px 16px;
   }
 
   .sidebarLayout {
@@ -80,6 +180,30 @@
   }
 
   .tabScreenMenu {
+    position: fixed;
+    z-index: 1050;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+
     display: flex !important;
+    grid-area: tabMenu;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .scrollTopButton {
+    grid-column: 1/2;
+    justify-self: flex-start;
+  }
+
+  .supportBtn {
+    grid-column: 3/4;
+  }
+}
+
+@media screen and (width <= 389px) {
+  .layoutMain {
+    margin-bottom: 50px;
   }
 }

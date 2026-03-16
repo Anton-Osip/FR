@@ -32,11 +32,13 @@
 .tr {
   cursor: pointer;
   width: 100%;
-  height: 39px;
+  max-height: 39px;
   transition: background $transition-hover;
 
-  &:hover {
-    background: $color-bg-on-block;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: $color-bg-on-block;
+    }
   }
 }
 

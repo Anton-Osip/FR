@@ -18,9 +18,14 @@
   font-size: $font-size-xs;
   font-weight: $font-weight-light;
 
+  background: #131824;
+  border-radius: $radius-xl $radius-xl 0 0;;
+
   transition: color $transition-hover;
 
-  & h3{
+  & h3 {
+    position: relative;
+
     font-size: 12px;
     font-weight: 500;
     font-style: normal;
@@ -35,11 +40,32 @@
   }
 }
 
+.notifications {
+  position: absolute;
+  top: -36px;
+  left: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+
+  font-size: 10px;
+  color: $color-text-primary;
+
+  background-color: $color-primary;
+  border-radius: 100%;
+
+}
+
 .active {
   color: $color-text-primary;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .tabMenuItem {
     &:hover::before {
       transform: translate(-50%, -50%) scaleY(1);
@@ -56,5 +82,16 @@
   .tabMenuItem {
     padding: $spacing-5xs;
     font-size: $font-size-xxs;
+  }
+}
+
+@media screen and (max-width: $media-mobile) {
+  .tabMenuItem {
+    padding: $spacing-5xs;
+
+    & h3 {
+      font-size: 10px;
+      letter-spacing: -0.1px;
+    }
   }
 }

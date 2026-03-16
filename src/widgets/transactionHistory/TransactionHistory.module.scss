@@ -1,33 +1,200 @@
+@use "../../shared/styles/variables.scss" as *;
+
 .transactionHistory {
+  position: relative;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
   width: 100%;
+  min-height: 0;
+
+  .shadow {
+    pointer-events: none;
+
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: -2px;
+    left: 0;
+
+    width: 100%;
+    height: 132px;
+    min-height: 132px;
+
+    opacity: 0;
+    background: linear-gradient(0deg, #090D14 0%, rgba(9, 13, 20, 0%) 100%);
+
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .shadowVisible {
+    opacity: 1;
+  }
 }
 
+
+
+
 .title {
+  flex-shrink: 0;
+
   margin-bottom: 24px;
 
   font-size: 26px;
   font-weight: 600;
   font-style: normal;
   line-height: normal;
+  color: #FFF;
   letter-spacing: -0.26px;
 }
 
-.th {
-  padding: 7px 10px;
+.grid {
+  position: relative;
+
+  overflow-y: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 24px;
+
+  min-height: 0;
+  max-height: 429px;
 }
 
-.amountCellBody {
-  padding: 7px 14px;
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 429px;
+
 }
 
-.dateCellBody {
-  padding: 7px;
+.grid::-webkit-scrollbar-thumb {
+  width: 4px;
+  background: #212738;
+  background-clip: unset;
 }
 
-.statusCell {
-  padding: 7px 0;
+.grid::-webkit-scrollbar {
+  width: 4px;
 }
 
-.win {
-  color: #00E544
+.grid::-webkit-scrollbar-button:vertical:start:decrement,
+.grid::-webkit-scrollbar-button:vertical:end:increment {
+  display: none !important;
 }
+
+
+.dayData {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dayTitle {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
+
+.loadingMore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 66px;
+}
+
+
+@media screen and (max-width: $media-tab) {
+  .transactionHistory {
+    overflow: hidden;
+
+    .shadow {
+      transform: translateY(50%);
+    }
+  }
+
+  .grid {
+    max-height: 361px;
+  }
+
+  .loading {
+    max-height: 361px;
+  }
+}
+
+@media screen and (max-width: $media-tab-mini) {
+  .transactionHistory {
+    .shadow {
+      bottom: -24px;
+      transform: translateY(0);
+    }
+  }
+
+  .title {
+    margin-bottom: 12px;
+
+    font-size: 22px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.22px;
+  }
+
+  .grid {
+    gap: 10px;
+    max-height: 289px;
+
+    .dayData {
+      gap: 9px;
+    }
+
+    .dayTitle {
+      font-size: 18px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.18px;
+    }
+  }
+
+  .loading {
+    max-height: 289px;
+  }
+}
+
+@media screen and (max-width: $media-mobile-plus) {
+  .grid::-webkit-scrollbar-thumb {
+    border-radius: 0 12px 12px;
+  }
+
+  .grid::-webkit-scrollbar {
+    width: 4px;
+  }
+
+}
+
+@media screen and (max-width: $media-mobile) {
+  .title {
+    font-size: 18px;
+    letter-spacing: -0.18px;
+  }
+
+  .grid {
+    .dayTitle {
+      font-size: 16px;
+      letter-spacing: -0.16px;
+    }
+  }
+}
+
+
+

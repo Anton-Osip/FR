@@ -1,18 +1,33 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
 
-import styles from './BenefitsSection.module.scss';
-import { BENEFITS_DATA } from './constants/constants';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+
+import { AdaptiveSection } from '@shared/ui';
+
+import { getBenefitsData } from './constants/constants';
 import { TierBenefitsCard } from './TierBenefitsCard';
 
-export const BenefitsSection: FC = () => {
+interface BenefitsSectionProps {
+  className?: string;
+}
+
+const SLIDER_BREAKPOINT = 1508;
+
+export const BenefitsSection: FC<BenefitsSectionProps> = ({ className }) => {
+  const { t } = useTranslation('bonuses');
+  const benefitsData = useMemo(() => getBenefitsData(t), [t]);
+
   return (
-    <section className={styles.wrapper}>
-      <h2 className={styles.title}>Ранги</h2>
-      <div className={styles.grid}>
-        {BENEFITS_DATA.map(card => {
-          return <TierBenefitsCard key={card.id} card={card} />;
-        })}
-      </div>
-    </section>
+    <AdaptiveSection
+      className={clsx(className)}
+      title={t('benefitsSection.title')}
+      data={benefitsData}
+      renderItem={card => <TierBenefitsCard card={card} />}
+      breakpoint={SLIDER_BREAKPOINT}
+      swiperBreakpoints={{
+        864: { spaceBetween: 16 },
+      }}
+    />
   );
 };

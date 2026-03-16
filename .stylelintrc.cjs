@@ -8,7 +8,9 @@ module.exports = {
       true,
       {
         ignorePseudoClasses: [
-          "global"
+          "global",
+          "full-screen",
+          "-webkit-full-screen"
         ]
       }
     ],

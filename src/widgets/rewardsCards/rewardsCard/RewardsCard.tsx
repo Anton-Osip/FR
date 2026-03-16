@@ -1,6 +1,12 @@
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 
-import { Button, Input } from '@shared/ui';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+
+import { copyToClipboard } from '@shared/lib';
+import { Button } from '@shared/ui';
+
+import rewardsCardIcon from '../../../shared/assets/icons/rewardsCardIcon.svg?url';
 
 import styles from './RewardsCard.module.scss';
 
@@ -9,19 +15,31 @@ interface RewardsCardProps {
 }
 
 export const RewardsCard: FC<RewardsCardProps> = ({ className }) => {
-  const [inputValue, setInputValue] = useState<string>('t.me/frosted?start=567558');
+  const { t } = useTranslation('invite');
+  const value = 't.me/frosted?start=567558';
+
+  const handleCopy = async (): Promise<void> => {
+    await copyToClipboard(value, `Ссылка для приглашения скопирована!`, 'Поделитесь ею с другом');
+  };
 
   return (
-    <div className={`${styles.rewardsCard} ${className ?? ''}`}>
+    <div className={clsx(styles.rewardsCard, className)}>
       <div className={styles.info}>
         <h3 className={styles.title}>
-          Награды <br /> за приглашения
+          {t('rewardsCards.title')} <br /> {t('rewardsCards.titleSecondLine')}
         </h3>
-        <p className={styles.description}>Получайте деньги на баланс за каждого приглашенного друга</p>
+        <p className={styles.description}>{t('rewardsCards.description')}</p>
       </div>
       <div className={styles.inputWrapper}>
-        <Input className={styles.input} value={inputValue} onChange={e => setInputValue(e.target.value)} />
-        <Button className={styles.button}>Пригласить</Button>
+        <div className={styles.inputContent}>
+          <span className={styles.input}>{value}</span>
+        </div>
+        <Button className={styles.button} onClick={handleCopy}>
+          {t('rewardsCards.inviteButton')}
+        </Button>
+      </div>
+      <div className={styles.image}>
+        <img src={rewardsCardIcon} alt="animation" />
       </div>
     </div>
   );

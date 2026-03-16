@@ -1,5 +1,7 @@
 import { type FC, type KeyboardEvent, type SVGProps } from 'react';
 
+import clsx from 'clsx';
+
 import styles from './TabMenuItem.module.scss';
 
 interface Props {
@@ -7,9 +9,12 @@ interface Props {
   icon: FC<SVGProps<SVGSVGElement>>;
   onClick?: () => void;
   isActive?: boolean;
+  notifications?: number;
 }
 
-export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick, isActive }) => {
+const MAX_NOTIFICATION_COUNT = 9;
+
+export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick, isActive, notifications }) => {
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>): void => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -19,14 +24,21 @@ export const TabMenuItem: FC<Props> = ({ title, icon: Icon, onClick, isActive })
 
   return (
     <div
-      className={`${styles.tabMenuItem} ${isActive ? styles.active : ''}`}
+      className={clsx(styles.tabMenuItem, isActive ? styles.active : '')}
       onClick={onClick || (() => {})}
       role="button"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       <Icon />
-      <h3>{title}</h3>
+      <h3>
+        {title}
+        {notifications && (
+          <div aria-label={'new notification'} className={styles.notifications}>
+            {notifications > MAX_NOTIFICATION_COUNT ? `${MAX_NOTIFICATION_COUNT}+` : notifications}
+          </div>
+        )}
+      </h3>
     </div>
   );
 };

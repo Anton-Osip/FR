@@ -19,14 +19,17 @@
   -webkit-user-drag: none;
 }
 
-.avatarImage {
-  user-select: none;
-
+%avatar-image-base {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
   border-radius: inherit;
+}
+
+.avatarImage {
+  @extend %avatar-image-base;
+
+  user-select: none;
 
   -webkit-user-drag: none;
 }
@@ -44,4 +47,8 @@
   color: $color-text-primary;
 
   background-color: $color-bg-on-block;
+}
+
+.avatarFallbackImage {
+  @extend %avatar-image-base;
 }

@@ -1,97 +1,98 @@
 @use "../../shared/styles/variables.scss" as *;
 
-.userCell,
-.gameCell {
-  display: flex;
-  gap: $spacing-xxs;
-  align-items: center;
-}
-
 .game {
   padding-left: 10px;
 }
 
-.userAvatar {
-  width: $spacing-lg;
-  height: $spacing-lg;
-  background: $color-bg-on-block;
-  border-radius: $radius-xxl;
-}
-
-.userName {
-  font-family: $font-family-base;
-  font-size: $font-size-md;
-  font-weight: $font-weight-light;
-  color: $color-text-secondary;
-}
-
-.gameIcon {
-  width: 15px;
-  height: 19px;
-  background: $color-bg-on-block;
-  border-radius: 2px;
-}
-
-.gameName {
-  font-family: $font-family-base;
-  font-size: $font-size-md;
-  font-weight: $font-weight-light;
-  color: $color-text-primary;
-}
-
-.amountCell,
-.multiplierCell,
-.payoutCell {
-  font-family: $font-family-base;
-  font-size: $font-size-md;
-  font-weight: $font-weight-light;
-  color: $color-text-secondary;
-}
-
-.payoutCell{
-  padding-left: 0;
-}
-
-.gameCellBody {
-  padding-left: 11px;
-}
-
-.payoutCell--win {
-  color: $color-win-primary;
-}
-
 @media screen and (max-width: $media-laptop) {
-  .th, .td {
-    width: 33%;
+  .home {
+    .th {
+      width: calc(100% / 3);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier {
+      display: none;
+    }
   }
 
-  .payout,
-  .payoutCell {
-    text-align: right;
+  .games {
+    .th {
+      width: calc(100% / 3);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier {
+      display: none;
+    }
   }
 
-  .amountCell,
-  .multiplierCell,
-  .amount,
-  .multiplier {
-    display: none;
+  .game {
+    .th {
+      width: calc(100% / 5);
+    }
   }
+}
 
+
+@media screen and (max-width: $media-tab-mini-plus) {
+  .game {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .payout {
+      text-align: right;
+    }
+
+    .amount,
+    .multiplier,
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
+  }
 }
 
 @media screen and (max-width: $media-tab-mini) {
-  .th, .td {
-    width: 50%;
+  .home {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
   }
 
-  .userHead,
-  .user {
-    display: none;
+  .games {
+    .th {
+      width: calc(100% / 2);
+    }
+
+    .user {
+      display: none;
+    }
+
+    .game {
+      padding-left: $spacing-md;
+    }
   }
 
-  .game,
-  .gameCellBody {
-    padding-left: $spacing-md;
-  }
 
 }

@@ -5,7 +5,6 @@
 
   position: relative;
 
-  overflow: hidden;
   display: flex;
   gap: $spacing-xs;
   align-items: center;
@@ -21,6 +20,32 @@
   border-radius: $radius-md;
 
   transition: padding $transition-hover, width $transition-hover, height $transition-hover;
+
+  &:not(:last-of-type){
+    margin-bottom: 5px;
+  }
+
+  .notification {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 19px;
+    min-width: 19px;
+    height: 19px;
+
+    font-size: 10px;
+    color: $color-text-primary;
+
+    background-color: $color-primary;
+    border-radius: 100%;
+
+    transition: left 0.5s ease, top 0.5s ease;
+  }
 
   .label {
     transform: translateX(0);
@@ -51,7 +76,7 @@
     width: 19px;
     height: 19px;
 
-    & svg{
+    & svg {
       transition: color 0.3s ease;
     }
   }
@@ -68,6 +93,17 @@
 }
 
 .unVisible {
+  .notification {
+    top: 0;
+    left: -77px;
+  }
+
+  &.isActive {
+    .notification {
+      top: -16px;
+    }
+  }
+
   &.item {
     min-width: 51px;
   }

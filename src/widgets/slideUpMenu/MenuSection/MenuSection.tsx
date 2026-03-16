@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
+import clsx from 'clsx';
+
 import { MenuItem } from './MenuItem/MenuItem';
 import styles from './MenuSection.module.scss';
 
@@ -8,6 +10,8 @@ interface MenuSectionProps {
   title: string;
   className?: string;
   onItemClick?: () => void;
+  onRequireAuth?: () => void;
+  isLoggedIn?: boolean;
 }
 
 interface MenuItems {
@@ -18,10 +22,17 @@ interface MenuItems {
   path?: string;
 }
 
-export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onItemClick }) => {
+export const MenuSection: FC<MenuSectionProps> = ({
+  list,
+  title,
+  className,
+  onItemClick,
+  onRequireAuth,
+  isLoggedIn,
+}) => {
   return (
-    <div className={`${styles.menuSection} ${className ?? ''}`}>
-      <h3 className={`${styles.title}`}>{title}</h3>
+    <div className={clsx(styles.menuSection, className)}>
+      <h3 className={styles.title}>{title}</h3>
       {list.map(item => (
         <MenuItem
           key={item.id}
@@ -30,6 +41,8 @@ export const MenuSection: FC<MenuSectionProps> = ({ list, title, className, onIt
           isActive={item.isActive}
           path={item.path}
           onItemClick={onItemClick}
+          onRequireAuth={onRequireAuth}
+          isLoggedIn={isLoggedIn}
         />
       ))}
     </div>

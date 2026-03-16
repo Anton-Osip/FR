@@ -1,23 +1,23 @@
 @use "../../shared/styles/variables.scss" as *;
 
 .carousel {
-  &-header {
+  &Header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
-    &-buttons {
+    &Buttons {
       display: flex;
       gap: $spacing-md;
     }
 
-    &-controls {
+    &Controls {
       display: flex;
       gap: $spacing-5xs;
     }
   }
 
-  &-title {
+  &Title {
     display: flex;
     gap: $spacing-xs;
     align-items: center;
@@ -41,40 +41,83 @@
   }
 }
 
-.carousel-button {
+.carouselButton {
   color: $color-text-primary;
   background-color: $color-bg-on-block;
-
-  &:hover {
-    background-color: $color-bg-on-block-hover;
-  }
 
   &:disabled {
     color: $color-text-secondary;
     background-color: $color-bg-block;
   }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $color-bg-on-block-hover;
+    }
+  }
 }
 
 .viewport {
+  position: relative;
+
   overflow: hidden;
+
+  width: 100%;
   margin: -5px 0;
   padding: 5px 0;
 }
 
-.carousel-flexbox {
-  display: flex;
-  gap: $spacing-md;
-  align-items: center;
+.swiperContainer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  :global(.swiper-wrapper) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.swiperSlide {
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.emptyItem {
+  display: block;
+
+  aspect-ratio: 155 / 208;
+  width: 100%;
+  height: auto;
+  padding-top: 5px;
+
+  background-color: #212738;
+  border-radius: $radius-xl;
+}
+
+@media (max-width: $media-tab) {
+  .emptyItem {
+    aspect-ratio: 121 / 165;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: $media-mobile-plus) {
+  .emptyItem {
+    aspect-ratio: 114 / 149;
+  }
 }
 
 @media (max-width: $media-tab) {
   .carousel {
-    &-header {
-      margin-bottom: 15px;
+    &Header {
+      margin-bottom: 10px;
     }
   }
 
-  .carousel-title {
+  .carouselTitle {
     h3 {
       font-size: $font-size-lg;
     }
@@ -85,23 +128,23 @@
     }
   }
 
-  .carousel-flexbox {
-    gap: $spacing-xxs;
+  .swiperContainer {
+    :global(.swiper-slide) {
+      margin-right: $spacing-xxs;
+    }
   }
 }
 
 @media (max-width: $media-mobile-plus) {
-  .carousel-header-buttons {
+  .carouselHeaderButtons {
     gap: 18px;
   }
 }
 
-@media (width <= 330px) {
-  .carousel-title {
+@media (width <= 350px) {
+  .carouselTitle {
     svg {
       display: none;
     }
   }
-
-
 }

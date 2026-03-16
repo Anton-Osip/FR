@@ -1,7 +1,10 @@
 import type { FC, ReactNode } from 'react';
 import { useRef, useState, useEffect } from 'react';
 
+import clsx from 'clsx';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import { AUTH_REQUIRED_PATHS } from '@shared/config';
 
 import styles from './MenuItem.module.scss';
 
@@ -11,9 +14,23 @@ interface MenuItemProps {
   isActive: boolean;
   isOpen: boolean;
   path?: string;
+  notifications?: number;
+  onRequireAuth?: () => void;
+  isLoggedIn?: boolean;
 }
 
-export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, path }) => {
+const MAX_NOTIFICATION_COUNT = 9;
+
+export const MenuItem: FC<MenuItemProps> = ({
+  label,
+  icon,
+  isActive,
+  isOpen,
+  path,
+  onRequireAuth,
+  isLoggedIn,
+  notifications,
+}) => {
   const itemRef = useRef<HTMLButtonElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -21,6 +38,7 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
   const location = useLocation();
 
   const isCurrentPath = path && location.pathname === path;
+  const requiresAuth = path ? (AUTH_REQUIRED_PATHS as readonly string[]).includes(path) : false;
 
   useEffect(() => {
     if (isHovered && itemRef.current && !isOpen) {
@@ -36,28 +54,39 @@ export const MenuItem: FC<MenuItemProps> = ({ label, icon, isActive, isOpen, pat
   }, [isHovered, isOpen]);
 
   const handleClick = (): void => {
-    if (path) {
-      navigate(path);
+    if (!path) return;
+
+    // Если путь требует авторизации и пользователь не авторизован, открываем модалку
+    if (requiresAuth && !isLoggedIn && onRequireAuth) {
+      onRequireAuth();
+
+      return;
     }
+
+    // Иначе переходим на страницу
+    navigate(path);
   };
 
   return (
     <>
       <button
         ref={itemRef}
-        className={`${styles.item} ${(isActive || isCurrentPath) && styles.isActive} ${
-          !isOpen ? styles.unVisible : ''
-        }`}
+        className={clsx(styles.item, (isActive || isCurrentPath) && styles.isActive, !isOpen ? styles.unVisible : '')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
       >
         <div className={styles.iconWrapper}>{icon}</div>
         <span className={styles.label}>{label}</span>
+        {notifications && (
+          <div aria-label={'new notification'} className={styles.notification}>
+            {notifications > MAX_NOTIFICATION_COUNT ? `${MAX_NOTIFICATION_COUNT}+` : notifications}
+          </div>
+        )}
       </button>
       {!isOpen && (
         <span
-          className={`${styles.tooltip} ${isHovered ? styles.tooltipVisible : ''}`}
+          className={clsx(styles.tooltip, isHovered ? styles.tooltipVisible : '')}
           style={{
             top: `${tooltipPosition.top}px`,
             left: `${tooltipPosition.left}px`,

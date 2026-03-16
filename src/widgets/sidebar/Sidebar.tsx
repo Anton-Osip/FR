@@ -1,6 +1,12 @@
-import { type FC, type ReactNode, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 
-import { APP_PATH } from '@shared/constants/constants';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+
+import { selectIsLoggedIn } from '@app/store';
+
+import { useAppSelector } from '@shared/api';
+import { APP_PATH } from '@shared/config';
 import { Button } from '@shared/ui';
 import {
   BaccareIcon,
@@ -16,72 +22,164 @@ import {
   SevenIcon,
   StarIcon,
   TwoUsersIcon,
+  PopularIcon,
 } from '@shared/ui/icons';
-import { PopularIcon } from '@shared/ui/icons/PopularIcon';
+
+import { AuthModal } from '@widgets/authModal';
 
 import { CategorySwitcherWithSearch } from './CategorySwitcherWithSearch/CategorySwitcherWithSearch';
 import { MenuSection } from './MenuSection/MenuSection';
 import styles from './Sidebar.module.scss';
 import { SidebarFooter } from './SidebarFooter/SidebarFooter';
+import type { MenuItems } from './types';
 
-export interface MenuItems {
-  id: string;
-  icon: ReactNode;
-  label: string;
-  isActive: boolean;
-  path?: string;
-}
+import { useGetBonusNotificationsQuery } from '@features/bonus';
 
-const NavigationItems: MenuItems[] = [
-  { id: '1 Главная', icon: <HomeIcon />, label: 'Главная', isActive: false, path: APP_PATH.main },
-  { id: '2 Избранное', icon: <HeartIcon />, label: 'Избранное', isActive: false, path: APP_PATH.favorites },
-  { id: '3 Инвайт', icon: <TwoUsersIcon />, label: 'Инвайт', isActive: false, path: APP_PATH.invite },
-  { id: '4 Бонусы', icon: <BonusIcon />, label: 'Бонусы', isActive: false, path: APP_PATH.bonuses },
-];
-
-const Game1Items: MenuItems[] = [
-  { id: '1 Слоты', icon: <SevenIcon />, label: 'Слоты', isActive: false },
-  { id: '2 Популярное', icon: <PopularIcon />, label: 'Популярное', isActive: false },
-  { id: '3 Быстрые игры', icon: <FlashIcon />, label: 'Быстрые игры', isActive: false },
-  { id: '4 Новинки', icon: <StarIcon />, label: 'Новинки', isActive: false },
-  { id: '5 Рекомендованное', icon: <LikeIcon />, label: 'Рекомендованное', isActive: false },
-];
-
-const Game2Items: MenuItems[] = [
-  { id: '1 Блэкджек', icon: <CardsIcon />, label: 'Блэкджек', isActive: false },
-  { id: '2 Рулетка', icon: <RouletteIcon />, label: 'Рулетка', isActive: false },
-  { id: '3 Live-игры', icon: <MicrophoneIcon />, label: 'Live-игры', isActive: false },
-  { id: '4 Баккара', icon: <BaccareIcon />, label: 'Баккара', isActive: false },
-];
+export type { MenuItems };
 
 interface SidebarProps {
   className?: string;
 }
 
 export const Sidebar: FC<SidebarProps> = ({ className }) => {
+  const { t } = useTranslation('sidebar');
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const { data } = useGetBonusNotificationsQuery(undefined, {
+    skip: !isLoggedIn,
+  });
 
   const toggleIsOpen = (): void => setIsOpen(!isOpen);
+  const openLoginModal = (): void => setIsLoginModalOpen(true);
+
+  const NavigationItems: MenuItems[] = useMemo(
+    () => [
+      { id: '1', icon: <HomeIcon />, label: t('menuItems.home'), isActive: false, path: APP_PATH.main },
+      {
+        id: '2',
+        icon: <HeartIcon />,
+        label: t('menuItems.favorites'),
+        isActive: false,
+        path: APP_PATH.favorites,
+      },
+      { id: '3', icon: <TwoUsersIcon />, label: t('menuItems.invite'), isActive: false, path: APP_PATH.invite },
+      {
+        id: '4',
+        icon: <BonusIcon />,
+        label: t('menuItems.bonuses'),
+        isActive: false,
+        path: APP_PATH.bonuses,
+        notifications: data?.has_cashback ? 1 : undefined,
+      },
+    ],
+    [data?.has_cashback, t],
+  );
+
+  const Game1Items: MenuItems[] = useMemo(
+    () => [
+      {
+        id: '1',
+        icon: <SevenIcon />,
+        label: t('menuItems.slots'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'allGames'),
+      },
+      {
+        id: '2',
+        icon: <PopularIcon />,
+        label: t('menuItems.popular'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'popularGames'),
+      },
+      {
+        id: '3',
+        icon: <FlashIcon />,
+        label: t('menuItems.quickGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'quickGames'),
+      },
+      {
+        id: '4',
+        icon: <StarIcon />,
+        label: t('menuItems.new'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'newGames'),
+      },
+      {
+        id: '5',
+        icon: <LikeIcon />,
+        label: t('menuItems.recommended'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'recommendedGames'),
+      },
+    ],
+    [t],
+  );
+
+  const Game2Items: MenuItems[] = useMemo(
+    () => [
+      {
+        id: '1',
+        icon: <CardsIcon />,
+        label: t('menuItems.blackjack'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'blackjackGames'),
+      },
+      {
+        id: '2',
+        icon: <RouletteIcon />,
+        label: t('menuItems.roulette'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'rouletteGames'),
+      },
+      {
+        id: '3',
+        icon: <MicrophoneIcon />,
+        label: t('menuItems.liveGames'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'liveGames'),
+      },
+      {
+        id: '4',
+        icon: <BaccareIcon />,
+        label: t('menuItems.baccarat'),
+        isActive: false,
+        path: APP_PATH.slots.replace(':type', 'baccaratGames'),
+      },
+    ],
+    [t],
+  );
 
   return (
-    <div className={`${styles.sidebar} ${!isOpen ? styles.isOpen : ''} ${className || ''}`}>
+    <div className={clsx(styles.sidebar, !isOpen ? styles.isOpen : '', className)}>
       <Button
         variant={'ghost'}
         onClick={toggleIsOpen}
-        className={`${styles.burgerButton} ${!isOpen ? styles.isOpenBurger : ''}`}
+        className={clsx(styles.burgerButton, !isOpen ? styles.isOpenBurger : '')}
+        aria-label={t('buttons.toggleMenu')}
+        title={t('buttons.toggleMenu')}
       >
         <BurgerIcon />
       </Button>
       <CategorySwitcherWithSearch className={styles.categorySwitcherWithSearch} isOpen={isOpen} />
       <nav className={styles.navigation}>
-        <MenuSection list={NavigationItems} title="Навигация" isOpen={isOpen} />
-        <MenuSection list={Game1Items} title="Игры" isOpen={isOpen} />
-        <MenuSection list={Game2Items} title="Игры" isOpen={isOpen} />
+        <MenuSection
+          list={NavigationItems}
+          title={t('sections.navigation')}
+          isOpen={isOpen}
+          onRequireAuth={openLoginModal}
+          isLoggedIn={isLoggedIn}
+        />
+        <MenuSection list={Game1Items} title={t('sections.games')} isOpen={isOpen} />
+        <MenuSection list={Game2Items} title={t('sections.liveCasino')} isOpen={isOpen} />
       </nav>
 
       <div className={styles.sidebarFooter}>
         <SidebarFooter isOpen={isOpen} />
       </div>
+
+      <AuthModal open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </div>
   );
 };

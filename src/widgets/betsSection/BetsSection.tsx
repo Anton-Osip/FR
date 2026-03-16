@@ -1,33 +1,25 @@
-import { type FC } from 'react';
+import { type FC, useMemo, useState } from 'react';
 
-import { Tabs } from '@shared/ui';
-import { Dropdown } from '@shared/ui/dropdown/Dropdown.tsx';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
+import { selectIsLoggedIn } from '@app/store';
+
+import { useAppSelector } from '@shared/api';
+import { DropdownApp, Tabs } from '@shared/ui';
+
+import { AuthModal } from '@widgets/authModal';
 import { BettingTable } from '@widgets/bettingTable';
-import { TABLE_DATA } from '@widgets/bettingTable/mockTable.tsx';
 
 import styles from './BetsSection.module.scss';
 
-const tabsItems = [
-  {
-    id: 'lastBets',
-    value: 'lastBets',
-    label: 'Последние ставки',
-    active: true,
-  },
-  {
-    id: 'myBets',
-    value: 'myBets',
-    label: 'Мои ставки',
-    active: false,
-  },
-  {
-    id: 'bigPlayers',
-    value: 'bigPlayers',
-    label: 'Крупные игроки',
-    active: false,
-  },
-];
+import {
+  useGetBettingTableBetsBigWinsQuery,
+  useGetBettingTableBetsLatestQuery,
+  useGetBettingTableBetsMyQuery,
+} from '@/features/showcase';
+
+const DEFAULT_PAGE_SIZE = 10;
 
 const selectItems = [
   { value: '10', label: '10' },
@@ -37,20 +29,149 @@ const selectItems = [
   { value: '50', label: '50' },
 ];
 
-export const BetsSection: FC = () => {
+type TabValue = 'lastBets' | 'myBets' | 'bigPlayers';
+
+interface BetsSectionProps {
+  gameUuid?: string;
+  page?: 'home' | 'games' | 'game';
+}
+
+export const BetsSection: FC<BetsSectionProps> = ({ gameUuid, page = 'home' }) => {
+  const { t } = useTranslation('home');
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const [activeTab, setActiveTab] = useState<TabValue>('lastBets');
+  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+
+  const tabsItems = useMemo(
+    () => [
+      {
+        id: 'lastBets',
+        value: 'lastBets',
+        label: t('betsSection.tabs.lastBets'),
+        active: activeTab === 'lastBets',
+      },
+      {
+        id: 'myBets',
+        value: 'myBets',
+        label: t('betsSection.tabs.myBets'),
+        active: activeTab === 'myBets',
+      },
+      {
+        id: 'bigPlayers',
+        value: 'bigPlayers',
+        label: t('betsSection.tabs.bigPlayers'),
+        active: activeTab === 'bigPlayers',
+      },
+    ],
+    [t, activeTab],
+  );
+
+  const {
+    data: betsLatest,
+    isLoading: isLoadingBetsLatest,
+    isFetching: isFetchingBetsLatest,
+  } = useGetBettingTableBetsLatestQuery(
+    { page_size: pageSize, game_uuid: gameUuid || null },
+    {
+      skip: activeTab !== 'lastBets',
+    },
+  );
+  const {
+    data: betsMy,
+    isLoading: isLoadingBetsMy,
+    isFetching: isFetchingBetsMy,
+  } = useGetBettingTableBetsMyQuery(
+    { page_size: pageSize, game_uuid: gameUuid || null },
+    {
+      skip: activeTab !== 'myBets',
+    },
+  );
+  const {
+    data: betsBigWins,
+    isLoading: isLoadingBetsBigWins,
+    isFetching: isFetchingBetsBigWins,
+  } = useGetBettingTableBetsBigWinsQuery(
+    { page_size: pageSize, game_uuid: gameUuid || null },
+    {
+      skip: activeTab !== 'bigPlayers',
+    },
+  );
+
+  const handleTabChange = (value: string): void => {
+    const newTab = value as TabValue;
+
+    if (newTab === 'myBets' && !isLoggedIn) {
+      setIsLoginModalOpen(true);
+
+      return;
+    }
+
+    setActiveTab(newTab);
+  };
+
+  const handlePageSizeChange = (
+    option: { value: string; label: string } | { value: string; label: string }[],
+  ): void => {
+    const selectedOption = Array.isArray(option) ? option[0] : option;
+
+    setPageSize(Number.parseInt(selectedOption.value, 10));
+  };
+
+  const getCurrentData = (): {
+    data: typeof betsLatest | typeof betsMy | typeof betsBigWins;
+    isLoading: boolean;
+    isFetching: boolean;
+  } => {
+    switch (activeTab) {
+      case 'lastBets':
+        return {
+          data: betsLatest,
+          isLoading: isLoadingBetsLatest,
+          isFetching: isFetchingBetsLatest,
+        };
+      case 'myBets':
+        return { data: betsMy, isLoading: isLoadingBetsMy, isFetching: isFetchingBetsMy };
+      case 'bigPlayers':
+        return {
+          data: betsBigWins,
+          isLoading: isLoadingBetsBigWins,
+          isFetching: isFetchingBetsBigWins,
+        };
+      default:
+        return {
+          data: betsLatest,
+          isLoading: isLoadingBetsLatest,
+          isFetching: isFetchingBetsLatest,
+        };
+    }
+  };
+
+  const { data, isLoading, isFetching } = getCurrentData();
+
+  const shouldShowSkeleton = isLoading || isFetching;
+
   return (
-    <section className={styles.betsSection}>
-      <div className={styles.tableFilter}>
-        <h4 className={styles.title}>Таблица ставок</h4>
+    <section className={clsx(styles.betsSection, styles[page])}>
+      <div className={clsx(styles.tableFilter)}>
+        <h4 className={styles.title}>{t('betsSection.title')}</h4>
         <div className={styles.wrapper}>
-          <Tabs items={tabsItems} size="s" className={styles.tabs} />
-          <div className={styles.dropdownWrapper}>
-            <Dropdown value="10" options={selectItems} onChange={() => {}} />
+          <Tabs items={tabsItems} size="s" className={styles.tabs} onChange={handleTabChange} />
+          <div className={clsx(styles.dropdownWrapper)}>
+            <DropdownApp
+              list={selectItems.map(item => ({
+                id: item.value,
+                title: item.label,
+                onClick: () => handlePageSizeChange(item),
+              }))}
+            />
           </div>
         </div>
       </div>
 
-      <BettingTable items={TABLE_DATA} />
+      <BettingTable items={shouldShowSkeleton ? undefined : data?.items} isLoading={shouldShowSkeleton} page={page} />
+
+      <AuthModal open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </section>
   );
 };

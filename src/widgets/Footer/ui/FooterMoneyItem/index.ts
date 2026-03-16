@@ -1,1 +1,0 @@
-export { FooterMoneyItem } from './FooterMoneyItem';

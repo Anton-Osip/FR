@@ -121,6 +121,13 @@ export default tseslint.config(
       'import/extensions': 'off',
       'import/prefer-default-export': 'off',
       'import/no-extraneous-dependencies': 'off',
+      'import/no-cycle': [
+        'error',
+        {
+          maxDepth: 10,
+          ignoreExternal: true,
+        },
+      ],
       // General rules
       'consistent-return': 'off',
       'padding-line-between-statements': [
@@ -162,6 +169,7 @@ export default tseslint.config(
       'react/display-name': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/require-default-props': 'off',
+      'react/prop-types': 'off', // Отключено, так как используется TypeScript для типизации
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react/jsx-filename-extension': [
@@ -195,6 +203,14 @@ export default tseslint.config(
   },
   {
     files: ['*.config.{js,ts}', '*.config.*.{js,ts}', '.stylelintrc.cjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node,

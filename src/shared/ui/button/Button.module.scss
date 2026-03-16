@@ -19,13 +19,14 @@
   border: none;
 
   transition: background-color $transition-hover, color $transition-hover,
-    transform 0.1s ease, box-shadow 0.1s ease;
+  transform 0.1s ease, box-shadow 0.1s ease;
 
   .buttonIcon {
     width: 19px;
     height: 19px;
 
-    path {
+    // Применяем fill: currentcolor только если у path нет атрибута fill
+    path:not([fill]) {
       fill: currentcolor;
     }
   }
@@ -43,6 +44,7 @@
   &-tertiary {
     color: $color-text-primary;
     background: $color-bg-on-block;
+    border: 2px solid $color-bg-on-block;
   }
 
   &-ghost {
@@ -50,7 +52,18 @@
     background: transparent;
   }
 
+  &-accent {
+    color: #090D14;
+    background: #FFE23C;
+  }
+
+
   &.is-active {
+    &.button-tertiary {
+      background-color: #212738;
+      border: 2px solid $color-primary;
+    }
+
     &.button-primary {
       background-color: $color-button-hover;
 
@@ -119,10 +132,17 @@
     transform: none;
     box-shadow: none;
 
+    &.button-primary {
+      opacity: 0.7
+    }
+
+    &.button-tertiary {
+      opacity: 0.7
+    }
+
     &:hover,
     &:active {
       transform: none;
-      background-color: $color-bg-block;
       box-shadow: none;
     }
   }
@@ -132,6 +152,10 @@
   .button {
     &-primary:hover {
       background-color: $color-button-hover;
+    }
+
+    &-accent:hover {
+      background-color: #F5D70A;
     }
 
     &-secondary:hover {

@@ -1,91 +1,116 @@
-import type { BankItem } from '../types/types';
+import SbpIcon from '@shared/assets/icons/bank1.svg?url';
+import SberIcon from '@shared/assets/icons/bank3.svg?url';
+import TetherIcon from '@shared/assets/icons/crypto2.svg?url';
+import BitcoinIcon from '@shared/assets/icons/crypto3.svg?url';
+import VechainIcon from '@shared/assets/images/crypto1.webp';
+import TbankIcon from '@shared/assets/images/tbank.webp';
+import { APP_PATH } from '@shared/config';
 
-import SbpIcon from '@assets/icons/bank1.svg?url';
-import SberIcon from '@assets/icons/bank3.svg?url';
-import TetherIcon from '@assets/icons/crypto2.svg?url';
-import BitcoinIcon from '@assets/icons/crypto3.svg?url';
-import VechainIcon from '@assets/images/crypto1.png';
-import TbankIcon from '@assets/images/tbank.png';
+export interface BankItem {
+  id: string;
+  label: string;
+  image: string;
+  gradient?: string;
+}
 
-export const FOOTER_RIGHTS = 'Все права защищены 2025 ©';
+export interface FooterMenuItem {
+  title: string;
+  links: {
+    text: string;
+    onClick: () => void;
+    shortText?: string;
+  }[];
+}
 
-export const FOOTER_LTD_TEXT =
-  'www.frosty.games принадлежит и управляется компанией Frosty Gaming Ltd, зарегистрированной в соответствии с законодательством Автономного острова Анжуан, регистрационный номер: 15774, юридический адрес: Hamchako, Mutsamudu, Автономный остров Анжуан, Союз Коморских Островов. ' +
-  'www.frosty.games лицензирован и регулируется Правительством Автономного острова Анжуан, Союз Коморских Островов, и осуществляет деятельность под лицензией № ALSI-192407050-FI3. ' +
-  'www.frosty.games прошел все регуляторные проверки и юридически уполномочен проводить игровые операции для любых азартных игр и ставок.';
-
-export const FOOTER_MENU = [
+export const getFooterMenu = (
+  t: (key: string) => string,
+  navigate: (path: string) => void,
+  supportLink?: string,
+  affiliate?: string,
+): FooterMenuItem[] => [
   {
-    title: 'Поддержка',
+    title: t('menu.support.title'),
     links: [
       {
-        text: 'Тех. поддержка',
-        url: '/',
+        text: t('menu.support.techSupport'),
+        onClick: () => window.open(supportLink, '_blank'),
       },
       {
-        text: 'Безопасность',
-        url: '/',
+        text: t('menu.support.security'),
+        onClick: () => window.open(supportLink, '_blank'),
       },
       {
-        text: 'Партнерская программа',
-        url: '/',
+        text: t('menu.support.affiliateProgram'),
+        onClick: () => window.open(affiliate, '_blank'),
+        shortText: t('menu.support.affiliateProgramShort'),
       },
     ],
   },
   {
-    title: 'Лояльность',
+    title: t('menu.loyalty.title'),
     links: [
       {
-        text: 'Инвайт',
-        url: '/',
+        text: t('menu.loyalty.invite'),
+        onClick: () => {
+          navigate(APP_PATH.invite);
+        },
       },
       {
-        text: 'Партнерская поддержка',
-        url: '/',
+        text: t('menu.loyalty.affiliateSupport'),
+        onClick: () => window.open(affiliate, '_blank'),
+        shortText: t('menu.loyalty.affiliateSupportShort'),
       },
       {
-        text: 'Бонусы',
-        url: '/',
+        text: t('menu.loyalty.bonuses'),
+        onClick: () => {
+          navigate(APP_PATH.bonuses);
+        },
       },
     ],
   },
   {
-    title: 'Казино',
+    title: t('menu.casino.title'),
     links: [
       {
-        text: 'Игры',
-        url: '/',
+        text: t('menu.casino.games'),
+        onClick: () => {
+          navigate(APP_PATH.slots.replace(':type', 'allGames'));
+        },
       },
       {
-        text: 'Live-игры',
-        url: '/',
+        text: t('menu.casino.liveGames'),
+        onClick: () => {
+          navigate(APP_PATH.slots.replace(':type', 'liveGames'));
+        },
       },
       {
-        text: 'Слоты',
-        url: '/',
+        text: t('menu.casino.slots'),
+        onClick: () => {
+          navigate(APP_PATH.slots.replace(':type', 'allGames'));
+        },
       },
     ],
   },
   {
-    title: 'Правила и бонусы',
+    title: t('menu.rulesAndBonuses.title'),
     links: [
       {
-        text: 'Ранговая система',
-        url: '/',
+        text: t('menu.rulesAndBonuses.rankSystem'),
+        onClick: () => window.open(supportLink, '_blank'),
       },
       {
-        text: 'Акции',
-        url: '/',
+        text: t('menu.rulesAndBonuses.promotions'),
+        onClick: () => navigate(APP_PATH.bonuses),
       },
       {
-        text: 'Кэшбек',
-        url: '/',
+        text: t('menu.rulesAndBonuses.cashback'),
+        onClick: () => navigate(APP_PATH.bonuses),
       },
     ],
   },
 ];
 
-export const FOOTER_BANKING: BankItem[] = [
+export const getFooterBanking = (): BankItem[] => [
   {
     id: 'sbp',
     label: 'sbp',
@@ -105,7 +130,7 @@ export const FOOTER_BANKING: BankItem[] = [
   },
 ];
 
-export const FOOTER_CRYPTO: BankItem[] = [
+export const getFooterCrypto = (): BankItem[] => [
   {
     id: 'vechain',
     label: 'vechain',

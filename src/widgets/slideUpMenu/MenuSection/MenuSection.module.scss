@@ -15,3 +15,12 @@
     letter-spacing: -0.2px;
   }
 }
+
+@media screen and (max-width: $media-mobile) {
+  .menuSection {
+    .title {
+      font-size: 18px;
+      letter-spacing: -0.18px;
+    }
+  }
+}

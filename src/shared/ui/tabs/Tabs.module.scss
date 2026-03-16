@@ -5,7 +5,6 @@
 
   overflow: hidden;
 
-  width: 100%;
   padding: 6px;
 
   background: $color-bg-block;
@@ -69,4 +68,10 @@
 
 .activeTabs > span {
   color: $color-text-primary;
+}
+
+.tabDisabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
 }

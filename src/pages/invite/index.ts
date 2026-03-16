@@ -1,1 +1,1 @@
-export { Invite } from './Invite';
+export { Invite } from './ui/Invite';

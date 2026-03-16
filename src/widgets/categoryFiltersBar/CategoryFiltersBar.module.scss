@@ -30,29 +30,33 @@
 
     transition: border 0.3s ease, color 0.3s ease;
 
-    & > span{
+    & > span {
       min-width: 19px;
       height: 19px;
     }
 
-    &:hover{
-      color: $color-text-secondary;
-      background-color:  $color-bg-block;
-      border: 2px solid  $color-text-secondary;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: $color-text-secondary;
+        background-color: $color-bg-block;
+        border: 2px solid $color-text-secondary;
+      }
     }
   }
 }
 
 .inputWrapper {
-  flex: 1;
-  min-width: 0;
+  flex: 1 10 452px;
+  min-width: 260px;
+  max-width: 452px;
 }
 
 .tabs {
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
-@media screen and (width <= 986px) {
+@media screen and (width <= 800px) {
   .root {
     gap: 8px;
     justify-content: space-between;
@@ -63,7 +67,7 @@
     border-radius: 16px;
   }
 
-  .tabs{
+  .tabs {
     flex: 0 1 auto;
     min-width: 0;
     max-width: 100%;
